@@ -9,9 +9,9 @@
    
    <link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
    <script type="text/javascript" src="js/jquery/jquery-3.6.0.min.js"></script>
-   <script type="text/javascript" src="js/index.js"></script> 
    <script type="text/javascript" src="js/utils/reloj.js"></script>
-<%--    <script type="text/javascript" src="js/ventas.js"></script>   --%>
+   <script type="text/javascript" src="js/mantencion/mantencion.js"></script>
+   <script type="text/javascript" src="js/mantencion/mantencion_ajax.js"></script>  
 <%--    <script type="text/javascript" src="js/ventas_events.js"></script> --%>
 <%--    <script type="text/javascript" src="js/ventas_ajax.js"></script> --%>
 <%--    <script type="text/javascript" src="js/ventas_forms.js"></script> --%>
@@ -38,7 +38,6 @@
       <tr>
          <td>
            <jsp:include page="mantencion/mantencion_list.jsp" />
-<%--            <jsp:include page="mantencion/mantencion_new.jsp" /> --%>
          </td>
       </tr>
       <tr>

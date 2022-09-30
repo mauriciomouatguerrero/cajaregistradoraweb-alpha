@@ -6,8 +6,6 @@
 
 <struts>
   
-  
-  
   <package name="default" extends="struts-default" namespace="/">
      <action name="Home" class="com.cajaregistradora.struts6.actions.HomeAction" method="execute">
         <result name="success">/home.jsp</result>
