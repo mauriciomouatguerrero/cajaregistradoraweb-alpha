@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.cajaregistradora.struts6.models">
+
+    <class name="VentaDetalle" schema="cajaregistradora01web" table="ventas_detalle">
+        <id name="id" type="long" column="id" />
+        <property name="codigo" type="long" column="codigo"/>
+        <property name="venta" type="long" column="venta"/>
+        <property name="cantidad" type="long" column="cantidad"/>
+        <property name="precio" type="long" column="precio"/>
+        <property name="total" type="long" column="total"/>        
+    </class>
+
+</hibernate-mapping>

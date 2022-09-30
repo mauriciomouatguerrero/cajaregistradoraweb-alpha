@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.cajaregistradora.struts6.models">
+
+    <class name="Venta" schema="cajaregistradora01web" table="ventas">
+        <id name="venta" type="long" column="venta"/>
+        <property name="fecha" type="date" column="fecha"/>
+        <property name="hora" type="timestamp" column="hora"/>
+        <property name="totalVenta" type="long" column="totalventa"/>
+        <property name="totalIvaAplicado" type="long" column="totalivaaplicado"/>
+        <property name="totalCigarros" type="long" column="totalcigarros"/>
+        <property name="totalPagado" type="long" column="totalpagado"/>
+        <property name="totalVuelto" type="long" column="totalvuelto"/>
+        <property name="boletaFactura" type="char" column="boletafactura"/>
+        <property name="formaPago" type="char" column="formapago"/>
+        <property name="observaciones" type="string" column="observaciones"/>        
+    </class>
+
+</hibernate-mapping>

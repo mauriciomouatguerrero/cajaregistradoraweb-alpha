@@ -1,0 +1,24383 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.2
+-- Dumped by pg_dump version 14.2
+
+-- Started on 2022-09-22 17:11:57
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4 (class 2615 OID 25421)
+-- Name: cajaregistradora01web; Type: SCHEMA; Schema: -; Owner: fastcom_apps
+--
+
+-- CREATE SCHEMA cajaregistradora01web;
+
+
+-- ALTER SCHEMA cajaregistradora01web OWNER TO fastcom_apps;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 212 (class 1259 OID 25423)
+-- Name: articulos; Type: TABLE; Schema: cajaregistradora01web; Owner: postgres
+--
+
+CREATE TABLE cajaregistradora01web.articulos (
+    codigo bigint NOT NULL,
+    descripcion character varying(254) NOT NULL,
+    precio integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE cajaregistradora01web.articulos OWNER TO fastcom_apps;
+
+--
+-- TOC entry 214 (class 1259 OID 33613)
+-- Name: ventas; Type: TABLE; Schema: cajaregistradora01web; Owner: fastcom_apps
+--
+
+CREATE TABLE cajaregistradora01web.ventas (
+    venta bigint NOT NULL,
+    fecha date,
+    hora time without time zone,
+    totalventa bigint,
+    totalivaaplicado bigint NOT NULL,
+    totalcigarros bigint NOT NULL,
+    totalpagado bigint,
+    totalvuelto bigint,
+    boletafactura character(1) DEFAULT 'B'::bpchar NOT NULL,
+    formapago character(1) DEFAULT 'E'::bpchar NOT NULL,
+    observaciones character varying(254)
+);
+
+
+ALTER TABLE cajaregistradora01web.ventas OWNER TO fastcom_apps;
+
+--
+-- TOC entry 215 (class 1259 OID 33618)
+-- Name: ventas_detalle; Type: TABLE; Schema: cajaregistradora01web; Owner: fastcom_apps
+--
+
+CREATE TABLE cajaregistradora01web.ventas_detalle (
+    codigo bigint NOT NULL,
+    venta bigint NOT NULL,
+    cantidad bigint DEFAULT 0 NOT NULL,
+    precio bigint DEFAULT 0 NOT NULL,
+    total bigint DEFAULT 0 NOT NULL,
+    id integer NOT NULL
+);
+
+
+ALTER TABLE cajaregistradora01web.ventas_detalle OWNER TO fastcom_apps;
+
+--
+-- TOC entry 216 (class 1259 OID 33659)
+-- Name: ventas_detalle_id_seq; Type: SEQUENCE; Schema: cajaregistradora01web; Owner: fastcom_apps
+--
+
+CREATE SEQUENCE cajaregistradora01web.ventas_detalle_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cajaregistradora01web.ventas_detalle_id_seq OWNER TO fastcom_apps;
+
+--
+-- TOC entry 3348 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: ventas_detalle_id_seq; Type: SEQUENCE OWNED BY; Schema: cajaregistradora01web; Owner: fastcom_apps
+--
+
+ALTER SEQUENCE cajaregistradora01web.ventas_detalle_id_seq OWNED BY cajaregistradora01web.ventas_detalle.id;
+
+
+--
+-- TOC entry 213 (class 1259 OID 25435)
+-- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.hibernate_sequence
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.hibernate_sequence OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 25415)
+-- Name: test; Type: TABLE; Schema: public; Owner: fastcom_apps
+--
+
+CREATE TABLE public.test (
+    id integer NOT NULL,
+    nombre character varying(80) NOT NULL,
+    telefono character varying(23) NOT NULL,
+    correo character varying(180) NOT NULL
+);
+
+
+ALTER TABLE public.test OWNER TO fastcom_apps;
+
+--
+-- TOC entry 210 (class 1259 OID 25414)
+-- Name: test_id_seq; Type: SEQUENCE; Schema: public; Owner: fastcom_apps
+--
+
+CREATE SEQUENCE public.test_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.test_id_seq OWNER TO fastcom_apps;
+
+--
+-- TOC entry 3349 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: test_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: fastcom_apps
+--
+
+ALTER SEQUENCE public.test_id_seq OWNED BY public.test.id;
+
+
+--
+-- TOC entry 3186 (class 2604 OID 33660)
+-- Name: ventas_detalle id; Type: DEFAULT; Schema: cajaregistradora01web; Owner: fastcom_apps
+--
+
+ALTER TABLE ONLY cajaregistradora01web.ventas_detalle ALTER COLUMN id SET DEFAULT nextval('cajaregistradora01web.ventas_detalle_id_seq'::regclass);
+
+
+--
+-- TOC entry 3179 (class 2604 OID 25418)
+-- Name: test id; Type: DEFAULT; Schema: public; Owner: fastcom_apps
+--
+
+ALTER TABLE ONLY public.test ALTER COLUMN id SET DEFAULT nextval('public.test_id_seq'::regclass);
+
+
+--
+-- TOC entry 3338 (class 0 OID 25423)
+-- Dependencies: 212
+-- Data for Name: articulos; Type: TABLE DATA; Schema: cajaregistradora01web; Owner: postgres
+--
+
+COPY cajaregistradora01web.articulos (codigo, descripcion, precio) FROM stdin;
+7802900337087	1+1 Choco Krispis 150g	500
+7802900337209	1+1 Zucaritas 150g	450
+7802900332402	1+1 zucaritas con cuchara	650
+7802200009028	3 Negritos	0
+7801620855307	7 Up 250cc lata	550
+7802810012029	Aceite belmont canola 1Lt	0
+7802810002099	Aceite Chef Maravilla 1Lt	0
+7802810012548	Aceite La reina 500ml	0
+7804608220005	Aceite vegetal Coliseo 900ml	1680
+7802335000068	Aceitunas Negras Azapa	0
+7802335000013	Aceitunas Sevillanas 200g	0
+7802335000037	Aceitunas sevillanas Almendras	0
+7802335000020	Aceitunas sevillanas Pimientos	0
+7802926000958	Agua Arandano San Fco	0
+7802926000910	Agua Guayaba San Fco	0
+7801875061010	Agua Hierbas Surtidas Supremo 20g	1000
+7802926000682	agua Maracuya San Fco	0
+7801620015800	Catun c/g 500cc	700
+7802820600100	Agua Vital c/gas 600ml	700
+7802820020953	Agua Mineral Vital Gas 1.6Lts	1000
+7802820021950	Agua Mineral Vital Sin Gas 1.6Lts	1000
+7802900601027	Agua Next Limón 1.5Lts	750
+7802900610593	agua Next Mandarina 1.5Lts	750
+7802926000446	Agua Piña San Fco	0
+78040588	Alfajor Chileno	400
+77922649	Alfajor Game Nevares Choc	300
+7803400000471	Alf. Laguito	250
+77922748	Alfajor Nevares Blanco	250
+77988324	Alfajor Nevares Chococream	0
+77925626	Alfajor Nevares Dulce Leche	0
+77908193	Alfajor Nevares leche	0
+7804628720103	Almendras Confitadas	0
+7804628720110	Almendras Naturales	0
+7804628720097	Almendras Saladas	0
+7804628720080	Almendras Saladas merken	0
+7802230082503	Alteza Bocado 140g	1100
+7802230082510	Alteza Chirimoya 140g	1100
+7802230082527	Alteza Frutilla 140g	1100
+7802230082534	Alteza Helado 140g	1100
+7613031289325	Alteza Pie Limón 140g	580
+7896093092113	Always Ultrafina con gel y alas	980
+7802230080875	American Crackers 75g	0
+7802820000085	Andina Dmsco 1Lt	680
+7802820550603	Andina Dmsco 200ml	350
+7802820500097	Andina Dzno 1Lt	800
+7802820550504	Andina Dzno 200ml	270
+7802820700466	Andina Mzana 1Lt	680
+7802820700473	Andina Mzana 200ml	250
+7802820700084	Andina Naranja 1Lt	800
+7802820700091	Andina Naranja 200ml	400
+7802820700275	Andina Piña 1Lt	800
+7802820700282	Andina Piña 200ml	400
+7802820850109	Andina Tutti Frutti 1Lt	680
+7801610040294	Aquarius Mzana 500ml	800
+7801610409589	Aquarius Mzana 1.5Lt	1200
+7801610402061	Aquarius Pera 1.5Lt	1200
+7801610401057	Aquarius Pera 500ml	800
+7805040000606	Arom citrico	0
+7805040000620	Arom vainilla	0
+7801430430091	Arroz Aruba Pregraneado 1K	0
+7802950005127	Arroz esparragos	0
+7802950005714	Arroz Primavera	0
+7801425000247	Arroz Selecta Tucapel 1k	0
+7801268001364	Atun Angelmo en aceite 170g	0
+7801250000368	Atun Angelmo en Agua	0
+7801268001357	Atun Angelmo Lomitos Agua	0
+7702367000015	Atun Van Camps aceite 184g	0
+7702367000022	Atun Van Camps agua 184g	1490
+7801505231912	Azúcar Iansa 1K	1200
+7801505000228	Azucar Iansa 400g	600
+7802900311117	Batifrut Mora 170g	470
+78004412	Belmont Ligth 10	1300
+78000490	Belmont Ligth 20	2500
+78000186	Belmont Rojo 20	1800
+78068292	Bigtime Frutal	350
+78005624	Bigtime M. fresca	350
+78068308	Bigtime Refrescante	350
+78068315	Bigtime Strong	350
+7801620290047	Bilz 1Lt Retorn	550
+7801620016067	Bilz 250cc	300
+7801620000660	Bilz Ligth 250cc	300
+7801620002817	Bilz Ligth 3Lt Dsech	1500
+7801620001193	Bilz 3Lt Dsech	1500
+7613031554164	Hel Bilz y pap	650
+7801875069153	Bolsa Basura Superior 80x110 10U	0
+7803525999254	Browniechoc	350
+7803525000240	Brownie Chocolate	600
+7501055320080	Burn	1500
+7801620852962	Cantún s/gas 1.6Lt	1000
+7801620360016	Canada dry 1Lt Retorn	550
+7801620151133	Canada dry ligth 3Lt	1500
+7801620001896	Canada dry 3Lt	1500
+7802200126350	Caramelos Lata Disney	0
+7805992000068	Carbon Mulchen 3Kg	0
+7802225314732	Cartoons galleta vainilla	0
+7802225314602	Cartoons galletas chocolate	0
+7802710835155	cassata chirimoya alegre	0
+7802408061040	Cassata Piña Fruna 1Lt	2000
+7802408001411	Cassata Piña Fruna 2.5Lts	0
+7802710350504	Cassata Savory 3 Sabores	2450
+7802710350054	cassata Savory Lucuma	2000
+7802710832116	Cassata Savory Vainilla	2000
+7613032180157	Centella	300
+7802215303500	Cereal Avena Manzana	200
+7802215303142	Cereal bar choc	250
+7802215303494	Cereal crocante chocolate + frutas	200
+7802225572088	Cereal milk chocolate	550
+7801315140008	Champiñones Esmeralda 184g	0
+7613031628964	Charlot 3 leches	0
+7802710566233	Charlot Chocolate Nuez	0
+7802710566240	Charlot Sahne Nuss	0
+7613032622763	Charlot Stracciatella	0
+7804628720158	Charqui 100g	0
+7804628720172	Charqui 20g	0
+7804628720165	charqui 40g	0
+7802000002991	Cheetos	350
+7802000004490	Cheetos mani 25g	200
+78920026	Chicle Poosh fruta	0
+78920033	Chicle Poosh menta	0
+7613030979456	Chocapic 250g	380
+7801220000619	Choclo Congelado minuto Verde	0
+7802215303401	Chocman	300
+7702011008886	Choco Disk	0
+7613031896639	Capri frutilla 30g	300
+7613031897865	Capri almendra 30g	300
+7802215121173	Chocolate costa bitter	0
+7802215101434	Chocolate costa blanc	0
+7802215101410	Chocolate costa mint	0
+7802215121128	Chocolate Costa Nuss	1450
+7802200846005	Chocolate Golden Nuss 200g.	1450
+7613032463953	choc. sahne-nuss 160g	1500
+7802230070227	chocolate sahne-nuss 250g	3850
+7613032463588	choc. sahne-nuss 75g	1000
+7802950072358	choc. sahne-nuss impulsivo	300
+7802230070029	Chocolate Trencito 150g	2100
+7802950072679	choc. trencito impulsivo	300
+7613032186852	Chocolito	650
+7801970026624	Choricillo Cocktail Llanquihue	0
+7801250000320	Choritos 192g	0
+7801970026204	Chorizo Parrillero Llanquihue	0
+7802225420303	Chubi	0
+7802335000181	Chucrut 200g	0
+7613032810863	Chúpate el dedo	300
+7801970000471	Churrasco Vacuno Llanquihue	0
+7801907011037	Churrascos 3U San jorge	0
+7791290000469	Cif Crema 250ml	0
+7805080100021	Clorinda 1K	0
+7801610580028	Coca Cola 580ml	800
+7801610001622	Coca 1.5Lt Dsech	1650
+7801610001196	Coca Lata 350cc	800
+7801610352151	Coca light 3Lt	1500
+7801610580356	Coca Light 580ml	690
+7801610022726	Coca Light 1.5Lt Dsech	1650
+7801610022979	Coca Light 1Lt Dsech	1300
+7801610022122	7801610223192	800
+7801610022238	Coca Ligth 1.5Lt Retorn	700
+7801610022047	Coca Ligth 1Lt Retorn	550
+7801610252208	Coca Light 2.5Lt Retorn	1250
+7801610022283	Coca Ligth 2Lt Retorn	1300
+78001848	Coca mini 237ml	500
+7801610323236	Coca Cola 3Lt	2950
+7801610001936	Coca Cola Normal Mini 250ml	500
+7801610001288	Coca 1.5Lt Retorn	800
+7801610001042	Coca Cola 1L Retorn	650
+7801610250006	Coca Cola Normal retornable 2.5Lts	0
+7801610001295	Coca Cola Retornable 2Lts	1300
+7801610410325	Coca Cola Zero 410ml	0
+7801610305560	Coca cola zero desechable 3lts	1850
+7801610350652	Coca Cola Zero Retornable 2.5Lts	0
+7801380168402	Cocktail frutas	0
+7613032186838	Cola Tigre	300
+7802950004472	Colado Carne 132g	1200
+7613030264347	Colado Durazno	0
+7613030264262	Colado Manzana	0
+7802950003413	Colado Pavo Verduras	0
+7613030264224	Colado Platano Naranja Nestle	0
+7802950004465	Colado Pollo 132g	1300
+7613031219360	Colado tuti fruti	0
+7802950004182	Colado Verduras 132g	0
+7501035911567	Colgate 75g	0
+78020511	Compota Durazno	0
+78020566	Compota Manzana	350
+78020535	Compota Pera	400
+7802225680202	Conquista Palmeritas	0
+7802575006035	Corbatas Carozzi 400g	0
+7802215124587	Costa rama chocolate 130g	1200
+7613032375676	Crazy Morotcho	590
+7613030264040	Creciditos Carne Verduras	1500
+7613030262374	Creciditos Pavo Verduras	0
+7613030264088	Creciditos Pollo Verduras	1500
+7802950006759	Crema Arvejas Jamon	0
+7802950004571	Crema choclo	0
+7802920777283	Crema Colun 200ml	0
+7613032414580	Crema de leche Nestle 157g	990
+7613032415679	Crema de leche Nestle 236g	1000
+7808709500189	Crema de Leche Surlat 1Lt	0
+7802950006735	Crema esparragos maggi	0
+7802950106923	Crema Verduras	0
+7802230082831	Criollitas 100g	1100
+78006140	Crocanty	650
+78015203	Danky 21	1690
+7613032777036	Danky Frambuestein	1200
+78015210	Danky Nogatonga	1690
+7613032778033	Danky Nussferatus	1200
+7802710343506	Danky Sahne Nuss	1200
+7802820751352	Dassani Citrus AntiOx 1.5Lt	1300
+7802820751307	Dasani Citrus AntiOx 500ml	650
+7802820751253	Dasani Durazno 1.5Lt	1300
+7802820751000	Dasani Dzno 500ml	650
+7802820751413	Dasani Mandarina 1.5Lt	0
+7802820751383	Dasani mandarina 500ml	650
+7802820751482	Dasani Manzana 1.5Lt	1300
+7802820751420	Dasani Mzana AntiOx 500ml	650
+78045248	Delicia Framb.	400
+78013018	Dentyne Freshmint	400
+77917539	Dentyne X-tra menta	0
+7805040000576	Desodorante Arom Lavanda	0
+7613031719358	Dibs Sanhe Nuss	490
+7613032219574	Dibs tritón	490
+7802225614443	Dinosaurios	0
+7803473001122	Divertipack Lonchera Escolar	0
+7802215303036	Doblon	50
+7804902076049	Donnasept normal alas 10U	0
+7802000003486	Doritos Queso 36g	450
+7802000002601	Doritos Queso 90g	750
+7803403101045	Dulces Chilenos Agua de Piedra 6U	350
+7803403101069	Dulces Principe 6U	0
+7803403101014	Dulces surtidos agua de piedra 6U	0
+7801380101423	Durazno Mitades 2 caballos 590g	0
+7801380000191	Durazno Trocitos 2 caballos 590g	0
+78006164	Egocéntrico	870
+70330913431	Encendedor mini Bic	500
+4891305180179	Encend Neon	350
+7802575002235	Espirales Carozzi 400g	0
+7806810004305	Esponja 4Unid.	0
+7806810103015	Esponja Ollas	0
+7613030979562	Estrellitas 240g	0
+7801610772188	fanta frutilla 500 ml	690
+7801610772300	Fanta Frutilla Desechable 1.5Lts	0
+7801610355558	fanta limon 1.5 lt	0
+7801610002650	Fanta 3Lt	1800
+7801610002230	fanta retornable 1.5 lt	0
+7801610002049	Fanta Retornable 1Lt	0
+7801610352502	Fanta Retornable 2.5Lts	0
+7801610002285	Fanta Retornable 2Lts	0
+7801610885529	Fanta Uva 1.5Lts	0
+7801610066225	Fanta Zero desechable 1.5Lt	0
+7801610066478	fanta Zero desechable 2.5Lt	0
+7802225635707	Festidulce	0
+7613031072644	Fitness integral 390g	0
+7806300010021	Fosforos 10U	0
+7802215512209	Frac Cappucc	650
+7802215502040	Frac Clás.	650
+7802215512216	Frac Frut/Choc	650
+7802215502965	Frac Vainilla	500
+7802200137684	Frugele frutos + yogghurt	0
+7804622810053	Frugo Frutilla 1Lt	0
+7804622810015	Frugo Naranja 1Lt	0
+7804622810039	Frugo Piña 1Lt	0
+7802820555110	Fruitopia Frutilla Platano	0
+7802820555448	Fruitopia Manzana de campo	0
+7802820555424	Fruitopia Naranja Kiwi	0
+7802820555318	Fruitopia Naranja Mandarina	0
+7802820555219	Fruitopia Uva durazno	0
+7809635400925	Fruta Lista Durazno	0
+7802926000460	frutill al agua	0
+78014152	Fudge Brownie	0
+7802230086594	Galleta Agua Mckay 140g.	680
+7802230082879	Galleta Champaña Mckay 100g	0
+7802950080940	Galleta Chiquitin 120g	0
+7802225688055	Galleta ChocoKiss	0
+7613030518426	Galleta coco mckay	700
+7802225637022	Galleta Limon 40g	0
+7802230083951	Galleta Mantequilla 140g	650
+7802215501968	Galleta Soda Costa 180g	1000
+7803473001931	Galleta Soda ideal 55g	0
+7803473001948	Galleta Soda Ligth Ideal 55g	0
+7613032443221	galletas morocha mini	350
+7613032635329	Galletas Navideñas Mckay	0
+7750205000048	Galletas Rellenitas Chocolate	0
+7750205000215	Galletas Rellenitas Chocolate	0
+7750205000178	Galletas Rellenitas ChocoMenta	0
+7750205000031	Galletas Rellenitas Coco GN 6U	0
+7613032443191	gall. vino mc kay155g	700
+7803525999018	galleton Almendra Libre azucar	500
+7803525000264	Galleton Almendras	500
+7803525999032	Galleton Avena libre azucar	500
+7803525000592	Galleton Avena y Berries	500
+7803525000257	Galleton Avena y Manzana nutrabien	500
+7803525200008	Galletón avena y pasas	500
+7803525999025	 galleton chocolate chip s/azucar	500
+7803525999162	Galleton digestive	500
+7803525000578	Galletón Manichoc	500
+7803525400606	Galleton miel y ciruela	400
+705395289022	Garoto bombon	0
+7802575004758	Gelatina Caricia Frutilla 80g	0
+7802575004826	Gelatina Caricia Naranja 80g	0
+7613032577902	Gira Pop	0
+7501058751355	glassex antigrasa	0
+7791130007160	Glassex limpia vidrios 500ml	0
+7802225589109	Golpe	200
+7802200135420	Gomitas Disney	0
+7802200127319	Gomitas Princesas	0
+7613032580599	Grill American Crackers	350
+7613030008897	Grill Mini 35g	300
+7803473000330	Hallullas Ideal 10U	0
+7801907006958	Hamburguesa extra Vacuno San Jorge	0
+7801970000426	Hamburguesa Vacuno Premium llanquihue	0
+7801907006866	Hamburguesa Vacuno San Jorge 55g	0
+7802615005202	Harina selecta sin polvos de hornear 1Kg	0
+7802710832154	helado de chocolate 1 lt	2000
+7613031482641	helado savory café helado 1 lt	0
+7613031238880	helado savory stracciatella 1 lt	1700
+7613032627089	helado savory tres chocolate 1lt	0
+7802225583442	Hobby	350
+7802820321524	Hugo Dzno 200cc	300
+7802820321128	Hugo Manzana 200cc	0
+7802220743094	In Kat	300
+7804920230102	Jabon liquido Ballerina Violetas silvestres 340ml	0
+7802900295080	Jalea Frambuesa Soprole	400
+7802900295066	Jalea Naranja Soprole	400
+7802900296087	Jalea Next Frambuesa	400
+7802900296063	Jalea Next Naranja	400
+7802900296032	Jalea Next Piña	400
+7802900295035	Jalea Piña Sop.	400
+7801907013567	Jamon acaramelado San Jorge Envasado	0
+7801970026600	Jamon artesanal Llanquihue Envasado 200g	0
+7801907018357	Jamon colonial Artesanal San jorge Envasado	0
+7801907013666	Jamon Pavo Acaramelado San jorge Envasado	0
+7801970000136	Jamon Pavo Ahumado Envasado Llanquihue	0
+7801810115983	té club ceylan (azul)	580
+7802215501951	soda costa 123g	500
+7807265980411	corrector proarte color	800
+7702133101304	halls mentho lyptus	300
+7803525999056	Digestive sugar free	500
+78015654	Kent HD 12	1000
+7801620075842	Pepsi Light lata 350ml	490
+7801620852689	Pepsi lata 350 ml	800
+7802920801858	Colun leche entera 200cc	300
+7613030239369	Sopa plus pollo verduras c/ canu.	250
+7801620002343	Watt's kiwi 1500cc.	1300
+7802900231040	Batifrut durazno 175g	580
+7801325000064	Jugo papaya saturno	800
+7801620167721	Watt's tuttipapaya  1.5 lt	1300
+7802950002652	Mayonesa maggi 1kg	0
+1002	Sacarina	30
+4316	Lapiz bic rojo	200
+7802900300036	Yoghurt Piña 175g	450
+7801620003913	agua tonica lata 250cc	350
+7802810031136	Mermelada mora los lagos	690
+7802810031112	Mermelada los lagos Damasco	750
+7802810007537	Watt's frutilla 200ml	350
+7802810006752	Watt's naranja 200ml	400
+7802810006400	Watt's piña 200ml	400
+7802810052223	Watt's damasco light 200ml	350
+122	Galleta mermelada	180
+7801620853211	crush light 500cc	950
+7802820661002	powerade light lima limon	1000
+7802220738380	Sunny gold	990
+81285742	en	0
+7801810117420	Té ceylon blend	580
+7802800534012	Kryzpo original 350g	2500
+77	Leche grande	550
+78	Leche chica	750
+7801620290184	bilz lata 350cc	800
+7801620300203	pap lata 350cc	800
+7802000003325	chaparritos queso 32g moms	200
+7801620003982	Catun Woman ginger limon 1500cc	1200
+4317	Smoking x3	100
+4318	Scotch	200
+4319	Cd Virgen	350
+123	Cuchufli blanco	200
+500	agregado 500 (palmito / palta / pavo / qso fresco)	500
+7613031897810	CAPRI SABOR TRUFA	200
+7613032589714	galletas lim{on 150 gr.	800
+7802810006936	watts mango 200ml	350
+7613032150747	pura fruta mango	800
+7802810052032	Watt´s naranja 1 lt	950
+9002490206710	red bull sugar free	1700
+7802810001276	ice frut naranja mistic 250ml	300
+7802900221478	Manjarate banana split	350
+41789001918	maruchan sabor a pollo0	650
+7801500010017	Azucar camsa	750
+4320	Sopa maggi inst.	500
+7802000004322	gallet{on avena c/almendras30g quaker	350
+7802810052155	watts nectar damasco 1 lt	950
+7802810052193	watts naranja light 200ml	400
+78925274	mentos red fruit 29.7gr	350
+7801610001165	coca cola 1.25 lt retor	950
+41789001833	maruchan queso	650
+7802900461065	jugo fresco 1 lt	680
+41789001963	Maruchan tomate y pollo	650
+7801620004057	Canada dry light 500cc	1000
+7613032590369	Galleta niza mckay	800
+7802910150508	Mantequilla calo 125g	1100
+7802225573627	bon o bon oblea	150
+7613032203122	nescafé trad. 50 gr.	1850
+7613031728565	soda mantequilla 150 gr.	550
+7802900221010	arroz con leche 130gr	640
+78020115	leche asada 120 gr	460
+7802900481131	nectar soprole durazno 200 ml	350
+7802900481063	nectar soprole naranja 200 ml	350
+7802900481032	nectar soprole piña 200 ml	350
+7802920106106	Leche colun vainilla	500
+7613032764883	super 8 ball 25gr	200
+7802910083523	Lonco leche  sin lactosa	500
+7613032894146	La cremeria sahne nuss	890
+7613032891961	L a cremeria dulce fram.	890
+77941619	bon o bon blanco	200
+78602649	Tic tac menta extra fuerte	380
+78600010	Tic tac menta	480
+78600027	Tic tac naranja	400
+78602984	Tic tac limon y menta	300
+7803525301002	Muffin de zanahoria	350
+7803473002815	Ideal kequito	400
+7790580617813	mogul piecitos feet	150
+7808746200028	Azucar ouro branco	750
+7008	napolitana	800
+78012424	mentho plus  cereza	200
+78012325	mentho plus miel	200
+7802820700251	Andina piña 1.5l	1500
+7613032894115	vitalife bocaditos fram.	250
+7802900231019	batifrut mora	580
+7802910000544	lonco leche vainilla 200ml	500
+75027971	BONOBON	120
+7801610441251	aquarius uva 500ml.	700
+7613032203719	nescafe tradicion 100g.	3700
+7802810006455	watt´s soya frutilla 200ml	350
+7802215102943	costamilk30g	450
+7802820669503	powerade frutilla	950
+77917317	halls vitamina C frutilla	250
+7802900233204	gold light	570
+7613032901875	sopa para uno vegetales	250
+78007772	miti miti menta	70
+78015647	pall mall azul 18	1100
+40000001027	snikers	600
+7802000005510	twistos sentidos oregano oliva	300
+7802000005527	twistos  mantequilla suave	450
+41789001987	maruchan camaronn y chile	650
+7802000002557	lays 450g	2900
+7801325000255	papaya light saturmo	800
+2807	Halls vita C	250
+2808	Halls Vita C	250
+77917324	Halls Vita C Naranja	250
+7702133101328	Halls Cereza Liptus	300
+7702133815782	Halls Yerbabuena Lyptus	400
+7802900401016	Manjarate	600
+41789001871	Maruchan Sabor Pollo Asado	650
+7801505000297	Azúcar Sucare	680
+7802900234669	Next Bio Balance Plus Ciruela	380
+7802225573467	Bon o Bon barra 32g	350
+78068247	Vitafresh Menta Fría	250
+7802910001046	Leche con plátano 200ml	500
+2809	alteza chirimoya	860
+7613032475581	super 8 2.0	550
+7802900347024	next batido frutilla	360
+4903	plato colación	1890
+7802000003653	mani 18g	150
+7802820700268	andina piña 237ml	500
+759494004376	energetica V220	1100
+7613031644544	vitalife 4cereales	500
+7613032789480	maravilla mckay 147g	650
+7802215508530	donuts chocolate blanco	1100
+7613032893910	vitalife salvado 270g	690
+7802337960018	aceite traverso 1l.	1690
+7801620004163	cachantun mas naranja mini 250cc.	350
+7801620004170	Cachantun más durazno mini	350
+78916418	mentos menta	300
+7803525400002	sponge cake naranja	500
+7802000002441	quaker avema flakes 30g	220
+7802000002465	shot avena miel almendreas 35g.	350
+7801620004132	watt´s naranja platano 1.5	1500
+7802215515064	gretel yoghurt f. 85g.	930
+7802820500035	Andina durazno 1.5 L	1300
+7802820700053	Andina naranja 1.5 L	1500
+7613032711290	vitalife avena poasas 125g.	460
+50251605	kit kat  20.7grs.	250
+7803700012624	naturezza sopa personal choclo	250
+7613032901639	sopa para uno maggi choclo con pollo des.	300
+7613032901912	sopa para uno pollo merken	250
+7790407022011	CABSHA	150
+7801620004125	watts naranja platano 300cc	700
+7801800103815	aconcagua mix 140g	600
+77922670	menthoplus	250
+7009	barros luco	890
+7613032805944	mega intenso	1200
+7613033088957	tiratromp	350
+7613033068508	como mono	300
+3086126612027	encendedor bx7	350
+7802900231033	batifrut piña	580
+7801800104065	mix fruta chico	350
+7613032830595	crazy framb.	850
+7613032830564	crazy flocos	980
+7802810007148	watts soya mango 200ml	400
+7611626000300	XTC pure energy drink	1500
+7802000005749	ramita resto amapolas	300
+7802000005732	ramitas resto ciboulette	300
+7613032290320	alteza chirimoya 160g	840
+7613032290269	alteza frutilla 160g	840
+7613032290290	alteza bocado 160g	950
+7613032290221	altesa helado 160g	950
+7501000605989	quaker nuez y cocoa50g	300
+7802900255053	flan next vainilla	390
+7803400001126	lagos del sur frutos rojos	300
+78013711	cofler nuss 14g.	150
+78015906	big time sprite zero	350
+7801620853204	crush light 1.5 lt	1550
+7801620003739	watts soya 1.5 lt frutilla	1250
+59228405	sangurucho 125ml	750
+7501059228405	sangurucho 125ml	850
+7802000005107	doritos misterio 36g.	400
+7802000002458	quaker shots 35g	250
+7802225683128	selz salvado light 46g	150
+7801800104058	aconcagua mix chico	400
+7801620003708	pure life s/gas 500cc.	550
+7802000005541	twistos jamón ibérico 43g.	600
+7802000005534	twistos cutro quesos 43g.	650
+7501000606009	queker galleta vena frutos rojos	300
+7802900230296	yoghito platano 125g	250
+4025127020898	effect zero sugarfree	1580
+7613032830625	crazy flocos 190ml	800
+7501000605996	quaker con nuez y cocoa 187g	1000
+7802215122033	Costa Milk Excellence 14 gr.	150
+7801610325186	fanta limon 500cc.	650
+7801620003722	watt´s soya naranja 1.5	1500
+7802000005879	lays resto albahaca 32g	350
+7802000005886	lays resto ciboulette 32g	350
+7802000005893	Lay´s restó oregano oliva 32g.	350
+7802900234843	next verano mix melón tropical	380
+7801610001523	coca 2 1/2 desech	1650
+7802900234867	next verano mix damasco maracauya 165g.	380
+9002490214852	red bull sugar free 250ml.	1700
+7802820669541	powerade frut 500ml	900
+7802955003562	activia ciruela	290
+7802955004088	activia zero chirimoya	290
+7802955003555	activia frutilla	290
+7802955003623	activia zero vainilla	290
+7802900610531	frutix frutal 300cc.	400
+7802900603168	frutix naranja 300cc.	400
+7802900603137	frutix piña 300cc.	400
+78016378	pall mall negro chico	850
+7801610671023	fanta zero 500ml	690
+78016408	luky 10 blue	2500
+7613033179884	crazy banana split  190ml	850
+7613033179914	pura fruta melon	800
+7802900233273	gold capuccino light	570
+4711476616461	ice café vainilla	950
+4711476616447	ice café cappuccino	950
+4711476616454	ice café original	950
+4711476616430	ice café mocha	950
+7613033210921	travieso	250
+7613033182020	danky rucia rica	1200
+7613033192593	danky manso negro	1200
+7613033217418	cremeria dul de leche	890
+40000012801	m&m almond	550
+7801610441107	aquarius piña	800
+7802200266049	vivo piña 8g	300
+7802000004100	twistos oregano	350
+7802000004117	twistos mediterraneo	350
+7790310001127	twistos  huerta hierbas	350
+7790310001080	twistos huerta tomate	350
+7501000607471	quaker galleta chocolate amargo	300
+7802900235048	next tr{ansito muesli	490
+78016309	Kent HD 4 chico	1500
+7501000608256	quaker sandwich vainilla	350
+7501000608218	quaker sandwich chocolate	350
+7802000006296	lays crema cebolla	350
+7802000006289	lays pizza	350
+7501000607242	Quaker Avena Frutos Rojos 150gr	1000
+7801610671016	fanta zero lata 350 ml	700
+2201	Vaso de Fruta	700
+7802810052056	Watts Manzana 1 Lt.	950
+7613032657185	Casata Chocolate Suizo 1L	1700
+7802900231255	batifrut mezclas verano 170 gr	450
+7802810012524	aceite la reina 1/4	550
+7802810007575	watts chirimoya alegre 200ml	350
+7802810006912	watts pera 200 ml	400
+77922656	Menthoplus Cereza	250
+77922663	Menthoplus Mentol	250
+77922694	Menthoplus Menta	250
+7802215515026	Gretel Chocolate Blanco 85g	600
+7801620004217	pepsi light 310ml	800
+7501000607488	Quaker chocolate 150gr	1000
+7801620004224	Kem girl Xtreme	690
+40000001058	snikers almendra	950
+7802900231316	Batifrut Americano Mora	550
+7802900234614	Soprole Next Transito Mas	380
+7801505000280	Azucar La Patrona	750
+7802900235017	Next Tránsito Mas	490
+78016385	pall mall kriystal strom	1700
+7802215502101	Dindon Costa	380
+9005465101058	dark dog energy	1500
+7802225568920	huevitos macizos 10 unidades	330
+7802225569637	huevitos macizos 30 unidades.	1150
+7802225681407	Selz Snack	150
+7802225682954	Selz Snack Jamón	150
+7790580327415	Rocklet Negro	400
+7790580327613	Rocklets Naranjo	400
+613008721015	arizona white tea blueberry	1500
+613008720360	arizona green tea diet white cranberry -apple	1870
+613008720995	arizona green tea chinese apple pomegrante	1500
+613008716066	arizona green tea with ginseng and honey	1870
+7803525999346	avena chocolate nutra bien 162 g	840
+7803525999353	avena manzana nutra bien 162g.	840
+7803525999339	avena y pasas nutra bien 162g.	840
+613008720353	Te Arizona Blue Berry Diet	1870
+613008719432	Te Arizona con Ginseng	1500
+7802900234621	Next Tránsito Frutilla	380
+7750885009089	Cri Cri Masticrunch	250
+7501761806106	quaker sandwich vainilla 108g	890
+7802200846029	Golden Nuss 190gr	1450
+7802920002217	leche chocolate light colun 200cc	350
+7801620004248	kem xtreme girl	490
+78016415	Lucky strike Rojo 10	1700
+7613033322198	holiday	300
+7613033322648	cremino	300
+7802710336508	nifty	650
+7802225637190	COCO ZERO DOS EN UNO 40G	200
+7613031763856	Estrellitas	300
+7802710835216	Casata Pasas al Ron	1700
+7801800103785	aconcagua piña 140g	600
+7802820000214	hugo chimoya naranja 200ml	300
+7790040614000	bon obon 3 60g	310
+7802225260657	turron mani 45g	350
+7802820758207	nestea green tea 200ml	690
+7802900610166	next  manzana 1.5l	750
+7702133819810	dentyne verde 8.5 gr	250
+7702133819803	dentyne azul 8.5 gr	250
+7802810353443	watts pera 1l	950
+7802810004703	Jugo Watts Piña 1 Litro	900
+7501761806113	Sandwich Chocolate Paketín	890
+759494004314	guiting essences sabor naranja 500cm3	550
+7802000005930	Cheezels 30gr	600
+7801620004316	Pop Bilz y Pap	690
+4904	Sushi	2100
+7802900301019	Yoghurt Natural	420
+7802900255145	Flan Next Caramelo	390
+7802900257187	Flan Lúcuma Manjar	400
+7802225538602	Nikolo XL	250
+613008718459	Arizona RX Energy	1850
+88130994642	Arizona Iced Tea	1870
+7790580469214	mentoplus sour	300
+7802215505928	chip choc 40g	150
+7802215516207	palmerita 40g	250
+7802215516191	mantequilla 40g	250
+7802215516214	vino 40g	250
+7802910050204	lonco leche entera 200ml	500
+77930002	bon o bon	120
+7802225689076	cereal mix avena miel almendra 115g	750
+7802225689052	cereal mix avena avellana 115g	650
+7802225689069	cereal mix avena ciruela 115g	750
+7802225688796	ceral mix avena berries light 115g	650
+7802225531023	Verde Shrek	150
+7613031506828	sublime 34g	350
+7802215508554	Donuts Coco Crunch	800
+7802215508547	Donuts Orange Bitter	850
+28400055116	papas lays stax cheddar 155.9 g	1480
+28400055093	papas lays stax original 163g	1480
+28400055154	papas lays stax sour cream y onion155.9	1480
+7802820250220	KAPO MANSOOO	350
+7802900234553	NEXT TRANSITO + FIBRAS	380
+7802900233471	1+1 NUEVO CHOK LT	490
+7802900231323	BATIFRUT AMERICANO	550
+7802820655667	Andina PIÑA  1 Litro	700
+7791249999547	MANTECOL	600
+7790310000519	twistos bastoncito hierbas 40g	350
+7790310000533	twistos bastoncitos clasicos 40g	350
+41789001864	maruchan camaron limon y habanero 0g	650
+126	media luna	350
+127	CUADRITO DE MANJAR	300
+7802900218324	cultivada transito frutilla	520
+7802900218331	cultivada tránsito durazno	520
+2810	CABSHA	100
+7802225688802	ceral mix avena manzana light 115g	650
+78015753	Cofler Blanco 14gr.	150
+78015623	Pall Mall 18 Rojo	1100
+78000865	Belmont Rojo 20	2500
+7802000005824	quaker galleton tipo casero arandanos rojos 40g	300
+7802000005831	quaker galleto tipo casero chisp cacao 40g	300
+2811	CUCHUFLI UNIDAD	150
+79	CAFÉ EN SOBRE CAPUCCINO VAINILLA VIENES	400
+80	NEACAFE SOBRE	80
+1003	FOSFOROS	100
+4905	COSOME	600
+23	PAN SOLO	120
+7613031242351	SOPA PARA UNO  ESPARRAGOS	250
+7802000005848	GALLETON ALMENDRAS	500
+7802820250206	KAPO NARANJA 252 ML	350
+2812	CALUGON	150
+7802900220006	SEMOLA CON LECHE	450
+7803473003096	rayita chocolate	200
+7802225583220	OBA OBA MOTUMBO	250
+5211	HUEVO PLUS	0
+5212	HUEVO PLUS	0
+5219	HUEVO P.	0
+7613033349324	vitalife bocadito mora	250
+7702133819797	DENTYNE SANDIA	250
+78016682	Ice Plus 10	1100
+78017757	DUNHILL rojo	2800
+78018884	PALL MALL CLICK	3500
+78016538	KENT CONVERTIBLE	3400
+78017269	LUCKY STRIKE FRESH	4200
+78016514	PALL MALLL 16´s	1000
+78018853	pall mall azul 10´s	2000
+75043582	dunhill switch	3500
+78017764	dunhill blondie	2800
+78019706	kent mix	3000
+78019683	lucky azul 12´s	1500
+78019966	belmont switch	2500
+78019058	pall mall menta intensa 20	3400
+78007673	pall mall azul 20	3200
+78012370	pall mall rojo 20	3200
+78019188	pall mall click 12	1200
+78008816	philip morris rojo dura 20	3000
+78011656	phillis morris dura azul 20	3100
+78019195	pall mall menta intensa 10	1200
+7802225583121	hobby 40g	450
+7702133451300	dentyne morado	250
+7506105606121	dentyne verde	300
+7506105606145	dentyne rojo	300
+7506105606114	dentyne azul	300
+40000424314	snikers	900
+40000422068	milky way	990
+7613034276490	trencito 24 g	500
+78030206	costa nuss30g	400
+7802225538190	nicolo 32	200
+7802225513326	clipper	350
+50173976	orbit winterfresh	450
+77935915	alf arroz dulce de leche	450
+77939210	alf arroz naranja	400
+7803400001218	alf lago del sur tiramisú	350
+7792170000449	toddy 210g	1200
+42113041	orbit professional	800
+42123880	orbit blueberry	650
+7802000008733	traga traga frambuesa	450
+7802000009037	snac mix II	550
+7802000007521	traga traga alegre	450
+7802000009198	twistos pollo	450
+7802000008146	lays a la chilena	450
+1750	pan crosaint	1900
+1500	churrasco solo / o sellado napolitano / o pizza	1650
+2300	ENSALADAS DE POLLO PALTA TOMATE Y ATUN	2300
+2800	ENSALADAS  CESAR VEGETARIANA Y DEL CAMPO	2800
+2500	PAN FRICA	2500
+200	HUEVOS DUROS	250
+24	HUEVO SELLADO O TOSTADO	1000
+7802820160017	FUZE TEA LIMÓN	700
+7802820160031	FUZE TEA DURAZNO	700
+7802820850208	TUTTI FRUTI ANDINA	550
+7802820250268	MANSO KAPO FRAMBUESA	350
+7801610720035	COCA LIFE LATA	600
+7801610271070	NORDIC ZERO LATA	600
+7801610720882	COCA LIFE 250	400
+7801610000328	COCA LIGTH 250	450
+7801610000335	COCA ZERO 250	500
+7801610720165	COCA LIFE 591	850
+7801610000601	COCA ZERO 591	1100
+7801610000571	COCA 591	1100
+7801610000595	COCA LIGHT 591	1100
+7801610271537	NORDIC ZERO	850
+7801620004859	MAS PERA	900
+7801610591116	FANTA	1000
+7801610610275	NORDIC	950
+7801620005344	MAS UVA	900
+7801610591994	SPRITE	1000
+7802820990102	VITAL C/G 990ML	1050
+700	CONSOME	950
+7801620005221	LIMON SODA	600
+7613034721082	sahne-nuss 100g.	1600
+7613034439277	sahne-nuss bitter 51%cacao	3550
+7802230076298	sahne-nuss pasas al ron 250g.	3200
+7802950070828	sahne-nuss air 200g	3280
+350	MEDIA LUNA DULCE	400
+7802215501401	AGUA COSTA	1000
+7802225683661	SODA SELZ 180	700
+7802400010954	MANI SALADO SABU 22G	300
+7802400011067	MANI MERKEN	850
+7802400008722	MANI SALADO	800
+7802400008708	MANI PASAS	850
+7802400008715	MANI SIN SAL	800
+7802900000318	BATIFRUT PIÑA	580
+7802900234256	SOPROLE LIGHT120	350
+7802900234225	SOPROLE LIGTH FRUTILLA 120	350
+7802900000325	BATIFRUT MORA	580
+7802900000301	BATIFRUT FRUTILLA	580
+7802900235222	ZERO LACTO FRUTILLA 120	350
+40000001607	SKITTLES ROJO	800
+40000001621	SKITTLES MORADO	800
+40000000327	MYM AMARILLO	800
+40000000310	MYM CAFÉ	800
+7802810053107	JUGO FRESCO NARANJA 1LT	1950
+7802810053121	JUGO FRESCO PIÑA 1 LT	1950
+7802810003300	JUGO FRESCO NARANJA LIGHT 1L	1950
+7802810008589	JUGO FRAMBUESA SELECCIÓN	1950
+7802900234218	SOPROLE LIGHT DURAZNO 120	300
+7613033893926	CHANDELLE MANJAR LUCUMA	660
+7613033893636	CHANDELLE CHOCOLATE INTENSO	530
+7802810031228	MERMEDALA LIGHT	1100
+77935892	BODY VIDA  DULCE DE LECHE	450
+7802215303692	CEREAL POPS CHOCOLATE	200
+7792170000746	GALLETAS DE AVENA CON ALMENDRAS	300
+7622300744793	CHIPS AHOY	600
+7622300744779	CHIPS AHOY	550
+7622300744724	CHIPS AHOY	600
+7613033963155	FITNESS GALLETAS DE MANZANA	920
+7802215512261	FRAC CLASICA	700
+7802215512278	FRAC CHOCOLATE	650
+550	BEBIDAS LATA COCA COLA	650
+7802225683326	SELZ SNACK	200
+7802900000547	LECHE CULTIVADA ZERO LACTO	500
+7802832000103	AFE 100% ORGANICO	1500
+7802832000158	AFE  100 % MANZANA	1400
+90415326	RED BULL	1700
+9002490221010	RED BULL 355ML	2100
+7790895001208	VITAMINWATER	1300
+7790895001260	VITAMINWATER	1300
+613008735418	ARIZONA MUCHO MANGO	1650
+613008719296	ARIZONA GRAPEADE	1650
+613008735289	ARIZONE LIMONADA	1650
+613008725853	ARIZONA HALF MANGO	1650
+7802820679540	POWER GREEN PUNCH	1500
+7802820851021	POWER FROZEN BLAST	1500
+7802820851052	POWER NARANJA	1500
+7801810712847	TE LIPTON 10 BOLSITAS	750
+7808743600036	AZUCAR 1 K	750
+7802820701012	POWER ROJO	1000
+7802820679502	POWER GREEN PUNCH	1100
+7801610720080	COCA COLA LIFE 1.5L	1350
+7801620003647	LIPTON DURAZNO 1.5LT	1750
+7801620005337	M{AS UVA 1.5	950
+7613034459206	DANKY FUSION	1200
+690	HELADO 690	980
+7613033567087	PURA FRUTA FRUTILLA	850
+7613033567025	PURA FRUTA PIÑA	1100
+7613034310606	SANGURURICHUS	750
+7613034135834	PRESTIGIO	700
+7802225427128	ROCKLETS FRUIT	350
+7802900000363	GOLD CLASICO	650
+7613033966699	FLAN NESTLE VAINILLA	400
+78032217	LECHE ASADA SOPROLE	460
+7613033345029	SEMOLA CARAM NESTLE	500
+7613033345890	SEMOLA FRAMB NESTLE	550
+7613033966668	FLAN CARAM NESTLE	400
+7802900202019	LECHE ASADA SOPROLE	500
+8413907602000	SIMON 50% CACAO	480
+8413907602109	SIMON BLANCO	550
+8413907640408	SIMON 54% SIN AZUCAR	800
+8413907640507	SIMON LECHE SIN AZUCAR	800
+8413907613907	SIMON 70%	800
+650	varios 650	650
+78019164	DUNHILL BLANCO	3300
+7802200110939	FULL CHERRY	250
+8718800026275	DARK CHOCOLATE 70% COCOA	1650
+12546315012	DENTYNE ICE	750
+12546312554	DENTINE ICE	750
+12546312417	DENTYNE ICE	650
+600	ACHAVAR	750
+850	dulces agua y notros	850
+7802800586882	LIVEAN MARACUYA	300
+7802800586318	LIVEAN LIMONADA	200
+250	SOPAS PARA UNO	250
+7803473003522	MEGA ROLLO	400
+7792170000432	TODDY	500
+7501000609932	TODDY CHIPSOS EXTRA	500
+7802215512308	FRAC BI FRUTILLA/CHOCOLATE	700
+7802215512292	FRAC BI CAPPUCCINO	650
+7802215512285	FRAC VAINILLA	700
+78605039	TIC TAC CHERRY PASSION	380
+7804609251718	PROTEIN SNACK CHOCOLATE	1200
+950	MANQUEQUEN DE NARANJA	950
+78020597	LUCKY STRIKE LIGHT 10	1500
+33	HUEVO SELLADO O TOSTADO	1200
+7802900232917	GOLD CREME TRADICIONAL	0
+9005465105032	ENERGY DARK DOG	2000
+7801610443453	AQUARIUS  UVA 1.5	1200
+7801620004842	MAS PERA 1500CC	930
+7802000010224	DORITOS POWER	400
+78019096	pall mall gris	3200
+7801620004873	cachantun mas manzana	900
+2600	LAZAÑA VEGETARIANA PF	2600
+2400	PLATOS PREPARADOS	2400
+2000	pollo palta o tomate u otro ingrediente TOSTADO	2000
+7613034258922	FITNESS CACAO Y CRANBERRIES	400
+7613034260871	FITNESS CHIA MIEL Y ALMENDRAS	400
+4025127020799	EFFECT	2000
+7613031195916	AGUA LIGHT	950
+7802230086587	AGUA SIN SAL	1000
+7613034721051	SAHNE-NUSS 160G	2850
+7801620004408	CANADA DRY	800
+77939739	BIGTIME 14.7 GR	450
+77939821	BIGTIME 14.7 GR	450
+7803473001481	GALLETON DE MIEL	550
+7804609251701	PROTEIN SNACK YOGHURT Y BERRIES	1200
+1300	varios 1300	1300
+7506174500481	7506174500474	350
+7613034724205	limon mc kay	600
+7613034724571	niza mas 20%	600
+7802000008283	LAYS SABOR PEBRE	450
+7802950502527	BATID DAMASCO	350
+7802950006209	MILO 200ML.	500
+7802220740321	SODA GALLETA	200
+7802900000356	GOLD CLÁSICO	650
+7802900000370	GOLD CLASICO LUCUMA Y NUEZ	600
+7802900231309	BATIFRUT AMERICANO	550
+7802900000349	BATIFRUT CLASICO PAPAYA	580
+7802900000721	BATIFRUT AMERICANO MARACUYA MIX	550
+7802900300302	BATIDO CHIRIMOYA	450
+7896079800619	TURRON 45G	400
+7802900048013	soprole zero lacto 1lt	1350
+78929074	halls xs	400
+7613034690555	DANKY FUSION	1200
+7613034459176	MEGA CARAMEL	1200
+7802000010156	papas peru	450
+7613032785277	chomp freambuesa	2100
+7802910000223	leche sin lactosa 1 lt semi descrem lonco leche	1350
+7501013100464	jumex light 500ml durazno	1800
+7802000010101	quaker 50g manzana	350
+78019157	dunhill rojo (otro codigo)	3300
+7802810007650	watt´s mango alegre	350
+725156003650	club social 26g	250
+7802900332419	1+1 choco cuchara	650
+90415319	red bull blue	1700
+78018808	KENT BOOST	3400
+78019881	MARLBORO GOLD BEYOND	4000
+77907509	DOS CORAZONES	600
+7801930008523	CANELONES DE CARNE	2800
+7622300722197	Oreo Galleta	600
+7622300268633	Chiops Ahoy	350
+77944207	Big time 7 rojo	450
+77939746	Big Time 7 Naranjo	450
+7802215113567	MECANO	500
+78020627	belmont 20	4000
+7802900234324	NEXT  AMERICANO FRUTILLA	470
+7802900230425	NEXT SABOR FRUTILLA	400
+7802900230456	NEXT SABOR VAINILLA	400
+7802900230432	NEXT SABOR PIÑA	400
+7613034724250	 GALLETA DE VINO	600
+78020658	belmont de 10	1300
+7802900230289	yoghito	250
+7614500010310	TOBLERONES	1500
+7614500010617	TOBLERONE  NEGRO	1500
+7613034276452	ZUCOSOS TRADICIONAL	550
+7613033081538	CHOCAPIC CON CUCHARA	600
+78016293	LUCKY STRIKE CHICO	2500
+7501013100426	JUMEX LIGHT MANGO	1250
+7501013100051	JUMEX DURAZNO	1300
+9005465104097	DARK DOG 355ml	1580
+7790895001239	VITAMINWATER	1300
+750049180101	BSLSNCE BSR DARK CHOCOLATE CRUNCH	1300
+78909434	FERRERO ROCHER	1450
+7802420127014	MANÍ SALADO MARCO POLO 80g	700
+7802420124419	MANÍ SIN SAL 100G	800
+7802420127045	MANÍ SALADO 25g	250
+7802225426299	CHUBI	150
+7801620005313	KEM ZERO	950
+7501013118056	JUMEX DURAZNO	850
+7501013118117	JUMEX PIÑA	800
+7501013118193	JUMEX MANZANA	800
+7613031291489	MILO	450
+7802230070012	TRENCITO 80g	1350
+90415302	RED BULL CRANBERRY	1700
+7801620005412	CACHANTUN SIN GAS  1000cc	1150
+8413907601904	SIMON COLL	600
+750049100604	BALANCE CHOCOLATE RASPBERRY	1300
+7802400010763	MANI JAPONES	350
+7802400008692	MANI TIPO JAPONES	900
+7802910000797	LECHE SIN LACTOSA   200ML.	500
+7802215104855	COSTA RAMA	1800
+7791249451472	MANTECOL CLASICO 110g	700
+7614500010013	TOBLERONE 100g	1870
+78013643	DENTYNE NON-STOP MINT	780
+7791249020517	DENTYNE NIGHT MINT	780
+40000001638	040000001621	850
+78011786	chamyto frutilla	300
+7802950572452	chandelle manjar	670
+78093676	chanmdelle chocolate	670
+7802900034016	leche descremada soprole	1100
+7802900300081	yogurt batido frutilla soprole 175g	450
+7802900000462	next verde explosión	550
+7802900000479	next naranja tropical	550
+7802900000486	next rojo pasión	550
+7802215124778	VIZZIO 132 GRS	1200
+7790580329143	TURRON 280GRS ARCOR	1000
+7801610884416	ACUARIUS LIMOSN 500CC	700
+7613032203610	NESCAFE FINA SELECCIÓN 100g	3750
+7801620005924	KEM RIO GUARANA	750
+7801620005856	CACHANTUN MAS GRANADA	900
+7613034724175	MCKAY MARAVILLA	600
+7801930009636	LASAÑA DE VERDURAS	3000
+7801930000275	PASTEL  DE CHOCLO	3000
+7801930008530	MACARRONES  BOLOÑESA	2200
+613008720209	ARIZONA WATERMELON  680 ML	1400
+613008735159	ARIZONA ICED TEA	1650
+7802910000643	LECHE DESCREMADA	990
+8850389104101	ALOE UVA	1200
+8850389104095	ALOE MANZANA	1200
+70847009535	MONSTER ENERGY	2000
+70847009511	MONSTER ENERGY	2000
+70847009559	MONSTER RIPPER ENERGY + JUGO	2000
+7802810003263	JUGO FRESCO LIGHT  100% PIÑA	1950
+7501013118063	JUMEX GUAYABA	850
+7501013118018	JUMEX PERA	800
+7501013118032	JUMEX MAG	850
+7803403001031	pascuelito	450
+77986306	bon o bon café	150
+7802225427074	rocklets glam	380
+78605831	tic tac frutilla	400
+7801620006006	gatorade instinct uva	1300
+7801620005986	GATORADE STRATEGY GREEN MANGO 750ML	1300
+7803700012600	SOPA DE ESPARRAGO	300
+7803700012617	SOPA DE POLLO	300
+7613033609992	sopa uno espárragos	300
+7802225640770	BON O BON COOKIES	1150
+78057241	chandelle lucuma	670
+7802820701210	POWER ROJO	1500
+7801620005153	GATORADE FRUTAS TROPICALES	1500
+7801620005177	GATORADE NARANJA	1500
+7790206006106	BOCADITO MARROC	330
+7802820560015	jugo naranja del valle 300	600
+7802820560138	jugo mago del valñle 1lt	1100
+7803400001225	lagos del sur tricapa choco menta	350
+7802910002685	lonco leche frutilla descremada 200ml	450
+7794000791527	ades manzana 200ml	380
+7802420151002	papas fritas marco polo 38g	450
+7802225426275	TIFANYS	150
+7804609251855	PROTEIN SNACKCHOCOLATE Y AVELLANA	1000
+7801610884423	AQUARIUS LIMON	1200
+7896079819116	TORRONE 25G.	250
+78020610	BELMONT CORRIENTE	3100
+7794000791466	ADES PIÑA 200CC	380
+7794000791558	ADES NARANJA 200CC	380
+7804651870011	100% maqui orgánico	1400
+7803525400545	GALLETA DE CHOCOLATE	450
+78020580	LUCKY STRIKE CORRIENTE	1500
+7802225682152	CRACKER MERKEN	500
+7622300851231	DENTINE NEGRO	300
+7891024131909	PASTA DIENTE COLGATE VCHICA	850
+7613031490615	DARK CHOCOLATE BITTER 65% CACAO	1600
+7802820131017	VITAL LIVIANA EN GAS	800
+7802000010095	GALLETAS CASERAS	300
+7802000010088	GALLETAS CASERAS	300
+7501013100112	Jumex Piña Grande	1300
+7501013100037	Jumex Mango Grande	1300
+77939265	GALLETA DE ARROZ	400
+7803473300034	QUEQUE CENA CLÁSICO	890
+7801620005849	CACHANTUN  MAS GRANADA	1000
+7613034279743	capri de almendras	350
+7613034279309	CAPRI DE FRUTILLA	350
+7613034690210	CAPRI DE NARANJA	300
+9005465162059	dark dog zero	1580
+7613034696458	LOLA DE MORA	350
+7613033567865	LOLY POP PIÑA	500
+7801620005733	GATORADE MANZANA	1500
+7801620005160	GATORADE COOL BLUE	1500
+7802800535569	kryzpo original 40g	700
+42189640	orbit professional polar ice	800
+7613034838759	TRITON LUCUNA NUEZ	650
+78021150	PALL MALL CLICK 16	1500
+78019065	PALL MALL	2000
+78019041	PALL MALL 12	2000
+7801810804443	LIPTON	1400
+78021020	BELMONT 10	2000
+7804609252159	PROTEIN SNACK CRUNCH Y CREAM	1000
+7506174500474	MIULKY WAY 22G.	350
+78019034	MARLBORO ICE BLAST	4000
+7803403001055	mil hoja 80 grs	750
+78021075	lucky strike switch 20	3000
+78021112	lucky strike blue 20	2800
+78021105	lucky strike corrinte 20	2800
+7613032203849	fina selección 50g	2150
+7613032203795	nescafé tradicion granulado 170g.	5100
+7613032442873	DARK CHOCOLATE BITTER 65% CACAO & NARANJA	1600
+7801620004866	CACHANTUN MAS  MANZANA	1000
+7802900234119	yog ligth 120 trozo durazno	350
+7802900234232	yog light batido piña	350
+7790895001246	VITAMINWATER MANZANA FRAMBUESA	1300
+7802000009082	LAYS CORTE AMERICANO	450
+7802910050457	LECHE ENTERA 1L.	990
+7613034994974	TRITÓN DARK	650
+7801620005214	LIMON SODA LIGTH 500CC.	1000
+7802640501069	MAYONESA LIGHT	570
+7751493005357	SCOTT 30 METROS	300
+7802810131218	MERMELADA LIGHT 250 g	1100
+78021051	KENT UNO	4000
+78021044	KENT CUATRO	4000
+78021037	KENT OCHO	4000
+78021068	KENT SILVER	2500
+7613033495335	cola de tigre	400
+7801930008417	ENSALADA DE ESPIRALES CON ATUN	2000
+7802000009617	MANI SALADO 35g	350
+7613034979766	DANKY TRIPLACER	1200
+7613034977236	DANKY TRIPLACER	1200
+7802000009273	LAY´S STAX 40G.	500
+7802900235239	ZERO LACTO CHIRIMOYA	350
+1400	integral 2 ingredientes	1400
+7802800543823	YUZ PIÑA 1L.	800
+7802800543816	YUZ NARANJA 1LT.	800
+7802800544653	LIVEAN FREUTIRANDANO 1.5	1300
+7802800544684	LIVEAN PIÑA1.5	1300
+7802820441802	benedictino 1 lt	1000
+78020849	lucky strike   16	2000
+7801620004927	PAP ZEROOOOO	950
+78021082	LUCKY STRIKE 10	1600
+7802955009380	ACTIVIA DE MARACUYA	400
+7802955009373	ACTIVIA DE FRAMBUESA	400
+7802955008697	griego colchón frutos bosque	500
+7802955008703	griego colchón durazno	500
+7802955007799	griego natural	450
+77917911	chocolate sin azúcar 30grs	700
+7802800544639	LIVEAN MANZANA 1.5 L	1200
+78021099	LUCKY STRIKE  FRESH	3200
+7802900234010	soprole ligth frutos secos	400
+7613032754198	svelty frutilla 125	250
+7613032754228	svelty damasco 125g	250
+7802950001990	svelty vainilla 125g	250
+7802955006525	griego trozos durazno	400
+7802955006556	griego trozo papaya	400
+7802955004972	griego trozo frutilla	400
+7802820021134	vital 5 L	1600
+5034660521815	CADURY MILK	1950
+5034660521877	CARDURY  WHOLE	1950
+7802810009555	watts selección frambuesa 1/2 lt	1100
+78020122	BON O BON	200
+400	BEBIDAS DULCES. OTROS	400
+7802955008307	CHIA FRUTILLA  120GR.	300
+7802955009243	griego colchón de fruta 150g. Papaya	500
+7591066701015	X EXTREM 3	600
+5011435629570	ronson color	350
+7613034941794	DRAGOS	390
+7506105606138	DENTINE ARANDANO	300
+78017207	BIGTIME MAGNETIX	350
+80052883	TICTAC TORMENTA	400
+7804654040008	TONVANE	500
+725156003674	CLUB SOCIAL	250
+7802900235321	CERO LACTEO	400
+7802900235253	ZERO LACTEO	400
+78020733	philip morris caps	3000
+7801620006105	kem X	1100
+7801620006082	TE DE BERRY	1000
+7804654040022	WAFFLE ARTESANAL	700
+7803525999650	DIGESTIVE	500
+7801620005726	GATORE LIMA LIMON	1500
+7802800544349	livean piña 200 ml	350
+7802800544325	livean durazno 200 ml	350
+7802800544356	livean frutilla 200 ml	350
+7802800544332	livean manzana 200 ml	350
+7802950006339	trencito  200 ml leche	500
+7613033088605	MILO POTE	550
+7802400655469	MANI SALADO 200g	1200
+7800120164100	vivo check	400
+7800120172099	vivo check granola	350
+7802800544202	livean arandano 1lt	850
+7802800544165	livean naranja 1lt	850
+7802800544189	livean manzana 1lt	850
+7802800544615	livean naranja 1.5lt	1300
+7806500174110	elite mentol	250
+78021266	LUCKY STRIKE DOUBLE CLICK	4200
+7802810009562	selección maracuy{a 500ml	1100
+7804646000010	mr big	1800
+7801610223505	nordic tónica	650
+7802820560206	sabor casero durazno	750
+613008715625	arizona orangeade	1400
+78019263	philip morrisn ultra	3000
+7613034980236	MEGA DULCE DE LECHE	1200
+7613035107656	MEGA  DIVINA TENTACION	1690
+7801620001988	KEM XTREME 1.5 LTR	1400
+124	CUCHUFLI POR TRES	650
+7802832000172	JUGO AFE MANZANA  KIWIS	1000
+7802950001976	SVELTY FRUTILLA	0
+7802955009632	shake griego maracuyá	600
+7802955009625	shake griego frutilla	600
+7802955009236	colchon frutilla griego	500
+613008735012	arizona lima cherry	1600
+613008736446	arizona mango lima	1600
+7803525999841	muffin zanahoria	500
+7804609252210	proteina 23 gr	1600
+7613033967658	triton capuccino	650
+7613034092588	fina selecci{on 100gr	4300
+7801930009865	MACARRONES BOLOÑESA	2900
+7802800533565	KRYZPO	1500
+7613034999115	KRIKO	650
+7613035148765	LASER	490
+7801610591888	SPTITE ZERO	1000
+7803525999667	brownie sin azucar	600
+7803525999643	digestive linaza	500
+7800120172082	vivo granola frutilla	350
+7802950005264	NESQUIT	350
+7801620004965	BILZ	1000
+7613033345357	SEMOLA  BERRIES	500
+7802900235307	SOPROLE ZERO LACTO	400
+7613033615764	SOPA PARA UNO	300
+7802820441789	BENEDICTINO	1000
+613008736460	ARIZONA LEMON	1600
+7802810009579	watts selección melónm tuna	1850
+7802950502541	nestlé batido piña	250
+7613035196834	svelyy vainilla batido	300
+7613035199064	svelty frutilla cereza	350
+7613035196513	svelty  mango papaya	350
+7613035114418	svelty batido frambuesa	300
+7613035198937	svelty piña maracuyá	350
+7801610273500	NORDIC ZERO	700
+7802800579013	ZUKO	300
+7802800579037	ZUKO	300
+7802800579020	ZUKO	300
+7802800579068	ZUKO	300
+7802200266193	JUGO VIVO	300
+7622300849214	MANTECOL  63GR.	500
+7802800545223	YUZ PIÑA	1200
+7802800545285	YUZ  FRUTILLA	1200
+7802800545254	YUZ MANZANA	1200
+7802800545216	YUZ NARANJA	1200
+7802800545230	YUZ DURAZNO	1200
+7802800543847	YUZ CAJA	900
+7802800543861	YUZ CAJA	900
+7802800543830	YUZ CAJA  DURAZNO	900
+7801610271056	7801610271056	1250
+7802910000872	MANJAR CALO 1 Kg	2000
+7802910000209	LONCO LECHE DESCREMADA  1 LITRO	1100
+7802900165000	quesillo 300g.	1610
+7802900200817	ZERO LACTO	1150
+7802910000193	LECHE ENTERA	1100
+7802800544172	LIVEAN 1 L  DURAZNO	950
+7801610350256	COCA COLA  2 L RETORNABLE	1300
+7896079800879	turron mani 550	550
+7501073427532	TRIX	450
+7613031291359	ZUCOSOS	450
+7803525999957	GALLETON ALMENDRA	500
+7803525999926	GALLETON MIEL Y CIRUELA	500
+7803525999971	GALLETON AVENA PASAS	500
+7803525999933	GALLETON CHIP CHOCOLATE	500
+30052765	OCB NEGRO	700
+7613034094292	nescafe fina selección	2700
+7613032415358	svelty crema157g	890
+7803403801020	PAN INTEGRAL ARTESANAL	1950
+7803403000447	MOLDE BLANCO  ARTESANAL	1950
+7802400009453	MANI CON MIEL	990
+7802215503467	tuareg cake	200
+761898654651	ALOE	1300
+761898683859	ALOE	1300
+761898619902	ALOE	1500
+761898632871	ALOE UVA	1300
+7801610333129	COCACOLA RETORNABLE 2 LITROS	1850
+78021167	big time manzana	350
+7801620852597	AGUA TONICA	800
+7802000010392	MEDITERRANEAS	450
+8809041425573	COCONUT SACS	800
+884394005250	ALOE VERA	800
+7803473003232	rayita 2 unidades	400
+7802215514326	COSTA OBSESION	850
+78020672	BELMONT BLANDO AZUL	2600
+100	dulce	100
+150	dulce	150
+300	agregado 300 (j sandwich / tomate / queso)	300
+450	dulce	450
+1200	huevo int./ marr. huevo jamón o queso o tomate	1200
+7803525000639	aplle chips nutrabien	600
+7802000010736	papoa lays chica	300
+7802000010941	snack mix  50g	700
+7613034868237	MILO TIRA	400
+7801610005934	SPRITE CHICA	500
+7801610787847	FANTA CHICA	450
+7802900028473	chocolate light	450
+7804646000041	MR- BIG ZERO	1800
+7702133257711	halls naranja	300
+7702133256462	hallsblueberry	300
+7802000010880	papas lays 46	750
+9120016590157	shot 500 ml	2000
+9120016590010	shot 250 ml	1200
+7802095000667	villanos	2000
+7802095000179	panchitos	2200
+7801610481035	aquarius	800
+7801610481028	AQUARIUS	800
+7801610481004	AQUARIUS	800
+7802000010934	LAYS	700
+7802000010415	PAPAS LAYS	450
+7802000009525	SUFLES	350
+1603	agua puyehue 500cc con gas	650
+7809595601301	agua puyehue 500cc con gas	650
+7809595601318	agua puyehue 500cc. Sin gas	650
+7809595602315	agua puyehue 1500 con gas	1200
+7809595602322	agua mineral 1500cc sin gas	1200
+130	pan	130
+78021488	lucky doble click	2500
+7613034303028	CAPRI MANJAR	350
+76145513	TOBLERON   50GR-	1100
+7802832101312	AFE MEMBRILLO	2900
+7802215514333	OBSECION	850
+7790310005095	TODDY EXTRA	650
+7801620005702	ADRENALINE	1850
+9005465110050	DARK DOG	1580
+15801580	ALOE VERA	0
+884394002518	ALOE VERA	1500
+7802000010989	CHEETOS	570
+7801610481530	AQUARIUS	1200
+7801610481523	AQUARIUS	1200
+38000846731	PAPAS PRINGLED	890
+50	CALUGA	50
+7802900220204	CREME CARAMEL	600
+7802000010910	lays mediterraneas	700
+7802000009310	LAYS CHEDDAR	500
+7802000009297	LAYS CEBOLLA Y NCREMA	500
+7802900220280	PANNA COTA	600
+7613035281073	NESTLE	300
+7613035281134	NESTLE  BATMAN	300
+7806500960683	ladysoft natural toall. Hig.	890
+7794000792029	ades piña 200ml	400
+7794000791985	ades manzana 200	400
+7794000791992	ades naranja 200 ml	400
+7802800534524	KRYSPO	1500
+7613035180734	BLISS	500
+7613034279637	capri trufa	300
+7802900231620	SOPROLE NEXT FRUTILLA	500
+8850389105733	ALOE VERA SABOR DURAZNO	1200
+705395111606	garoto amor	200
+6901118707017	TE VERDE	1200
+7801810140329	TE ROYAL PREMIUM	1500
+7801305004136	WASTL PAPAYA EN CUBITO	1350
+7801305004129	WASIL ARANDANOS	1350
+7801305002057	WASIL DURAZNO  CUBITO	780
+7802810034045	DULCE MEMBRILLO	600
+7802900235734	SOPROLE NEXT5 ARANDANOS	500
+7802900231606	NEXT  PAPAYA	500
+7803525999544	BROUNIE     CHIPS	600
+78021617	luky click new 20	3000
+78021587	pall mall verde 20 new	2600
+78021945	oall mall click azul new	1400
+78021549	pall mall click 20 new	2600
+78021952	pall mall azul 10 new	1300
+78021518	pall mall azul 20 new	2400
+78021600	lucky ligt 20 new	2900
+78021594	lucky rojo new	2900
+78021631	lucky fresh	3000
+78021532	pall mall gris new	2400
+40114606	kitkat	750
+40000002666	skitles verde	800
+7802575015419	nudos carne	750
+7801325000767	saturno arandano	800
+7801610591123	fanta light	950
+7803403001505	CEREAL CHOCOLATE IDEAL	200
+7803403001499	CEREAL FRUTILLA IDEAL	200
+7804651810000	MAQUI  ORGANICA	1700
+7804651810017	MAQUI ORGANICO ANCENTRAL	1700
+8801175001609	aloe korea granada	1300
+8801175001562	aloe korea original	1300
+8413907626204	SIMON COLL  CHOCOLATE	2600
+7613035385153	CHOCOLATE TRNCITO	1250
+7802225427210	ROCKLETS	450
+7802225427197	ROCKLETS	450
+7802000011016	maxx super onduladas / mayo ketchup	700
+7802000011078	max	550
+7802000011047	maxx super onduladas sabor queso cheddar	550
+7803473003836	MINIX	400
+7590011251100	OREO	300
+7613035393035	danky 3	1300
+7613035363182	crazy sangurucho	800
+7613035369702	mega vainilla americana	1300
+7613035391390	pixhelado	350
+7803403000737	laguito	400
+3000	PLATOS SEÑORA MARYYYYYY	3000
+8590160955088	milka extra cacao	1300
+7802215104848	vizzio 120g.	1800
+7802215505058	MAXI CHIPS COSTA 200G.	1050
+78021938	PALL MALL VERDE CHICO	1400
+3045140105502	MILKA	1300
+4025700001962	MILKA BLANCO	1300
+613008711108	ARIZONA ICED TEA ZERO	1500
+70847021964	MONSTER ENERGY ULTRA	2000
+78021525	pall man rojo 20	2400
+7801620006136	WOMAN PIEL	700
+147	ALFAJOR INCLUIR	600
+7804656890007	WEEDY	1500
+7802820200201	kapo	350
+7802820200256	kapo	350
+7802820000986	kapo	350
+7802820200102	kapo	350
+761898632888	aloe verde	1300
+8801175001579	aloe amarilla	1300
+78021273	BON O BON  BLANCO CHICO	200
+7802900233402	1+1 zero lacto	500
+7802420127106	fruits & nuts bora nora	1150
+7802420127038	maní pasas y almendras	1350
+7802420124518	pistachos	1800
+8801175001586	ALOE VERA	1300
+7804609252395	PROTEIN BITE    23 G	1650
+7802900050078	soprole leche chocolate 1lt	1350
+7802910000216	leche semidescremada 1 lt lonco	1150
+7613035281165	batido frutilla nestle 120g	350
+7802900235314	zero lacto mora soprole	400
+7802900231682	next framb	500
+7803473003461	pinguinos 3 unidades	750
+7801620006150	WOMAN MAS	700
+7802810009890	WATTS  PIÑA	350
+7802810009883	WATTS MABZANA	350
+7802225689144	CEREAL MIX  VAINILLA	750
+70330717534	prestobarba bic	800
+7802420125492	mani japones marco polo 100 g	850
+7896058503784	pettiz mani	750
+7802420124433	mani con pasas marco polo 100g	800
+7613035490734	chomp frambuesa	2620
+7804643820000	LOVE LEMON	1600
+7613035391369	CRAZY SANGURUCHO	980
+7802200135741	ANBERRY AMBROSOLI	250
+78929081	HALLS STRONG LYPTUS	400
+7802800536139	CRICKET CHICA	250
+7802800536177	CRICKET GRANDE	400
+78932708	GAROTO	250
+7613035493650	SAHNE NUSS	2620
+7801620004521	watt´s uva	1500
+78021181	bigtime seven deep	450
+7804643820048	LOVE LEMOS LIMONADA ORIGINAL	2800
+7613035388758	cassata de piña	2300
+7801930009834	comida	3000
+7802950022100	sverlty descremada litro	1100
+7802810008602	watts selecci{on maraxuyá 1 lt	1950
+884394000996	ALOE VERA  GRANADA	1500
+884394000958	ALOE VERA MANGO	1500
+78929067	HALLS	400
+78021990	lucky doble click purpura	4200
+78022010	lucky double click 10 purpura	2600
+7804643820024	love limon light	1600
+78021174	bigtime tutti	350
+7801610481042	AQUARIUS	700
+7801610481011	AQUARIUS	800
+7802420125423	marco polo man{i salado 180g.	1000
+7898292886210	HERSHEYS CEREAL	600
+761898632895	ALOE  VERA DRINK	1300
+7802900231910	batifrut mora 120g.	400
+7802900231996	batifrut frutilla 120g	400
+7804646000102	mr. Big 330.c.c	1200
+78022188	big time frutilla ACIDA	350
+78022171	BIG TIME MENTA FRESCA	350
+7802215502231	champañita 40 g	450
+7802900481162	SOPROLE NECTAE MANZANA	350
+7801930008431	PF LISTO	2400
+7801610481516	AQUARIUS	1200
+7801610125106	Coca light 1.25	950
+7613035407176	Danky Nogatonga	1690
+7613035421592	Danky Sahne Nuss	1690
+7804656280013	VOLCAN	750
+7804656280006	BOSQUE	750
+7804656280020	PLAYA	750
+761898632901	ALOE VERA	1300
+761898637982	ALOE VERA	1500
+7613035556157	HOLIDAY	650
+7801620006358	GATORADE	1300
+7801620005191	GATORADE	1300
+7805000301279	MAYONESA JB	500
+7809604026477	KOTEC ESENCIAL	890
+7794612407472	BIGTIME ORIGINAL MINTS	780
+7802900231804	SOPROLE GRIEGO PAPAYA	400
+7802900231828	SOPROLE GRIEGO FRUTILLA	400
+7804657540017	REY  ARTURO	1800
+8410376017687	galleta sin azucar	900
+8410376037685	barquillo de choco	900
+40000000518	STARBURST  MASTICABLE	800
+8410376009415	CHIP CHOCO SIN AZUCAR	1700
+7803525000769	CHOCOCHIP	700
+7801620006198	NECTAR SELECCIÓN NARANJA VALENCIA	2100
+7801610671030	FANTA ZERO 1.5 L	1350
+7801620006211	JUGO WATTS SELECCIÓN	2100
+7801620006204	JUGO SELECCIÓN	2100
+7802820160116	FUZE TEA	1500
+7801620006167	whatt´s selecion 350cc.	1100
+7801620006174	WATTS SELECCIÓN  350 CC	1100
+7801620006488	KEM  XTREME  ALERT	890
+78017672	LUCKY RECYCLED	3100
+7804609252449	PROTEIN CARAMEL	1200
+9120016590331	shot light	2000
+7802200132634	mentitas ice	250
+7802200132696	mentitas	300
+7802810009937	SELECCIÓN MANGO MARACUYA	700
+7802810009944	SELECCIÓN UVA	650
+7802810009951	SELECCIÓN NARANJA	700
+7613035390935	DANKY AL CUBO	1300
+7613035556447	MEGA INTENSO	1300
+7802910083509	lonco leche sin lactosa 1lt	1390
+7802900230920	americano frutilla	550
+9005465163049	DARK DOG	1580
+7613035411975	SUPER OCHO	250
+7802900231934	BATIFRUT PIÑA	350
+7802900231941	BATIRUT  DURAZNO	580
+7802900231972	BATIFRUT PAPAYA	350
+9005465101041	DARF DOC	1900
+7809595601325	PUYCHUE	650
+7802215301254	cereal bar morado	250
+7804609252487	NUT BAR	1100
+7804609252470	NUT BAR	1200
+7801620004736	TE VERDE LIPTON	700
+7802900231880	griego soprole	400
+7801610481547	aquarius 1 lt papaya	1200
+80798385	tic tac	400
+7802575220141	sprim piña	350
+7802575220110	SPRIM NARANJA	350
+7802215502514	DINDON	600
+7801620006181	watts selección naranja vidrio	1100
+613008733988	limonada arizona	1400
+7622300617820	milka oreo	1300
+3045140118502	milka hazelnusse	1000
+7622400806612	milka marzipan	1300
+76130342765060	chocolate trencito  24 g	0
+7622210461742	DENTYNE	350
+7622210461728	DENTINE	350
+7613035588776	Sahne Nuss 30 g	600
+761898654637	Aloe Vera Drink	1500
+77931306	nucrem	500
+7613031790135	cereal fitness	450
+7613035699113	fitness ceral frutilla	600
+7613035699083	fitness cereal vainilla	600
+7802215505980	costa cocaditas	250
+7622300986506	HALLS MINI	450
+7622300990657	unlimited verde	780
+7801620014513	pepsi 11/2lt	1550
+7802225683050	selz35g	250
+7750727005248	tostadas ideal	1400
+7803473002020	alfi	350
+7804651870028	maqui vidrio	1200
+7804655080126	TE VERDE LIMON	1300
+7804655080102	TE NEGRO DURAZNO	1300
+7804655080164	GRABADA GUINDA	1300
+7804655080171	MANGO GUAYABA	1300
+7802200840294	golden nuss 120 gr	1500
+7501000673223	TODDY CHOCOMAX 90G.	650
+7802000405013	MANI SALADO 85.G.	650
+7801930011288	plato listo lomo con papas	3200
+7802264000238	BARRA DE CEREAL	250
+7802264000221	BARRA DE CEREAL	250
+7802420151408	marco polo caseras 300g	1600
+7802215501531	CRACKELET	450
+7802000010927	snack mix 76g.	780
+7801610481509	aquarius 1.5 manzana	1200
+7622300990572	TRIDENT CHICLE	780
+7802095186064	nachos villa 36g	450
+30063082	ocb chico	500
+7613035311565	café 3 en 1	400
+1100	chocolate mediano	1100
+7801620075804	PEPSI   1.5	1550
+7801620002787	LIMON SODA 1.5	1550
+7802420002373	marco polo r{usticas 38g merquén	550
+7802420002205	marco polo sal de mar	550
+7802420002403	marco polo queso orégano 38g	550
+7802900230913	BATIFRUT  AMERICANO	550
+7802900120283	GOLD  PANNACOTA	600
+7802900120214	GOLD PANNACOTA	600
+1700	CONSOME GIGANTE	1700
+7802575220516	VIVO NE3CTAR	400
+7804651870035	MAQUI	1800
+7802910005938	BREAK CAPPUCCINO	800
+2290	QUICHES CON VEGETALES Y CARNES	2290
+7790250096078	ladysoft untramegadelgada	990
+7898292888764	HERSHEYS	400
+7802420002359	RUSTICAS MARCO POLO MERKEN	1700
+7802420002182	MARCO POLO SAL DE MAR	1700
+7622210427045	halls rojo	400
+7622210427076	halls azul	400
+7622210427137	halls morado	400
+7702133254734	halls frutilla crema	350
+7622210427106	halls negro	400
+7803473004307	gansito manjar	450
+7802900130114	yogurth natural	450
+7802215301452	CEREAL BAR	250
+7798113151858	GALLETAS CON FRUTAS	650
+7804657540116	OXYGENE  CALAFATE Y MENTA	1800
+7804657540123	OXYGENE RUIBARBO Y MANDARINA	1800
+78017849	ALKA VITAFRESH	300
+7898292888740	hershey´s chocolate	400
+7801930011264	panach{e de verduras	2300
+7801930011226	albondigas	3000
+7802800535583	krispo cebolola	700
+7802800535576	kryspo queso	700
+7800026487525	energy day rojo	1500
+59004400	café chocolate	250
+59002406	chocolate pistacho	250
+7809558100629	sucralosa pastilla daily 150 tabletas	1450
+7809558100148	dily gotas 90	850
+7804920015143	SHAMPOO	250
+7804920041302	ACONDICIONADOR	250
+1600	tostada especial (2 ingredientes)	1600
+7806500506751	confort doble hoja	490
+78022614	pall mall azul nuevo codigo	2500
+7802215303890	FRAC CAKE	250
+78022201	DUNHILL BLONDE	4500
+7750885014724	cereal bar nuts	250
+7801875047113	te supremo premium	1500
+7801800103556	FRUTA ACONCAGUA	800
+7801800103709	FRUTA ACONCAGUAS	800
+7801800103730	FRUTAS ACONCAGUAS	800
+7802200270022	VIVO JUGO	500
+7802200270039	VIVO JUGOS	500
+7802200270015	VIVO JUGOS	500
+78022645	PALL MALL	1400
+8804201009358	ALOE  L1ITRO	2490
+7798113151865	galletas con frutas  frutilla 110 g	650
+7802420151323	marcom polo	500
+7804651870066	maqui 500	1650
+78040651870073	maqui 500 mora	1650
+7804651870073	maqui 500 mora	1750
+7802820330250	agua vital vidrio 330	650
+7802910000728	LECHE  CHOCOLATE SIN LACTOSA	1450
+7622300986582	HALLS MINI	450
+78022638	pall mal gris nuevo cod	2500
+78022195	dunhill negro	4300
+7800026002124	ENERDAY 6 HRS	1500
+59002987	MALAGA	250
+9002859077388	BAD DOG	1200
+7800120171061	vivo cacao	400
+7800120171078	VIVO YOGURT	350
+78930643	 MENTOS	350
+7802225427289	TIFANY´S	300
+4791014009313	TEA QUALITEA	2450
+4791014010401	TE VERDE	1500
+7802900231835	griego  con durazno	400
+838128500245	XING TEA	1800
+838128000011	XING JUICE	1800
+838128470241	XING TEA	1800
+838128460242	XING TEA	1800
+838128000028	XING JUICE	1800
+838128000042	XING JUICE	1800
+7613035808133	SAHNE-NUSS	1690
+7613035768062	DANKY TRILOGIA	1350
+7613035760332	POLOSLOK	490
+7613035767942	ACIPOK	350
+7804625210041	JAHUEL 1600	950
+7802400013368	MANI SALADO 180G	1300
+7802095186095	NACHOS	450
+7613035768000	DANKY TRILOGIA	1400
+7613035768031	MEGA NUGAT	1400
+7613035807464	MEGA FRAM	1690
+7613035767973	MEGA FRAMB CHOCO	1400
+7803525000356	BRAUNICHOC	450
+7613034891730	KUKY 2.0	1250
+7613035739260	FITNESS AVENA MIEL	700
+7613035739130	FITNESS AVENA CACAO	700
+7613035739109	FITNESS NARANJA MIEL	700
+9002859053801	CHOCOLATE STICKS MENTA	1400
+7802575220479	JUGO VIVO	400
+7614500035788	toblerone 200	3500
+5412860120142	BALANCE SIN AZUCAR	2500
+5412860120135	BALANCE SIN AZUCAR	2500
+78022621	PALL MALL ROJO	2500
+884394005212	ALOE KIWI Y FRESA	1300
+884394000972	ALOE PEACH	1300
+884394000774	ALOE	1500
+613008743796	TE VERDE ARIZONA	1500
+613008735470	ICED TEA	1650
+7790206006007	CHOCOLATE MARROC	350
+7801610175095	coca ligth 1.75 desech	1650
+7801610444115	coca vainilla lata	600
+7801610444139	coca vainilla zero lata	600
+7802900231859	GRIEGO	400
+78022607	malboro azul 2 click	4100
+7801800104003	DURAZNOS EN CUBITOS	400
+7802910005945	BREAK CHOCOLATE AVELLANAS	800
+757450542627	SYNAPSYS	1800
+7803908001314	barra de fruta	1000
+7803908000829	barra de fruta	1000
+884394006448	ALOE	1500
+884394000934	ALOE	1500
+7801620006983	GATORADE GREEN APPLE	1500
+7801620006761	WATTS	1500
+7801620007027	MAS LIMON-MENTA	700
+7804643820123	lemon arandasno	1600
+7801325000750	SATURNO PAPAYA	800
+7809604028211	KOTEX CON ALAS	990
+7801610200933	COCA COLA 1.75	1600
+7802000011900	cheetos queso 64	650
+7802000011962	doritos 48	600
+78022966	lucky strike indigo 10	2100
+78022959	LUCKY STRIKE 20 INDIGO	4000
+7622300986438	HALL MINI	450
+7802000011412	BARRA DE CEREAL	250
+7802710831119	casata piña	2450
+613008743734	ARIZONA  GRENN	1500
+7613035903173	nescafé shakissimo latte capuccino	1100
+7896079862112	corpo y sabor barra cereal	250
+7896079863140	corpo y sabor barra de cereal ligth	250
+7613035903234	LATE MOKA	1100
+7809635400260	FRUTA LISTA	400
+7801620006624	AGUAS CON SABOR  1.6	1200
+7801620006655	AGUAS CON SABOR |.6 ML	1200
+7801620006648	AGUAS CON SABOR 1.6 ML	1200
+7801620006600	AGUAS CON SABOR	1200
+7801610483015	AQUARIUS NARANJA 500 CC	800
+7613032151249	cremeria 1 lt papaya	3950
+793573966650	score	1100
+7613035903203	café latte caramelo	1100
+884394002532	aloe lata	950
+7801620006143	WOMAN AGUA  1.5 LITRO	1000
+7622300990497	DENTYNE	350
+7622300990435	DENTYNE	350
+7622300990398	DENTYNE	350
+7803520001914	ECOVIDA	1450
+7803520001600	ECOVIDA	1450
+7803520001631	ECOVIDA	1450
+10400	JUGO DE COCO	0
+884394001276	JUGO DE COCO	1400
+7801620006853	pepsi zero 1/2	1100
+7802575220196	NECTAR SPRIM	350
+7802575220127	NECTAR SPRIM	400
+8717953079367	CANABBIS	1500
+8718657160047	CANNABIS	1500
+8717953079305	CANNABIS	1500
+606110111331	LIMON JENGIBRE	1200
+7801620007041	LIMON SODA ZERO	650
+7802900279042	GRIEGO	600
+7801620006075	TE LIPT0N	1750
+7801620003630	TEA LIPTON	1750
+7801620003654	LIPTON   DE LIMON	1750
+7803525999964	galleton avena manzana	500
+7802810007636	WATTS MANGO NARANJA 1L	950
+7802810009906	WATTS LIGTH MANZANA	950
+7622300086404	MILKA CARAMELO	1300
+7802351624002	MAYONESA	500
+7802900000332	batifrut durazno	580
+7802900234270	light natural endulzado	350
+7802900234287	light frambuesa	350
+6415600537780	BATTERY	1700
+78022126	KENT CLICK	4200
+7802900097011	CREMA CHANTILLY	3500
+8999002671962	ENERGIZER	700
+7802820442205	BENEDICTINO FRUTILLA 500CC	700
+7802820442106	BENEDICTINO LIMON 500 CC	700
+78022133	KENR BOOST	4200
+40000514251	SNICKERS	990
+7802220740314	NATUR	400
+40000514510	MYM AMARILLO	850
+22000017222	SKITTLES	850
+78024090	BIGTIME	450
+7613034309143	SUPER  8	300
+7802225513494	BON O BON	350
+7804609252739	PROTEIN	1650
+7804609252524	PROTEIN	1200
+7804609252661	PALEO BAR	900
+7804609252678	PALEO BAR	1000
+7622300990312	TRIDENT	350
+7803525000943	AMAPOLA	500
+7590011205158	CLUB SOCIAL	300
+7622300258061	CLUB SOCIAL	250
+7804609252630	TWENTY'S PROTEIN BAR	2000
+7804609252616	TWENTY'S PROTEIN BAR	2000
+7802832000240	AFE  200 ML	700
+7501013100907	jumex granada	1950
+884394002112	ALOE MANGO DE 1.5 LT	2500
+884394002174	ALOE PIÑA DE 1.5 LT	2500
+884394005236	ALOE  KIWI Y FRESA DE 1.5 LT	2500
+7802800532438	LIVEAN FRUTILLA	450
+7802800532452	LIVEAN FRUTOS ROJOS	450
+7802800532421	LIVEAN MANI PASAS	450
+7802800532445	LIVEAN PIÑA	450
+6934135703151	RISING	1500
+7802900020071	gold volcan chocolate	600
+78022935	BIGTIME	350
+7801930009964	PAELLA	3000
+884394007759	ALOE VERA	1500
+884394007414	ALOE VERA	1500
+884394007285	ALOE VERA	1500
+40000514480	MYM NEGROI	850
+2200	GALLETAS EN CAJA	2200
+7501013100235	jumex naranja mango	1950
+85	GUAGUAS	750
+7801930009995	paella verdura	2900
+7801930010434	carbonada	2300
+7802900000967	LIGHT TROZOS	550
+7802900000950	LIGHT TROZOS	500
+22000018465	SKITTLES ORIGINAL	0
+22000018489	SKITTLES WILD BERRY	850
+7802000012235	LAYS MAXX BARROS LUCO	600
+7802000012273	LAYS CUATRO QUESOS	600
+7802000012020	LAYS ARTESANAS ORIGINAL	600
+7802000010958	LAYS MEDITERRANES ASADO A LA CHILENA	600
+7802225683234	SELZ QUESO	250
+7802200840331	GOLDEN MILK	1100
+7804646000157	MR. BIG 600ML	1800
+7802820442120	AGUA BENEDICTINO DE 1.500 ML	1000
+9005465133080	DARK DOG 1.5	2600
+7802900280079	1+1 OREO	600
+7802910006645	LONCO LECHE	800
+8606012181601	rice cakes sin gluten	1200
+8606012181618	rice cakes sin gluten	1200
+8606012183797	rice cakes sin gluten	1200
+5413121361335	chocolate belgian no sugar added dark with ginger	3150
+5413121356829	chocolate belgian no sugar added milk chocolate	3150
+5413121361342	chocolate belgian no sugar added dark with superfr	3150
+5413121360864	chocolate belgian no sugar added dark with grean t	3350
+8606012185371	rice rolls glten free	700
+8606012183711	rice cakes sin gluten	1200
+8606012185449	rice rolls glten free	700
+8606012185364	rice rolls glten free	700
+7801620006754	what´s ligth manzana	650
+7801620004538	whatt's uva	650
+7501013100440	jumex ligth manzana grande	1800
+7801610484104	ACUARIUS	700
+7802200129047	MARSH MALLOWS	350
+7802000012570	LAYS CORTE AMERICANO	700
+7613035954038	CENTELLA	300
+7802820021905	vital 2.0	1000
+7613036235853	TRENCITO BALL ORIGINAL	1800
+7613036235914	TRENCITO BALL BLANCO	1800
+7613036235884	TRENCITO BALL  TRILOGIA	1800
+7613036231893	DANKY CLASICO	1690
+7613036162098	CHOCOLITO FRUTILLA	650
+7802910000971	LONCO LECHE SIN LACTOSA	1400
+7802000000515	MANI SALADO DE  180 GR.	1300
+7802000012297	DORITOS	700
+7801610001615	COCACOLA	1990
+7803908002090	GUALLARAUCO	1400
+7803908000782	GUALLARAUCO	1100
+7802225538039	NIKOLO	350
+7613031353927	SUPER OCHO  CHUAAAAAAA	450
+7801875041012	TE SUREMO	1000
+7805000306533	TE CLUB ORIGINAL	1000
+7801305004396	regimel chocolate 200cc	500
+7613033458507	moka 18g	450
+7613033527173	doble choca moka	450
+7804609252838	PROTEIN SHAKE  31 G	2250
+7804643820154	LOVE LEMON  MENTE Y JENGIBRE	1600
+7802000001505	DORITOS 180G	1750
+7802000009969	GATOLATE	600
+7500478002504	TODDY BLOCK	400
+7613036185318	MEGA ALMENDRAS	1690
+7613035918429	PRESTIGIO	1690
+7613036342025	CENTELLA	300
+7613036342353	CENTELLA TRES LECHES	300
+7801620007607	watts 1.5 maracuyá	1500
+7501013100679	JUNEX JUGO VERDE	1800
+7591066721020	xtrem schick	800
+7802800500635	gold 50 grs	1750
+7803480001016	PAN DE PASCUA REBANADA	550
+7803908001253	GUALLARAUCO  MANGO	1200
+838128430245	GREEN TEA  AND GINSENG	1850
+7802000010729	MANI JAPONES	900
+7501013181456	JUMEX	1950
+7501013100310	JUMEX	1950
+7802225680639	CEREAL MIX FRUTILLA	250
+7804651870080	MAQUI	1750
+838128440244	GREEN TEA    MANGO	1850
+884394002921	CAPPUCCINO  PREMIUN	1200
+884394002907	CAFFE MOCHA  PREMIUN	1200
+7803908002106	GUALLARAUCO	1200
+7801610305287	COCA COLA DE  2 L.	1990
+7801610671061	FANTA DE 2 L.	1850
+7801610223741	SPRITE ZERO DE 2 L.	1850
+7801610022740	coca cola  light 2 lt	1990
+7804643820178	love orange0475ml	1600
+7802000009242	MANI SIN SAL  DE 180 G	1300
+9788492808274	AGUA DE VERTIENTE 770 ML	1150
+658939662549	AGUA DE VERTIENTE  370 ML	700
+7800120164162	MONO BALLS	350
+7800120164179	MONO ROLLS	350
+8804201009372	ALOE  MANGO ALOE DRINK	1500
+7891991013512	GUARANA ANTARTICA	1100
+1850	BARROS LUCO	1850
+3500	HIPOCALORICO ESPECIAL	3500
+70847029205	MONSTER NARANJA	2000
+7790895001215	vitaminwater	1300
+5999885747085	ICE TEA  XIXO	650
+7730476008653	HIT	300
+7806500505440	confort	490
+1800	varios 1800	1800
+7804609252777	wildbar 11g protein	1500
+7802000006173	MIX SALADO MANI PASAS Y ALMENDRAS	1500
+7613035779037	CRAZY FRAMBUESA	980
+7613035737754	BILZ Y PAP	650
+7803908002083	Guallarauco	1400
+7613035407145	DANKY 21	1690
+7613035772588	CRAZY FLOCOS	980
+76406022601	JUMEX  COCO	800
+78024397	LUCKY STRIKE CRUCH	4200
+1450	JUGOS NATURALES	1450
+78024410	MARLBORO  TOUCH	3500
+7613035940062	GRIEGO	350
+7613035941113	GRIEGO	350
+7802215502019	VIVO AGUA	900
+7613034737106	NESCAFE FINA SELECCIÓN 170g	6500
+7891991000826	guarana antartica 350ml.	1100
+7802900197070	ZERO LACTO CHOCOLATE SOPROLE BOMBILLÍ	450
+7802832000264	AFE  PERA	700
+658939662532	agua de vertiente	1200
+78024403	LUCKY STRIKE  CRUSH DE 10	2600
+7500478003907	TODY  84 GRANOS	700
+7803908004490	NARANJA	1200
+78024045	bigtime negro	450
+78024038	BIGYIME CELESTE	450
+78023994	BON BON	250
+78024106	BON BON	200
+7622210707369	TRIDENT	350
+7802800544318	JUGO NARANJA	350
+884394000897	ALOE VERA FRUTILLA	1500
+7802225800006	NATURAL BREAK	600
+7702018880409	PRESTOBARBA	850
+7802900000943	SOPROLE LIGHT TROZOZ	550
+7622210110244	oreo vainilla 36g.	300
+7803480000903	GALLETÓN AVENA CHOCOLATE	500
+7803480000897	GALLETÓN	500
+7501000674732	mini tody	300
+7802000010965	snack mix II	650
+7802000012433	lay´s artesanas salsa verde	650
+7802000012488	lay´s corte liso	650
+7803480000750	brownie	500
+7803480000767	brownie	500
+7801620007546	WATTS PIÑA 1.750L	1500
+7801620007539	WATTS NARANJA  1.75 L	1500
+7591016850305	chocolates leche y avellana	500
+7591016850534	chocolate leche con  almendras	500
+5413121359981	BELGIAN CON LECHE DE AVELLANA	3150
+5413121356737	BELGIAN CHOCOLATE NEGRO	3150
+5413121359998	CHOCOLATE NEGRO CON ALMENDRAS	2900
+5413121355082	CHOCOLATE NEGRO 72 %	2150
+5413121358694	CHOCOLATE NEGRO 85%	2150
+7801620007812	KEM XTREME AM	1200
+8606012184961	ROCKY RICE CHOCOLATE	400
+8606012182578	ROCKY RICE FRUTILLA	450
+8414472101936	CEREAL CHOC 375 g SIN GLUTEN	3250
+8414472102308	CORN FLAKES CLASSIC SIN GLUTEN	3250
+8414472102292	CEREAL SIN GLUTEN	3250
+8414472101929	MIX BOLITAS	3250
+8414472201421	CHOCOZERO	3250
+7802000003103	MANI  18 GR	190
+7802215515347	CHAMPAÑITAS COSTA	1000
+4791014004950	TE VERDE	2450
+7802215503535	din don chica	350
+78024304	rolls bom bom	200
+40052403	kit kat	750
+1250	Pino Chaparrita Espinaca Queso etc	1300
+7801620007959	selecciom maqui granada	990
+7802215121234	rolls nuts	1670
+7802215121258	rolls crocante	1670
+7802640793471	ketchup	630
+7802000012945	chetos	550
+7802000012921	cheetos	550
+78934696	TIC TAC diversion de frutas	480
+8804201009365	ALOEVERA	2450
+8804201009389	aloevera	2490
+8804201009396	ALOE MANGO 1.5 LT	2490
+7802000012679	PAPAS LAYS	2300
+7613036487597	capri menta	350
+7750168001687	club social	250
+7801305002477	REGIMEL DURAZNO	1400
+7613036333627	ALTEZA   MINI	570
+7804639430053	chocorritos 14g.	120
+7804639430008	choco cereal	200
+7613035348530	SVELTY SIN LACTOSA	500
+7802900001308	LECHE	1100
+7802910000230	leche con   con chocolate	1300
+7804651870042	MAQUI	1650
+7809595603428	PUYEHUE	950
+78024533	uno al dia colacion	300
+2122778900943	berrysur verde	1850
+2102121330399	berrysur tres verduras	1850
+2232332339994	berrysur naranja	1850
+884394002471	coco lata okf	990
+7613035114616	NESTLE AVELTY	350
+7802225688475	galletas de arroz	1300
+7802900001414	protein	500
+7802900001407	protein	450
+7613036454476	chandelle mousse	600
+7622210811233	TRIDEN INFINIT	850
+7622210811288	TRIDENT INFINIT  WOW MINIT	850
+8999002672068	ENERGERZER  AAA	700
+7802200840263	GOLDEN NUSS   140 GR	1700
+7806500505419	CONFORT	500
+7809558100636	DAILY  SUCRALOSA	2760
+7809558101091	DAILY TRADICIONAL	1650
+7802000013027	LAYS CORTE AMERICANO	650
+7802000013003	LAYS CORTE LISO	650
+7804635290194	cuchufli 4	650
+7802215121319	rolls crispy	1670
+7802215121241	rolls blanco crocante	1670
+7802215121326	rolls crispy berries	1670
+582450112446	PISTRACHOS SALADOS	1200
+410939411554	PASAS FLAME	700
+459057061975	PASAS RUBIAS	700
+685433614477	ALMENDRAS NATURALES	1200
+738658435263	CASTAÑAS CAJU	1200
+140681050977	MIX 2	1750
+366079101575	MIX 5	19901
+666148859520	MIX 4	1990
+7802225426381	CHUBI	200
+525813139261	MIX 1	1750
+532370428639	MIX 3	1790
+78024656	belmont click	3700
+7802800556021	MUIBON CON MANI	550
+7613036468299	grill merkén	300
+7613036468329	grill albahaca	300
+7802820672145	POWERADE ZERO	1500
+725272730706	QUINOA POP	1350
+7801620008086	canada zero	650
+7613035941373	griego trozo	350
+7613035196803	svelty	300
+7613035327801	svelty	300
+7613035326361	sin lactosa	300
+7613035941342	GRIEGO PIÑA  DURAZNO	350
+7613036615266	SUPER 8 DIECIOCHERO	350
+7802000010347	lay´s 400 g	2940
+7802215203039	FRAC MENTA	700
+7802920001067	COLUN	350
+7802920005195	COLUN LIGHT DURAZNO	500
+7802920005164	COLUN LIGHT FRUTILLA	500
+7802920005201	COLUN LIGHT FRAMBUESA	500
+7802920005171	COLUN LIGHT CHIRIMOYA	500
+7802920000701	COLUN QUESO FRESCO	900
+7802800556120	SGTGBHDFGDHS	450
+7802215515019	gretel	1100
+7622210757289	halls amarillo	400
+7622210267870	halls colors	400
+7622210443373	halls creamy	400
+7802800556076	muibon flow	600
+7803908000812	barra de fruta chirimoya	1000
+7803908004551	limonada	1200
+7802920008288	colum pro 6	450
+7802920008295	colum pro 6	450
+7802920008363	colum pro 6	450
+7802920008196	griego 7 papaya	550
+7802920008189	griego pro 7	550
+7802920008172	griego pro 7 frutilla	550
+7802920001296	colum ligth frambuesa	250
+7802920000916	colum ligth	350
+7802920000008	colum ligth	350
+7802920802282	colum ligth	250
+7802920001074	colum ligth	350
+7794612413855	BIGTIME ULTRA	800
+7622300990619	TRIDENT DENTINE  SANDIA	850
+7613036611381	NESTLE PRESTIGIO 80 G	570
+7613036333511	MAKAY ALTEZA 80 G	570
+78024601	PALL MALL	3400
+7803525001018	queque zanahoria	1250
+7793890252095	queque vainilla	1300
+7793890252101	queque marmolado	1300
+7802920008127	COLUM LECHE CON CAFÉ	900
+2232332339987	BERRYSUR	1850
+7803908004452	agua de fruta limon	1200
+7803908004469	agua mango	1200
+7802215116445	PASCUERO DE CHOCOLATE	1100
+7801620006631	GRANADA CON SABOR  1.5 LT.	1200
+7802920008158	COLUM LIGHT	900
+7802920008141	COLUM CAPPUCCINO	900
+7613036623155	supercuchuflai	200
+7802215105920	ROLLS NUTS	450
+7790580409135	MOGUL  PIECITOS	150
+7801620370107	CANADA DRY  AGUA TONICA	1650
+7801620008178	PAP ZERO	950
+7501058630179	FIRNESS	300
+5900020028075	CHOCAPIC	300
+884394006424	ALOE VERA	1500
+884394006462	ALOE VERA	1500
+7801620007997	MAQUI-GRANADA	2100
+7802000013140	MANI EVER 75 G	600
+7802920008110	capuccino colum	900
+7802000012938	CHEETOS POPCORN	1800
+5263101535191	MIX NATIVO NUTS	1990
+7441029504613	principe	600
+9120033164799	MR. BIG	1800
+7802215105906	ROLL	380
+78024335	BIGTIME7	450
+78024021	BIGTIME 7	450
+7801620006846	PEPSI  ZERO	800
+7801620007874	KEM XTREME  PM	1200
+7802000013133	MANI SALADO  30 GR	350
+7804612130970	ronson pequeño electronico	500
+7622210847935	club social integral	300
+7441029515268	principe blanco	600
+7441029506181	principe limon	600
+1900	CROSSAINT	1900
+7802215303739	gran cereal sin azucar 135	800
+724869002295	mani japonés dlk	500
+7804627650364	buka papas cebolla caaramelizada	2500
+7804627650487	buka papa tomate	2500
+7804627650524	buka papas sal de mar	2500
+7822701010057	super batido beauty	2950
+7822701010026	superbatido defense	2950
+7822701010040	superbatido antiox	2950
+7822701010033	superbatido detox	2950
+7822701010019	superbatido energy	2950
+8002670500615	bebida de almendras	3650
+7809595600052	puyehue 750cc sin gas	1650
+7809595600069	puyehue con gas 750 cc	1650
+9120033164782	MR .BIG  250 ML	1200
+7891000248768	kit katt	900
+7803525999674	queque naranja chips	1500
+7803525999681	queque brownie familiar	1500
+7622210661982	oreo 126g	800
+7622210754318	oreo fresas	300
+78939431	bolita oreo	250
+7622210879448	oreo barra cremosa	600
+7622210878953	oreo crujiente blanco	300
+7622210878861	oreo crujiente chocolate	300
+661787073658	frutos secos	500
+884394006486	ALOE VERA	1500
+84773617504	atun robinson crusoe en agua ligth	1450
+7801850000294	azucar la mesa 1k	1100
+890	WATTS	890
+800	CAFÉ HELADO	800
+7804918450031	lifestyle rojo 3 unidades	2000
+7804918450024	lyfestyle celeste 3 unidades	2000
+7804918450017	lifestyle gris 3 unidades	2000
+7804655320017	mate	1800
+7804655320000	mate limon	1800
+7802200042865	GOLDEN NUSS	500
+7804621470272	atun campesina	2050
+7804621470654	quinoa con atun y c{urcuma	2050
+7804621470296	atun mexicana	2050
+7804621470289	atun primavera	2050
+7804621470647	atun mediterranea	2050
+78024717	LUCKY STRIKE  20	4500
+9002490238841	red bull 473	2500
+7802000013164	man{i salado 160g	1200
+4000417701008	ritter sport	1700
+4000417020000	ritter sport	1700
+7802910007109	50 protein	950
+7804655320024	YERBA MATE	1800
+7802225587198	GOLPE	300
+40000536819	MYM	850
+40000536789	MYM	1100
+7803473005137	MR BROWNIE	400
+7803473005144	MR BEOWNIE VERDE	400
+7804612131120	EMCENDEDOR	500
+7802351311001	mostaza	450
+4000417700001	ritter sport	1700
+4000417018007	RITTER SPORT	1700
+7501013100990	YUMEX COCO PIÑA 1/2 LT	1250
+7501013100198	YUMEX MANZANA 1/2	1250
+7898024395232	nutella	2150
+7613034303196	CAPRI FRUTILLA	350
+7802640600090	ketchup jb 100g	450
+7802910007130	PROTEIN MILK	900
+5201041002137	sesamo 3 barras	800
+5201041015519	almond bar (almendras)	1700
+5201041015731	 barra de anacarnos	1700
+7802215102172	vizzio impulsivo	300
+70847033219	MONSTER	2000
+7802800556281	granuts yogurt mix	550
+7802800556205	granuts salado	550
+7802800556229	granuts arandanois	550
+7802800556212	granuts japones	550
+7802950022322	crema leche nestlé	1100
+7802215502286	mini donut	350
+7808707003156	HERENCIA  DE VALLE	700
+7808707003170	herencia del valle 350cc durazno	700
+78024915	NARLBORO	3500
+7803908004445	agua guayarauco pera	1200
+7803908004438	agua guayarauco manzana	1200
+7802920006895	colun sin lactosa chirimoya	400
+7802920004969	colun sin lactosa damasco	400
+7802920000855	colun creme frutos	500
+757528039639	takis explosion	550
+757528039592	takis fuego	550
+757528039615	takis original	550
+7802215503375	frac 52g	300
+7803473004376	mankeke	600
+78024878	LUCKY STRIKE   CLICK FROST	4400
+7804612131274	ENCENDEDOR RONSON	400
+78024892	LUCKY  STRIKE crush	4500
+7801930009827	CANELONES DE CARNES	3000
+7802420127076	MANI CON MIEL	870
+7802420124426	MANI SALADO	700
+4008400221021	CHOCOLATE  KINDER	4850
+80050094	KINDER MAXI	490
+2813	bonbon	400
+59080466	choco	350
+59080480	pistacho	350
+7790206512683	BARRITA 70 CACAO	350
+7790206512669	BARRITA LECHE MANI	350
+7790206512645	BARRITA CHOCOLATE BLANCO	350
+1690	MEGA - DANKY	1690
+7801620008307	limonada Jegibre 500 cc	900
+7801620007379	woman frutos 1500	1200
+7801620007621	mas manzana durazno 1500	1200
+7801620007355	woman limon jengibre	1200
+7801620008338	mas piña 1500	1200
+7801610461006	aquarius manzana 1600	1200
+7801610461020	aquarius limonada 1600	1200
+7801610461044	aquarius uva 1600	1200
+7613037568424	ZOORPRESA	650
+7613037637731	BIGBANG	650
+900	bebidas y otros	900
+7501013101362	JUMEX COCO PIÑA 473CC	1450
+7501013101348	JUMEX MANGO 473CC	1450
+7501013101355	JUMEX DURAZNO 473CC	1450
+78025219	KENT IKON MIX	3400
+78025240	LUCKY STRIKE 2 CAPSULAS	4500
+7801610461013	aquarius pera 1600cc	1200
+7803908005916	CONO GUALLARAUCO FRAMBUESA	1500
+7803908005930	CONO GUALLARAUCO FRUTILLA	1500
+7803908005923	CONO GUALLARAUCO TROPICAL	1500
+7803908005947	GUALLARAUCO CHIRIMOYA VASO	1000
+7803908005893	GUALLARAUCO PIE DE LIMON	1500
+7803908005909	GUIALLARAUCO COCACCINO	1500
+7803908003110	GUALLARAUCO COCO	1000
+7803908005787	GUALLARAUCO MARACUYÁ	1000
+7803908003103	GUALLARAUCO FRAMBUESA CHOCOLATE	1000
+7803908001406	GUALLARAUCO LUCUMA MANJAR	1000
+7803908005954	GUALLARAUCO FRUTILLA NARANJA VASO	1000
+6780201329400	GRANADA GUINDA COLAGENO	1800
+6780201379627	MAQUI COLAGENO	1800
+5904941751340	ozone 500cc	1800
+7802420004223	mani marcopolo 23g	250
+7802820250244	kapo manzana	350
+7702018072439	venus gillette	850
+7863319540260	melisa	1200
+7863319540277	manzanilla	1200
+7863319540284	jengibre	1200
+7804630010070	TIKA DE CAMOTE Y REMOLACHA	800
+7802832000400	PURE DE MANZANA	650
+7804630010728	TIKA  NATIVAS	800
+7809595603411	puyehue 500 con gas	950
+7802920008202	colum 8 pro	700
+7802800556113	muibon12g	150
+7804630010759	tika vegan rice amapolas	1390
+7804630010766	tika vegan rise hierbas frescas	1390
+7804630010001	tika patagonia 35g	800
+7501013101447	JUMEX GRANADA	2000
+7501013101409	JUMEX NARANJA	1950
+7804646000270	MR BIG VERDE	1800
+5201041015526	MIXEDNUTS	1700
+3086123206878	Bx7	350
+7804664800029	X T C.  250CC	1000
+7804664800012	X T C  500 CC	1500
+7613036637558	TRITON MINI	350
+7803473003102	TKCH	400
+7622300758943	CLUB SOCIAL	300
+7802820669961	POWER ADE LIMA LIMON 600ML	1100
+7793890254303	BARRA DE FRUTOS SECOS	600
+7793890254297	BARRA DE FRUTOS SECOS	600
+7803908005688	AGUA DE PEPINO	1200
+658480001248	sanisimo	300
+7613032836740	DECAF	2350
+7622210828453	oreo frutilla	750
+7802215510038	vivo frutos secos	450
+7801620008468	watts selección cranberries	890
+7802000013645	MANI JAPONES	850
+7802900001704	protein	500
+7802500037073	salsa tomate luchetti 20g	570
+7802500001081	espirales lucchetti 400 grs	990
+7802500000053	spaghetti 5 lucchetti 400 grs	990
+7801420220138	tucapel 1 k grado 2	1650
+7801505000211	azúcar dama blanca 500 grs	600
+7801320220061	aceite miraflores 1 lt	2370
+7806500506829	confort acolchado 4 unidades	1200
+3200	jhdfgbikjdfuhgmjn	3200
+78025332	KENT SILVER UP	4200
+7802920776163	MANTEQUILLA LOS ALERCES 250g	2350
+7802920002316	FUSION YOGURT HOJUELAS DE MAIZ	650
+7802920002323	FUSION YOGURT MAS HOJUELAS DE CHOCOLATE	700
+78014053	JALEA PIÑA	450
+78013285	JALEA DE FRAMBUESA	250
+7802920008370	QUESO FRESCO 450g	2300
+7803403002229	pan ideal blanco 560 g	2350
+7802200400085	mermelada vivo mora	1100
+7802200400092	mermelada vivo durazno	1100
+7802200400078	mermelada vivo frambuesa	1100
+7802200400108	mermelada vivo damasco	1100
+7809558101992	daily tradicional 180g	1150
+7802920202105	mantequilla 125 g colun	1250
+781159415999	pasta ajo	2250
+7802920006529	queso crema100 g	1100
+7802347623842	mani mix 210 g	2150
+7802349723847	mani sin sal 210g	1400
+7807733947472	quinoa pop	2690
+7803273287320	semillas zapallo 210g	2250
+7501013101331	jumex manzana 473 cc	1450
+7500478008780	toddy 142.5g clásica	890
+7802000013720	ramitasa queso 48g	600
+7801610235102	coca coffee	700
+7802225584081	hobbie	500
+78017825	philip morris blando	2800
+7801620008321	mas piña 500cc	900
+613008735432	arizona kiwi	1500
+613008756451	arizona watermelon	1500
+613008728571	arizona iced tgea lemon	1650
+613008734138	arizona seet apple	1650
+7802575220455	vivo piña190ml	400
+7802575220493	vivo naranja190ml	400
+7802575220530	vivo durazno190ml	400
+7802920002712	colun granola berris	700
+7801620006877	pepsi zero azucar 2 L	2000
+7801620330217	CRUSH ORANGE 1.5L	1600
+7801620014681	PEPSI 2L	2000
+7801620853198	CRUSH ORANGE ZER 2L	2000
+7802920005287	yoghurt mora	350
+7802920004952	yoghurt frutilla 125g	400
+7802920000961	yoghurt batido damasco 125g	350
+7802920000930	yoghurt batido frutilla 125g	350
+7802920000954	yoghurt batido vanilla 125g	350
+7802920007564	leche semidescremada natural 1l	1100
+7802615006551	arroz miraflores 1kg	1650
+2814	tic tac frutos rojos	480
+78938533	tic tac frutos rojos	480
+78939387	trencito tubito	300
+7802820443356	benedictino 3000 ml	1200
+77961662	premier plus	800
+7802215501623	vivo salvado x 3	2700
+7501013101423	jumex verde único fresco	2000
+7501013101430	jumex antioxidantes unico fresco	2000
+8410376035407	gullón bizcochos 200g	1350
+7802000013157	mani sin sal evercrisp 160 grs	1200
+7613032835811	decaf 170 grs nescafe	5450
+78025318	kent boost	4400
+7803473005502	pingüino scream	650
+7802920009438	PROTEIN PLUS 120 MARACUYA	450
+7802920009384	protein plus frutilla platano 150g	600
+7802920009391	protein plus vainilla 150g	600
+7802000001819	twistos queso 110 gs	1150
+7801620007980	limon soda zero 2.0L	2000
+7702133862823	trident  yerbanuena	400
+7702133862809	trident menta	400
+7702133862793	trident sandia	400
+8809276282316	aloe blueberry	1500
+8809276285256	aloe pineapple	1500
+8809276282019	aloe original	1500
+8809276285249	aloe mango	1500
+8809276285232	aloe coconut	1500
+8809276282415	aloe pomegranate	1500
+8809041426983	sacs pineapple 238.ml	600
+8809041426921	sacs mango 238.ml	600
+8809041426945	sacs peach238.ml	600
+8809041427003	sacs crape 238.ml	600
+7802920007182	leche chocolate	500
+7801620005184	gato tropical	1500
+793573241962	score 500 ml amarilla	1400
+742832751988	score 500ml gorilla	1400
+78013322	flan vainilla colun	550
+7802800500772	gold premier 50 g	1600
+7804630010148	tika mixz212gr	3250
+7613287103529	SAHNE  NUSS	1600
+7803247238464	MANI SALADO	2150
+7802920000862	colum durazno 125	500
+7803473005359	agansito black and white	500
+7802000015137	DE TODITO	700
+7802000014765	LAYS CORTE AMERICANO	700
+7802000014857	LAYS MEDITERRANEAS	700
+7802000013683	CHEETOS	700
+70847035800	MANGO LOCO	2000
+78025059	PALL MALL	3500
+7802920801254	NECTAR NARANJA COLUN	350
+7802920002019	NECTAR DURAZNO COLUN	350
+78013308	JALEA DE LIMON	450
+7802920006888	LIGHT SIN LACTOSA	400
+7802920006871	LIGHT SIN LACTOSA	400
+7802920001005	BATIDO CEREA	350
+78025271	KENT	4200
+7802920000992	YOGURT BATIDO PIÑA	350
+7802920000947	YOGURT BATIDO FRAMBUESA	350
+7802920009407	protein plus frutilla	600
+7802575226310	vivo nectar naranja 1l	1100
+7802575226334	vivo nectar de durazno	1100
+7802575226327	vivo nectar de piña	1100
+7802575226358	vivo nectar de manzana	1100
+7802575365026	san remo italiana 200g	550
+7802800575213	nectar de zuko 200ml	400
+8809228440429	aloer de mango	1500
+8809228440467	aloe de piña	1500
+8809228440443	aloe pomegranate	1500
+8809228440481	aloe de coconut	1500
+8809228440405	aloe original	1500
+6971549920156	aloe granada	1500
+78025295	kent click	4400
+78016699	LUCKY STRIKE  BLANDO	3800
+7501013101393	JUMEX PIÑA 500CC	1450
+7801610277829	INCA  KOLA	800
+78025288	kent white 20	4200
+7802920008134	COLUN LIGHT  CAPUCHINO SIN LACTOSA	2100
+78025448	COLUN POSTRES DEL SUR	500
+78025431	COLUN POSTRES DEL SUR  TRES LECHES	500
+7802920000886	colun frutos secos	500
+7802920009421	protein 8 durazno	500
+78025066	pall mall sunset 20	3500
+7801970026358	Jamon Pierna Llanquihue Envasado	0
+7801970000068	Jamon Sandwich Llanquihue Envasado 200g	0
+7801907000123	jamonada San jorge Envasado	0
+7802820180404	Jugo Kapo Durazno 180ml	200
+7802820180503	Jugo Kapo Frambuesa 180ml	200
+7802820180107	Jugo Kapo Manzana 180ml	200
+7802820180206	Jugo Kapo Naranja 180ml	200
+7802820180305	Jugo Kapo Piña 180ml	200
+7802800576463	Jugo livean Damasco	0
+7802800576449	Jugo Livean Durazno	300
+7802800576517	Jugo livean frutilla	300
+7802800576432	Jugo Livean Manzana verde	200
+7802800576746	Jugo livean melon	0
+7802800576418	Jugo Livean naranja	300
+7802800576692	jugo livean pera	300
+7802800576456	Jugo livean Piña	0
+7802900469139	jugo next durazno	500
+7802900469061	jugo next naranja 300cc	500
+7802900469030	jugo next piña	500
+7802900480134	jugo soprole durazno 1 lt	0
+7802900480066	jugo Soprole naranja 1 lt	0
+7802900480035	jugo soprole piña 1 lt	0
+7802800570409	Jugo Zuko Chirimoya 45g	200
+7802800572212	Jugo Zuko Damasco 45g	0
+7802800572427	Jugo Zuko Durazno 45g	200
+7802800572526	Jugo Zuko Frutilla 45g	0
+7802800570621	jugo Zuko Guinda	0
+7802800572267	jugo zuko Manzana	0
+7802800570614	Jugo Zuko Melon Tuna	0
+7802800572243	Jugo Zuko Naranja 45g	200
+7802800572250	Jugo Zuko Piña	200
+7801235131117	jurel san jose	0
+7801620350048	Kem Piña 1Lt Retornable	0
+7801620010133	Kem Piña 250cc	0
+7801620001223	Kem piña normal desechable 3lts	0
+78000834	Kent 1	2800
+78000872	Kent 4 HD	2800
+78000025	Kent blue 8	2800
+78010758	Kent Actron	4500
+78013704	Kent Mint	2100
+7802640793464	ketchup Malloa 100g	0
+7802810045034	ketchup Watts 100g	0
+40084107	Kinder Sorpresa	0
+7802710337208	Kriko	650
+7802800535613	krizpo papa original 40g	500
+7802800535620	Krizpo papa queso tarro40g	500
+7802230081179	Kuky Chocolate 120g	750
+7802230081162	Kuky Clasica 120g	850
+7802230080059	Kuky frambuesa 120g	750
+7802950088823	Kuky Mini 40g	350
+78007208	L Y M Gris	1400
+78005495	L&M Azul 10U	700
+78029583	L&M Azul 20	1400
+78005488	L&M Rojo 10U	700
+78029576	L&M Rojo 20U	1400
+7805000115890	Lavalozas Quix 300ml	0
+7802575237026	Leche bambino Chocolate	0
+7802575237040	Leche chocolate Bambino 3U	0
+7802900015077	Leche Chocolate Huesitos	300
+7802900016074	Leche Chocolate Huesitos 1Lt	0
+7802920801087	Leche Chocolate Semidescremada Colun 1Lt	300
+7802900056070	Leche Chocolate Soprole 200ml	450
+7613030049883	Leche Condensada Nestle 397g	0
+7804624330368	Leche Condensada Pitrufquen 390g	0
+7802900218225	Leche Cultivada frut. Next 190ml	500
+7802920000084	Leche Descremada Colun 1Lt	1100
+7808709500073	Leche descremada Surlat 1Lt	990
+7802920777542	Leche Entera Colun 1Lt	1100
+7802900030018	Leche Entera Soprole 1Lt	1100
+7808709500059	Leche Entera surlat	700
+7752087774932	Leche Evaporada Ideal	0
+7802920759135	Leche Frutilla semi descremada Colun 200cc	500
+7808709500097	Leche Semidescremada frutilla Surlat 1Lt	700
+7808709500066	Leche Semidescremada Surlat 1Lt	1050
+7808709500790	leche Sin lactosa surlat 1Lt	700
+7808709500806	Leche Surlat chocolate 200ml	0
+7808709500820	Leche Surlat Frutilla 200ml	0
+7808709500837	Leche Vainilla Surlat 200ml	0
+7803000000475	Levadura Lefersa	0
+7613031650729	Limon Mini 40g	250
+7801620340049	Limon Soda 1Lt Retornable	0
+7801620000899	Limon Soda 250cc	0
+7801620002794	Limon Soda Ligth Desechable 3 Lts	0
+7801620001643	Limon soda normal desechable 3lts	0
+78006027	LollyPop	650
+7801970026174	Longaniza Llanquihue	0
+78000285	Lucky Ligth	4200
+78013568	Lucky Ligth 11	950
+78000124	Lucky red	4000
+78015500	lucky strike Click & roll 11	1600
+78015432	lucky strike convertibles	4000
+7790520986795	Lysoform Aire Montaña 257g	0
+7790520986801	Lysoform bebe 257g	0
+7790520986788	Lysoform Original 257g	0
+6926633922677	Mabu	0
+7804628720042	Mani Ciboulette	0
+7804628720066	Mani Confitado	0
+7804628720011	Mani Merken	750
+7804628720035	mani mixto salado	750
+7804628720073	Mani Oregano	0
+7804628720004	Mani Salado	0
+78012592	Mani Salado Nutra Bien 25g	250
+7804628720059	Mani sin sal	0
+78040519	Manjar Soprole 200g	0
+7802810006844	Manteca Astra	0
+7613031651412	Mantequilla mini 40g	250
+7802900120016	Mantequilla Soprole 125g	850
+7803200037912	margarina Bonella light 125g	0
+7803200803579	Margarina Bonella Light 250g	0
+7802900627010	Margarina Next Pan 125g	0
+7802900619022	Margarina Next Pan 250g	0
+7802900625016	Margarina Next Pote 250g	0
+7802900600006	Margarina Soprole 125g	0
+78029590	Marlboro Corriente 20U	4200
+78029606	Marlboro Light 20U	4200
+78010994	Marlboro Ligth 10U	1000
+78011298	Marlboro Red 10U	1000
+78011632	Marlboro Ultra Light 10U	1000
+78007239	Marlboro Ultra Ligth 20U	4200
+7805000301484	mayonesa hellmans 100g	700
+7803200804156	Mayonesa Hellmans 800cc	0
+7802950004151	Mayonesa Maggi ligth 100cm3	350
+7802950004144	mayonesa maggi ligth 500cm3	0
+7613032374464	Mega Avellanas	1200
+7613030784654	Mega Frambuesa	1690
+7613030777991	mega Sahne nuss	1300
+78012301	MenthoPlus	200
+7802810031013	mermelada Watts damasco 250g	980
+7802810031020	Mermelada Watts Durazno 250g	980
+7802810031075	Mermelada watts frutilla 250g	750
+7802810031037	Mermelada Watts Mora	750
+7613030447979	Milo Actigen-E 150g	0
+7613030195542	Milo Actigen-E 30g	500
+7802225637343	Mini chocolate	250
+7802225637213	Mini coco 2 en 1	0
+7613031651474	Mini Coco Mckay 40g	300
+7613032464042	Mini Triton Vainilla 40g	350
+7798094225654	MiniTorta Nevares	350
+7896187800013	Moldadientes 100U	0
+7802640600076	Mostaza JB 100g	0
+7613031651382	Museo Mini 40g	0
+7802820500110	nectar Andina Damasco 300ml	300
+7802820550610	nectar andina damasco 6U 200ml	0
+7802820500318	Nectar Andina Damasco Ligth	0
+7802820500332	Nectar Andina Damasco Ligth 1.5Lts	1150
+7802820500011	Nectar Andina Durazno 300ml	800
+7802820048322	Nectar Andina Durazno Ligth 1.5Lt	1200
+7802820500219	nectar Andina Durazno Ligth 300ml	0
+7802820700480	Nectar Andina Manzana 6U 200ml	0
+7802820700015	Nectar Andina Naranja 300ml	0
+7802820700107	Nectar Andina Naranja 6U 200ml	0
+7802820700633	Nectar Andina Naranja Ligth 1.5Lt	1200
+7802820700619	Nectar Andina Naranja Ligth 300ml	0
+7802820500516	Nectar Andina Papaya 300ml	550
+7802820700213	Nectar Andina Piña 300cc	800
+7802820700299	Nectar Andina Piña 6U 200ml	0
+7802820641554	Nectar Andina Piña Ligth	0
+7801620011628	nectar Watts Damasco 1.5Lt	1300
+7802810006677	Nectar Watts Damasco 200ml	350
+7802810000354	Nectar Watts Damasco 3U 200ml	0
+7801620011611	Nectar Watts Durazno 1.5Lts	1500
+7802810006325	Nectar Watts Durazno 200ml	350
+7802810000323	Nectar Watts Durazno 3U 200ml	0
+7801620000738	Nectar Watts Durazno Ligth 1.5Lts	1500
+7801620001902	Nectar Watts Manzana 1.5Lts	1500
+7802810000347	Nectar Watts Manzana 3U 200ml	0
+7801620011604	Nectar Watts Naranja 1.5Lt	1500
+7801620853396	Nectar Watts Naranja Ligth 1.5Lts	1500
+7801620011635	Nectar Watts Piña	1500
+7801620003500	Watts TuttiArandano 1.5Lts	1300
+7801620001841	Nectar Watts TuttiFrutilla 1.5lt	1500
+7801620002916	Nectar Watts Tuttifrutilla Ligth 1.5Lts	1500
+7802230073907	Negrita	300
+7802950002126	Nescafe Tradicion 170g	0
+7802950002119	Nescafe Tradicion Tarro 50g	1850
+7613030120728	Nesquik chocolate 200g	0
+7613030120674	Nesquik Frutilla 200g	0
+7613031027149	Nesquik Frutilla 500g	0
+7613031634811	Nesquik Vainilla 200g	0
+7802820757200	nestea sabor limon 400ml	690
+7613032259426	Nestum 5 cereales 200g	0
+7613032259457	Nestum 5 cereales 350g	0
+7613032258122	Nestum Arroz 350g	0
+7613032258412	Nestum trigo y frutas 350g	0
+7802900349011	Next + cereal 140g	420
+78013940	next 1 al dia 100ml	390
+7802900238285	Next biobalance Next  4U	0
+7613032517748	Nido Buen dia 130g	0
+7613031913411	Nido instantanea 400g	0
+7802225538213	Nikolo	0
+7802230081988	Niza Clasica 160g	0
+7613031651443	Niza Mini 40g	250
+0	bebidas	950
+7806500401414	Nova Clasica	450
+7804628720127	Nueces Naturales	0
+7802225583251	Oba oba	0
+7802215505027	Obsesion 85g	930
+7702011302076	Okidoki chupete + juguete	0
+7805000153700	Omo Matic Multiaccion Soft 200g	0
+7805000160753	Omo Matic Multiaccion Soft 400g	0
+7801620330071	Orange Crush 1Lt Retornable	0
+7801620853457	Orange crush 250cc	0
+7801620001599	Orange crush normal desechable 3lts	0
+7802200848139	Orly bombones estuche 200g	0
+7802900237646	pack activ soprlole multifruta	0
+7802900238247	pack next soprole multifruta	0
+74323064957	Paleta Ricolino	0
+78012523	Pall Mall Azul 20	1500
+78007680	Pall Mall naranjo 20	1600
+78012042	Pall Mall Verde 10	850
+78012035	Pall Mall Verde 20	1700
+7802420510151	Palmitos esmeralda 400g	0
+7803525400422	Pan de pascua Nutra Bien	0
+7803525111106	Pan de Pascua Nutra bien 900gr	0
+7803473000095	Pan frica cena 8U	0
+7803480050052	Pan Hamburguesas Fuchs	0
+7803480062086	pan Hot dogs Fuchs 8U	0
+7803473000088	Pan Hot-Dogs Cena 8U	0
+7803480020055	Pan Molde Blanco Fuchs 680g	0
+7803473001375	Pan molde blanco light Ideal 350g	0
+7803473001511	Pan Molde Blanco Ligth Ideal 530g	0
+7803480020079	Pan Molde Integral Fuchs	2350
+7803473002174	Pan Molde Light Integral Ideal 350g	0
+7803473001993	Pan Pita 8U	0
+7794626910241	Pañal Huggies Active Sec XG 14U	0
+7805005050080	Paño Multiuso	0
+7806500172116	Pañuelo desechable elite	300
+7801620300043	Pap 1Lt Retornable	0
+7801620016074	Pap 250cc	0
+7801620000714	Pap Ligth 250cc	0
+7801620002824	Pap Ligth Desechable 3 Lts	0
+7801620001216	Pap normal desechable 3lts	0
+7802800534166	Papa Krizpo original 170g	1500
+7802800534173	Papa Krizpo queso 170g	0
+7802800535644	Papa Kryzpo Pizza 40g	500
+7802000002571	Papa Lays 120g	1250
+7802000003455	Papa Lays americana 34g	450
+7802000004575	Papa Lays Lomo Cebolla	300
+7802000002182	Papa lays mediterranea Chilena	350
+7802000002656	Papa Lays mediterranea Jamon	350
+7802000002687	Papa lays mediterranea Oregano	350
+7802000004605	Papa Lays Pechuga pollo y limon	300
+7802000004544	Papa Lays Queso Tomillo	300
+7802000002564	Papas fritas Lays 250g	1950
+7802000003271	Papas fritas Moms Lisa	0
+7802000004872	Papas fritas Moms Lisas 450g	0
+7802000003257	Papas Fritas Moms Ondulada	0
+7802000003752	Papas Lays al Plato 34g	300
+7806500505006	Papel Hig. Confort 30Mts 4U	0
+7806500505709	Papel Hig. Confort 50Mts 1U	390
+7806500505815	Papel Higienico Confort 50Mts 1 Hoja 4U	0
+7806500507512	Papel Higienico Noble 4U 35Mts	0
+7802810004239	pastas chef spaghetti 5	0
+7802335000143	Pepinos 200g	0
+7801620855253	Pepsi Mini	0
+7801620017552	Pepsi Normal desechable 3lts	2550
+7898422747404	pepsodent 50g	0
+78026346	Petit- Fort Damasco 45g	0
+7802950003543	Picado Carne Vacuno 215g	1500
+7802950003444	Picado Pavo Verduras	0
+7802950003550	Picado Pollo Verduras	1500
+7802950003642	Picado Posta Espinacas	0
+7802335000136	Pickles 200g	0
+41333016634	Pila duracell AA	800
+41333428482	Pila Duracell AAA	800
+41333001098	Pila duracell AAA 4U	0
+7801315151516	Piñas en rodajas	0
+7804628720141	Pistachos Salados	0
+7792960000147	Poett Lavanda 900cc	0
+7793253025601	Poett Primavera	0
+7730110120635	polvos Royal 20g	0
+7802926000750	Postre 3 leches San Fco	0
+7802926000064	Postre Chocolate Mazapan San Fco	0
+7802926000965	Postre Chocolate Nuss Premium	0
+7802926000033	Postre Frambuesa Crema San Fco	0
+7802926000101	postre helado platano manjar	0
+7802926000491	Postre Ligth Berry Mania San Fco	0
+7802926000484	Postre Ligth Chocolate Nuss	0
+7802926000477	Postre Ligth Vainilla Parisina San Fco	0
+7802926000071	postre lucuma manjar	0
+7802926000132	postre papayas a la crema	0
+7802926000057	Postre Selva negra san fco	0
+7802820500103	Powerade Frozen Blast	950
+7802820502473	Powerade Lima Limon Ligth	950
+7802820500127	Powerade Naranja	950
+7802820501100	powerade uva 500cc	950
+7803473001603	Prepizza Toque Cebolla 2U	0
+7802230975324	Prestigio 35g	600
+7501009222729	Prestobarba Gillette	850
+78016118	Prestobarba Wilkinson	400
+7802225533218	Privilegio Almendra	0
+7802225533201	Privilegio frutilla	0
+7806500962335	Protectores diarios Ladysoft	0
+7613031026845	Pura Fruta Frutilla	800
+7613031376407	Pura Fruta Piña	800
+7802950006865	Pure de papas Maggi 125g	0
+7802950006827	Pure Papas Maggi 250g	0
+7803525400613	queque brownie familiar	0
+7803525400620	queque ingles	0
+7803525400446	Queque marmol	500
+7803525400644	queque marmol familiar	0
+7803525400637	queque vainilla	0
+7802900155018	Quesillo Soprole 360g	0
+7802920463100	Queso Crema Colun	0
+7802920423609	Queso Rallado Colun	900
+8000500023976	Raffaello	0
+7790520986153	Raid casa y jardin 276g	0
+7790520508485	Raid Moscas y Mosquitos	0
+7790520007155	Raid Todo Insectos 400cc	0
+7802000002762	Ramitas Original Evercrisp	0
+7802000003479	Ramitas Queso 42g evercrisp	500
+7802000003462	Ramitas Saladas Evercrisp 42g	500
+7803473541123	Rayitas	200
+6932945611871	Robot Lanza agua	0
+7802215121210	Rolls Blanco Crocante	0
+7802215121197	Rolls Crocante	0
+7802215121081	Rolls Nuts	0
+6921571190355	Rompehuesos	0
+7803600031275	sal lobos 1K	340
+7801907017329	Salchichon cerveza Envasado	0
+78098152	Salero lobos125g	0
+7802335000204	Salsa Americana 200g	0
+7613031571444	Salsa Blanca maggi	0
+7802575353047	Salsa Tomate Pomarola 200g	0
+7809635400710	Salsa Tomate Vergel 200cc	0
+7802810062116	Salsa Tomates Watts 200g	0
+7803480000101	Sandwichs Ave Palta	0
+7808771300397	Sandwichs fresco Ave Pimenton	0
+7803480000156	sandwichs Fuchs Ave Mayo	0
+7803480000057	Sandwichs Fuchs B. Jarpa	0
+7803480000064	sandwichs Fuchs Barros Luco	0
+7808771300526	Sandwichs Jamon Palmito	0
+7803480000071	Sandwichs Pastrami	0
+7806500241324	Servilleta Abolengo	250
+7806500241126	Servilleta Nova 50U	250
+7802000003615	Snack mix	450
+7802230086655	Soda clasica Mckay	600
+7802215511042	Soda ligth Costa	1000
+7613031214884	Soda Ligth McKay 180g	1000
+7805000141271	Soft Clasic 1000ml	0
+7802950006636	Sopa caracolitos maggi	0
+7802950008821	Sopa Carne semola	0
+7802950005288	Sopa Carne verduras	0
+7613030612247	Sopa Costilla fideos	0
+7802950006629	Sopa pollo arroz maggi	0
+7802950006612	Sopa pollo fideos	0
+7802950004359	Sopa pollo fideos Maggi	0
+7802950008814	Sopa pollo semola	0
+7613030239444	Sopa Uno costilla	250
+7613031242313	Sopa Uno Pollo 14g	250
+7802575004437	Spaguetti 5 Carozzi	0
+7801610005651	Sprite 3Lt	1800
+7801610005040	Sprite retornable 1Lt	550
+7801610355602	Sprite Retornable 2.5Lts	0
+7801610005286	Sprite retornable 2Lts	0
+7801610223727	Sprite zero desechable 1.5Lt	1550
+7801610223192	Sprite zero Lat 350cc	800
+7801610223284	Sprite Zero Retornable 2Lts	0
+7802220738649	Suny caluga 250g	0
+7613030612339	Super 8	300
+7613032598273	Super 8 Ball	0
+7613032499174	Super 8 Helado	400
+7613032826031	Super 8 mini	0
+7802926000149	suspiro limeño	0
+7802950001822	Svelty actifibras 610g	0
+7613031241200	Svelty actifibras 800g	0
+7802950006568	svelty calcilock	0
+7613032557232	Svelty descremada 100g	0
+7801810712663	Te Lipton Yellow 20U	1200
+7801875047014	Te Supremo Ceylan oro 20U	0
+7802926000194	Tiramisu	0
+7806540001834	Toalla favorita 12.5Mts	0
+7613032150655	Trencito Cono	490
+7802230086969	Triton Chocolate 126g	700
+7613031042913	Triton Naranja 126g	650
+7802230086952	Triton Vainilla 126g	800
+7804628720134	Tropical Nuts	0
+7613032180096	Trululu	350
+7802215514449	Tuyo oblea	0
+7802900375089	Uno al dia Frambuesa 4U	0
+78006621	Uno al dia Naranja 100ml	350
+7802900374068	Uno al dia Naranja Pack 4U	0
+7702251012537	Vasos Plasticos 25 Unidades	0
+78000032	Viceroy Ligth	2000
+78000049	78000049	2000
+7801907010559	Vienesa Colonial San Jorge 5U	0
+7801907010399	Vienesa Pollo San Jorge 5U	0
+7801970026099	Vienesa Tradicional Llanquihue 5U	0
+7801907008402	Vienesa Tradicional San Jorge 5U	0
+7801907000222	Vienesas Pavo San Jorge 5U	0
+7802337101046	Vinagre Rosado	0
+7802337101039	Vinagre Traverso Blanco	0
+613031649815	Vino mini 40g	0
+78068261	Vitafresh spearmint	200
+7802820600209	vital s/gas 600 ml	700
+7613030699767	Vitalife Avena y Pasas 129g	460
+7613031298891	Vitalife Avena y Pasas Mini 40g	150
+7613030699804	Vitalife Manzana 125g	460
+7613031298860	Vitalife Manzana 40g	150
+7802950088953	Vitalife Salvado Trigo 290g	700
+7802215124365	Vizzio chocolates caja	0
+7802810006592	Watt's manzana 200ml	400
+7802900230241	Yoghito Damasco 125g	350
+7802900230227	Yoghito Frutilla	350
+7802900230258	Yoghito Vainilla	350
+7802955003067	Yoghurt Calan Bioactivo  Platano	0
+7802955000998	Yoghurt Calan Bioactivo Chirimoya	0
+7802955001087	Yoghurt Calan Bioactivo Frutilla	0
+7802955001117	Yoghurt Calan Bioactivo Vainilla	0
+7802900334031	Yoghurt Diet Piña Soprole	470
+7802920000909	Yoghurt Ligth Frutilla	350
+7802950502510	Yoghurt Nestle Frutilla	250
+7802950502534	Yoghurt Nestle Vainilla	250
+7802900234751	Yoghurt next 125g	0
+7808709500219	Yoghurt Surlat Damasco	0
+7808709500530	Yoghurt Surlat Diet	0
+7808709500226	Yoghurt Surlat Frambuesa	0
+7808709500202	Yoghurt Surlat Frutilla	0
+7808709500233	Yoghurt Surlat Mora	0
+7808709501308	Yoghurt Surlat Vainilla	0
+7802900234850	yogurth next berries	380
+7613030979869	Zucosos 300g	0
+5201	tostada	450
+7802000004810	Toddy Gatolate 25g	200
+5501	Fondo Caja	1
+4025127020188	effect 250ml	1580
+6415600005166	battery	1700
+7611626000386	xtc light	1500
+8437003091094	on energ.	1500
+7802832000011	Afe cirue.	1400
+7802832101329	Afe membr.	1400
+7802832000035	7802832101220	1400
+7802832101121	Afe manz.	1400
+7794000730106	Ades f.tropi.	350
+7794000730021	ades manz.	350
+7794000730083	ades duraz.	350
+7794000730151	ades light manz.	350
+7794000730168	ades light naranj. 200ml	350
+7802810001283	ice frut piña 250ml	300
+7802215230424	refereskids piña	180
+7794000730267	ades piña 200ml	350
+7794000730052	ades naranj.	350
+7802810053138	Watt's J.fresco	1200
+7802900600112	Agua next s/g	500
+7802900611163	Agua next manz. 500cc	500
+1601	agua next mango/nrja	500
+7802810052216	jugo watts light 1Lt Dsco.	900
+7802900611231	agua next mango naranja 500cc	500
+7803473213051	Pan idea integ.	1500
+7801620015862	Catun light 500cc	700
+7803400000204	Lagos del sur brandy	400
+7801610203507	nordic lat 350ml	700
+7794000730045	Ades 1lt Naranja	1000
+7802810004581	Jugo Watts 1 lt frutilla	800
+7794000731004	Ades 1Lt Dzno. Light	1000
+7794000730076	Ades 1Lt Dzno.	1000
+7802900610036	Agua Next 1.5Lt P/guayaba	750
+7802900610081	Agua Next 1.5Lt framb.	750
+7802900601164	Agua Next Pomelo 500cc	500
+7802900600617	Agua Next c/gas 500cc	500
+7802900611088	Agua Next Fram. 500cc	500
+7802820441123	Benedictino c/gas 500cc	700
+78012080	coca zero 237ml	500
+78020870	coca light 237ml	450
+7801610350355	coca zero lat 350ml	800
+7802820600308	Vital soft gas 600 ml	650
+7801610350423	coca zero 580ml	750
+7802820441000	benedictino s/gas	700
+7801610001974	Coca 1Lt Desech.	1300
+7801610002261	fanta 1.5Lt Dsech	1550
+7801610005262	sprite 1.5Lt Dsech.	1150
+7802820441512	Benedictino s/gas 1.5L	800
+7802820441529	benedictino c/gas 1.5L	800
+7801610005606	sprite 500ml	690
+7801610002605	fanta 500ml	950
+7801610066522	fanta zero 500ml	650
+7801610118603	quatro light 500ml	1000
+7801610881118	fanta uva 500ml	690
+7802820651157	powerade frozen 600ml	1000
+7802820651201	powerade lima limón 600ml	950
+7802820651003	powerade naranja 600ml	1000
+7802820669305	powerade uva 600ml	950
+7801610002193	fanta lat 350ml	800
+7801610872420	quatro guaraná lat 350cc	550
+7801610118184	quatro light lat 350ml	800
+7801610066003	fanta zero lat 350ml	450
+7801610801000	fanta uva lat 350ml	450
+7801610005194	sprite lat 350ml	800
+7802820757309	nestea light limón 400ml	690
+7801610772102	fanta frutilla lat 350ml	490
+7802820075663	nestea green tea	690
+7802820758108	nestea light Dzno. 400ml	690
+401020	snickers 58.7	600
+7802230971227	sahne nuss35g	500
+7802950075175	trencito 30g	400
+7802000003424	mani evercrisp 40g	250
+7802215303289	ceraeal bar  yog+frut 21g	250
+7802200137974	mentitas ambroso.	250
+7802200133426	Full limón ambro.	300
+7790040613607	Alfajor bon o bon blanco	450
+7790040613706	Alfajor bon o bon choco café	450
+7790040614703	Alfajor bon o bon black	300
+5011435626203	encendedor electico ronson	500
+5011435624582	Encendedor ronson piedra	450
+78012998	chicle dentine spearmint	400
+84157010	smoking	600
+77924285	hall frulilla crema	250
+7895800310076	freshen up menta	300
+7895800310052	freshen up mora azul	300
+77927316	hall free	250
+77921420	hall lemon lyptus	350
+78068254	vitafresh mint menthol	200
+78009127	vitafresh berries	200
+77924261	hall mora crema	250
+7798002412190	clorets	300
+78007505	bigtime sandía	350
+78011762	bigtime passion	350
+78011748	bigtime aqua	350
+42113270	orbit watermelon	400
+50173822	orbit spermint	600
+42070429	orbit fruit	380
+42070634	orbit cherry mint	400
+50173099	orbit fresa ácida	490
+7802225450867	bigtime dent spearminrt	450
+7803525400439	galletón choco chip	500
+7803403403019	mil hojas agua de p.	350
+7803473711267	mankeke	500
+7802215303326	gran cereal muesli 38g.	300
+7802215512018	din don 47g.	300
+78030299	tuareg 48g.	350
+7802225683289	cracker 54 g.	250
+7803473543189	gansito	550
+7613031337514	triton vainill. 34g.	150
+7802200137677	frugelé frutos	180
+780347300392	borrar1	350
+7803473000392	brownie ideal	450
+7803473542182	pingüino 120g.	500
+7802200133099	mentitas zero	300
+77901248	sedal ceramidas 15ml	150
+7803473241023	quequito ideal	350
+7613031649815	mini vino 40 g.	300
+7501761828849	Gall. quaker manz. canel. 50g.	300
+7501761820904	G. quaker pasas 50g.	300
+7613031291441	chocapic 30g.	450
+7802000004971	quaker t. m. nuts frutas y semillas	250
+7802000004964	quaker t. m. frutas	250
+7802000004957	quaker t. m. nuts y semillas	250
+7802225682909	selz s. queso	200
+7802000004209	Q. barra cereal musse choco.	150
+7802000003714	Q. barra cereal manzana	250
+7802000004018	Q. barra cereal frutilla	200
+7802000004216	Q. barra cereal duraz.	150
+7802000003707	Q. barra cereal chispas choco.	300
+7802000004339	Q. galletón a. berries	250
+7802000004346	Q. galletón chispas choco.	250
+7501761848007	Q. barra stila manz.	250
+7501761847994	Q. barra stila mora	250
+7501761860368	Q. paketón manz.	1000
+7501761860351	Q. paketón granola	1000
+7501761863642	Q. paketón pasas	1000
+7802215303449	G. cereal s/azucar 117g.	750
+7802215302060	G. cereal muesli 135g.	800
+7802215508523	Donuts costa choco 100g.	1100
+7802215505188	Costa chips nuss 125g.	500
+7802215505287	Costa chocolate	800
+7802215505270	Costa limón	800
+7802215505294	Costa mantequilla 140g.	800
+7802215505140	Costa chip choc 125g.	500
+7802215512032	Frac choco.	650
+7802215502262	Costa tuareg 120g.	750
+7802215505409	Costa coco 125g.	700
+7805000300074	té Club Ceylán Selec. Esp. 20 bols.	650
+7801810112920	té Club Et. Verde 20 Bols.	450
+7802225682107	Selz Cracker 107g	600
+7802215505300	Costa Vino 160g	850
+7802230086648	Soda Clás. McKay 180g	1000
+8888021204223	Pila AA energizer	600
+8888021204261	pila AAA energizer	600
+7802215121166	costamilk excellence 180g.	1600
+7802950002676	mayonesa maggi 100ml	350
+7802215501418	Costa agua ligth 210g.	1000
+7802230086570	mckay agua 205g.	1000
+7802225450850	bigtime dent menta mentol	450
+42113478	orbit professio. White Spearmint	800
+42069942	orbit fresh mint	650
+50173204	orbit peppermint	600
+50173617	orbit eucalyptus	650
+7806550001374	kotex ultra fina c/alas	760
+7809604015556	kotex esencial normal c/alas	860
+7802900348366	next trozo ciruela 165 g	380
+78013681	Kent ice Plus	2400
+78028135	Derby light 20	1700
+78028128	Derby rojo 20	1700
+78014398	Pall mall naranjo 10	800
+78014299	Pall mall azul 10	800
+78095069	Belmont ultra light	2500
+78012493	Kent nanotek neo	2100
+78028142	Derby rojo 10	900
+78028159	Derby light 10	900
+78006355	Belmont rojo 10	1300
+7750885006941	mentitas masticrunch	250
+7802900218249	next leche cult. Drzn. 190 ml	500
+7802900231217	soproble bat. Peach melba 170g	450
+7802900300050	soprole yog. Bat. Vainilla 175g	450
+7802900295103	soprole jalea guinda 110 g	400
+7802900218232	next leche cult. Chir. 190ml	500
+7802900218287	next leche cult. Fram. 190ml	500
+7802900300043	soprole yog. Bat. Damasco 175g	450
+7802900233013	soprole yog. Gold 170g	570
+7802900233112	soprole yog. Gold stracciatella 170g	490
+7802900233174	soprole yog. Gold capuccino & nueces 170g	490
+7802900231200	soprole batifrut frutos tropicales 170g	450
+7802900257057	soprole flan vainilla 120g	400
+7802900220082	soprole sém. c/ leche fram.	600
+7802900257149	soprole flan caramelo	450
+7802900348137	yog. Next trozo drzn. 165g	380
+7802900238612	soprol. Bat. Mix. Mora 190g	450
+7802900238629	soprol. Bat. Mix. Frut. 190g	450
+7802900238636	soprol. Bat. Mix. Piña 190g	450
+7802900234904	next granola papaya	550
+7802900234980	soprole next granola fram.	550
+7802900334024	sprol. Yog diet frut.	500
+7802900220044	sprol. Sém. c/ leche damasco	450
+7802900056025	soprol. Leche frutilla 200ml	500
+7802900220112	sprl. Sém. c/ leche mora	450
+7802910002661	lonco leche light choc. 200ml	450
+7801305002460	mermelada regimel mora 200g	700
+7801305000329	mermelada wasil ciruela 250g	550
+7802910054202	lonco leche choc. 200ml	500
+7802910056206	 lonco leche frutilla 200ml	500
+7802215511622	soda light costa 54 g	300
+7802215511615	soda costa 54g	300
+7802950002133	nescafé trad 100g	2500
+7801320009178	aceite protal 1/4 lt.	550
+7802200266001	vivo naranja 8g	300
+7802200266032	vivo durazno 8g	200
+7802800574612	zero naranja 8g	200
+7802575223012	sprim naranja 45g	200
+7613031242399	sopa uno choclo 14g	200
+7802215303241	gran cereal fibra de cacao 135g	800
+7802800574629	zero piña 7g	200
+7802832101220	afe pera 300ml	1400
+7802832000080	afe cereza 300ml	1250
+15700072806	milk chocolate 28g	450
+7801620003302	lipton ice tea limón	1000
+7801620003319	lipton ice tea durazno 400ml	1000
+7801620003760	watts soya naranja 400ml	650
+7801620003326	lipton green tea limon 400ml	1000
+7801620003388	watts ice frut naranja mistic 400ml	650
+7801620003371	watts ice frut frambuesa wild	650
+7750885006989	full masticrunch	250
+78012578	Pall mall rojo 20	1500
+78000292	Belmont light caj. Blanda 20	1800
+78013551	lucky rojo 11	1000
+5202	aliado	450
+5203	huevo borrar	500
+5204	palta	500
+6101	sandwich triple	1700
+5205	queso fresco	500
+5206	jamón palta	600
+5207	t	600
+5208	tomate palta	650
+5209	q. fresco palta	650
+5210	q. freco tomate	650
+6102	pala/tom/palm	1390
+6103	palta/tom/q.fsco	1390
+7801620075941	pepsi 500ml des.	1100
+7801620016036	Kem 500cc des.	1100
+7801620016043	Pepsi light 500ml des.	1000
+7801620003609	Kem light 500cc des.	700
+7801620855185	7UP light 500ml	1000
+7801620855215	7UP 500ml	1000
+41789001512	Maruchan creamy chik.	650
+41789001925	Maruchan carne de res	650
+41789001956	Maruchan Camarón	650
+41789001260	Maruchan Califor. Veg.	650
+41789001888	Maruchan Carne asada	650
+7802000001192	Lay´s Artesanas 42g	450
+7802000002731	Lay´s Corte Liso 30g	200
+7802000004636	Cheetos horneados 42g	400
+7802000002809	Toddy Choco crac´s 30g	200
+7801620002107	Kem lata 250cc	350
+7801620002152	7 up lata 250ml	350
+7801620002145	Pepsi lata 250ml	350
+7802000003097	Suflés papa 24g	150
+7802000003080	Suflés queso 24g	150
+7802000003493	Doristos pizza 36g	450
+7802000002816	Cabritas caramelo 42g	450
+7801620001834	Watt´s frutilla 300cc	800
+7801620167646	Watt´s papaya 300cc	700
+7801620011673	Watt´s damasco 300cc	700
+7801620002909	Watt´s frut. Light 300cc	650
+78006157	Stereo	650
+7613032782825	Chomp sahne-nuss	2100
+7613030240259	Crazy flocos	850
+7801610223604	Sprite Zero 500ml	950
+7801620002084	Pap lata 250ml	350
+7801620003890	Canada dry lata 250cc	350
+7801620016029	Pap 500cc des.	1100
+7801620001124	Bilz light 500cc des.	690
+7801620001711	Kem extreme 500cc	1100
+7801620015817	catun s/g 500cc	700
+7801620003999	Catun woman ginger 500cc	800
+7801620003975	Catun Woman frutos 500cc	800
+7801620004118	Catun + frut. Trop. 500cc	800
+7801620002367	Catun + Citrus 500cc	900
+7801620150839	canada dry light lata 350cc	500
+7801620360153	Canada dry lata 350cc	800
+739510001503	Adrenaline rush 245ml	1390
+7801620852580	Kem lata 350cc	800
+7801620852955	Catun c/g 1.600 cc	1000
+7801620003968	Catun Woman frutos 1.500cc	1200
+7801620002336	Watt´s tutikiwi 300cc	700
+7801620016128	Canada dry 500cc des.	1100
+7801620002671	Gatorade lima-limon 500ml	1100
+7801620002664	Gatorade manzana 500ml	1100
+7801620002695	Gatorade frut. Trop. 591ml	950
+7801620002657	Gatorade naranja 500ml	1100
+7801620016012	Bilz 500cc des.	1000
+7801620004095	Catun Woman frutas sil. 500cc	800
+7801620330132	Crush lata 350cc	800
+7801620016111	Limon Soda 500cc des.	950
+7802215230417	refreskid narajana	180
+7000	Empanadas	1400
+7001	Emp. Queso	800
+7002	Emp. Jam/queso	800
+1	marraqueta 1100	1300
+2	combina 2 (pavo salame palta fresco tom pal)	1300
+3	aliado o huevo o tostada	1100
+4	Palta queso fresco tostada	1000
+5	TOSTAR EL PAN	400
+6	jam/palta	900
+7	tom/queso	900
+8	tom/palta o tom/huevo	1300
+9	qso fsco./palta o pavo o tomate	1300
+10	queso fsco./tom	700
+7003	Chaparrita	950
+7004	Champi./queso	950
+7005	Española	800
+11	tostada int.	1100
+12	aliado int.	900
+13	huevo int.	1100
+14	palta int.	1000
+15	Tostada mantequilla palta mantequilla queso frsco	1500
+16	jam/palta int.	1200
+17	tom/queso int.	1200
+18	tom/palta int.	1400
+19	queso frsc./palta int.	1500
+20	queso frsc./tom int.	700
+51	café mediano	1400
+52	café máquina jumbo	2000
+53	huevo plus	1300
+54	Vanila Gde.	700
+55	mocca esp. Gde.	700
+56	Mocca Gde.	700
+57	Espresso	700
+58	Tradición Gde.	700
+59	Café Tarro Gde.	950
+60	TE MEDIANO	700
+61	café máquina chico	1000
+62	Latte ch.	550
+63	Cap. Vanila ch.	750
+64	Vanila ch.	550
+65	Mocca. Esp. Ch.	550
+66	Mocca. Ch.	550
+67	Espresso ch.	550
+68	Tradición ch.	550
+69	Café Tarro ch.	600
+70	Té chico	500
+7802920777214	Leche colun semides. Choc 200cc	500
+7802900348205	Next trozo papaya165g	500
+78007475	Uno al dia multifrut.	350
+7801800103822	Aconcagua Mix durzn pera 227g	600
+101	Pie de limon	1200
+102	Kuchen de manzana	1200
+103	Kuchen de fram.	1200
+104	Trozo torta	1050
+105	Tartaleta de frut.	800
+106	Sobre de manzana	550
+107	trenza danesa	500
+7801610618882	Qu4tro light 237cc	350
+78004214	Sprite 237cc	500
+7801610002933	Fanta 237cc	500
+108	Muffin	950
+109	Queque nury	250
+110	Ceregli	1550
+111	Ceregli fram.	1700
+7006	Pizza	1500
+7802810052124	Watt´s 1 lt. Durzn.	950
+7802810052186	Watt's naranja light 1lt.	950
+7007	pastel choclo	2500
+7805513000416	encendedor click	250
+7801620002770	Limón Soda light lat 350cc	500
+7802215230486	refreskids framb.	180
+7613032800864	pura fruta framb.	1000
+9002490100070	red bull	1700
+4010207	Snickers	800
+7802810052070	Watt's piña 1ltr.	950
+112	baclawa	1000
+113	fatayer	1500
+114	galleta lengua	250
+115	cuchufli negro	150
+116	malva	250
+117	mendocino	500
+118	caluga	250
+119	alfajor artesanal	600
+7801620853426	Watts light Dzno. 300cc	700
+7801620011666	watts Dzno. 300cc.	800
+7801620003494	watts tuttiarándano 300cc.	800
+71	Café con leche chico	600
+72	Café con leche grande	750
+73	choc. Con leche chico	650
+74	Choc. Con leche grande	1000
+7801620002374	Catun +Citrus 1500cc	1200
+7801620004088	Catun Woman frut. Silv. 1500cc	1200
+2801	Cabsha bocadito	100
+7802900334130	Yog. Diet durazno	470
+7802900334055	Yog. Diet vainilla	470
+4301	Sobre capuccino	300
+7809604006103	Kotex esencial suave	890
+7801620002978	Gatorade Cool blue 591ml	1000
+7801620011949	Gatorade Naranja 591ml	950
+7801620015855	Catun l/g 1.600cc	1000
+7802900348021	Next Trozo frut. 165g	500
+7802000004025	Quaker lemon pie	250
+7801620002091	Bilz lata 250cc	350
+7801620003906	Canada dry lata 250ml	350
+7802900348083	Next trozo fram. 165g	500
+120	Trufa	150
+1602	fjfgjfgjfg	0
+4901	Ensalada chica	600
+6104	Pal/tom/jam pavo	1390
+6105	ave tomate	1390
+6106	Palta/lech/tom	1200
+6107	jamon huevo	1390
+4902	Ensalada grande	1800
+111324	Pollo asado c/puré	1800
+111317	Pollo asado con arroz	1800
+121101	Pollo asado c/ensaladas	1800
+121200	Filete de pechuga c/ensaladas	1800
+118019	Budin de verduras c/puré	1800
+4302	Lapiz pasta bic	200
+7801620002961	gatorade cool blue 500ml.	1100
+7501761820911	galleta granola quaker 50g	300
+7801620003265	más durazno 500cc	800
+4303	Sobre nescafe	100
+4304	Sobre café vienés	300
+4305	Sobre Vainilla	300
+2802	pack dulce	100
+7802920106168	leche colun descremada 200cc	500
+7613030155973	Sahne-nuss s/azucar 100g	2450
+7802900611958	Agua next sandia 500cc.	500
+7802900611590	Agua next mandarina 500cc.	500
+6415600042406	Battery sugar free	2260
+112512	Goulash de carne c/arroz	1800
+7801620016005	Crush 500cc des.	1100
+7801620011840	Gatorade f/tropi 500ml	1100
+4010100	milkyway	600
+112208	Lasaña	1800
+7800004399567	Tapsin noche	500
+7800004399536	Tapsin dia	500
+78039957	Tapsin	200
+4306	Anacin	250
+7804900119281	Sal de fruta eno Limon	350
+7804900119182	Sal de fruta eno	350
+7801620001704	Kem extreme lata 350cc	850
+7809596400453	Claro 3.600	3600
+7809610800054	Movistar 5.000	5000
+7809610800689	Movistar 3.500	3500
+7809588000043	Entel pcs 3.500	3500
+4307	Huevo duro	200
+7802215303388	Cereal bar frutos rojos	250
+7613030240280	Crazy fram.	550
+7803473001177	Multicereal linaza	150
+7792170110469	Quaker menta c/ choc.	150
+4308	Fósforos	80
+4309	dsgsdgs	0
+7801620011659	whatt's naranja 300cc.	800
+7801620016975	Catun + naranja 500cc	800
+7801620003241	Catun + pomelo 500cc	800
+7802900022143	Sémola soprole caramelo	550
+7801620001919	watt's boca ancha manzana 300cc.	700
+7801620003234	Catun + Citrus Pomelo 1500cc	1200
+7801620016982	Catun + naranja 1500cc	890
+7801620853402	Watt's naranja light 300cc	700
+78009868	Uno al dia frambuesa	350
+7794000731011	Ades durz. Light 200ml	350
+7802215303159	Cereal bar Golden+leche	250
+7802220776474	alfajor Calaf prem.	250
+7802220176403	Calaf Classic alf.	250
+111126	pollo c/ puré	1800
+7802900231057	batifrut frutilla	580
+7801620004101	Catun + Frut. Trop. 1500cc	1200
+6108	Bagette	1680
+7802900231002	Yog. Batifrut papaya	450
+7794000730014	Ades Manzana 1lt.	1000
+77941626	bon o bon	150
+77927583	bon o bon choc.	150
+7802900233181	Gold Lucuma y nuez	570
+8437003091018	Extreme energy drink	1500
+7802900469160	jnext manzana 300cc	500
+7802900469368	jnext ciruela 300cc	500
+7802900550257	mix chocolate manjar 200ml	300
+7801610325100	fanta limon lata 350ml	490
+7801610762349	Qu4tro guaraná 500ml	690
+7802900300029	Yog. Batido frutilla 175g	450
+1301	Macedonia chica	350
+7802910332201	shake manjar 170ml	400
+7802910330207	shake chocolate 170ml	400
+7802910331204	shake frutilla 170ml	400
+7809596400064	claro 5000	5000
+7200	hello Card 5000	5000
+7802000002113	quaquer quadritos 30g.	350
+7803400000105	Lagos del sur clásico	400
+7802225450829	bigtime BigPack dent spearmint	1200
+7794000730144	Ades Naranja Light 1lt	1000
+7802900611033	Agua Next 500ml piña g.	500
+7802900600518	agua next gasicifada 1.5 lt.	700
+7801620001117	pap ligth 500 cc.	690
+7802820757101	nestea Dzno. 400ml	690
+7801620340155	Limón Soda lat 350cc	800
+7801620003258	Catun + Durazno	1200
+7802900234836	Yog. Next Mix Piña-Mango	380
+7702425634190	Kotex Sensitive	860
+7802215302053	Gall. Gran Cereal Clásica 135g	800
+7802000004087	Twistos 4 Quesos 37g	350
+7802000004070	Twistos Jamón 37g	350
+7802000004094	Twistos Mantequilla 37g	350
+7802000005237	Lays Plato Barbecue 34g	300
+7809609500040	TLP 1000	1000
+78018006	Entel 5000	5000
+7804612130178	Encendedor moon	250
+81240890	entel 3500	0
+4310	huevo crudo	150
+1000	fruta	1300
+4311	Vaso termico	50
+4312	Pan solo	120
+4313	Bolsa de té	50
+42102021	Orbit profess. strong mint	750
+4314	bombon cereza al coñac	200
+4315	koyak	70
+75	Té c/ leche gde.	700
+76	Té c/ leche ch.	550
+21	Palta/queso	650
+22	Palta/queso int.	650
+2803	Almendras conf.	570
+2804	chuchufli x 3	450
+1001	bolsa azucar	50
+7802810007186	Watt´s soya naran. 200ml	350
+7802810007124	Watt's soya manz. 200ml	350
+7501761857245	Q. stila avena fresa	250
+117012	Zapallo C/ arroz	1800
+121	Turrón arabe	350
+2805	Alfajor fundación	450
+7801620853181	Crush light lata 350cc	700
+7803525999070	nutra bien avena man. 4 galletas	450
+7803525999063	Nutra bien avena pasas 4 galletas	450
+7803525999087	Nutra bien av. Choc 4 galletas	450
+81032852	Entel pcs 5.000	5000
+7702133253119	halls extra fuerte	300
+7801610350409	coca cola zero 1.5 lt.	1650
+7802215504662	Nik frutilla Costa	250
+7802215504655	Nik Bocado	500
+7801505000242	azucar zucal 1k	700
+750	GOMITAS, GUAGUITAS, GOMAS.	750
+\.
+
+
+--
+-- TOC entry 3340 (class 0 OID 33613)
+-- Dependencies: 214
+-- Data for Name: ventas; Type: TABLE DATA; Schema: cajaregistradora01web; Owner: fastcom_apps
+--
+
+COPY cajaregistradora01web.ventas (venta, fecha, hora, totalventa, totalivaaplicado, totalcigarros, totalpagado, totalvuelto, boletafactura, formapago, observaciones) FROM stdin;
+537668	2020-12-02	07:51:02	2150	0	0	0	0	B	E	Nueva Venta
+537669	2020-12-02	08:15:08	0	0	0	0	0	B	E	Nueva Venta
+537670	2020-12-02	08:56:15	8100	0	4000	0	0	B	E	Nueva Venta
+537671	2020-12-02	10:22:59	2710	0	0	0	0	B	E	Nueva Venta
+537672	2020-12-02	10:23:00	0	0	0	0	0	B	E	Nueva Venta
+537673	2020-12-02	10:23:00	0	0	0	0	0	B	E	Nueva Venta
+537674	2020-12-02	10:23:00	0	0	0	0	0	B	E	Nueva Venta
+537675	2020-12-02	10:23:01	0	0	0	0	0	B	E	Nueva Venta
+537676	2020-12-02	11:16:42	1700	0	0	0	0	B	E	Nueva Venta
+537677	2020-12-02	11:16:43	0	0	0	0	0	B	E	Nueva Venta
+537678	2020-12-02	11:18:54	450	0	0	0	0	B	E	Nueva Venta
+537679	2020-12-02	11:18:55	0	0	0	0	0	B	E	Nueva Venta
+537680	2020-12-02	12:15:13	1800	0	0	0	0	B	E	Nueva Venta
+537681	2020-12-02	12:15:14	0	0	0	0	0	B	E	Nueva Venta
+537682	2020-12-02	12:16:39	1950	0	0	0	0	B	E	Nueva Venta
+537683	2020-12-02	12:16:39	3000	0	0	0	0	B	E	Nueva Venta
+537684	2020-12-02	14:47:25	5300	0	0	0	0	B	E	Nva. Venta
+537685	2020-12-02	14:47:26	0	0	0	0	0	B	E	Nueva Venta
+537686	2020-12-02	14:51:45	5240	0	0	0	0	B	E	Nueva Venta
+537687	2020-12-02	16:40:36	4100	0	0	0	0	B	E	Nueva Venta
+537688	2020-12-03	07:45:15	11900	0	0	0	0	B	E	Nueva Venta
+537689	2020-12-03	07:45:17	0	0	0	0	0	B	E	Nueva Venta
+537690	2020-12-03	11:00:57	11200	0	3500	0	0	B	E	Nueva Venta
+537691	2020-12-03	11:00:59	0	0	0	0	0	B	E	Nueva Venta
+537692	2020-12-03	11:01:39	1150	0	0	0	0	B	E	Nueva Venta
+537693	2020-12-03	11:01:40	0	0	0	0	0	B	E	Nueva Venta
+537694	2020-12-03	11:12:58	600	0	0	0	0	B	E	Nueva Venta
+537695	2020-12-03	11:13:00	0	0	0	0	0	B	E	Nueva Venta
+537696	2020-12-03	12:06:38	4600	0	0	0	0	B	E	Nueva Venta
+537697	2020-12-03	12:13:17	1000	0	0	0	0	B	E	Nueva Venta
+537698	2020-12-03	12:13:59	0	0	0	0	0	B	E	Nueva Venta
+537699	2020-12-03	12:36:58	5200	0	3900	0	0	B	E	Nueva Venta
+537700	2020-12-03	12:43:00	5340	0	0	0	0	B	E	Nueva Venta
+537701	2020-12-03	12:57:11	1200	0	0	0	0	B	E	Nueva Venta
+537702	2020-12-03	12:58:35	0	0	0	0	0	B	E	Nueva Venta
+537703	2020-12-03	13:00:14	2800	0	0	0	0	B	E	Nueva Venta
+537704	2020-12-03	14:21:34	1650	0	0	0	0	B	E	Nueva Venta
+537705	2020-12-03	14:26:46	600	0	0	0	0	B	E	Nueva Venta
+537706	2020-12-03	14:26:47	0	0	0	0	0	B	E	Nueva Venta
+537707	2020-12-03	14:30:08	750	0	0	0	0	B	E	Nueva Venta
+537708	2020-12-03	14:42:25	11500	0	8600	0	0	B	E	Nueva Venta
+537709	2020-12-04	08:10:57	1500	0	0	0	0	B	E	Nueva Venta
+537710	2020-12-04	13:04:44	5450	0	2500	0	0	B	E	Nueva Venta
+537711	2020-12-04	13:41:07	1600	0	0	0	0	B	E	Nueva Venta
+537712	2020-12-04	13:41:09	0	0	0	0	0	B	E	Nueva Venta
+537713	2020-12-04	13:50:52	350	0	0	0	0	B	E	Nueva Venta
+537714	2020-12-04	13:50:53	0	0	0	0	0	B	E	Nueva Venta
+537715	2020-12-07	07:31:42	870	0	0	0	0	B	E	Nueva Venta
+537716	2020-12-07	07:42:13	700	0	0	0	0	B	E	Nueva Venta
+537717	2020-12-07	08:03:57	1200	0	0	0	0	B	E	Nueva Venta
+537718	2020-12-07	08:05:15	6900	0	0	0	0	B	E	Nueva Venta
+537719	2020-12-07	08:07:00	1850	0	0	0	0	B	E	Nueva Venta
+537720	2020-12-07	08:09:37	2000	0	0	0	0	B	E	Nueva Venta
+537721	2020-12-07	08:12:17	2300	0	0	0	0	B	E	Nueva Venta
+537722	2020-12-07	08:12:57	0	0	0	0	0	B	E	Nueva Venta
+537723	2020-12-07	08:14:12	6200	0	0	0	0	B	E	Nueva Venta
+537724	2020-12-07	08:15:51	1000	0	0	0	0	B	E	Nueva Venta
+537725	2020-12-07	08:17:02	3900	0	2000	0	0	B	E	Nueva Venta
+537726	2020-12-07	08:17:46	2600	0	0	0	0	B	E	Nueva Venta
+537727	2020-12-07	08:19:04	2300	0	0	0	0	B	E	Nueva Venta
+537728	2020-12-07	08:21:29	1300	0	0	0	0	B	E	Nueva Venta
+537729	2020-12-07	08:25:50	2000	0	2000	0	0	B	E	Nueva Venta
+537730	2020-12-07	08:26:43	450	0	0	0	0	B	E	Nueva Venta
+537731	2020-12-07	08:30:22	0	0	0	0	0	B	E	Nueva Venta
+537732	2020-12-07	08:32:25	2000	0	0	0	0	B	E	Nueva Venta
+537733	2020-12-07	08:34:14	2400	0	0	0	0	B	E	Nueva Venta
+537734	2020-12-07	08:34:53	1500	0	0	0	0	B	E	Nueva Venta
+537735	2020-12-07	08:39:14	2900	0	0	0	0	B	E	Nueva Venta
+537736	2020-12-07	08:43:34	2200	0	0	0	0	B	E	Nueva Venta
+537737	2020-12-07	08:46:36	1350	0	0	0	0	B	E	Nueva Venta
+537738	2020-12-07	08:57:08	0	0	0	0	0	B	E	Nueva Venta
+537739	2020-12-07	08:57:59	2400	0	0	0	0	B	E	Nueva Venta
+537740	2020-12-07	09:04:05	3700	0	0	0	0	B	E	Nueva Venta
+537741	2020-12-07	09:04:54	2400	0	0	0	0	B	E	Nueva Venta
+537742	2020-12-07	09:07:10	2450	0	0	0	0	B	E	Nueva Venta
+537743	2020-12-07	09:08:18	1650	0	0	0	0	B	E	Nueva Venta
+537744	2020-12-07	09:10:13	1100	0	0	0	0	B	E	Nueva Venta
+537745	2020-12-07	09:10:50	2300	0	0	0	0	B	E	Nueva Venta
+537746	2020-12-07	09:12:05	1000	0	0	0	0	B	E	Nueva Venta
+537747	2020-12-07	09:13:20	5000	0	0	0	0	B	E	Nueva Venta
+537748	2020-12-07	09:14:09	2300	0	0	0	0	B	E	Nueva Venta
+537749	2020-12-07	09:15:28	3800	0	0	0	0	B	E	Nueva Venta
+537750	2020-12-07	09:16:43	0	0	0	0	0	B	E	Nueva Venta
+537751	2020-12-07	09:18:01	2700	0	0	0	0	B	E	Nueva Venta
+537752	2020-12-07	09:18:32	3300	0	0	0	0	B	E	Nueva Venta
+537753	2020-12-07	09:21:27	2000	0	2000	0	0	B	E	Nueva Venta
+537754	2020-12-07	09:22:27	2400	0	0	0	0	B	E	Nueva Venta
+537755	2020-12-07	09:22:36	600	0	0	0	0	B	E	Nueva Venta
+537756	2020-12-07	09:23:35	1300	0	0	0	0	B	E	Nueva Venta
+537757	2020-12-07	09:25:34	4500	0	0	0	0	B	E	Nueva Venta
+537758	2020-12-07	09:25:56	1600	0	0	0	0	B	E	Nueva Venta
+537759	2020-12-07	09:26:43	0	0	0	0	0	B	E	Nueva Venta
+537760	2020-12-07	09:28:38	2400	0	0	0	0	B	E	Nueva Venta
+537761	2020-12-07	09:35:36	0	0	0	0	0	B	E	Nueva Venta
+537762	2020-12-07	09:36:30	2000	0	0	0	0	B	E	Nueva Venta
+537763	2020-12-07	09:37:39	550	0	0	0	0	B	E	Nueva Venta
+537764	2020-12-07	09:38:35	8000	0	8000	0	0	B	E	Nueva Venta
+537765	2020-12-07	09:46:06	4800	0	0	0	0	B	E	Nueva Venta
+537766	2020-12-07	09:46:18	1200	0	0	0	0	B	E	Nueva Venta
+537767	2020-12-07	09:47:10	2300	0	0	0	0	B	E	Nueva Venta
+537768	2020-12-07	09:49:00	1400	0	0	0	0	B	E	Nueva Venta
+537769	2020-12-07	09:51:51	3200	0	0	0	0	B	E	Nueva Venta
+537770	2020-12-07	10:01:32	2250	0	0	0	0	B	E	Nueva Venta
+537771	2020-12-07	10:09:11	2400	0	0	0	0	B	E	Nueva Venta
+537772	2020-12-07	10:13:35	900	0	0	0	0	B	E	Nueva Venta
+537773	2020-12-07	10:14:09	1500	0	0	0	0	B	E	Nueva Venta
+537774	2020-12-07	10:45:34	0	0	0	0	0	B	E	Nueva Venta
+537775	2020-12-07	10:52:24	2200	0	0	0	0	B	E	Nueva Venta
+537776	2020-12-07	10:52:25	0	0	0	0	0	B	E	Nueva Venta
+537777	2020-12-07	11:18:54	1000	0	0	0	0	B	E	Nueva Venta
+537778	2020-12-07	11:21:33	3800	0	0	0	0	B	E	Nueva Venta
+537779	2020-12-07	11:32:19	13700	0	0	0	0	B	E	Nueva Venta
+537780	2020-12-07	11:50:57	1990	0	0	0	0	B	E	Nueva Venta
+537781	2020-12-07	11:53:16	3250	0	0	0	0	B	E	Nueva Venta
+537782	2020-12-07	11:56:13	700	0	0	0	0	B	E	Nueva Venta
+537783	2020-12-07	11:57:51	950	0	0	0	0	B	E	Nueva Venta
+537784	2020-12-07	12:10:36	600	0	0	0	0	B	E	Nueva Venta
+537785	2020-12-07	12:17:05	3600	0	0	0	0	B	E	Nueva Venta
+537786	2020-12-07	12:17:57	2350	0	0	0	0	B	E	Nueva Venta
+537787	2020-12-07	12:21:01	4900	0	0	0	0	B	E	Nueva Venta
+537788	2020-12-07	12:26:06	0	0	0	0	0	B	E	Nueva Venta
+537789	2020-12-07	12:26:06	0	0	0	0	0	B	E	Nueva Venta
+537790	2020-12-07	12:29:09	0	0	0	0	0	B	E	Nva. Venta
+537791	2020-12-07	12:29:09	0	0	0	0	0	B	E	Nueva Venta
+537792	2020-12-07	12:31:11	0	0	0	0	0	B	E	Nva. Venta
+537793	2020-12-07	12:34:02	3450	0	0	0	0	B	E	Nueva Venta
+537794	2020-12-07	13:04:40	1150	0	0	0	0	B	E	Nueva Venta
+537795	2020-12-07	13:17:15	900	0	0	0	0	B	E	Nueva Venta
+537796	2020-12-07	14:13:26	600	0	0	0	0	B	E	Nueva Venta
+537797	2020-12-07	14:15:03	2550	0	0	0	0	B	E	Nueva Venta
+537798	2020-12-07	16:09:11	2950	0	0	0	0	B	E	Nueva Venta
+537799	2020-12-07	16:09:13	0	0	0	0	0	B	E	Nueva Venta
+537800	2020-12-07	16:09:13	1800	0	1800	0	0	B	E	Nueva Venta
+537801	2020-12-09	08:46:39	9200	0	6000	0	0	B	E	Nva. Venta
+537802	2020-12-09	09:14:22	5900	0	4200	0	0	B	E	Nueva Venta
+537803	2020-12-09	09:28:17	6750	0	2500	0	0	B	E	Nueva Venta
+537804	2020-12-09	09:30:02	0	0	0	0	0	B	E	Nueva Venta
+537805	2020-12-09	09:30:16	3000	0	0	0	0	B	E	Nueva Venta
+537806	2020-12-09	09:30:16	800	0	0	0	0	B	E	Nueva Venta
+537807	2020-12-09	14:36:43	4850	0	0	0	0	B	E	Nva. Venta
+537808	2020-12-09	15:37:16	600	0	0	0	0	B	E	Nueva Venta
+537809	2020-12-09	15:37:17	0	0	0	0	0	B	E	Nueva Venta
+537810	2020-12-09	15:38:10	600	0	0	0	0	B	E	Nueva Venta
+537811	2020-12-09	15:38:11	0	0	0	0	0	B	E	Nueva Venta
+537812	2020-12-09	15:38:12	0	0	0	0	0	B	E	Nueva Venta
+537813	2020-12-10	10:11:11	5300	0	0	0	0	B	E	Nva. Venta
+537814	2020-12-10	10:14:30	0	0	0	0	0	B	E	Nueva Venta
+537815	2020-12-10	19:16:47.934402	0	0	0	0	0	B	E	NOW()
+537816	2020-12-10	10:15:06	2400	0	0	0	0	B	E	Nueva Venta
+537817	2020-12-10	10:17:38	4250	0	0	0	0	B	E	Nueva Venta
+537818	2020-12-10	10:19:00	5890	0	0	0	0	B	E	Nueva Venta
+537819	2020-12-10	10:19:48	0	0	0	0	0	B	E	Nueva Venta
+537820	2020-12-10	10:26:42	2200	0	1800	0	0	B	E	Nueva Venta
+537821	2020-12-10	10:37:41	2150	0	0	0	0	B	E	Nueva Venta
+537822	2020-12-10	10:39:26	5400	0	0	0	0	B	E	Nueva Venta
+537823	2020-12-10	10:40:22	2200	0	0	0	0	B	E	Nueva Venta
+537824	2020-12-10	10:45:35	2600	0	0	0	0	B	E	Nueva Venta
+537825	2020-12-10	10:46:57	1300	0	0	0	0	B	E	Nueva Venta
+537826	2020-12-10	10:51:29	3800	0	0	0	0	B	E	Nueva Venta
+537827	2020-12-10	11:03:56	1550	0	0	0	0	B	E	Nueva Venta
+537828	2020-12-10	11:03:56	0	0	0	0	0	B	E	Nueva Venta
+537829	2020-12-10	11:07:33	0	0	0	0	0	B	E	Nva. Venta
+537830	2020-12-10	11:22:46	1450	0	0	0	0	B	E	Nueva Venta
+537831	2020-12-10	11:33:52	0	0	0	0	0	B	E	Nueva Venta
+537832	2020-12-10	11:36:15	2700	0	0	0	0	B	E	Nueva Venta
+537833	2020-12-10	11:41:11	3450	0	0	0	0	B	E	Nueva Venta
+537834	2020-12-10	11:43:00	2100	0	0	0	0	B	E	Nueva Venta
+537835	2020-12-10	11:48:29	1550	0	0	0	0	B	E	Nueva Venta
+537836	2020-12-10	11:54:53	4100	0	0	0	0	B	E	Nueva Venta
+537837	2020-12-10	11:58:09	3400	0	0	0	0	B	E	Nueva Venta
+537838	2020-12-10	12:04:44	700	0	0	0	0	B	E	Nueva Venta
+537839	2020-12-10	12:05:38	990	0	0	0	0	B	E	Nueva Venta
+537840	2020-12-10	12:18:51	2700	0	0	0	0	B	E	Nueva Venta
+537841	2020-12-10	12:25:15	7650	0	0	0	0	B	E	Nueva Venta
+537842	2020-12-10	12:50:10	3600	0	3000	0	0	B	E	Nueva Venta
+537843	2020-12-10	13:02:09	800	0	0	0	0	B	E	Nueva Venta
+537844	2020-12-10	13:08:57	6700	0	0	0	0	B	E	Nueva Venta
+537845	2020-12-10	13:20:47	2500	0	0	0	0	B	E	Nueva Venta
+537846	2020-12-10	13:47:31	5000	0	0	0	0	B	E	Nueva Venta
+537847	2020-12-10	13:50:20	1250	0	0	0	0	B	E	Nueva Venta
+537848	2020-12-10	14:32:16	1200	0	0	0	0	B	E	Nueva Venta
+537849	2020-12-10	15:04:07	1620	0	0	0	0	B	E	Nueva Venta
+537850	2020-12-10	15:04:27	0	0	0	0	0	B	E	Nueva Venta
+537851	2020-12-10	15:05:55	900	0	0	0	0	B	E	Nueva Venta
+537852	2020-12-10	15:16:32	1300	0	0	0	0	B	E	Nueva Venta
+537853	2020-12-10	15:17:13	1400	0	0	0	0	B	E	Nueva Venta
+537854	2020-12-10	15:23:51	2000	0	2000	0	0	B	E	Nueva Venta
+537855	2020-12-10	16:29:14	3350	0	3000	0	0	B	E	Nueva Venta
+537856	2020-12-10	17:27:26	700	0	0	0	0	B	E	Nueva Venta
+537857	2020-12-10	17:29:33	1400	0	0	0	0	B	E	Nueva Venta
+537858	2020-12-10	17:31:50	6910	0	0	0	0	B	E	Nueva Venta
+537859	2020-12-10	17:32:35	2180	0	0	0	0	B	E	Nueva Venta
+537860	2020-12-10	17:33:47	2620	0	0	0	0	B	E	Nueva Venta
+537861	2020-12-10	18:22:36	2350	0	0	0	0	B	E	Nueva Venta
+537862	2020-12-10	18:23:47	2000	0	0	0	0	B	E	Nueva Venta
+537863	2020-12-10	18:24:42	2700	0	0	0	0	B	E	Nueva Venta
+537864	2020-12-11	08:44:37	1650	0	0	0	0	B	E	Nueva Venta
+537865	2020-12-11	08:52:52	5600	0	4200	0	0	B	E	Nueva Venta
+537866	2020-12-11	08:52:52	3100	0	0	0	0	B	E	Nueva Venta
+537867	2020-12-11	09:13:25	5500	0	0	0	0	B	E	Nva. Venta
+537868	2020-12-11	09:52:14	5000	0	0	0	0	B	E	Nva. Venta
+537869	2020-12-11	11:56:01	0	0	0	0	0	B	E	Nueva Venta
+537870	2020-12-11	11:58:42	3850	0	0	0	0	B	E	Nueva Venta
+537871	2020-12-11	12:03:27	850	0	0	0	0	B	E	Nueva Venta
+537872	2020-12-11	12:16:48	600	0	0	0	0	B	E	Nueva Venta
+537873	2020-12-11	12:32:19	1850	0	0	0	0	B	E	Nueva Venta
+537874	2020-12-11	12:41:24	2950	0	0	0	0	B	E	Nueva Venta
+537875	2020-12-11	12:43:08	800	0	0	0	0	B	E	Nueva Venta
+537876	2020-12-11	12:47:56	900	0	0	0	0	B	E	Nueva Venta
+537877	2020-12-11	12:49:47	8800	0	6800	0	0	B	E	Nueva Venta
+537878	2020-12-11	12:53:32	7400	0	6400	0	0	B	E	Nueva Venta
+537879	2020-12-11	12:55:32	3600	0	0	0	0	B	E	Nueva Venta
+537880	2020-12-11	12:57:37	2700	0	0	0	0	B	E	Nueva Venta
+537881	2020-12-11	13:19:23	900	0	0	0	0	B	E	Nueva Venta
+537882	2020-12-11	13:20:19	1800	0	1800	0	0	B	E	Nueva Venta
+537883	2020-12-11	13:27:52	3000	0	0	0	0	B	E	Nueva Venta
+537884	2020-12-11	13:27:52	0	0	0	0	0	B	E	Nueva Venta
+537885	2020-12-11	14:06:10	1050	0	0	0	0	B	E	Nva. Venta
+537886	2020-12-11	14:12:13	4800	0	3900	0	0	B	E	Nueva Venta
+537887	2020-12-11	14:12:55	900	0	0	0	0	B	E	Nueva Venta
+537888	2020-12-11	14:14:01	900	0	0	0	0	B	E	Nueva Venta
+537889	2020-12-11	14:16:11	870	0	0	0	0	B	E	Nueva Venta
+537890	2020-12-11	15:03:57	4600	0	4000	0	0	B	E	Nueva Venta
+537891	2020-12-11	15:55:04	2800	0	0	0	0	B	E	Nueva Venta
+537892	2020-12-11	15:59:49	750	0	0	0	0	B	E	Nueva Venta
+537893	2020-12-11	16:02:14	2620	0	0	0	0	B	E	Nueva Venta
+537894	2020-12-11	16:07:25	4050	0	0	0	0	B	E	Nueva Venta
+537895	2020-12-11	16:37:11	350	0	0	0	0	B	E	Nueva Venta
+537896	2020-12-11	16:39:09	2000	0	0	0	0	B	E	Nueva Venta
+537897	2020-12-11	16:42:24	0	0	0	0	0	B	E	Nueva Venta
+537898	2020-12-11	16:56:30	800	0	0	0	0	B	E	Nueva Venta
+537899	2020-12-11	16:58:03	1200	0	0	0	0	B	E	Nueva Venta
+537900	2020-12-11	17:05:22	1850	0	0	0	0	B	E	Nueva Venta
+537901	2020-12-11	17:17:16	1700	0	0	0	0	B	E	Nueva Venta
+537902	2020-12-11	17:42:24	900	0	0	0	0	B	E	Nueva Venta
+537903	2020-12-11	18:02:38	8000	0	8000	0	0	B	E	Nueva Venta
+537904	2020-12-11	18:04:18	5000	0	0	0	0	B	E	Nueva Venta
+537905	2020-12-11	18:04:53	1700	0	0	0	0	B	E	Nueva Venta
+537906	2020-12-11	18:06:18	1690	0	0	0	0	B	E	Nueva Venta
+537907	2020-12-11	18:07:30	9800	0	8600	0	0	B	E	Nueva Venta
+537908	2020-12-11	18:13:13	3500	0	3500	0	0	B	E	Nueva Venta
+537909	2020-12-11	18:18:04	0	0	0	0	0	B	E	Nueva Venta
+537910	2020-12-11	18:21:29	1500	0	0	0	0	B	E	Nueva Venta
+537911	2020-12-11	18:26:12	2000	0	2000	0	0	B	E	Nueva Venta
+537912	2020-12-11	18:29:50	3000	0	3000	0	0	B	E	Nueva Venta
+537913	2020-12-11	18:44:02	5550	0	4300	0	0	B	E	Nueva Venta
+537914	2020-12-11	19:29:15	1850	0	0	0	0	B	E	Nueva Venta
+537915	2020-12-11	19:36:51	900	0	0	0	0	B	E	Nueva Venta
+537916	2020-12-11	19:36:51	1800	0	0	0	0	B	E	Nueva Venta
+537917	2020-12-14	07:42:13	3200	0	0	0	0	B	E	Nva. Venta
+537918	2020-12-14	07:44:54	1300	0	0	0	0	B	E	Nueva Venta
+537919	2020-12-14	07:48:37	2400	0	0	0	0	B	E	Nueva Venta
+537920	2020-12-14	07:52:26	1000	0	0	0	0	B	E	Nueva Venta
+537921	2020-12-14	07:54:03	1900	0	0	0	0	B	E	Nueva Venta
+537922	2020-12-14	07:55:27	1300	0	0	0	0	B	E	Nueva Venta
+537923	2020-12-14	07:56:28	2100	0	0	0	0	B	E	Nueva Venta
+537924	2020-12-14	08:04:08	5100	0	3400	0	0	B	E	Nueva Venta
+537925	2020-12-14	08:04:08	0	0	0	0	0	B	E	Nueva Venta
+537926	2020-12-14	08:08:09	2500	0	0	0	0	B	E	Nva. Venta
+537927	2020-12-14	08:08:51	2850	0	0	0	0	B	E	Nueva Venta
+537928	2020-12-14	08:14:13	7100	0	4300	0	0	B	E	Nueva Venta
+537929	2020-12-14	08:15:15	8400	0	4300	0	0	B	E	Nueva Venta
+537930	2020-12-14	08:16:04	8600	0	8600	0	0	B	E	Boleta
+537931	2020-12-14	08:18:16	1300	0	0	0	0	B	E	Nueva Venta
+537932	2020-12-14	08:18:39	1100	0	0	0	0	B	E	Nueva Venta
+537933	2020-12-14	08:18:48	0	0	0	0	0	B	E	Nueva Venta
+537934	2020-12-14	08:19:20	2500	0	0	0	0	B	E	Nueva Venta
+537935	2020-12-14	08:20:20	1700	0	0	0	0	B	E	Nueva Venta
+537936	2020-12-14	08:24:43	3800	0	0	0	0	B	E	Nueva Venta
+537937	2020-12-14	08:27:49	4000	0	4000	0	0	B	E	Nueva Venta
+537938	2020-12-14	08:28:41	2950	0	0	0	0	B	E	Nueva Venta
+537939	2020-12-14	08:31:08	3100	0	0	0	0	B	E	Nueva Venta
+537940	2020-12-14	08:32:16	4250	0	0	0	0	B	E	Nueva Venta
+537941	2020-12-14	08:32:32	0	0	0	0	0	B	E	Nueva Venta
+537942	2020-12-14	08:36:48	1700	0	0	0	0	B	E	Nueva Venta
+537943	2020-12-14	08:40:56	2200	0	0	0	0	B	E	Nueva Venta
+537944	2020-12-14	08:41:21	1600	0	0	0	0	B	E	Nueva Venta
+537945	2020-12-14	08:41:38	0	0	0	0	0	B	E	Boleta
+537946	2020-12-14	08:41:50	1800	0	0	0	0	B	E	Nueva Venta
+537947	2020-12-14	08:44:18	0	0	0	0	0	B	E	Nueva Venta
+537948	2020-12-14	08:45:38	0	0	0	0	0	B	E	Nueva Venta
+537949	2020-12-14	08:48:37	2400	0	0	0	0	B	E	Nueva Venta
+537950	2020-12-14	08:49:18	2250	0	0	0	0	B	E	Nueva Venta
+537951	2020-12-14	08:49:43	2200	0	0	0	0	B	E	Nueva Venta
+537952	2020-12-14	08:52:27	2750	0	0	0	0	B	E	Nueva Venta
+537953	2020-12-14	08:53:27	3200	0	0	0	0	B	E	Nueva Venta
+537954	2020-12-14	09:02:33	2800	0	0	0	0	B	E	Nueva Venta
+537955	2020-12-14	09:09:12	0	0	0	0	0	B	E	Nueva Venta
+537956	2020-12-14	09:10:16	2500	0	0	0	0	B	E	Nueva Venta
+537957	2020-12-14	09:10:47	0	0	0	0	0	B	E	Nueva Venta
+537958	2020-12-14	09:12:09	0	0	0	0	0	B	E	Nueva Venta
+537959	2020-12-14	09:13:27	2900	0	0	0	0	B	E	Nueva Venta
+537960	2020-12-14	09:17:42	3400	0	0	0	0	B	E	Nueva Venta
+537961	2020-12-14	09:18:38	2400	0	0	0	0	B	E	Nueva Venta
+537962	2020-12-14	09:22:17	3300	0	0	0	0	B	E	Nueva Venta
+537963	2020-12-14	09:22:47	2000	0	0	0	0	B	E	Nueva Venta
+537964	2020-12-14	09:23:52	2400	0	0	0	0	B	E	Nueva Venta
+537965	2020-12-14	09:28:58	5850	0	0	0	0	B	E	Nueva Venta
+537966	2020-12-14	09:29:33	0	0	0	0	0	B	E	Nueva Venta
+537967	2020-12-14	09:31:14	2400	0	0	0	0	B	E	Nueva Venta
+537968	2020-12-14	09:32:31	2500	0	0	0	0	B	E	Nueva Venta
+537969	2020-12-14	09:33:26	1400	0	0	0	0	B	E	Nueva Venta
+537970	2020-12-14	09:34:36	5000	0	0	0	0	B	E	Nueva Venta
+537971	2020-12-14	09:36:31	4500	0	3400	0	0	B	E	Nueva Venta
+537972	2020-12-14	09:37:49	2450	0	0	0	0	B	E	Nueva Venta
+537973	2020-12-14	09:38:34	10300	0	8000	0	0	B	E	Nueva Venta
+537974	2020-12-14	09:40:32	2400	0	0	0	0	B	E	Nueva Venta
+537975	2020-12-14	09:41:32	4450	0	0	0	0	B	E	Nueva Venta
+537976	2020-12-14	09:42:10	4500	0	0	0	0	B	E	Nueva Venta
+537977	2020-12-14	09:43:05	3550	0	2000	0	0	B	E	Nueva Venta
+537978	2020-12-14	09:44:49	1300	0	0	0	0	B	E	Nueva Venta
+537979	2020-12-14	09:45:12	0	0	0	0	0	B	E	Nueva Venta
+537980	2020-12-14	09:45:25	0	0	0	0	0	B	E	Nueva Venta
+537981	2020-12-14	09:49:26	1400	0	0	0	0	B	E	Nueva Venta
+537982	2020-12-14	09:49:35	1600	0	0	0	0	B	E	Nueva Venta
+537983	2020-12-14	09:50:00	0	0	0	0	0	B	E	Nueva Venta
+537984	2020-12-14	09:52:05	7000	0	3900	0	0	B	E	Nueva Venta
+537985	2020-12-14	10:00:55	3100	0	0	0	0	B	E	Nueva Venta
+537986	2020-12-14	10:04:52	2500	0	0	0	0	B	E	Nueva Venta
+537987	2020-12-14	10:05:05	0	0	0	0	0	B	E	Nueva Venta
+537988	2020-12-14	10:08:06	2900	0	0	0	0	B	E	Nueva Venta
+537989	2020-12-14	10:09:39	4800	418	2600	0	0	B	E	Boleta
+537990	2020-12-14	10:11:12	4700	0	3900	0	0	B	E	Nueva Venta
+537991	2020-12-14	10:14:49	2400	0	0	0	0	B	E	Nueva Venta
+537992	2020-12-14	10:15:14	1000	0	0	0	0	B	E	Nueva Venta
+537993	2020-12-14	10:24:28	500	0	0	0	0	B	E	Nueva Venta
+537994	2020-12-14	10:27:50	1400	0	0	0	0	B	E	Nueva Venta
+537995	2020-12-14	10:30:36	10200	0	0	0	0	B	E	Nueva Venta
+537996	2020-12-14	10:36:36	5400	0	0	0	0	B	E	Nueva Venta
+537997	2020-12-14	10:45:37	4300	0	0	0	0	B	E	Nueva Venta
+537998	2020-12-14	10:46:21	3300	0	0	0	0	B	E	Nueva Venta
+537999	2020-12-14	10:49:16	3400	0	3400	0	0	B	E	Nueva Venta
+538000	2020-12-14	10:54:08	2450	0	0	0	0	B	E	Nueva Venta
+538001	2020-12-14	10:54:41	2900	0	0	0	0	B	E	Nueva Venta
+538002	2020-12-14	10:55:26	3050	0	0	0	0	B	E	Nueva Venta
+538003	2020-12-14	10:56:09	0	0	0	0	0	B	E	Nueva Venta
+538004	2020-12-14	10:56:38	2000	0	0	0	0	B	E	Nueva Venta
+538005	2020-12-14	10:57:08	5900	0	0	0	0	B	E	Nueva Venta
+538006	2020-12-14	10:59:41	0	0	0	0	0	B	E	Nueva Venta
+538007	2020-12-14	11:00:34	0	0	0	0	0	B	E	Nueva Venta
+538008	2020-12-14	11:01:47	5800	0	0	0	0	B	E	Nueva Venta
+538009	2020-12-14	11:03:24	2700	0	0	0	0	B	E	Nueva Venta
+538010	2020-12-14	11:06:06	2000	0	0	0	0	B	E	Nueva Venta
+538011	2020-12-14	11:09:32	2390	0	0	0	0	B	E	Nueva Venta
+538012	2020-12-14	11:11:29	1300	0	0	0	0	B	E	Nueva Venta
+538013	2020-12-14	11:12:00	0	0	0	0	0	B	E	Nueva Venta
+538014	2020-12-14	11:13:58	0	0	0	0	0	B	E	Nueva Venta
+538015	2020-12-14	11:14:54	3000	0	0	0	0	B	E	Nueva Venta
+538016	2020-12-14	11:17:32	4400	0	0	0	0	B	E	Nueva Venta
+538017	2020-12-14	11:21:46	0	0	0	0	0	B	E	Nueva Venta
+538018	2020-12-14	11:27:47	0	0	0	0	0	B	E	Nueva Venta
+538019	2020-12-14	11:36:26	2100	0	0	0	0	B	E	Nueva Venta
+538020	2020-12-14	11:37:13	3990	0	0	0	0	B	E	Nueva Venta
+538021	2020-12-14	11:52:46	1200	0	0	0	0	B	E	Nueva Venta
+538022	2020-12-14	12:21:46	2400	0	0	0	0	B	E	Nueva Venta
+538023	2020-12-14	12:49:39	3800	0	0	0	0	B	E	Nueva Venta
+538024	2020-12-14	12:53:01	1600	0	0	0	0	B	E	Nueva Venta
+538025	2020-12-14	12:53:36	5150	0	3300	0	0	B	E	Nueva Venta
+538026	2020-12-14	13:10:21	2100	0	0	0	0	B	E	Nueva Venta
+538027	2020-12-14	13:11:04	1900	0	0	0	0	B	E	Nueva Venta
+538028	2020-12-14	13:11:14	1900	0	0	0	0	B	E	Nueva Venta
+538029	2020-12-14	13:11:30	0	0	0	0	0	B	E	Nueva Venta
+538030	2020-12-14	13:12:29	3600	0	2000	0	0	B	E	Nueva Venta
+538031	2020-12-14	13:12:31	0	0	0	0	0	B	E	Nueva Venta
+538032	2020-12-14	13:20:02	0	0	0	0	0	B	E	Nueva Venta
+538033	2020-12-14	13:20:23	0	0	0	0	0	B	E	Nueva Venta
+538034	2020-12-14	13:25:36	2400	0	0	0	0	B	E	Nueva Venta
+538035	2020-12-14	13:29:13	0	0	0	0	0	B	E	Nueva Venta
+538036	2020-12-14	13:43:59	6250	0	4000	0	0	B	E	Nueva Venta
+538037	2020-12-14	13:45:29	990	0	0	0	0	B	E	Nueva Venta
+538038	2020-12-14	13:47:44	0	0	0	0	0	B	E	Nueva Venta
+538039	2020-12-14	13:48:40	4800	0	0	0	0	B	E	Nueva Venta
+538040	2020-12-14	13:51:49	9200	0	2000	0	0	B	E	Nueva Venta
+538041	2020-12-14	13:52:32	2000	0	0	0	0	B	E	Nueva Venta
+538042	2020-12-14	14:07:17	0	0	0	0	0	B	E	Nueva Venta
+538043	2020-12-14	14:07:32	0	0	0	0	0	B	E	Nueva Venta
+538044	2020-12-14	14:11:55	2000	0	0	0	0	B	E	Nueva Venta
+538045	2020-12-14	14:12:38	2100	0	0	0	0	B	E	Nueva Venta
+538046	2020-12-14	14:13:13	6000	0	0	0	0	B	E	Nueva Venta
+538047	2020-12-14	14:17:57	2000	0	2000	0	0	B	E	Nueva Venta
+538048	2020-12-14	14:21:15	4400	0	0	0	0	B	E	Nueva Venta
+538049	2020-12-14	14:22:21	1690	0	0	0	0	B	E	Nueva Venta
+538050	2020-12-14	14:25:09	2000	0	2000	0	0	B	E	Nueva Venta
+538051	2020-12-14	14:25:41	1400	0	0	0	0	B	E	Nueva Venta
+538052	2020-12-14	14:28:06	1750	0	0	0	0	B	E	Nueva Venta
+538053	2020-12-14	14:52:43	3000	0	0	0	0	B	E	Nueva Venta
+538054	2020-12-14	14:52:57	0	0	0	0	0	B	E	Nueva Venta
+538055	2020-12-14	14:53:22	900	0	0	0	0	B	E	Nueva Venta
+538056	2020-12-14	14:53:33	0	0	0	0	0	B	E	Nueva Venta
+538057	2020-12-14	14:54:05	1250	0	0	0	0	B	E	Nueva Venta
+538058	2020-12-14	14:54:50	7100	0	3900	0	0	B	E	Nueva Venta
+538059	2020-12-14	14:55:45	2600	0	0	0	0	B	E	Nueva Venta
+538060	2020-12-14	14:59:50	7400	0	0	0	0	B	E	Nueva Venta
+538061	2020-12-14	15:05:13	0	0	0	0	0	B	E	Nueva Venta
+538062	2020-12-14	15:05:57	3380	0	0	0	0	B	E	Nueva Venta
+538063	2020-12-14	15:06:08	0	0	0	0	0	B	E	Nueva Venta
+538064	2020-12-14	15:06:34	0	0	0	0	0	B	E	Nueva Venta
+538065	2020-12-14	15:23:05	2000	0	0	0	0	B	E	Nueva Venta
+538066	2020-12-14	15:33:01	4200	0	2500	0	0	B	E	Nueva Venta
+538067	2020-12-14	15:33:18	0	0	0	0	0	B	E	Nueva Venta
+538068	2020-12-14	15:39:14	1850	0	0	0	0	B	E	Nueva Venta
+538069	2020-12-14	15:39:14	1300	0	0	0	0	B	E	Nueva Venta
+538070	2020-12-14	15:46:59	1400	0	0	0	0	B	E	Nva. Venta
+538071	2020-12-14	15:46:59	0	0	0	0	0	B	E	Nueva Venta
+538072	2020-12-14	15:47:09	6400	0	0	0	0	B	E	Nva. Venta
+538073	2020-12-14	15:58:26	3900	0	3900	0	0	B	E	Nva. Venta
+538074	2020-12-14	15:58:26	0	0	0	0	0	B	E	Nueva Venta
+538075	2020-12-14	16:01:58	0	0	0	0	0	B	E	Nva. Venta
+538076	2020-12-14	16:28:00	2400	0	2000	0	0	B	E	Nva. Venta
+538077	2020-12-14	16:48:13	1880	0	0	0	0	B	E	Nueva Venta
+538078	2020-12-14	17:24:03	1100	0	0	0	0	B	E	Nueva Venta
+538079	2020-12-14	17:25:06	8450	0	0	0	0	B	E	Nueva Venta
+538080	2020-12-14	17:27:04	4200	0	4200	0	0	B	E	Nueva Venta
+538081	2020-12-14	17:49:12	1800	0	1800	0	0	B	E	Nueva Venta
+538082	2020-12-14	17:49:13	0	0	0	0	0	B	E	Nueva Venta
+538083	2020-12-15	07:45:25	1600	0	0	0	0	B	E	Nva. Venta
+538084	2020-12-15	07:47:07	2400	0	0	0	0	B	E	Nueva Venta
+538085	2020-12-15	07:55:31	700	0	0	0	0	B	E	Nueva Venta
+538086	2020-12-15	07:56:26	500	0	0	0	0	B	E	Nueva Venta
+538087	2020-12-15	07:57:14	2000	0	0	0	0	B	E	Nueva Venta
+538088	2020-12-15	08:02:12	2800	0	0	0	0	B	E	Nueva Venta
+538089	2020-12-15	08:02:54	6500	0	3900	0	0	B	E	Nueva Venta
+538090	2020-12-15	08:05:21	4700	0	3400	0	0	B	E	Nueva Venta
+538091	2020-12-15	08:05:34	2200	0	0	0	0	B	E	Nueva Venta
+538092	2020-12-15	08:07:02	0	0	0	0	0	B	E	Nueva Venta
+538093	2020-12-15	08:07:29	3400	0	3400	0	0	B	E	Nueva Venta
+538094	2020-12-15	08:11:40	2400	0	0	0	0	B	E	Nueva Venta
+538095	2020-12-15	08:13:09	0	0	0	0	0	B	E	Nueva Venta
+538096	2020-12-15	08:21:05	9500	0	0	0	0	B	E	Nueva Venta
+538097	2020-12-15	08:21:45	2400	0	0	0	0	B	E	Nueva Venta
+538098	2020-12-15	08:22:53	1900	0	0	0	0	B	E	Nueva Venta
+538099	2020-12-15	08:23:43	750	0	0	0	0	B	E	Nueva Venta
+538100	2020-12-15	08:24:44	1400	0	0	0	0	B	E	Nueva Venta
+538101	2020-12-15	08:25:02	2600	0	0	0	0	B	E	Nueva Venta
+538102	2020-12-15	08:25:19	0	0	0	0	0	B	E	Nueva Venta
+538103	2020-12-15	08:26:05	4000	0	0	0	0	B	E	Nueva Venta
+538104	2020-12-15	08:26:18	0	0	0	0	0	B	E	Nueva Venta
+538105	2020-12-15	08:27:22	4100	0	0	0	0	B	E	Nueva Venta
+538106	2020-12-15	08:34:28	0	0	0	0	0	B	E	Nueva Venta
+538107	2020-12-15	08:35:00	6700	0	3900	0	0	B	E	Nueva Venta
+538108	2020-12-15	08:50:51	2800	0	0	0	0	B	E	Nueva Venta
+538109	2020-12-15	08:51:48	3200	0	0	0	0	B	E	Nueva Venta
+538110	2020-12-15	08:53:02	1560	0	0	0	0	B	E	Nueva Venta
+538111	2020-12-15	08:53:29	0	0	0	0	0	B	E	Nueva Venta
+538112	2020-12-15	08:54:03	1350	0	0	0	0	B	E	Nueva Venta
+538113	2020-12-15	08:55:35	1800	0	0	0	0	B	E	Nueva Venta
+538114	2020-12-15	08:56:16	0	0	0	0	0	B	E	Nueva Venta
+538115	2020-12-15	08:57:41	0	0	0	0	0	B	E	Nueva Venta
+538116	2020-12-15	08:58:11	4550	0	0	0	0	B	E	Nueva Venta
+538117	2020-12-15	09:02:52	2600	0	0	0	0	B	E	Nueva Venta
+538118	2020-12-15	09:02:53	0	0	0	0	0	B	E	Nueva Venta
+538119	2020-12-15	09:07:02	0	0	0	0	0	B	E	Boleta
+538120	2020-12-15	09:07:26	3700	0	0	0	0	B	E	Nueva Venta
+538121	2020-12-15	09:09:33	2400	0	0	0	0	B	E	Nueva Venta
+538122	2020-12-15	09:10:32	3950	0	0	0	0	B	E	Nueva Venta
+538123	2020-12-15	09:13:22	4000	0	0	0	0	B	E	Nueva Venta
+538124	2020-12-15	09:14:17	1100	0	0	0	0	B	E	Nueva Venta
+538125	2020-12-15	09:15:12	1400	0	0	0	0	B	E	Nueva Venta
+538126	2020-12-15	09:18:57	0	0	0	0	0	B	E	Nueva Venta
+538127	2020-12-15	09:19:13	2500	0	0	0	0	B	E	Nueva Venta
+538128	2020-12-15	09:20:22	2700	0	0	0	0	B	E	Nueva Venta
+538129	2020-12-15	09:21:29	1500	0	0	0	0	B	E	Nueva Venta
+538130	2020-12-15	09:25:47	1500	0	0	0	0	B	E	Nueva Venta
+538131	2020-12-15	09:26:01	0	0	0	0	0	B	E	Nueva Venta
+538132	2020-12-15	09:26:37	1850	0	0	0	0	B	E	Nueva Venta
+538133	2020-12-15	09:27:10	1750	0	0	0	0	B	E	Nueva Venta
+538134	2020-12-15	09:27:21	4200	0	0	0	0	B	E	Nueva Venta
+538135	2020-12-15	09:32:03	700	133	0	0	0	B	E	Boleta
+538136	2020-12-15	09:37:09	1800	0	0	0	0	B	E	Nueva Venta
+538137	2020-12-15	09:37:39	0	0	0	0	0	B	E	Nueva Venta
+538138	2020-12-15	09:46:52	400	0	0	0	0	B	E	Nueva Venta
+538139	2020-12-15	09:47:19	3600	0	0	0	0	B	E	Nueva Venta
+538140	2020-12-15	09:47:51	0	0	0	0	0	B	E	Nueva Venta
+538141	2020-12-15	09:51:54	2000	0	0	0	0	B	E	Nueva Venta
+538142	2020-12-15	09:53:08	8400	0	4000	0	0	B	E	Nueva Venta
+538143	2020-12-15	09:53:42	2000	0	0	0	0	B	E	Nueva Venta
+538144	2020-12-15	09:54:35	0	0	0	0	0	B	E	Nueva Venta
+538145	2020-12-15	09:54:57	3900	0	0	0	0	B	E	Nueva Venta
+538146	2020-12-15	10:08:20	3300	0	0	0	0	B	E	Nueva Venta
+538147	2020-12-15	10:13:16	5450	0	0	0	0	B	E	Nueva Venta
+538148	2020-12-15	10:14:00	2500	0	0	0	0	B	E	Nueva Venta
+538149	2020-12-15	10:15:28	0	0	0	0	0	B	E	Nueva Venta
+538150	2020-12-15	10:17:43	6400	0	2000	0	0	B	E	Nueva Venta
+538151	2020-12-15	10:19:16	2100	0	0	0	0	B	E	Nueva Venta
+538152	2020-12-15	10:19:18	0	0	0	0	0	B	E	Nueva Venta
+538153	2020-12-15	10:28:58	2400	0	0	0	0	B	E	Nueva Venta
+538154	2020-12-15	10:30:46	3500	0	0	0	0	B	E	Nueva Venta
+538155	2020-12-15	10:32:48	1300	0	0	0	0	B	E	Nueva Venta
+538156	2020-12-15	10:43:07	2150	0	0	0	0	B	E	Nueva Venta
+538157	2020-12-15	10:50:19	2000	0	0	0	0	B	E	Nueva Venta
+538158	2020-12-15	10:50:37	1400	0	0	0	0	B	E	Nueva Venta
+538159	2020-12-15	10:50:50	1800	0	0	0	0	B	E	Nueva Venta
+538160	2020-12-15	10:51:04	2600	0	0	0	0	B	E	Nueva Venta
+538161	2020-12-15	11:18:47	0	0	0	0	0	B	E	Nueva Venta
+538162	2020-12-15	11:19:17	1950	0	0	0	0	B	E	Nueva Venta
+538163	2020-12-15	12:02:17	1300	0	0	0	0	B	E	Nueva Venta
+538164	2020-12-15	12:02:19	0	0	0	0	0	B	E	Nueva Venta
+538165	2020-12-15	12:03:37	900	0	0	0	0	B	E	Nueva Venta
+538166	2020-12-15	12:19:20	3200	0	0	0	0	B	E	Nueva Venta
+538167	2020-12-15	12:36:45	4040	0	0	0	0	B	E	Nueva Venta
+538168	2020-12-15	12:41:27	2600	0	0	0	0	B	E	Nueva Venta
+538169	2020-12-15	12:42:22	750	0	0	0	0	B	E	Nueva Venta
+538170	2020-12-15	12:51:47	2250	0	0	0	0	B	E	Nueva Venta
+538171	2020-12-15	13:02:42	1200	0	0	0	0	B	E	Nueva Venta
+538172	2020-12-15	13:12:04	3400	0	0	0	0	B	E	Nueva Venta
+538173	2020-12-15	13:12:05	0	0	0	0	0	B	E	Nueva Venta
+538174	2020-12-15	13:20:04	1650	0	0	0	0	B	E	Nueva Venta
+538175	2020-12-15	13:20:45	1500	0	0	0	0	B	E	Nueva Venta
+538176	2020-12-15	13:21:37	6400	0	0	0	0	B	E	Nueva Venta
+538177	2020-12-15	13:23:03	7400	0	0	0	0	B	E	Nueva Venta
+538178	2020-12-15	13:51:00	1700	0	0	0	0	B	E	Nueva Venta
+538179	2020-12-15	13:52:58	7700	0	0	0	0	B	E	Nueva Venta
+538180	2020-12-15	13:56:47	4600	0	0	0	0	B	E	Nueva Venta
+538181	2020-12-15	14:00:53	6800	0	3500	0	0	B	E	Nueva Venta
+538182	2020-12-15	14:00:54	0	0	0	0	0	B	E	Nueva Venta
+538183	2020-12-15	14:08:06	3200	0	0	0	0	B	E	Nueva Venta
+538184	2020-12-15	14:09:56	3650	0	0	0	0	B	E	Nueva Venta
+538185	2020-12-15	14:18:06	1150	0	0	0	0	B	E	Nueva Venta
+538186	2020-12-15	14:18:22	4400	0	0	0	0	B	E	Nueva Venta
+538187	2020-12-15	14:20:03	0	0	0	0	0	B	E	Boleta
+538188	2020-12-15	14:20:57	3690	0	0	0	0	B	E	Nueva Venta
+538189	2020-12-15	14:26:46	4900	0	0	0	0	B	E	Nueva Venta
+538190	2020-12-15	14:27:57	2000	0	0	0	0	B	E	Nueva Venta
+538191	2020-12-15	14:46:18	3800	0	0	0	0	B	E	Nueva Venta
+538192	2020-12-15	14:29:21	0	0	0	0	0	B	E	Nueva Venta
+538193	2020-12-15	15:00:19	3000	0	0	0	0	B	E	Nueva Venta
+538194	2020-12-15	15:00:21	0	0	0	0	0	B	E	Nueva Venta
+538195	2020-12-15	15:05:10	2750	0	0	0	0	B	E	Nueva Venta
+538196	2020-12-15	15:10:51	7100	0	3900	0	0	B	E	Nueva Venta
+538197	2020-12-15	15:15:07	2000	0	0	0	0	B	E	Nueva Venta
+538198	2020-12-15	15:16:06	0	0	0	0	0	B	E	Nueva Venta
+538199	2020-12-15	15:16:33	4200	0	4200	0	0	B	E	Nueva Venta
+538200	2020-12-15	15:24:38	0	0	0	0	0	B	E	Nueva Venta
+538201	2020-12-15	15:24:43	0	0	0	0	0	B	E	Nueva Venta
+538202	2020-12-15	15:42:38	3380	0	0	0	0	B	E	Nueva Venta
+538203	2020-12-15	15:48:51	6100	0	0	0	0	B	E	Nueva Venta
+538204	2020-12-15	15:55:37	1950	0	0	0	0	B	E	Nueva Venta
+538205	2020-12-15	15:57:02	1400	0	0	0	0	B	E	Nueva Venta
+538206	2020-12-15	16:18:53	2450	0	0	0	0	B	E	Nueva Venta
+538207	2020-12-15	16:27:58	2400	0	2000	0	0	B	E	Nueva Venta
+538208	2020-12-15	16:29:43	0	0	0	0	0	B	E	Nueva Venta
+538209	2020-12-15	16:30:22	5650	0	3900	0	0	B	E	Nueva Venta
+538210	2020-12-15	16:30:25	0	0	0	0	0	B	E	Nueva Venta
+538211	2020-12-15	16:54:49	2650	0	0	0	0	B	E	Nueva Venta
+538212	2020-12-15	16:59:21	650	0	0	0	0	B	E	Nueva Venta
+538213	2020-12-15	17:09:41	800	0	0	0	0	B	E	Nueva Venta
+538214	2020-12-15	17:19:36	2000	0	0	0	0	B	E	Nueva Venta
+538215	2020-12-15	17:20:23	3500	0	0	0	0	B	E	Nueva Venta
+538216	2020-12-15	17:20:48	0	0	0	0	0	B	E	Nueva Venta
+538217	2020-12-15	17:48:58	1200	0	0	0	0	B	E	Nueva Venta
+538218	2020-12-15	18:08:02	600	0	0	0	0	B	E	Nueva Venta
+538219	2020-12-15	18:23:43	4050	0	0	0	0	B	E	Nueva Venta
+538220	2020-12-15	19:14:10	1800	0	0	0	0	B	E	Nueva Venta
+538221	2020-12-15	19:14:10	0	0	0	0	0	B	E	Nueva Venta
+538222	2020-12-15	19:43:05	3000	0	3000	0	0	B	E	Nva. Venta
+538223	2020-12-15	19:43:05	0	0	0	0	0	B	E	Nueva Venta
+538224	2020-12-16	07:41:38	4900	0	0	0	0	B	E	Nva. Venta
+538225	2020-12-16	07:53:52	2650	0	0	0	0	B	E	Nueva Venta
+538226	2020-12-16	07:57:32	3900	0	0	0	0	B	E	Nueva Venta
+538227	2020-12-16	07:58:50	1800	0	0	0	0	B	E	Nueva Venta
+538228	2020-12-16	08:00:14	5600	0	3400	0	0	B	E	Nueva Venta
+538229	2020-12-16	08:00:43	1850	0	0	0	0	B	E	Nueva Venta
+538230	2020-12-16	08:02:18	2500	0	0	0	0	B	E	Nueva Venta
+538231	2020-12-16	08:06:23	2900	0	0	0	0	B	E	Nueva Venta
+538232	2020-12-16	08:07:40	2500	0	0	0	0	B	E	Nueva Venta
+538233	2020-12-16	08:08:33	3500	0	0	0	0	B	E	Nueva Venta
+538234	2020-12-16	08:09:36	4300	0	0	0	0	B	E	Nueva Venta
+538235	2020-12-16	08:12:53	2600	0	0	0	0	B	E	Nueva Venta
+538236	2020-12-16	08:13:10	2150	0	0	0	0	B	E	Nueva Venta
+538237	2020-12-16	08:14:11	1500	0	0	0	0	B	E	Nueva Venta
+538238	2020-12-16	08:25:10	7200	0	3400	0	0	B	E	Nueva Venta
+538239	2020-12-16	08:25:11	0	0	0	0	0	B	E	Nueva Venta
+538240	2020-12-16	08:27:39	1550	0	0	0	0	B	E	Nueva Venta
+538241	2020-12-16	08:27:40	0	0	0	0	0	B	E	Nueva Venta
+538242	2020-12-16	08:37:07	4600	0	0	0	0	B	E	Nueva Venta
+538243	2020-12-16	08:37:36	1400	0	0	0	0	B	E	Nueva Venta
+538244	2020-12-16	08:51:18	1450	0	0	0	0	B	E	Nueva Venta
+538245	2020-12-16	09:01:46	3800	0	0	0	0	B	E	Nueva Venta
+538246	2020-12-16	09:04:25	2750	0	0	0	0	B	E	Nueva Venta
+538247	2020-12-16	09:06:30	2500	0	0	0	0	B	E	Nueva Venta
+538248	2020-12-16	09:08:50	2900	0	0	0	0	B	E	Nueva Venta
+538249	2020-12-16	09:10:02	4600	0	0	0	0	B	E	Nueva Venta
+538250	2020-12-16	09:10:53	0	0	0	0	0	B	E	Nueva Venta
+538251	2020-12-16	09:12:10	1100	0	0	0	0	B	E	Nueva Venta
+538252	2020-12-16	09:13:06	1600	0	0	0	0	B	E	Nueva Venta
+538253	2020-12-16	09:13:15	0	0	0	0	0	B	E	Nueva Venta
+538254	2020-12-16	09:13:56	1150	0	0	0	0	B	E	Nueva Venta
+538255	2020-12-16	09:15:04	1500	0	0	0	0	B	E	Nueva Venta
+538256	2020-12-16	09:15:16	1900	0	0	0	0	B	E	Nueva Venta
+538257	2020-12-16	09:16:13	3000	0	0	0	0	B	E	Nueva Venta
+538258	2020-12-16	09:16:20	0	0	0	0	0	B	E	Nueva Venta
+538259	2020-12-16	09:16:41	2100	399	0	0	0	B	E	Boleta
+538260	2020-12-16	09:18:10	2900	0	0	0	0	B	E	Nueva Venta
+538261	2020-12-16	09:18:37	0	0	0	0	0	B	E	Nueva Venta
+538262	2020-12-16	09:21:47	1700	0	0	0	0	B	E	Nueva Venta
+538263	2020-12-16	09:21:49	0	0	0	0	0	B	E	Nueva Venta
+538264	2020-12-16	09:22:35	700	0	0	0	0	B	E	Nueva Venta
+538265	2020-12-16	09:22:36	0	0	0	0	0	B	E	Nueva Venta
+538266	2020-12-16	09:26:32	1700	0	0	0	0	B	E	Nueva Venta
+538267	2020-12-16	09:26:34	0	0	0	0	0	B	E	Nueva Venta
+538268	2020-12-16	09:30:39	800	0	0	0	0	B	E	Nueva Venta
+538269	2020-12-16	09:30:41	0	0	0	0	0	B	E	Nueva Venta
+538270	2020-12-16	09:40:32	2400	0	2000	0	0	B	E	Nueva Venta
+538271	2020-12-16	09:43:25	2500	0	0	0	0	B	E	Nueva Venta
+538272	2020-12-16	09:46:06	2400	0	0	0	0	B	E	Nueva Venta
+538273	2020-12-16	09:49:13	5590	0	0	0	0	B	E	Nueva Venta
+538274	2020-12-16	09:50:20	2000	0	0	0	0	B	E	Nueva Venta
+538275	2020-12-16	09:53:16	6400	0	3500	0	0	B	E	Nueva Venta
+538276	2020-12-16	09:57:18	2390	0	0	0	0	B	E	Nueva Venta
+538277	2020-12-16	09:57:47	3500	0	0	0	0	B	E	Nueva Venta
+538278	2020-12-16	09:59:38	7900	0	0	0	0	B	E	Nueva Venta
+538279	2020-12-16	10:00:33	7200	0	0	0	0	B	E	Nueva Venta
+538280	2020-12-16	10:01:09	1700	0	0	0	0	B	E	Nueva Venta
+538281	2020-12-16	10:02:17	0	0	0	0	0	B	E	Nueva Venta
+538282	2020-12-16	10:16:28	0	0	0	0	0	B	E	Nueva Venta
+538283	2020-12-16	10:18:12	2200	0	0	0	0	B	E	Nueva Venta
+538284	2020-12-16	10:24:20	3600	0	0	0	0	B	E	Nueva Venta
+538285	2020-12-16	10:24:21	0	0	0	0	0	B	E	Nueva Venta
+538286	2020-12-16	10:29:17	1500	0	0	0	0	B	E	Nueva Venta
+538287	2020-12-16	10:30:14	5250	0	0	0	0	B	E	Nueva Venta
+538288	2020-12-16	10:35:22	6400	0	0	0	0	B	E	Nueva Venta
+538289	2020-12-16	10:43:02	1750	0	0	0	0	B	E	Nueva Venta
+538290	2020-12-16	10:45:33	1000	0	0	0	0	B	E	Nueva Venta
+538291	2020-12-16	10:47:06	2650	0	0	0	0	B	E	Nueva Venta
+538292	2020-12-16	10:47:31	2300	0	0	0	0	B	E	Nueva Venta
+538293	2020-12-16	10:48:36	0	0	0	0	0	B	E	Nueva Venta
+538294	2020-12-16	10:50:13	2950	0	0	0	0	B	E	Nueva Venta
+538295	2020-12-16	11:14:00	2690	0	0	0	0	B	E	Nueva Venta
+538296	2020-12-16	11:14:48	2900	0	0	0	0	B	E	Nueva Venta
+538297	2020-12-16	11:17:31	3450	0	0	0	0	B	E	Nueva Venta
+538298	2020-12-16	11:22:26	6450	0	0	0	0	B	E	Nueva Venta
+538299	2020-12-16	11:27:25	1300	0	0	0	0	B	E	Nueva Venta
+538300	2020-12-16	11:45:22	3750	0	0	0	0	B	E	Nueva Venta
+538301	2020-12-16	11:51:54	6400	0	4600	0	0	B	E	Nueva Venta
+538302	2020-12-16	11:51:57	0	0	0	0	0	B	E	Nueva Venta
+538303	2020-12-16	11:59:53	1100	0	0	0	0	B	E	Nueva Venta
+538304	2020-12-16	11:59:58	0	0	0	0	0	B	E	Nueva Venta
+538305	2020-12-16	12:00:40	2000	0	0	0	0	B	E	Nueva Venta
+538306	2020-12-16	12:01:42	1300	0	0	0	0	B	E	Nueva Venta
+538307	2020-12-16	12:10:39	0	0	0	0	0	B	E	Nueva Venta
+538308	2020-12-16	12:10:50	0	0	0	0	0	B	E	Nueva Venta
+538309	2020-12-16	12:11:30	8300	0	3300	0	0	B	E	Nueva Venta
+538310	2020-12-16	12:29:44	2250	0	0	0	0	B	E	Nueva Venta
+538311	2020-12-16	12:29:46	0	0	0	0	0	B	E	Boleta
+538312	2020-12-16	12:40:09	0	0	0	0	0	B	E	Nueva Venta
+538313	2020-12-16	12:58:10	3250	0	0	0	0	B	E	Nueva Venta
+538314	2020-12-16	13:07:50	2400	0	0	0	0	B	E	Nueva Venta
+538315	2020-12-16	13:09:11	5650	0	4000	0	0	B	E	Nueva Venta
+538316	2020-12-16	13:09:55	3600	0	0	0	0	B	E	Nueva Venta
+538317	2020-12-16	13:13:10	2600	0	0	0	0	B	E	Nueva Venta
+538318	2020-12-16	13:17:20	2900	0	0	0	0	B	E	Nueva Venta
+538319	2020-12-16	13:47:07	3800	0	0	0	0	B	E	Nueva Venta
+538320	2020-12-16	13:47:59	2400	0	0	0	0	B	E	Nueva Venta
+538321	2020-12-16	13:48:56	1700	0	0	0	0	B	E	Nueva Venta
+538322	2020-12-16	13:49:01	0	0	0	0	0	B	E	Nueva Venta
+538323	2020-12-16	13:50:01	3700	0	0	0	0	B	E	Nueva Venta
+538324	2020-12-16	13:50:16	0	0	0	0	0	B	E	Nueva Venta
+538325	2020-12-16	13:55:43	3000	0	0	0	0	B	E	Nueva Venta
+538326	2020-12-16	13:56:24	0	0	0	0	0	B	E	Nueva Venta
+538327	2020-12-16	14:00:29	400	0	0	0	0	B	E	Nueva Venta
+538328	2020-12-16	14:05:30	1800	0	0	0	0	B	E	Nueva Venta
+538329	2020-12-16	14:12:45	1500	0	0	0	0	B	E	Nueva Venta
+538330	2020-12-16	14:27:13	3950	0	0	0	0	B	E	Nueva Venta
+538331	2020-12-16	14:13:50	4600	0	0	0	0	B	E	Nueva Venta
+538332	2020-12-16	14:18:43	2050	0	0	0	0	B	E	Nueva Venta
+538333	2020-12-16	14:21:13	3100	0	0	0	0	B	E	Nueva Venta
+538334	2020-12-16	14:26:10	2400	0	0	0	0	B	E	Nueva Venta
+538335	2020-12-16	14:26:10	0	0	0	0	0	B	E	Nueva Venta
+538336	2020-12-16	14:27:13	3350	0	0	0	0	B	E	Nueva Venta
+538337	2020-12-16	14:41:48	1650	0	0	0	0	B	E	Nva. Venta
+538338	2020-12-16	14:50:38	2900	0	0	0	0	B	E	Nueva Venta
+538339	2020-12-16	14:59:01	2900	0	0	0	0	B	E	Nueva Venta
+538340	2020-12-16	15:01:02	3300	0	0	0	0	B	E	Nueva Venta
+538341	2020-12-16	15:02:19	1000	0	0	0	0	B	E	Nueva Venta
+538342	2020-12-16	15:05:11	2400	0	0	0	0	B	E	Nueva Venta
+538343	2020-12-16	15:08:07	5090	0	0	0	0	B	E	Nueva Venta
+538344	2020-12-16	15:19:45	3800	0	0	0	0	B	E	Nueva Venta
+538345	2020-12-16	15:21:28	4000	0	0	0	0	B	E	Nueva Venta
+538346	2020-12-16	15:22:23	4400	0	3400	0	0	B	E	Nueva Venta
+538347	2020-12-16	15:29:01	750	0	0	0	0	B	E	Nueva Venta
+538348	2020-12-16	15:33:16	0	0	0	0	0	B	E	Nueva Venta
+538349	2020-12-16	15:35:53	0	0	0	0	0	B	E	Nueva Venta
+538350	2020-12-16	15:39:08	8150	0	0	0	0	B	E	Nueva Venta
+538351	2020-12-16	15:39:08	0	0	0	0	0	B	E	Nueva Venta
+538352	2020-12-16	16:18:37	4400	0	0	0	0	B	E	Nva. Venta
+538353	2020-12-16	16:18:37	0	0	0	0	0	B	E	Nueva Venta
+538354	2020-12-17	07:42:01	2600	0	0	0	0	B	E	Nva. Venta
+538355	2020-12-17	07:43:37	3100	0	0	0	0	B	E	Nueva Venta
+538356	2020-12-17	07:43:49	2400	0	0	0	0	B	E	Nueva Venta
+538357	2020-12-17	07:46:35	1100	0	0	0	0	B	E	Nueva Venta
+538358	2020-12-17	07:47:16	1300	0	0	0	0	B	E	Nueva Venta
+538359	2020-12-17	07:48:04	6300	0	0	0	0	B	E	Nueva Venta
+538360	2020-12-17	07:50:00	1100	0	0	0	0	B	E	Nueva Venta
+538361	2020-12-17	07:57:18	1400	0	0	0	0	B	E	Nueva Venta
+538362	2020-12-17	07:58:42	1600	0	0	0	0	B	E	Nueva Venta
+538363	2020-12-17	07:59:13	2500	0	0	0	0	B	E	Nueva Venta
+538364	2020-12-17	07:59:49	3900	0	0	0	0	B	E	Nueva Venta
+538365	2020-12-17	08:00:34	2800	0	0	0	0	B	E	Nueva Venta
+538366	2020-12-17	08:00:50	1700	0	0	0	0	B	E	Nueva Venta
+538367	2020-12-17	08:00:50	0	0	0	0	0	B	E	Nueva Venta
+538368	2020-12-17	08:04:11	0	0	0	0	0	B	E	Nva. Venta
+538369	2020-12-17	08:09:01	1100	0	0	0	0	B	E	Nueva Venta
+538370	2020-12-17	08:09:03	0	0	0	0	0	B	E	Nueva Venta
+538371	2020-12-17	08:11:01	7000	0	4300	0	0	B	E	Nueva Venta
+538372	2020-12-17	08:13:07	0	0	0	0	0	B	E	Nueva Venta
+538373	2020-12-17	08:18:43	6100	0	2000	0	0	B	E	Nueva Venta
+538374	2020-12-17	08:19:38	2400	0	0	0	0	B	E	Nueva Venta
+538375	2020-12-17	08:23:15	4700	0	3400	0	0	B	E	Nueva Venta
+538376	2020-12-17	08:24:14	2700	0	0	0	0	B	E	Nueva Venta
+538377	2020-12-17	08:24:54	2800	0	0	0	0	B	E	Nueva Venta
+538378	2020-12-17	08:25:34	2200	0	0	0	0	B	E	Nueva Venta
+538379	2020-12-17	08:28:37	2100	0	0	0	0	B	E	Nueva Venta
+538380	2020-12-17	08:41:15	4600	0	0	0	0	B	E	Nueva Venta
+538381	2020-12-17	08:41:42	4200	0	0	0	0	B	E	Nueva Venta
+538382	2020-12-17	08:42:18	1700	0	0	0	0	B	E	Nueva Venta
+538383	2020-12-17	08:43:00	4400	0	0	0	0	B	E	Nueva Venta
+538384	2020-12-17	08:43:36	2400	0	0	0	0	B	E	Nueva Venta
+538385	2020-12-17	08:45:03	1500	0	0	0	0	B	E	Nueva Venta
+538386	2020-12-17	08:45:51	2900	0	0	0	0	B	E	Nueva Venta
+538387	2020-12-17	08:46:36	1700	0	0	0	0	B	E	Nueva Venta
+538388	2020-12-17	08:47:26	2400	0	0	0	0	B	E	Nueva Venta
+538389	2020-12-17	08:47:38	0	0	0	0	0	B	E	Nueva Venta
+538390	2020-12-17	08:50:30	2000	0	0	0	0	B	E	Nueva Venta
+538391	2020-12-17	08:51:36	5400	0	0	0	0	B	E	Nueva Venta
+538392	2020-12-17	08:52:21	3300	0	0	0	0	B	E	Nueva Venta
+538393	2020-12-17	08:54:58	1200	0	0	0	0	B	E	Nueva Venta
+538394	2020-12-17	08:55:47	2100	0	0	0	0	B	E	Nueva Venta
+538395	2020-12-17	09:02:02	1300	0	0	0	0	B	E	Nueva Venta
+538396	2020-12-17	09:04:19	2500	0	0	0	0	B	E	Nueva Venta
+538397	2020-12-17	09:08:50	0	0	0	0	0	B	E	Nueva Venta
+538398	2020-12-17	09:12:33	1300	0	0	0	0	B	E	Nueva Venta
+538399	2020-12-17	09:13:23	2300	0	0	0	0	B	E	Nueva Venta
+538400	2020-12-17	09:14:43	2700	0	0	0	0	B	E	Nueva Venta
+538401	2020-12-17	09:15:31	2800	0	0	0	0	B	E	Nueva Venta
+538402	2020-12-17	09:17:14	2300	0	0	0	0	B	E	Nueva Venta
+538403	2020-12-17	09:18:29	5400	0	0	0	0	B	E	Nueva Venta
+538404	2020-12-17	09:19:50	1750	0	0	0	0	B	E	Nueva Venta
+538405	2020-12-17	09:20:32	4350	0	0	0	0	B	E	Nueva Venta
+538406	2020-12-17	09:21:38	1600	0	0	0	0	B	E	Nueva Venta
+538407	2020-12-17	09:22:04	0	0	0	0	0	B	E	Nueva Venta
+538408	2020-12-17	09:25:37	3650	0	0	0	0	B	E	Nueva Venta
+538409	2020-12-17	09:27:49	8000	0	4200	0	0	B	E	Nueva Venta
+538410	2020-12-17	09:28:01	4200	0	0	0	0	B	E	Nueva Venta
+538411	2020-12-17	09:31:09	2400	0	0	0	0	B	E	Nueva Venta
+538412	2020-12-17	09:31:45	3750	0	0	0	0	B	E	Nueva Venta
+538413	2020-12-17	09:32:06	0	0	0	0	0	B	E	Nueva Venta
+538414	2020-12-17	09:33:08	2100	0	0	0	0	B	E	Nueva Venta
+538415	2020-12-17	09:36:25	2600	0	0	0	0	B	E	Nueva Venta
+538416	2020-12-17	09:39:46	1300	0	0	0	0	B	E	Nueva Venta
+538417	2020-12-17	09:40:24	3100	0	0	0	0	B	E	Nueva Venta
+538418	2020-12-17	09:44:29	4000	0	0	0	0	B	E	Nueva Venta
+538419	2020-12-17	09:52:36	3500	0	0	0	0	B	E	Nueva Venta
+538420	2020-12-17	09:55:37	1000	0	0	0	0	B	E	Nueva Venta
+538421	2020-12-17	09:56:54	2700	0	0	0	0	B	E	Nueva Venta
+538422	2020-12-17	09:57:20	1950	0	0	0	0	B	E	Nueva Venta
+538423	2020-12-17	09:58:50	7300	0	0	0	0	B	E	Nueva Venta
+538424	2020-12-17	10:04:01	6200	0	0	0	0	B	E	Nueva Venta
+538425	2020-12-17	10:04:33	2750	0	0	0	0	B	E	Nueva Venta
+538426	2020-12-17	10:04:47	2100	0	0	0	0	B	E	Nueva Venta
+538427	2020-12-17	10:05:05	0	0	0	0	0	B	E	Nueva Venta
+538428	2020-12-17	10:12:07	1100	0	0	0	0	B	E	Nueva Venta
+538429	2020-12-17	10:12:51	5900	0	0	0	0	B	E	Nueva Venta
+538430	2020-12-17	10:13:32	1700	0	0	0	0	B	E	Nueva Venta
+538431	2020-12-17	10:14:04	3400	0	0	0	0	B	E	Nueva Venta
+538432	2020-12-17	10:28:59	3200	0	0	0	0	B	E	Nueva Venta
+538433	2020-12-17	10:29:36	2100	0	0	0	0	B	E	Nueva Venta
+538434	2020-12-17	10:37:10	3800	0	0	0	0	B	E	Nueva Venta
+538435	2020-12-17	10:52:39	1100	0	0	0	0	B	E	Nueva Venta
+538436	2020-12-17	10:53:03	1700	0	0	0	0	B	E	Nueva Venta
+538437	2020-12-17	10:53:17	0	0	0	0	0	B	E	Nueva Venta
+538438	2020-12-17	10:53:59	0	0	0	0	0	B	E	Nueva Venta
+538439	2020-12-17	10:58:37	2000	0	0	0	0	B	E	Nueva Venta
+538440	2020-12-17	11:01:02	2000	0	0	0	0	B	E	Nueva Venta
+538441	2020-12-17	11:04:10	4800	0	0	0	0	B	E	Nueva Venta
+538442	2020-12-17	11:05:04	5300	0	0	0	0	B	E	Nueva Venta
+538443	2020-12-17	11:05:53	5300	0	0	0	0	B	E	Nueva Venta
+538444	2020-12-17	11:06:42	5000	0	3000	0	0	B	E	Nueva Venta
+538445	2020-12-17	11:31:59	2750	0	0	0	0	B	E	Nueva Venta
+538446	2020-12-17	11:34:16	2500	0	0	0	0	B	E	Nueva Venta
+538447	2020-12-17	11:34:18	0	0	0	0	0	B	E	Nueva Venta
+538448	2020-12-17	11:35:23	2300	0	0	0	0	B	E	Nueva Venta
+538449	2020-12-17	11:39:09	500	0	0	0	0	B	E	Nueva Venta
+538450	2020-12-17	11:51:49	3600	0	0	0	0	B	E	Nueva Venta
+538451	2020-12-17	11:54:14	250	0	0	0	0	B	E	Nueva Venta
+538452	2020-12-17	12:02:55	3100	0	0	0	0	B	E	Nueva Venta
+538453	2020-12-17	12:12:24	1100	0	0	0	0	B	E	Nueva Venta
+538454	2020-12-17	12:13:28	1500	0	0	0	0	B	E	Nueva Venta
+538455	2020-12-17	12:22:45	3800	0	0	0	0	B	E	Nueva Venta
+538456	2020-12-17	12:13:58	0	0	0	0	0	B	E	Nueva Venta
+538457	2020-12-17	12:32:45	2800	0	0	0	0	B	E	Nueva Venta
+538458	2020-12-17	12:33:26	8350	0	0	0	0	B	E	Nueva Venta
+538459	2020-12-17	12:35:07	0	0	0	0	0	B	E	Nueva Venta
+538460	2020-12-17	12:51:23	6000	0	0	0	0	B	E	Nueva Venta
+538461	2020-12-17	12:55:51	2000	0	0	0	0	B	E	Nueva Venta
+538462	2020-12-17	13:01:18	980	0	0	0	0	B	E	Nueva Venta
+538463	2020-12-17	13:05:35	700	0	0	0	0	B	E	Nueva Venta
+538464	2020-12-17	13:08:19	1900	0	0	0	0	B	E	Nueva Venta
+538465	2020-12-17	13:10:06	0	0	0	0	0	B	E	Nueva Venta
+538466	2020-12-17	13:22:20	2800	0	0	0	0	B	E	Nueva Venta
+538467	2020-12-17	13:33:05	3000	0	0	0	0	B	E	Nueva Venta
+538468	2020-12-17	13:44:47	14200	0	4200	0	0	B	E	Nueva Venta
+538469	2020-12-17	13:59:01	4900	0	3900	0	0	B	E	Nueva Venta
+538470	2020-12-17	14:00:05	3200	0	0	0	0	B	E	Nueva Venta
+538471	2020-12-17	14:05:22	5800	0	0	0	0	B	E	Nueva Venta
+538472	2020-12-17	14:06:10	1200	0	0	0	0	B	E	Nueva Venta
+538473	2020-12-17	14:15:55	6200	0	6200	0	0	B	E	Nueva Venta
+538474	2020-12-17	14:16:05	3300	0	0	0	0	B	E	Nueva Venta
+538475	2020-12-17	14:17:09	2400	0	0	0	0	B	E	Nueva Venta
+538476	2020-12-17	14:20:35	3380	0	0	0	0	B	E	Nueva Venta
+538477	2020-12-17	14:26:51	0	0	0	0	0	B	E	Nueva Venta
+538478	2020-12-17	14:27:21	3800	0	0	0	0	B	E	Nueva Venta
+538479	2020-12-17	14:30:42	1300	0	0	0	0	B	E	Nueva Venta
+538480	2020-12-17	14:34:00	2250	0	0	0	0	B	E	Nueva Venta
+538481	2020-12-17	14:34:02	0	0	0	0	0	B	E	Nueva Venta
+538482	2020-12-17	14:36:48	1350	0	0	0	0	B	E	Nueva Venta
+538483	2020-12-17	14:38:41	2250	0	0	0	0	B	E	Nueva Venta
+538484	2020-12-17	14:40:46	3000	0	3000	0	0	B	E	Nueva Venta
+538485	2020-12-17	14:41:24	3200	0	0	0	0	B	E	Nueva Venta
+538486	2020-12-17	14:41:41	0	0	0	0	0	B	E	Nueva Venta
+538487	2020-12-17	14:43:26	2000	0	0	0	0	B	E	Nueva Venta
+538488	2020-12-17	14:48:27	980	0	0	0	0	B	E	Nueva Venta
+538489	2020-12-17	14:53:42	2000	0	0	0	0	B	E	Nueva Venta
+538490	2020-12-17	14:58:45	2600	0	0	0	0	B	E	Nueva Venta
+538491	2020-12-17	14:59:17	4000	0	0	0	0	B	E	Nueva Venta
+538492	2020-12-17	15:11:10	2900	0	0	0	0	B	E	Nueva Venta
+538493	2020-12-17	15:11:58	1750	0	0	0	0	B	E	Nueva Venta
+538494	2020-12-17	15:16:11	1690	0	0	0	0	B	E	Nueva Venta
+538495	2020-12-17	15:18:55	700	0	0	0	0	B	E	Nueva Venta
+538496	2020-12-17	15:19:19	650	0	0	0	0	B	E	Nueva Venta
+538497	2020-12-17	15:35:00	3500	0	0	0	0	B	E	Nueva Venta
+538498	2020-12-17	15:38:25	9000	0	0	0	0	B	E	Nueva Venta
+538499	2020-12-17	15:42:51	0	0	0	0	0	B	E	Nueva Venta
+538500	2020-12-17	15:46:47	0	0	0	0	0	B	E	Nueva Venta
+538501	2020-12-17	15:48:09	0	0	0	0	0	B	E	Nueva Venta
+538502	2020-12-17	15:53:52	3150	0	0	0	0	B	E	Nueva Venta
+538503	2020-12-17	15:54:12	1000	0	0	0	0	B	E	Nueva Venta
+538504	2020-12-17	16:22:48	300	0	0	0	0	B	E	Nueva Venta
+538505	2020-12-17	16:23:30	2400	0	0	0	0	B	E	Nueva Venta
+538506	2020-12-17	16:27:50	0	0	0	0	0	B	E	Nueva Venta
+538507	2020-12-17	17:42:31	3550	0	0	0	0	B	E	Nueva Venta
+538508	2020-12-17	17:42:31	0	0	0	0	0	B	E	Nueva Venta
+538509	2020-12-18	07:42:32	6800	0	0	0	0	B	E	Nva. Venta
+538510	2020-12-18	07:43:14	1300	0	0	0	0	B	E	Nueva Venta
+538511	2020-12-18	07:46:55	1400	0	0	0	0	B	E	Nueva Venta
+538512	2020-12-18	07:48:19	4500	0	0	0	0	B	E	Nueva Venta
+538513	2020-12-18	08:03:19	3750	0	3400	0	0	B	E	Nueva Venta
+538514	2020-12-18	08:08:04	2200	0	0	0	0	B	E	Nueva Venta
+538515	2020-12-18	08:08:46	4100	0	0	0	0	B	E	Nueva Venta
+538516	2020-12-18	08:09:31	1950	0	0	0	0	B	E	Nueva Venta
+538517	2020-12-18	08:11:46	5300	0	0	0	0	B	E	Nueva Venta
+538518	2020-12-18	08:18:10	7400	0	3400	0	0	B	E	Nueva Venta
+538519	2020-12-18	08:22:06	2500	0	0	0	0	B	E	Nueva Venta
+538520	2020-12-18	08:24:45	4050	0	0	0	0	B	E	Nueva Venta
+538521	2020-12-18	08:28:05	4350	0	0	0	0	B	E	Nueva Venta
+538522	2020-12-18	08:29:53	11700	0	0	0	0	B	E	Nueva Venta
+538523	2020-12-18	08:30:24	2000	0	2000	0	0	B	E	Nueva Venta
+538524	2020-12-18	08:35:00	3750	0	0	0	0	B	E	Nueva Venta
+538525	2020-12-18	08:46:44	2150	0	0	0	0	B	E	Nueva Venta
+538526	2020-12-18	08:51:01	2050	0	0	0	0	B	E	Nueva Venta
+538527	2020-12-18	08:51:03	0	0	0	0	0	B	E	Nueva Venta
+538528	2020-12-18	08:51:46	1200	0	0	0	0	B	E	Nueva Venta
+538529	2020-12-18	08:51:48	0	0	0	0	0	B	E	Nueva Venta
+538530	2020-12-18	08:57:29	1100	0	0	0	0	B	E	Nueva Venta
+538531	2020-12-18	08:58:06	1750	0	0	0	0	B	E	Nueva Venta
+538532	2020-12-18	08:59:50	2800	0	0	0	0	B	E	Nueva Venta
+538533	2020-12-18	09:00:03	0	0	0	0	0	B	E	Nueva Venta
+538534	2020-12-18	09:02:06	2300	0	0	0	0	B	E	Nueva Venta
+538535	2020-12-18	09:02:19	2400	0	0	0	0	B	E	Nueva Venta
+538536	2020-12-18	09:04:35	0	0	0	0	0	B	E	Nueva Venta
+538537	2020-12-18	09:06:24	2300	0	0	0	0	B	E	Nueva Venta
+538538	2020-12-18	09:06:24	0	0	0	0	0	B	E	Nueva Venta
+538539	2020-12-18	09:18:15	4200	0	4200	0	0	B	E	Nva. Venta
+538540	2020-12-18	09:20:30	6200	0	0	0	0	B	E	Nueva Venta
+538541	2020-12-18	09:21:20	0	0	0	0	0	B	E	Nueva Venta
+538542	2020-12-18	09:21:20	0	0	0	0	0	B	E	Nueva Venta
+538543	2020-12-18	09:37:26	5150	0	0	0	0	B	E	Nva. Venta
+538544	2020-12-18	09:36:18	0	0	0	0	0	B	E	Nueva Venta
+538545	2020-12-18	09:49:02	5700	0	0	0	0	B	E	Nueva Venta
+538546	2020-12-18	09:50:19	1550	0	0	0	0	B	E	Nueva Venta
+538547	2020-12-18	09:51:06	2500	0	0	0	0	B	E	Nueva Venta
+538548	2020-12-18	09:51:59	5500	0	0	0	0	B	E	Nueva Venta
+538549	2020-12-18	09:59:45	3900	0	0	0	0	B	E	Nueva Venta
+538550	2020-12-18	10:01:30	2400	0	0	0	0	B	E	Nueva Venta
+538551	2020-12-18	10:02:22	4400	0	0	0	0	B	E	Nueva Venta
+538552	2020-12-18	10:02:49	990	0	0	0	0	B	E	Nueva Venta
+538553	2020-12-18	10:03:57	8950	0	4300	0	0	B	E	Nueva Venta
+538554	2020-12-18	10:04:45	1400	0	0	0	0	B	E	Nueva Venta
+538555	2020-12-18	10:09:01	1500	0	0	0	0	B	E	Nueva Venta
+538556	2020-12-18	10:19:14	3200	0	0	0	0	B	E	Nueva Venta
+538557	2020-12-18	10:19:55	2200	0	0	0	0	B	E	Nueva Venta
+538558	2020-12-18	10:20:29	2700	0	0	0	0	B	E	Nueva Venta
+538559	2020-12-18	10:30:23	3800	0	0	0	0	B	E	Nueva Venta
+538560	2020-12-18	10:33:46	3500	0	2500	0	0	B	E	Nueva Venta
+538561	2020-12-18	10:34:10	1850	0	0	0	0	B	E	Nueva Venta
+538562	2020-12-18	10:41:28	700	0	0	0	0	B	E	Nueva Venta
+538563	2020-12-18	10:52:00	7790	0	0	0	0	B	E	Nueva Venta
+538564	2020-12-18	10:57:01	2450	0	0	0	0	B	E	Nueva Venta
+538565	2020-12-18	10:59:50	5200	0	3400	0	0	B	E	Nueva Venta
+538566	2020-12-18	11:00:32	0	0	0	0	0	B	E	Nueva Venta
+538567	2020-12-18	11:04:07	2400	0	0	0	0	B	E	Nueva Venta
+538568	2020-12-18	11:06:53	1800	0	0	0	0	B	E	Nueva Venta
+538569	2020-12-18	11:16:39	2100	0	0	0	0	B	E	Nueva Venta
+538570	2020-12-18	11:17:39	950	0	0	0	0	B	E	Nueva Venta
+538571	2020-12-18	11:18:14	2200	0	0	0	0	B	E	Nueva Venta
+538572	2020-12-18	11:29:34	6800	0	0	0	0	B	E	Nueva Venta
+538573	2020-12-18	11:30:27	4200	0	0	0	0	B	E	Nueva Venta
+538574	2020-12-18	11:31:26	0	0	0	0	0	B	E	Nueva Venta
+538575	2020-12-18	11:31:43	0	0	0	0	0	B	E	Nueva Venta
+538576	2020-12-18	11:34:47	5750	0	3000	0	0	B	E	Nueva Venta
+538577	2020-12-18	11:36:56	1600	0	0	0	0	B	E	Nueva Venta
+538578	2020-12-18	12:03:38	1200	0	0	0	0	B	E	Nueva Venta
+538579	2020-12-18	12:04:50	3680	0	0	0	0	B	E	Nueva Venta
+538580	2020-12-18	12:44:35	6200	0	0	0	0	B	E	Nueva Venta
+538581	2020-12-18	12:49:43	3800	0	0	0	0	B	E	Nueva Venta
+538582	2020-12-18	12:50:05	0	0	0	0	0	B	E	Nueva Venta
+538583	2020-12-18	13:12:37	3400	0	0	0	0	B	E	Nueva Venta
+538584	2020-12-18	13:13:37	3750	0	0	0	0	B	E	Nueva Venta
+538585	2020-12-18	13:36:56	1850	0	0	0	0	B	E	Nueva Venta
+538586	2020-12-18	13:49:44	1480	0	0	0	0	B	E	Nueva Venta
+538587	2020-12-18	13:58:13	10700	0	6000	0	0	B	E	Nueva Venta
+538588	2020-12-18	14:42:20	7900	0	4300	0	0	B	E	Nueva Venta
+538589	2020-12-18	14:46:13	700	0	0	0	0	B	E	Nueva Venta
+538590	2020-12-18	14:46:36	0	0	0	0	0	B	E	Nueva Venta
+538591	2020-12-18	14:47:05	1300	0	0	0	0	B	E	Nueva Venta
+538592	2020-12-18	15:34:59	5050	0	0	0	0	B	E	Nueva Venta
+538593	2020-12-18	15:35:36	1300	0	0	0	0	B	E	Nueva Venta
+538594	2020-12-18	15:36:56	5990	0	3000	0	0	B	E	Nueva Venta
+538595	2020-12-18	15:50:21	5400	0	0	0	0	B	E	Nueva Venta
+538596	2020-12-18	16:02:18	1000	0	0	0	0	B	E	Nueva Venta
+538597	2020-12-18	16:06:48	1000	0	0	0	0	B	E	Nueva Venta
+538598	2020-12-18	16:07:36	0	0	0	0	0	B	E	Nueva Venta
+538599	2020-12-18	16:11:47	700	0	0	0	0	B	E	Nueva Venta
+538600	2020-12-18	16:24:52	2000	0	0	0	0	B	E	Nueva Venta
+538601	2020-12-18	16:57:05	1250	0	0	0	0	B	E	Nueva Venta
+538602	2020-12-18	17:07:38	1800	0	0	0	0	B	E	Nueva Venta
+538603	2020-12-18	17:17:09	1000	0	0	0	0	B	E	Nueva Venta
+538604	2020-12-18	17:17:53	2000	0	0	0	0	B	E	Nueva Venta
+538605	2020-12-18	17:17:53	0	0	0	0	0	B	E	Nueva Venta
+538606	2020-12-21	07:34:31	4900	0	0	0	0	B	E	Nva. Venta
+538607	2020-12-21	07:35:03	2800	0	0	0	0	B	E	Nueva Venta
+538608	2020-12-21	07:37:13	10700	0	0	0	0	B	E	Nueva Venta
+538609	2020-12-21	07:40:57	2200	0	0	0	0	B	E	Nueva Venta
+538610	2020-12-21	07:43:28	3300	0	0	0	0	B	E	Nueva Venta
+538611	2020-12-21	07:47:08	9230	0	4300	0	0	B	E	Nueva Venta
+538612	2020-12-21	07:47:42	2700	0	0	0	0	B	E	Nueva Venta
+538613	2020-12-21	07:52:42	4200	0	0	0	0	B	E	Nueva Venta
+538614	2020-12-21	07:53:38	1700	0	0	0	0	B	E	Nueva Venta
+538615	2020-12-21	08:00:36	0	0	0	0	0	B	E	Nueva Venta
+538616	2020-12-21	08:02:13	2450	0	0	0	0	B	E	Nueva Venta
+538617	2020-12-21	08:02:55	4100	0	0	0	0	B	E	Nueva Venta
+538618	2020-12-21	08:08:09	5300	0	0	0	0	B	E	Nueva Venta
+538619	2020-12-21	08:12:01	5700	0	0	0	0	B	E	Nueva Venta
+538620	2020-12-21	08:12:18	800	0	0	0	0	B	E	Nueva Venta
+538621	2020-12-21	08:13:15	1700	0	0	0	0	B	E	Nueva Venta
+538622	2020-12-21	08:15:09	2350	0	0	0	0	B	E	Nueva Venta
+538623	2020-12-21	08:16:50	2600	0	2000	0	0	B	E	Nueva Venta
+538624	2020-12-21	08:17:46	6200	0	4200	0	0	B	E	Nueva Venta
+538625	2020-12-21	08:19:56	0	0	0	0	0	B	E	Nueva Venta
+538626	2020-12-21	08:23:20	2350	0	0	0	0	B	E	Nueva Venta
+538627	2020-12-21	08:22:17	0	0	0	0	0	B	E	Nueva Venta
+538628	2020-12-21	08:23:29	0	0	0	0	0	B	E	Nueva Venta
+538629	2020-12-21	08:26:42	1900	0	0	0	0	B	E	Nueva Venta
+538630	2020-12-21	08:27:40	3950	0	2000	0	0	B	E	Nueva Venta
+538631	2020-12-21	08:28:42	7000	0	4000	0	0	B	E	Nueva Venta
+538632	2020-12-21	08:29:01	400	0	0	0	0	B	E	Nueva Venta
+538633	2020-12-21	08:30:31	4000	0	0	0	0	B	E	Nueva Venta
+538634	2020-12-21	08:31:34	1300	0	0	0	0	B	E	Nueva Venta
+538635	2020-12-21	08:33:12	1800	0	0	0	0	B	E	Nueva Venta
+538636	2020-12-21	08:33:31	1650	0	0	0	0	B	E	Nueva Venta
+538637	2020-12-21	08:35:55	0	0	0	0	0	B	E	Nueva Venta
+538638	2020-12-21	08:37:26	4400	0	2000	0	0	B	E	Nueva Venta
+538639	2020-12-21	08:41:55	1300	0	0	0	0	B	E	Nueva Venta
+538640	2020-12-21	08:42:12	2000	380	0	0	0	B	E	Boleta
+538641	2020-12-21	08:43:05	4800	0	0	0	0	B	E	Nueva Venta
+538642	2020-12-21	08:44:16	2300	0	0	0	0	B	E	Nueva Venta
+538643	2020-12-21	08:44:57	2400	0	0	0	0	B	E	Nueva Venta
+538644	2020-12-21	08:46:36	4000	0	4000	0	0	B	E	Nueva Venta
+538645	2020-12-21	08:47:41	2300	0	0	0	0	B	E	Nueva Venta
+538646	2020-12-21	08:48:49	0	0	0	0	0	B	E	Nueva Venta
+538647	2020-12-21	08:48:56	1200	0	0	0	0	B	E	Nueva Venta
+538648	2020-12-21	08:50:46	1600	0	0	0	0	B	E	Nueva Venta
+538649	2020-12-21	08:51:37	1400	0	0	0	0	B	E	Nueva Venta
+538650	2020-12-21	08:53:46	1300	0	0	0	0	B	E	Nueva Venta
+538651	2020-12-21	08:55:13	4600	0	0	0	0	B	E	Nueva Venta
+538652	2020-12-21	09:03:07	3700	0	0	0	0	B	E	Nueva Venta
+538653	2020-12-21	09:06:39	1500	0	0	0	0	B	E	Nueva Venta
+538654	2020-12-21	09:06:45	0	0	0	0	0	B	E	Nueva Venta
+538655	2020-12-21	09:07:33	4100	0	0	0	0	B	E	Nueva Venta
+538656	2020-12-21	09:11:49	2750	0	0	0	0	B	E	Nueva Venta
+538657	2020-12-21	09:13:25	2800	0	0	0	0	B	E	Nueva Venta
+538658	2020-12-21	09:13:49	2200	0	0	0	0	B	E	Nueva Venta
+538659	2020-12-21	09:14:07	1100	0	0	0	0	B	E	Nueva Venta
+538660	2020-12-21	09:15:42	2100	0	0	0	0	B	E	Nueva Venta
+538661	2020-12-21	09:16:58	3700	0	0	0	0	B	E	Nueva Venta
+538662	2020-12-21	09:17:17	1100	0	0	0	0	B	E	Nueva Venta
+538663	2020-12-21	09:17:45	2700	0	0	0	0	B	E	Nueva Venta
+538664	2020-12-21	09:19:22	1200	0	0	0	0	B	E	Nueva Venta
+538665	2020-12-21	09:19:58	2000	0	0	0	0	B	E	Nueva Venta
+538666	2020-12-21	09:20:00	0	0	0	0	0	B	E	Nueva Venta
+538667	2020-12-21	09:20:24	4000	0	0	0	0	B	E	Nueva Venta
+538668	2020-12-21	09:21:52	0	0	0	0	0	B	E	Nueva Venta
+538669	2020-12-21	09:22:13	0	0	0	0	0	B	E	Nueva Venta
+538670	2020-12-21	09:23:19	3100	0	0	0	0	B	E	Nueva Venta
+538671	2020-12-21	09:26:02	4500	0	0	0	0	B	E	Nueva Venta
+538672	2020-12-21	09:26:02	0	0	0	0	0	B	E	Nueva Venta
+538673	2020-12-21	09:28:50	2400	0	0	0	0	B	E	Nva. Venta
+538674	2020-12-21	09:30:21	3000	0	0	0	0	B	E	Nueva Venta
+538675	2020-12-21	09:31:09	2900	0	0	0	0	B	E	Nueva Venta
+538676	2020-12-21	09:34:36	2400	0	0	0	0	B	E	Nueva Venta
+538677	2020-12-21	09:38:01	2400	0	0	0	0	B	E	Nueva Venta
+538678	2020-12-21	09:38:53	0	0	0	0	0	B	E	Nueva Venta
+538679	2020-12-21	09:47:59	2200	0	0	0	0	B	E	Nueva Venta
+538680	2020-12-21	09:49:03	3650	0	0	0	0	B	E	Nueva Venta
+538681	2020-12-21	09:49:46	5350	0	0	0	0	B	E	Nueva Venta
+538682	2020-12-21	10:09:18	1900	0	0	0	0	B	E	Nueva Venta
+538683	2020-12-21	10:10:39	8400	0	0	0	0	B	E	Nueva Venta
+538684	2020-12-21	10:11:42	4000	0	4000	0	0	B	E	Nueva Venta
+538685	2020-12-21	10:16:28	2200	0	0	0	0	B	E	Nueva Venta
+538686	2020-12-21	10:17:08	2100	0	0	0	0	B	E	Nueva Venta
+538687	2020-12-21	10:20:35	1100	0	0	0	0	B	E	Nueva Venta
+538688	2020-12-21	10:21:20	1750	0	0	0	0	B	E	Nueva Venta
+538689	2020-12-21	10:29:26	3300	0	0	0	0	B	E	Nueva Venta
+538690	2020-12-21	10:30:06	2350	0	0	0	0	B	E	Nueva Venta
+538691	2020-12-21	10:33:13	2650	0	0	0	0	B	E	Nueva Venta
+538692	2020-12-21	10:33:42	3200	0	0	0	0	B	E	Nueva Venta
+538693	2020-12-21	10:34:36	2300	0	0	0	0	B	E	Nueva Venta
+538694	2020-12-21	10:41:30	2700	0	0	0	0	B	E	Nueva Venta
+538695	2020-12-21	10:43:09	3400	0	0	0	0	B	E	Nueva Venta
+538696	2020-12-21	10:47:21	4200	0	0	0	0	B	E	Nueva Venta
+538697	2020-12-21	10:47:37	1960	0	0	0	0	B	E	Nueva Venta
+538698	2020-12-21	10:58:34	2050	0	0	0	0	B	E	Nueva Venta
+538699	2020-12-21	11:21:33	2290	0	0	0	0	B	E	Nueva Venta
+538700	2020-12-21	11:40:04	4100	0	0	0	0	B	E	Nueva Venta
+538701	2020-12-21	11:40:43	0	0	0	0	0	B	E	Nueva Venta
+538702	2020-12-21	11:41:29	0	0	0	0	0	B	E	Nueva Venta
+538703	2020-12-21	11:42:03	0	0	0	0	0	B	E	Nueva Venta
+538704	2020-12-21	11:42:14	1900	0	0	0	0	B	E	Nueva Venta
+538705	2020-12-21	11:45:27	2250	0	0	0	0	B	E	Nueva Venta
+538706	2020-12-21	11:54:52	4100	0	0	0	0	B	E	Nueva Venta
+538707	2020-12-21	11:56:53	1200	0	0	0	0	B	E	Nueva Venta
+538708	2020-12-21	12:20:40	8100	0	0	0	0	B	E	Nueva Venta
+538709	2020-12-21	12:28:38	2250	0	0	0	0	B	E	Nueva Venta
+538710	2020-12-21	12:39:55	3200	0	0	0	0	B	E	Nueva Venta
+538711	2020-12-21	12:46:13	3150	0	0	0	0	B	E	Nueva Venta
+538712	2020-12-21	13:24:51	8800	0	0	0	0	B	E	Nueva Venta
+538713	2020-12-21	13:26:06	900	0	0	0	0	B	E	Nueva Venta
+538714	2020-12-21	13:33:37	2200	0	0	0	0	B	E	Nueva Venta
+538715	2020-12-21	13:35:38	800	0	0	0	0	B	E	Nueva Venta
+538716	2020-12-21	13:37:40	5250	0	0	0	0	B	E	Nueva Venta
+538717	2020-12-21	13:37:43	0	0	0	0	0	B	E	Nueva Venta
+538718	2020-12-21	13:39:12	0	0	0	0	0	B	E	Nueva Venta
+538719	2020-12-21	13:39:33	0	0	0	0	0	B	E	Nueva Venta
+538720	2020-12-21	13:39:55	0	0	0	0	0	B	E	Nueva Venta
+538721	2020-12-21	13:40:04	2000	0	0	0	0	B	E	Nueva Venta
+538722	2020-12-21	13:43:07	4000	0	0	0	0	B	E	Nueva Venta
+538723	2020-12-21	13:43:38	1350	0	0	0	0	B	E	Nueva Venta
+538724	2020-12-21	13:50:21	8200	0	0	0	0	B	E	Nueva Venta
+538725	2020-12-21	14:03:08	3200	0	0	0	0	B	E	Nueva Venta
+538726	2020-12-21	14:08:19	4400	0	0	0	0	B	E	Nueva Venta
+538727	2020-12-21	14:09:50	3550	0	0	0	0	B	E	Nueva Venta
+538728	2020-12-21	14:11:57	3600	0	0	0	0	B	E	Nueva Venta
+538729	2020-12-21	14:12:40	0	0	0	0	0	B	E	Nueva Venta
+538730	2020-12-21	14:16:55	4500	0	0	0	0	B	E	Nueva Venta
+538731	2020-12-21	14:19:24	2350	0	0	0	0	B	E	Nueva Venta
+538732	2020-12-21	14:22:05	3300	0	0	0	0	B	E	Nueva Venta
+538733	2020-12-21	14:24:07	1400	0	0	0	0	B	E	Nueva Venta
+538734	2020-12-21	14:24:09	0	0	0	0	0	B	E	Nueva Venta
+538735	2020-12-21	14:32:54	1690	0	0	0	0	B	E	Nueva Venta
+538736	2020-12-21	14:33:34	2000	0	2000	0	0	B	E	Nueva Venta
+538737	2020-12-21	14:33:56	1800	0	0	0	0	B	E	Nueva Venta
+538738	2020-12-21	14:39:40	4200	0	0	0	0	B	E	Nueva Venta
+538739	2020-12-21	14:53:50	2500	0	0	0	0	B	E	Nueva Venta
+538740	2020-12-21	14:54:07	2800	0	0	0	0	B	E	Nueva Venta
+538741	2020-12-21	14:55:39	2700	0	0	0	0	B	E	Nueva Venta
+538742	2020-12-21	15:04:45	8500	0	0	0	0	B	E	Nueva Venta
+538743	2020-12-21	15:13:01	1700	0	0	0	0	B	E	Nueva Venta
+538744	2020-12-21	15:14:19	800	0	0	0	0	B	E	Nueva Venta
+538745	2020-12-21	15:16:44	0	0	0	0	0	B	E	Nueva Venta
+538746	2020-12-21	15:20:39	700	0	0	0	0	B	E	Nueva Venta
+538747	2020-12-21	15:22:54	2500	0	0	0	0	B	E	Nueva Venta
+538748	2020-12-21	15:23:29	2200	0	0	0	0	B	E	Nueva Venta
+538749	2020-12-21	15:45:41	1400	0	0	0	0	B	E	Nueva Venta
+538750	2020-12-21	16:05:20	3920	0	0	0	0	B	E	Nueva Venta
+538751	2020-12-21	16:12:50	7050	0	0	0	0	B	E	Nueva Venta
+538752	2020-12-21	16:17:59	1100	0	0	0	0	B	E	Nueva Venta
+538753	2020-12-21	16:25:19	0	0	0	0	0	B	E	Nueva Venta
+538754	2020-12-21	16:26:48	2900	0	0	0	0	B	E	Nueva Venta
+538755	2020-12-21	16:27:08	1500	0	0	0	0	B	E	Nueva Venta
+538756	2020-12-21	16:30:27	1470	0	0	0	0	B	E	Nueva Venta
+538757	2020-12-21	16:38:27	1330	0	0	0	0	B	E	Nueva Venta
+538758	2020-12-21	16:38:51	1650	0	0	0	0	B	E	Nueva Venta
+538759	2020-12-21	16:39:56	3400	0	0	0	0	B	E	Nueva Venta
+538760	2020-12-21	16:41:37	1450	0	650	0	0	B	E	Nueva Venta
+538761	2020-12-21	16:42:36	4600	0	3300	0	0	B	E	Nueva Venta
+538762	2020-12-21	16:42:42	0	0	0	0	0	B	E	Nueva Venta
+538763	2020-12-21	16:43:33	4000	0	0	0	0	B	E	Nueva Venta
+538764	2020-12-21	16:44:11	3700	0	0	0	0	B	E	Nueva Venta
+538765	2020-12-21	16:49:38	0	0	0	0	0	B	E	Nueva Venta
+538766	2020-12-21	16:50:45	2540	0	0	0	0	B	E	Nueva Venta
+538767	2020-12-21	17:33:12	4080	0	0	0	0	B	E	Nueva Venta
+538768	2020-12-21	17:33:51	1050	0	0	0	0	B	E	Nueva Venta
+538769	2020-12-21	17:34:20	1300	0	0	0	0	B	E	Nueva Venta
+538770	2020-12-21	17:47:45	2700	0	0	0	0	B	E	Nueva Venta
+538771	2020-12-21	17:48:08	0	0	0	0	0	B	E	Nueva Venta
+538772	2020-12-21	17:48:26	1350	0	0	0	0	B	E	Nueva Venta
+538773	2020-12-21	17:52:28	1800	0	1800	0	0	B	E	Nueva Venta
+538774	2020-12-21	17:54:48	3200	0	0	0	0	B	E	Nueva Venta
+538775	2020-12-21	17:58:22	700	0	0	0	0	B	E	Nueva Venta
+538776	2020-12-21	18:05:31	0	0	0	0	0	B	E	Nueva Venta
+538777	2020-12-21	18:06:46	2000	0	0	0	0	B	E	Nueva Venta
+538778	2020-12-21	18:07:40	5650	0	4000	0	0	B	E	Nueva Venta
+538779	2020-12-21	18:10:19	2800	0	0	0	0	B	E	Nueva Venta
+538780	2020-12-21	18:10:55	9250	0	8600	0	0	B	E	Nueva Venta
+538781	2020-12-21	18:16:37	2600	0	0	0	0	B	E	Nueva Venta
+538782	2020-12-21	18:28:32	2100	0	0	0	0	B	E	Nueva Venta
+538783	2020-12-21	18:33:10	5700	0	0	0	0	B	E	Nueva Venta
+538784	2020-12-21	18:33:24	3900	0	3900	0	0	B	E	Nueva Venta
+538785	2020-12-21	18:34:23	650	0	0	0	0	B	E	Nueva Venta
+538786	2020-12-21	18:38:04	9100	0	8400	0	0	B	E	Nueva Venta
+538787	2020-12-21	18:38:04	0	0	0	0	0	B	E	Nueva Venta
+538788	2020-12-22	07:45:29	3200	0	0	0	0	B	E	Nva. Venta
+538789	2020-12-22	07:46:37	4300	0	0	0	0	B	E	Nueva Venta
+538790	2020-12-22	07:51:12	1200	0	0	0	0	B	E	Nueva Venta
+538791	2020-12-22	07:58:58	2500	0	0	0	0	B	E	Nueva Venta
+538792	2020-12-22	08:02:35	1200	0	0	0	0	B	E	Nueva Venta
+538793	2020-12-22	08:05:55	1700	0	0	0	0	B	E	Nueva Venta
+538794	2020-12-22	08:10:56	2700	0	0	0	0	B	E	Nueva Venta
+538795	2020-12-22	08:11:25	3000	0	0	0	0	B	E	Nueva Venta
+538796	2020-12-22	08:15:16	0	0	0	0	0	B	E	Nueva Venta
+538797	2020-12-22	08:15:45	1250	0	0	0	0	B	E	Nueva Venta
+538798	2020-12-22	08:15:46	0	0	0	0	0	B	E	Nueva Venta
+538799	2020-12-22	08:15:46	0	0	0	0	0	B	E	Nueva Venta
+538800	2020-12-22	08:17:51	1700	0	0	0	0	B	E	Nva. Venta
+538801	2020-12-22	08:18:11	2350	0	0	0	0	B	E	Nueva Venta
+538802	2020-12-22	08:18:43	1600	0	0	0	0	B	E	Nueva Venta
+538803	2020-12-22	08:18:59	400	0	0	0	0	B	E	Nueva Venta
+538804	2020-12-22	08:19:54	6000	0	0	0	0	B	E	Nueva Venta
+538805	2020-12-22	08:24:13	0	0	0	0	0	B	E	Nueva Venta
+538806	2020-12-22	08:25:05	2900	0	0	0	0	B	E	Nueva Venta
+538807	2020-12-22	08:25:12	0	0	0	0	0	B	E	Nueva Venta
+538808	2020-12-22	08:26:13	3100	0	0	0	0	B	E	Nueva Venta
+538809	2020-12-22	08:34:23	4000	0	0	0	0	B	E	Nueva Venta
+538810	2020-12-22	08:38:05	3400	0	0	0	0	B	E	Nueva Venta
+538811	2020-12-22	08:44:23	2900	0	0	0	0	B	E	Nueva Venta
+538812	2020-12-22	08:46:04	1900	0	0	0	0	B	E	Nueva Venta
+538813	2020-12-22	08:46:29	1900	0	0	0	0	B	E	Nueva Venta
+538814	2020-12-22	08:47:05	7600	0	4200	0	0	B	E	Nueva Venta
+538815	2020-12-22	08:47:28	4100	0	0	0	0	B	E	Nueva Venta
+538816	2020-12-22	08:49:19	2400	0	0	0	0	B	E	Nueva Venta
+538817	2020-12-22	08:49:55	6600	0	0	0	0	B	E	Nueva Venta
+538818	2020-12-22	08:59:53	4800	0	0	0	0	B	E	Nueva Venta
+538819	2020-12-22	09:00:41	9400	0	6900	0	0	B	E	Nueva Venta
+538820	2020-12-22	09:02:46	0	0	0	0	0	B	E	Nueva Venta
+538821	2020-12-22	09:10:52	3600	0	0	0	0	B	E	Nueva Venta
+538822	2020-12-22	09:11:33	2100	0	0	0	0	B	E	Nueva Venta
+538823	2020-12-22	09:14:29	2700	0	0	0	0	B	E	Nueva Venta
+538824	2020-12-22	09:16:17	2750	0	0	0	0	B	E	Nueva Venta
+538825	2020-12-22	09:16:32	1900	0	0	0	0	B	E	Nueva Venta
+538826	2020-12-22	09:18:26	1900	0	0	0	0	B	E	Nueva Venta
+538827	2020-12-22	09:21:44	2500	0	0	0	0	B	E	Nueva Venta
+538828	2020-12-22	09:27:33	2900	0	0	0	0	B	E	Nueva Venta
+538829	2020-12-22	09:27:54	700	0	0	0	0	B	E	Nueva Venta
+538830	2020-12-22	09:28:29	2200	0	0	0	0	B	E	Nueva Venta
+538831	2020-12-22	09:28:59	0	0	0	0	0	B	E	Nueva Venta
+538832	2020-12-22	09:29:30	0	0	0	0	0	B	E	Nueva Venta
+538833	2020-12-22	09:30:08	0	0	0	0	0	B	E	Nueva Venta
+538834	2020-12-22	09:31:20	2800	0	0	0	0	B	E	Nueva Venta
+538835	2020-12-22	09:34:47	1100	0	0	0	0	B	E	Nueva Venta
+538836	2020-12-22	09:35:43	2850	0	0	0	0	B	E	Nueva Venta
+538837	2020-12-22	09:36:12	3700	0	0	0	0	B	E	Nueva Venta
+538838	2020-12-22	09:37:05	2500	0	0	0	0	B	E	Nueva Venta
+538839	2020-12-22	09:37:37	1700	0	0	0	0	B	E	Nueva Venta
+538840	2020-12-22	09:41:50	2050	0	0	0	0	B	E	Nueva Venta
+538841	2020-12-22	09:41:56	0	0	0	0	0	B	E	Nueva Venta
+538842	2020-12-22	09:43:19	2790	0	0	0	0	B	E	Nueva Venta
+538843	2020-12-22	09:42:30	0	0	0	0	0	B	E	Nueva Venta
+538844	2020-12-22	09:43:40	1450	0	0	0	0	B	E	Nueva Venta
+538845	2020-12-22	09:43:59	0	0	0	0	0	B	E	Nueva Venta
+538846	2020-12-22	09:44:48	2000	0	0	0	0	B	E	Nueva Venta
+538847	2020-12-22	09:54:58	3000	0	0	0	0	B	E	Nueva Venta
+538848	2020-12-22	09:57:45	2700	0	0	0	0	B	E	Nueva Venta
+538849	2020-12-22	09:58:37	2400	0	0	0	0	B	E	Nueva Venta
+538850	2020-12-22	09:59:34	6350	0	0	0	0	B	E	Nueva Venta
+538851	2020-12-22	10:00:01	4000	0	4000	0	0	B	E	Nueva Venta
+538852	2020-12-22	10:01:18	0	0	0	0	0	B	E	Nueva Venta
+538853	2020-12-22	10:01:31	1800	0	1800	0	0	B	E	Nueva Venta
+538854	2020-12-22	10:02:27	7400	0	4300	0	0	B	E	Nueva Venta
+538855	2020-12-22	10:05:52	2400	0	0	0	0	B	E	Nueva Venta
+538856	2020-12-22	10:07:04	10150	0	0	0	0	B	E	Nueva Venta
+538857	2020-12-22	10:07:34	4350	0	0	0	0	B	E	Nueva Venta
+538858	2020-12-22	10:09:48	1100	0	0	0	0	B	E	Nueva Venta
+538859	2020-12-22	10:12:17	4000	0	0	0	0	B	E	Nueva Venta
+538860	2020-12-22	10:14:00	2100	0	0	0	0	B	E	Nueva Venta
+538861	2020-12-22	10:19:33	2900	0	0	0	0	B	E	Nueva Venta
+538862	2020-12-22	10:15:27	0	0	0	0	0	B	E	Nueva Venta
+538863	2020-12-22	10:19:35	0	0	0	0	0	B	E	Nueva Venta
+538864	2020-12-22	10:21:52	1600	0	0	0	0	B	E	Nueva Venta
+538865	2020-12-22	10:22:18	0	0	0	0	0	B	E	Nueva Venta
+538866	2020-12-22	10:25:38	1700	0	0	0	0	B	E	Nueva Venta
+538867	2020-12-22	10:26:31	2300	0	0	0	0	B	E	Nueva Venta
+538868	2020-12-22	10:28:07	5850	0	4000	0	0	B	E	Nueva Venta
+538869	2020-12-22	10:29:09	2700	0	0	0	0	B	E	Nueva Venta
+538870	2020-12-22	10:35:28	1800	0	0	0	0	B	E	Nueva Venta
+538871	2020-12-22	10:37:28	1000	0	0	0	0	B	E	Nueva Venta
+538872	2020-12-22	10:37:58	1200	228	0	0	0	B	E	Boleta
+538873	2020-12-22	10:45:36	2700	0	0	0	0	B	E	Nueva Venta
+538874	2020-12-22	10:46:46	2200	0	0	0	0	B	E	Nueva Venta
+538875	2020-12-22	10:51:21	0	0	0	0	0	B	E	Nueva Venta
+538876	2020-12-22	11:00:17	2000	0	0	0	0	B	E	Nueva Venta
+538877	2020-12-22	11:02:02	1900	0	0	0	0	B	E	Nueva Venta
+538878	2020-12-22	11:07:16	1800	0	0	0	0	B	E	Nueva Venta
+538879	2020-12-22	11:07:17	0	0	0	0	0	B	E	Nueva Venta
+538880	2020-12-22	11:07:18	0	0	0	0	0	B	E	Nueva Venta
+538881	2020-12-22	11:07:18	0	0	0	0	0	B	E	Nueva Venta
+538882	2020-12-22	11:07:18	0	0	0	0	0	B	E	Nueva Venta
+538883	2020-12-22	11:07:18	0	0	0	0	0	B	E	Nueva Venta
+538884	2020-12-22	11:07:18	0	0	0	0	0	B	E	Nueva Venta
+538885	2020-12-22	11:07:18	0	0	0	0	0	B	E	Nueva Venta
+538886	2020-12-22	11:07:19	0	0	0	0	0	B	E	Nueva Venta
+538887	2020-12-22	11:15:52	400	0	0	0	0	B	E	Nueva Venta
+538888	2020-12-22	11:15:53	0	0	0	0	0	B	E	Nueva Venta
+538889	2020-12-22	11:30:21	1000	0	0	0	0	B	E	Nueva Venta
+538890	2020-12-22	11:31:25	1800	0	0	0	0	B	E	Nueva Venta
+538891	2020-12-22	11:34:14	5600	0	0	0	0	B	E	Nueva Venta
+538892	2020-12-22	11:34:32	2000	0	2000	0	0	B	E	Nueva Venta
+538893	2020-12-22	11:37:21	2500	0	2500	0	0	B	E	Nueva Venta
+538894	2020-12-22	11:40:59	400	0	0	0	0	B	E	Nueva Venta
+538895	2020-12-22	11:41:59	2900	0	0	0	0	B	E	Nueva Venta
+538896	2020-12-22	11:45:23	2250	0	0	0	0	B	E	Nueva Venta
+538897	2020-12-22	11:54:13	4140	0	0	0	0	B	E	Nueva Venta
+538898	2020-12-22	12:25:23	2400	0	0	0	0	B	E	Nueva Venta
+538899	2020-12-22	12:30:34	0	0	0	0	0	B	E	Nueva Venta
+538900	2020-12-22	12:40:46	2200	0	0	0	0	B	E	Nueva Venta
+538901	2020-12-22	12:44:03	2100	0	0	0	0	B	E	Nueva Venta
+538902	2020-12-22	12:48:54	1800	0	0	0	0	B	E	Nueva Venta
+538903	2020-12-22	13:09:38	700	0	0	0	0	B	E	Nueva Venta
+538904	2020-12-22	13:12:45	1900	0	0	0	0	B	E	Nueva Venta
+538905	2020-12-22	13:37:59	5100	0	0	0	0	B	E	Nueva Venta
+538906	2020-12-22	13:47:30	6900	0	0	0	0	B	E	Nueva Venta
+538907	2020-12-22	14:02:48	3200	0	0	0	0	B	E	Nueva Venta
+538908	2020-12-22	14:05:35	6050	0	0	0	0	B	E	Nueva Venta
+538909	2020-12-22	14:08:08	3200	0	0	0	0	B	E	Nueva Venta
+538910	2020-12-22	14:09:14	2300	0	0	0	0	B	E	Nueva Venta
+538911	2020-12-22	14:10:24	6720	0	0	0	0	B	E	Nueva Venta
+538912	2020-12-22	14:18:04	0	0	0	0	0	B	E	Nueva Venta
+538913	2020-12-22	14:18:39	850	0	0	0	0	B	E	Nueva Venta
+538914	2020-12-22	14:20:45	0	0	0	0	0	B	E	Nueva Venta
+538915	2020-12-22	14:22:21	4450	0	0	0	0	B	E	Nueva Venta
+538916	2020-12-22	14:27:33	300	0	0	0	0	B	E	Nueva Venta
+538917	2020-12-22	14:30:25	3200	0	0	0	0	B	E	Nueva Venta
+538918	2020-12-22	14:34:20	2100	0	0	0	0	B	E	Nueva Venta
+538919	2020-12-22	14:47:01	3900	0	3900	0	0	B	E	Nueva Venta
+538920	2020-12-22	14:55:22	870	0	0	0	0	B	E	Nueva Venta
+538921	2020-12-22	14:56:40	3390	0	0	0	0	B	E	Nueva Venta
+538922	2020-12-22	14:56:49	3200	0	0	0	0	B	E	Nueva Venta
+538923	2020-12-22	14:57:23	2200	0	0	0	0	B	E	Nueva Venta
+538924	2020-12-22	14:59:11	4200	0	0	0	0	B	E	Nueva Venta
+538925	2020-12-22	15:00:14	4000	0	0	0	0	B	E	Nueva Venta
+538926	2020-12-22	15:00:27	1300	0	0	0	0	B	E	Nueva Venta
+538927	2020-12-22	15:04:29	3000	0	0	0	0	B	E	Nueva Venta
+538928	2020-12-22	15:04:42	1000	0	0	0	0	B	E	Nueva Venta
+538929	2020-12-22	15:07:44	2620	0	0	0	0	B	E	Nueva Venta
+538930	2020-12-22	15:11:21	0	0	0	0	0	B	E	Nueva Venta
+538931	2020-12-22	15:13:16	1300	0	0	0	0	B	E	Nueva Venta
+538932	2020-12-22	15:18:19	0	0	0	0	0	B	E	Nueva Venta
+538933	2020-12-22	15:19:39	5600	0	3900	0	0	B	E	Nueva Venta
+538934	2020-12-22	15:20:02	10300	0	0	0	0	B	E	Nueva Venta
+538935	2020-12-22	15:21:39	0	0	0	0	0	B	E	Nueva Venta
+538936	2020-12-22	15:26:04	0	0	0	0	0	B	E	Nueva Venta
+538937	2020-12-22	15:28:15	1100	0	0	0	0	B	E	Nueva Venta
+538938	2020-12-22	15:39:51	1690	0	0	0	0	B	E	Nueva Venta
+538939	2020-12-22	15:47:25	1300	0	0	0	0	B	E	Nueva Venta
+538940	2020-12-22	16:05:24	850	0	0	0	0	B	E	Nueva Venta
+538941	2020-12-22	16:08:18	3700	0	0	0	0	B	E	Nueva Venta
+538942	2020-12-22	16:12:18	1400	0	0	0	0	B	E	Nueva Venta
+538943	2020-12-22	16:12:42	3000	0	0	0	0	B	E	Nueva Venta
+538944	2020-12-22	16:13:35	0	0	0	0	0	B	E	Nueva Venta
+538945	2020-12-22	16:14:07	0	0	0	0	0	B	E	Nueva Venta
+538946	2020-12-22	16:14:30	1740	0	0	0	0	B	E	Nueva Venta
+538947	2020-12-22	16:18:42	0	0	0	0	0	B	E	Nueva Venta
+538948	2020-12-22	16:19:54	4300	0	4300	0	0	B	E	Nueva Venta
+538949	2020-12-22	16:20:41	0	0	0	0	0	B	E	Nueva Venta
+538950	2020-12-22	16:36:43	1700	0	0	0	0	B	E	Nueva Venta
+538951	2020-12-22	16:37:13	3900	0	3900	0	0	B	E	Nueva Venta
+538952	2020-12-22	16:38:48	1000	0	0	0	0	B	E	Nueva Venta
+538953	2020-12-22	16:52:37	1000	0	0	0	0	B	E	Nueva Venta
+538954	2020-12-22	16:52:47	0	0	0	0	0	B	E	Nueva Venta
+538955	2020-12-22	17:01:19	4310	0	0	0	0	B	E	Nueva Venta
+538956	2020-12-22	17:10:37	2400	0	0	0	0	B	E	Nueva Venta
+538957	2020-12-22	17:31:57	1100	0	0	0	0	B	E	Nueva Venta
+538958	2020-12-22	17:32:21	0	0	0	0	0	B	E	Nueva Venta
+538959	2020-12-22	17:32:51	4600	0	0	0	0	B	E	Nueva Venta
+538960	2020-12-22	17:35:18	4300	0	4300	0	0	B	E	Nueva Venta
+538961	2020-12-22	17:58:50	4200	0	3000	0	0	B	E	Nueva Venta
+538962	2020-12-22	18:05:41	1950	0	0	0	0	B	E	Nueva Venta
+538963	2020-12-22	18:11:46	1200	0	0	0	0	B	E	Nueva Venta
+538964	2020-12-22	18:15:57	1400	0	0	0	0	B	E	Nueva Venta
+538965	2020-12-22	18:30:58	2650	0	0	0	0	B	E	Nueva Venta
+538966	2020-12-22	18:34:59	300	0	0	0	0	B	E	Nueva Venta
+538967	2020-12-22	18:36:23	1500	0	0	0	0	B	E	Nueva Venta
+538968	2020-12-22	18:36:23	0	0	0	0	0	B	E	Nueva Venta
+538969	2020-12-22	18:58:13	0	0	0	0	0	B	E	Nva. Venta
+538970	2020-12-22	19:09:17	0	0	0	0	0	B	E	Nueva Venta
+538971	2020-12-22	19:11:10	6300	0	0	0	0	B	E	Nueva Venta
+538972	2020-12-22	19:11:30	0	0	0	0	0	B	E	Nueva Venta
+538973	2020-12-22	19:13:27	2200	0	0	0	0	B	E	Nueva Venta
+538974	2020-12-22	19:34:40	800	0	0	0	0	B	E	Nueva Venta
+538975	2020-12-22	19:35:27	1900	0	0	0	0	B	E	Nueva Venta
+538976	2020-12-22	19:55:27	4300	0	0	0	0	B	E	Nueva Venta
+538977	2020-12-22	19:55:27	0	0	0	0	0	B	E	Nueva Venta
+538978	2020-12-23	07:58:27	2600	0	0	0	0	B	E	Nva. Venta
+538979	2020-12-23	07:59:08	2200	0	0	0	0	B	E	Nueva Venta
+538980	2020-12-23	07:59:08	0	0	0	0	0	B	E	Nueva Venta
+538981	2020-12-23	08:12:41	2800	0	0	0	0	B	E	Nva. Venta
+538982	2020-12-23	08:14:18	1900	0	0	0	0	B	E	Nueva Venta
+538983	2020-12-23	08:15:13	1400	0	0	0	0	B	E	Nueva Venta
+538984	2020-12-23	08:19:22	1250	0	0	0	0	B	E	Nueva Venta
+538985	2020-12-23	08:21:28	0	0	0	0	0	B	E	Nueva Venta
+538986	2020-12-23	08:22:09	1700	0	0	0	0	B	E	Nueva Venta
+538987	2020-12-23	08:23:20	1100	0	0	0	0	B	E	Nueva Venta
+538988	2020-12-23	08:23:50	0	0	0	0	0	B	E	Nueva Venta
+538989	2020-12-23	08:27:14	5250	0	0	0	0	B	E	Nueva Venta
+538990	2020-12-23	08:27:39	2500	0	0	0	0	B	E	Nueva Venta
+538991	2020-12-23	08:30:09	0	0	0	0	0	B	E	Nueva Venta
+538992	2020-12-23	08:31:36	3950	0	0	0	0	B	E	Nueva Venta
+538993	2020-12-23	08:34:05	0	0	0	0	0	B	E	Nueva Venta
+538994	2020-12-23	08:34:37	5600	0	0	0	0	B	E	Nueva Venta
+538995	2020-12-23	08:41:09	2100	0	0	0	0	B	E	Nueva Venta
+538996	2020-12-23	08:43:55	3100	0	0	0	0	B	E	Nueva Venta
+538997	2020-12-23	08:49:39	3200	0	0	0	0	B	E	Nueva Venta
+538998	2020-12-23	08:49:41	0	0	0	0	0	B	E	Nueva Venta
+538999	2020-12-23	08:50:27	5250	0	3500	0	0	B	E	Nueva Venta
+539000	2020-12-23	08:55:19	3600	0	0	0	0	B	E	Nueva Venta
+539001	2020-12-23	08:59:46	3300	0	0	0	0	B	E	Nueva Venta
+539002	2020-12-23	09:02:50	2200	0	0	0	0	B	E	Nueva Venta
+539003	2020-12-23	09:05:51	3700	0	0	0	0	B	E	Nueva Venta
+539004	2020-12-23	09:09:18	6150	0	0	0	0	B	E	Nueva Venta
+539005	2020-12-23	09:11:01	3600	0	0	0	0	B	E	Nueva Venta
+539006	2020-12-23	09:11:52	3700	0	0	0	0	B	E	Nueva Venta
+539007	2020-12-23	09:16:46	2500	0	0	0	0	B	E	Nueva Venta
+539008	2020-12-23	09:17:22	3350	0	2500	0	0	B	E	Nueva Venta
+539009	2020-12-23	09:17:36	0	0	0	0	0	B	E	Nueva Venta
+539010	2020-12-23	09:19:04	4300	817	0	0	0	B	E	Boleta
+539011	2020-12-23	09:23:13	3300	0	0	0	0	B	E	Nueva Venta
+539012	2020-12-23	09:24:46	2900	0	0	0	0	B	E	Nueva Venta
+539013	2020-12-23	09:25:21	2400	0	0	0	0	B	E	Nueva Venta
+539014	2020-12-23	09:26:50	2400	0	0	0	0	B	E	Nueva Venta
+539015	2020-12-23	09:27:24	6150	0	0	0	0	B	E	Nueva Venta
+539016	2020-12-23	09:27:37	1100	0	0	0	0	B	E	Nueva Venta
+539017	2020-12-23	09:28:26	2400	0	0	0	0	B	E	Nueva Venta
+539018	2020-12-23	09:28:33	0	0	0	0	0	B	E	Nueva Venta
+539019	2020-12-23	09:29:54	8200	1558	0	0	0	B	E	Nueva Venta
+539020	2020-12-23	09:30:07	0	0	0	0	0	B	E	Boleta
+539021	2020-12-23	09:30:32	4900	0	0	0	0	B	E	Nueva Venta
+539022	2020-12-23	09:30:54	0	0	0	0	0	B	E	Nueva Venta
+539023	2020-12-23	09:33:06	2050	0	0	0	0	B	E	Nueva Venta
+539024	2020-12-23	09:33:26	2700	0	0	0	0	B	E	Nueva Venta
+539025	2020-12-23	09:35:03	1200	0	0	0	0	B	E	Nueva Venta
+539026	2020-12-23	09:35:49	3300	0	0	0	0	B	E	Nueva Venta
+539027	2020-12-23	09:36:16	400	0	0	0	0	B	E	Nueva Venta
+539028	2020-12-23	09:38:09	1100	0	0	0	0	B	E	Nueva Venta
+539029	2020-12-23	09:41:28	6000	0	1800	0	0	B	E	Nueva Venta
+539030	2020-12-23	09:42:09	2400	0	0	0	0	B	E	Nueva Venta
+539031	2020-12-23	09:42:18	3000	0	0	0	0	B	E	Nueva Venta
+539032	2020-12-23	09:45:01	0	0	0	0	0	B	E	Nueva Venta
+539033	2020-12-23	09:48:13	3700	0	0	0	0	B	E	Nueva Venta
+539034	2020-12-23	09:49:14	6900	0	0	0	0	B	E	Nueva Venta
+539035	2020-12-23	09:49:41	0	0	0	0	0	B	E	Nueva Venta
+539036	2020-12-23	09:50:44	3000	0	0	0	0	B	E	Nueva Venta
+539037	2020-12-23	09:51:41	2300	0	0	0	0	B	E	Nueva Venta
+539038	2020-12-23	09:54:03	4100	0	0	0	0	B	E	Nueva Venta
+539039	2020-12-23	09:54:30	0	0	0	0	0	B	E	Nueva Venta
+539040	2020-12-23	09:56:05	1100	0	0	0	0	B	E	Nueva Venta
+539041	2020-12-23	09:56:42	1600	0	0	0	0	B	E	Nueva Venta
+539042	2020-12-23	10:00:13	0	0	0	0	0	B	E	Nueva Venta
+539043	2020-12-23	10:01:10	2000	0	0	0	0	B	E	Nueva Venta
+539044	2020-12-23	10:01:53	4000	0	0	0	0	B	E	Nueva Venta
+539045	2020-12-23	10:02:27	3900	0	0	0	0	B	E	Nueva Venta
+539046	2020-12-23	10:02:29	0	0	0	0	0	B	E	Nueva Venta
+539047	2020-12-23	10:03:25	1800	0	0	0	0	B	E	Nueva Venta
+539048	2020-12-23	10:05:14	3000	0	0	0	0	B	E	Nueva Venta
+539049	2020-12-23	10:08:08	4800	0	0	0	0	B	E	Nueva Venta
+539050	2020-12-23	10:09:09	0	0	0	0	0	B	E	Nueva Venta
+539051	2020-12-23	10:14:43	5400	0	0	0	0	B	E	Nueva Venta
+539052	2020-12-23	10:10:35	2550	0	0	0	0	B	E	Nueva Venta
+539053	2020-12-23	10:10:35	0	0	0	0	0	B	E	Nueva Venta
+539054	2020-12-23	10:19:40	2900	0	0	0	0	B	E	Nueva Venta
+539055	2020-12-23	10:23:57	1100	0	0	0	0	B	E	Nueva Venta
+539056	2020-12-23	10:30:35	1200	0	0	0	0	B	E	Nueva Venta
+539057	2020-12-23	10:37:00	5500	0	4300	0	0	B	E	Nueva Venta
+539058	2020-12-23	10:38:28	1700	0	0	0	0	B	E	Nueva Venta
+539059	2020-12-23	10:44:47	600	0	0	0	0	B	E	Nueva Venta
+539060	2020-12-23	10:49:38	2700	0	0	0	0	B	E	Nueva Venta
+539061	2020-12-23	11:07:45	3400	0	0	0	0	B	E	Nueva Venta
+539062	2020-12-23	11:09:17	1800	0	0	0	0	B	E	Nueva Venta
+539063	2020-12-23	11:09:58	0	0	0	0	0	B	E	Nueva Venta
+539064	2020-12-23	11:13:49	2400	0	0	0	0	B	E	Nueva Venta
+539065	2020-12-23	11:15:03	2250	0	0	0	0	B	E	Nueva Venta
+539066	2020-12-23	11:16:41	2050	0	0	0	0	B	E	Nueva Venta
+539067	2020-12-23	11:18:46	1100	0	0	0	0	B	E	Nueva Venta
+539068	2020-12-23	11:27:20	4000	0	4000	0	0	B	E	Nueva Venta
+539069	2020-12-23	11:27:22	0	0	0	0	0	B	E	Nueva Venta
+539070	2020-12-23	11:28:27	650	0	0	0	0	B	E	Nueva Venta
+539071	2020-12-23	11:28:28	0	0	0	0	0	B	E	Nueva Venta
+539072	2020-12-23	11:44:13	2800	0	0	0	0	B	E	Nueva Venta
+539073	2020-12-23	11:45:04	3100	0	0	0	0	B	E	Nueva Venta
+539074	2020-12-23	11:53:36	2900	0	0	0	0	B	E	Nueva Venta
+539075	2020-12-23	11:58:14	5500	0	0	0	0	B	E	Nueva Venta
+539076	2020-12-23	12:10:56	5900	0	1800	0	0	B	E	Nueva Venta
+539077	2020-12-23	12:28:06	1200	0	0	0	0	B	E	Nueva Venta
+539078	2020-12-23	12:28:08	0	0	0	0	0	B	E	Nueva Venta
+539079	2020-12-23	12:43:36	1250	0	0	0	0	B	E	Nueva Venta
+539080	2020-12-23	12:43:38	0	0	0	0	0	B	E	Nueva Venta
+539081	2020-12-23	12:49:33	2000	0	0	0	0	B	E	Nueva Venta
+539082	2020-12-23	12:49:34	0	0	0	0	0	B	E	Nueva Venta
+539083	2020-12-23	12:51:02	600	0	0	0	0	B	E	Nueva Venta
+539084	2020-12-23	12:51:04	0	0	0	0	0	B	E	Nueva Venta
+539085	2020-12-23	12:53:05	3900	0	3900	0	0	B	E	Nueva Venta
+539086	2020-12-23	13:01:27	5400	0	0	0	0	B	E	Nueva Venta
+539087	2020-12-23	12:53:24	0	0	0	0	0	B	E	Nueva Venta
+539088	2020-12-23	13:13:55	6000	0	6000	0	0	B	E	Nueva Venta
+539089	2020-12-23	13:14:25	1700	0	0	0	0	B	E	Nueva Venta
+539090	2020-12-23	13:29:37	3000	0	0	0	0	B	E	Nueva Venta
+539091	2020-12-23	13:35:34	1000	0	0	0	0	B	E	Nueva Venta
+539092	2020-12-23	13:39:05	2500	0	0	0	0	B	E	Nueva Venta
+539093	2020-12-23	14:16:00	3200	0	0	0	0	B	E	Nueva Venta
+539094	2020-12-23	14:17:42	7900	0	3900	0	0	B	E	Nueva Venta
+539095	2020-12-23	14:17:57	4000	0	0	0	0	B	E	Nueva Venta
+539096	2020-12-23	14:18:52	3800	0	0	0	0	B	E	Nueva Venta
+539097	2020-12-23	14:26:45	4650	0	0	0	0	B	E	Nueva Venta
+539098	2020-12-23	14:29:58	800	0	0	0	0	B	E	Nueva Venta
+539099	2020-12-23	14:34:15	3200	0	0	0	0	B	E	Nueva Venta
+539100	2020-12-23	14:39:56	5300	0	0	0	0	B	E	Nueva Venta
+539101	2020-12-23	14:43:30	1900	0	0	0	0	B	E	Nueva Venta
+539102	2020-12-23	14:45:14	2850	0	0	0	0	B	E	Nueva Venta
+539103	2020-12-23	14:45:26	4200	0	0	0	0	B	E	Nueva Venta
+539104	2020-12-23	14:58:41	1500	0	0	0	0	B	E	Nueva Venta
+539105	2020-12-23	15:11:33	2600	0	0	0	0	B	E	Nueva Venta
+539106	2020-12-23	15:19:52	5650	0	2600	0	0	B	E	Nueva Venta
+539107	2020-12-23	15:22:57	8600	0	0	0	0	B	E	Nueva Venta
+539108	2020-12-23	15:36:36	800	0	0	0	0	B	E	Nueva Venta
+539109	2020-12-23	15:46:42	6900	0	0	0	0	B	E	Nueva Venta
+539110	2020-12-23	15:52:44	500	0	0	0	0	B	E	Nueva Venta
+539111	2020-12-23	15:53:17	1850	0	0	0	0	B	E	Nueva Venta
+539112	2020-12-23	16:03:20	4780	0	0	0	0	B	E	Nueva Venta
+539113	2020-12-23	16:30:05	1500	0	0	0	0	B	E	Nueva Venta
+539114	2020-12-23	16:30:07	0	0	0	0	0	B	E	Nueva Venta
+539115	2020-12-23	16:55:19	700	0	0	0	0	B	E	Nueva Venta
+539116	2020-12-23	17:25:44	3070	0	0	0	0	B	E	Nueva Venta
+539117	2020-12-23	17:47:31	2650	0	0	0	0	B	E	Nueva Venta
+539118	2020-12-23	17:47:53	2000	0	2000	0	0	B	E	Nueva Venta
+539119	2020-12-23	18:23:13	2000	0	2000	0	0	B	E	Nueva Venta
+539120	2020-12-23	18:23:13	0	0	0	0	0	B	E	Nueva Venta
+539121	2020-12-24	07:43:05	2800	0	0	0	0	B	E	Nva. Venta
+539122	2020-12-24	07:52:03	3000	0	0	0	0	B	E	Nueva Venta
+539123	2020-12-24	07:56:50	0	0	0	0	0	B	E	Nueva Venta
+539124	2020-12-24	08:01:45	3050	0	0	0	0	B	E	Nueva Venta
+539125	2020-12-24	08:03:39	1550	0	0	0	0	B	E	Nueva Venta
+539126	2020-12-24	08:22:44	3600	0	0	0	0	B	E	Nueva Venta
+539127	2020-12-24	08:23:46	6700	0	0	0	0	B	E	Nueva Venta
+539128	2020-12-24	08:27:18	1900	0	0	0	0	B	E	Nueva Venta
+539129	2020-12-24	08:28:45	2500	0	0	0	0	B	E	Nueva Venta
+539130	2020-12-24	08:31:11	3460	0	0	0	0	B	E	Nueva Venta
+539131	2020-12-24	08:36:58	2200	0	0	0	0	B	E	Nueva Venta
+539132	2020-12-24	08:37:24	1200	0	0	0	0	B	E	Nueva Venta
+539133	2020-12-24	08:38:47	2000	0	0	0	0	B	E	Nueva Venta
+539134	2020-12-24	08:40:06	3200	0	0	0	0	B	E	Nueva Venta
+539135	2020-12-24	08:40:21	0	0	0	0	0	B	E	Nueva Venta
+539136	2020-12-24	08:45:20	2000	0	2000	0	0	B	E	Nueva Venta
+539137	2020-12-24	08:45:22	0	0	0	0	0	B	E	Nueva Venta
+539138	2020-12-24	08:48:55	4600	0	4600	0	0	B	E	Nueva Venta
+539139	2020-12-24	08:48:57	0	0	0	0	0	B	E	Nueva Venta
+539140	2020-12-24	08:53:15	350	0	0	0	0	B	E	Nueva Venta
+539141	2020-12-24	08:54:05	2300	0	0	0	0	B	E	Nueva Venta
+539142	2020-12-24	08:58:00	0	0	0	0	0	B	E	Nueva Venta
+539143	2020-12-24	09:02:27	2100	0	0	0	0	B	E	Nueva Venta
+539144	2020-12-24	09:03:17	1100	0	0	0	0	B	E	Nueva Venta
+539145	2020-12-24	09:05:13	3100	0	0	0	0	B	E	Nueva Venta
+539146	2020-12-24	09:05:45	3850	0	0	0	0	B	E	Nueva Venta
+539147	2020-12-24	09:09:51	1100	0	0	0	0	B	E	Nueva Venta
+539148	2020-12-24	09:11:03	2650	0	0	0	0	B	E	Nueva Venta
+539149	2020-12-24	09:11:50	6800	0	4200	0	0	B	E	Nueva Venta
+539150	2020-12-24	09:12:38	0	0	0	0	0	B	E	Nueva Venta
+539151	2020-12-24	09:13:26	2600	0	0	0	0	B	E	Nueva Venta
+539152	2020-12-24	09:19:36	3100	0	0	0	0	B	E	Nueva Venta
+539153	2020-12-24	09:20:23	3000	0	0	0	0	B	E	Nueva Venta
+539154	2020-12-24	09:21:28	4600	0	0	0	0	B	E	Nueva Venta
+539155	2020-12-24	09:22:36	6500	0	0	0	0	B	E	Nueva Venta
+539156	2020-12-24	09:23:39	2000	0	0	0	0	B	E	Nueva Venta
+539157	2020-12-24	09:36:10	3100	0	0	0	0	B	E	Nueva Venta
+539158	2020-12-24	09:40:41	1000	0	0	0	0	B	E	Nueva Venta
+539159	2020-12-24	09:42:14	4500	0	0	0	0	B	E	Nueva Venta
+539160	2020-12-24	09:44:18	4300	0	0	0	0	B	E	Nueva Venta
+539161	2020-12-24	09:50:43	3400	0	0	0	0	B	E	Nueva Venta
+539162	2020-12-24	09:51:13	3000	0	0	0	0	B	E	Nueva Venta
+539163	2020-12-24	10:05:04	1100	0	0	0	0	B	E	Nueva Venta
+539164	2020-12-24	10:08:29	2200	0	0	0	0	B	E	Nueva Venta
+539165	2020-12-24	10:14:11	3600	0	0	0	0	B	E	Nueva Venta
+539166	2020-12-24	10:14:12	0	0	0	0	0	B	E	Nueva Venta
+539167	2020-12-24	10:24:19	4900	0	0	0	0	B	E	Nueva Venta
+539168	2020-12-24	10:30:56	5750	0	0	0	0	B	E	Nueva Venta
+539169	2020-12-24	10:33:18	2700	0	0	0	0	B	E	Nueva Venta
+539170	2020-12-24	10:33:42	0	0	0	0	0	B	E	Nueva Venta
+539171	2020-12-24	10:42:40	3000	0	0	0	0	B	E	Nueva Venta
+539172	2020-12-24	10:43:27	1700	0	0	0	0	B	E	Nueva Venta
+539173	2020-12-24	10:43:40	0	0	0	0	0	B	E	Nueva Venta
+539174	2020-12-24	10:59:00	2400	0	0	0	0	B	E	Nueva Venta
+539175	2020-12-24	11:06:12	2300	0	0	0	0	B	E	Nueva Venta
+539176	2020-12-24	11:10:28	3600	0	0	0	0	B	E	Nueva Venta
+539177	2020-12-24	11:11:20	2500	0	0	0	0	B	E	Nueva Venta
+539178	2020-12-24	11:23:31	3300	0	0	0	0	B	E	Nueva Venta
+539179	2020-12-24	11:27:37	0	0	0	0	0	B	E	Nueva Venta
+539180	2020-12-24	11:34:33	2050	0	0	0	0	B	E	Nueva Venta
+539181	2020-12-24	11:39:22	2100	0	0	0	0	B	E	Nueva Venta
+539182	2020-12-24	11:39:59	5200	0	3900	0	0	B	E	Nueva Venta
+539183	2020-12-24	11:50:07	700	0	0	0	0	B	E	Nueva Venta
+539184	2020-12-24	11:50:08	0	0	0	0	0	B	E	Nueva Venta
+539185	2020-12-24	11:57:12	950	0	0	0	0	B	E	Nueva Venta
+539186	2020-12-24	13:10:11	1600	0	0	0	0	B	E	Nueva Venta
+539187	2020-12-24	13:10:12	0	0	0	0	0	B	E	Nueva Venta
+539188	2020-12-24	13:10:57	550	0	0	0	0	B	E	Nueva Venta
+539189	2020-12-24	14:40:16	980	0	0	0	0	B	E	Nueva Venta
+539190	2020-12-24	14:59:48	7150	0	5300	0	0	B	E	Nueva Venta
+539191	2020-12-24	14:59:48	0	0	0	0	0	B	E	Nueva Venta
+539192	2020-12-28	07:52:10	2050	0	0	0	0	B	E	Nva. Venta
+539193	2020-12-28	07:52:16	0	0	0	0	0	B	E	Nueva Venta
+539194	2020-12-28	07:57:08	3900	0	0	0	0	B	E	Nueva Venta
+539195	2020-12-28	07:57:08	0	0	0	0	0	B	E	Nueva Venta
+539196	2020-12-28	08:03:03	3200	0	2000	0	0	B	E	Nva. Venta
+539197	2020-12-28	08:03:35	1700	0	0	0	0	B	E	Nueva Venta
+539198	2020-12-28	08:03:35	2900	0	0	0	0	B	E	Nueva Venta
+539199	2020-12-28	08:14:05	2000	0	0	0	0	B	E	Nva. Venta
+539200	2020-12-28	08:14:28	1200	0	0	0	0	B	E	Nueva Venta
+539201	2020-12-28	08:14:41	0	0	0	0	0	B	E	Nueva Venta
+539202	2020-12-28	08:16:40	850	0	0	0	0	B	E	Nueva Venta
+539203	2020-12-28	08:16:58	1800	0	0	0	0	B	E	Nueva Venta
+539204	2020-12-28	08:18:03	1850	0	0	0	0	B	E	Nueva Venta
+539205	2020-12-28	08:19:37	700	0	0	0	0	B	E	Nueva Venta
+539206	2020-12-28	08:23:07	2600	0	0	0	0	B	E	Nueva Venta
+539207	2020-12-28	08:25:10	1900	0	0	0	0	B	E	Nueva Venta
+539208	2020-12-28	08:30:30	4100	0	3000	0	0	B	E	Nueva Venta
+539209	2020-12-28	08:42:08	1900	0	0	0	0	B	E	Nueva Venta
+539210	2020-12-28	08:43:04	2500	0	0	0	0	B	E	Nueva Venta
+539211	2020-12-28	08:46:06	1900	0	0	0	0	B	E	Nueva Venta
+539212	2020-12-28	08:47:16	3400	0	0	0	0	B	E	Nueva Venta
+539213	2020-12-28	08:47:34	0	0	0	0	0	B	E	Nueva Venta
+539214	2020-12-28	08:50:13	2500	0	0	0	0	B	E	Nueva Venta
+539215	2020-12-28	08:51:50	1200	0	0	0	0	B	E	Nueva Venta
+539216	2020-12-28	08:52:55	2100	0	0	0	0	B	E	Nueva Venta
+539217	2020-12-28	08:53:33	1650	0	0	0	0	B	E	Nueva Venta
+539218	2020-12-28	08:53:57	2900	0	0	0	0	B	E	Nueva Venta
+539219	2020-12-28	08:54:27	2000	0	0	0	0	B	E	Nueva Venta
+539220	2020-12-28	08:56:00	3100	0	1800	0	0	B	E	Nueva Venta
+539221	2020-12-28	09:05:40	1500	0	0	0	0	B	E	Nueva Venta
+539222	2020-12-28	09:06:39	3300	0	0	0	0	B	E	Nueva Venta
+539223	2020-12-28	09:11:15	1100	0	0	0	0	B	E	Nueva Venta
+539224	2020-12-28	09:12:43	0	0	0	0	0	B	E	Nueva Venta
+539225	2020-12-28	09:13:19	1100	0	0	0	0	B	E	Nueva Venta
+539226	2020-12-28	09:14:06	6600	0	0	0	0	B	E	Nueva Venta
+539227	2020-12-28	09:19:37	1000	0	0	0	0	B	E	Nueva Venta
+539228	2020-12-28	09:27:09	6800	0	0	0	0	B	E	Nueva Venta
+539229	2020-12-28	09:28:37	1800	0	0	0	0	B	E	Nueva Venta
+539230	2020-12-28	09:31:01	4200	0	0	0	0	B	E	Nueva Venta
+539231	2020-12-28	09:31:36	600	0	0	0	0	B	E	Nueva Venta
+539232	2020-12-28	09:32:06	4500	0	0	0	0	B	E	Nueva Venta
+539233	2020-12-28	09:40:39	5600	0	0	0	0	B	E	Nueva Venta
+539234	2020-12-28	09:42:32	4000	0	1800	0	0	B	E	Nueva Venta
+539235	2020-12-28	09:43:58	4900	0	0	0	0	B	E	Nueva Venta
+539236	2020-12-28	09:44:40	1350	0	0	0	0	B	E	Nueva Venta
+539237	2020-12-28	09:45:15	0	0	0	0	0	B	E	Nueva Venta
+539238	2020-12-28	09:48:58	2100	0	0	0	0	B	E	Nueva Venta
+539239	2020-12-28	09:49:52	1500	0	0	0	0	B	E	Nueva Venta
+539240	2020-12-28	09:56:19	4550	864	0	0	0	B	E	Boleta
+539241	2020-12-28	09:56:20	0	0	0	0	0	B	E	Nueva Venta
+539242	2020-12-28	10:01:56	0	0	0	0	0	B	E	Nueva Venta
+539243	2020-12-28	10:04:32	1700	0	0	0	0	B	E	Nueva Venta
+539244	2020-12-28	10:05:44	1100	0	0	0	0	B	E	Nueva Venta
+539245	2020-12-28	10:06:21	0	0	0	0	0	B	E	Nueva Venta
+539246	2020-12-28	10:07:06	1900	0	0	0	0	B	E	Nueva Venta
+539247	2020-12-28	10:07:24	0	0	0	0	0	B	E	Nueva Venta
+539248	2020-12-28	10:12:10	3100	0	0	0	0	B	E	Nueva Venta
+539249	2020-12-28	10:12:44	2300	0	0	0	0	B	E	Nueva Venta
+539250	2020-12-28	10:12:55	2300	0	0	0	0	B	E	Nueva Venta
+539251	2020-12-28	10:13:03	0	0	0	0	0	B	E	Nueva Venta
+539252	2020-12-28	10:23:24	4800	0	3900	0	0	B	E	Nueva Venta
+539253	2020-12-28	10:24:10	1100	0	0	0	0	B	E	Nueva Venta
+539254	2020-12-28	10:28:32	4300	0	0	0	0	B	E	Nueva Venta
+539255	2020-12-28	10:48:11	1300	0	0	0	0	B	E	Nueva Venta
+539256	2020-12-28	10:55:55	6600	0	4300	0	0	B	E	Nueva Venta
+539257	2020-12-28	10:57:13	3800	0	0	0	0	B	E	Nueva Venta
+539258	2020-12-28	10:58:57	1100	0	0	0	0	B	E	Nueva Venta
+539259	2020-12-28	11:09:57	2550	0	0	0	0	B	E	Nueva Venta
+539260	2020-12-28	11:22:05	2700	0	0	0	0	B	E	Nueva Venta
+539261	2020-12-28	11:37:28	3600	0	0	0	0	B	E	Nueva Venta
+539262	2020-12-28	11:39:35	2500	0	0	0	0	B	E	Nueva Venta
+539263	2020-12-28	11:41:48	5700	0	0	0	0	B	E	Nueva Venta
+539264	2020-12-28	11:46:23	1000	0	0	0	0	B	E	Nueva Venta
+539265	2020-12-28	11:46:44	7200	0	3900	0	0	B	E	Nueva Venta
+539266	2020-12-28	11:51:54	800	0	0	0	0	B	E	Nueva Venta
+539267	2020-12-28	12:11:41	1200	0	0	0	0	B	E	Nueva Venta
+539268	2020-12-28	12:11:53	0	0	0	0	0	B	E	Nueva Venta
+539269	2020-12-28	12:19:04	8100	0	0	0	0	B	E	Nueva Venta
+539270	2020-12-28	12:21:24	2350	0	0	0	0	B	E	Nueva Venta
+539271	2020-12-28	12:22:29	500	0	0	0	0	B	E	Nueva Venta
+539272	2020-12-28	12:26:55	2350	0	0	0	0	B	E	Nueva Venta
+539273	2020-12-28	12:29:33	3380	0	0	0	0	B	E	Nueva Venta
+539274	2020-12-28	12:42:50	3700	0	3000	0	0	B	E	Nueva Venta
+539275	2020-12-28	12:45:11	0	0	0	0	0	B	E	Nueva Venta
+539276	2020-12-28	12:45:11	1300	0	0	0	0	B	E	Nueva Venta
+539277	2020-12-28	13:20:35	0	0	0	0	0	B	E	Nva. Venta
+539278	2020-12-28	13:34:21	2700	0	0	0	0	B	E	Nueva Venta
+539279	2020-12-28	13:39:12	5200	0	0	0	0	B	E	Nueva Venta
+539280	2020-12-28	13:45:24	3200	0	0	0	0	B	E	Nueva Venta
+539281	2020-12-28	13:46:23	0	0	0	0	0	B	E	Nueva Venta
+539282	2020-12-28	13:50:40	6700	0	0	0	0	B	E	Nueva Venta
+539283	2020-12-28	13:51:27	2400	0	0	0	0	B	E	Nueva Venta
+539284	2020-12-28	13:52:01	1100	0	0	0	0	B	E	Nueva Venta
+539285	2020-12-28	13:56:05	1630	0	0	0	0	B	E	Nueva Venta
+539286	2020-12-28	13:57:19	3100	0	0	0	0	B	E	Nueva Venta
+539287	2020-12-28	13:57:47	1700	0	0	0	0	B	E	Nueva Venta
+539288	2020-12-28	14:00:37	4950	0	0	0	0	B	E	Nueva Venta
+539289	2020-12-28	14:02:17	4800	0	0	0	0	B	E	Nueva Venta
+539290	2020-12-28	14:09:43	5700	0	0	0	0	B	E	Nueva Venta
+539291	2020-12-28	14:12:28	3100	0	0	0	0	B	E	Nueva Venta
+539292	2020-12-28	14:14:55	2600	0	0	0	0	B	E	Nueva Venta
+539293	2020-12-28	14:34:21	10400	0	4000	0	0	B	E	Nueva Venta
+539294	2020-12-28	14:41:13	7200	0	4200	0	0	B	E	Nueva Venta
+539295	2020-12-28	14:43:58	650	0	0	0	0	B	E	Nueva Venta
+539296	2020-12-28	14:44:00	0	0	0	0	0	B	E	Nueva Venta
+539297	2020-12-28	14:46:51	1400	0	0	0	0	B	E	Nueva Venta
+539298	2020-12-28	14:48:20	1850	0	0	0	0	B	E	Nueva Venta
+539299	2020-12-28	14:53:37	0	0	0	0	0	B	E	Nueva Venta
+539300	2020-12-28	14:55:42	5900	0	4000	0	0	B	E	Nueva Venta
+539301	2020-12-28	15:03:03	6000	0	0	0	0	B	E	Nueva Venta
+539302	2020-12-28	15:03:05	0	0	0	0	0	B	E	Nueva Venta
+539303	2020-12-28	15:06:10	2640	0	0	0	0	B	E	Nueva Venta
+539304	2020-12-28	15:06:11	0	0	0	0	0	B	E	Nueva Venta
+539305	2020-12-28	15:13:34	2000	0	0	0	0	B	E	Nueva Venta
+539306	2020-12-28	15:19:05	1650	0	0	0	0	B	E	Nueva Venta
+539307	2020-12-28	15:19:36	10200	0	0	0	0	B	E	Nueva Venta
+539308	2020-12-28	16:01:30	2100	0	0	0	0	B	E	Nueva Venta
+539309	2020-12-28	16:02:15	0	0	0	0	0	B	E	Nueva Venta
+539310	2020-12-28	16:28:13	6000	0	0	0	0	B	E	Nueva Venta
+539311	2020-12-28	16:02:41	0	0	0	0	0	B	E	Nueva Venta
+539312	2020-12-28	16:28:54	4500	0	3500	0	0	B	E	Nueva Venta
+539313	2020-12-28	17:16:12	0	0	0	0	0	B	E	Nueva Venta
+539314	2020-12-28	17:16:12	1100	0	0	0	0	B	E	Nueva Venta
+539315	2020-12-29	07:56:58	3400	0	0	0	0	B	E	Nva. Venta
+539316	2020-12-29	07:58:16	8700	0	3400	0	0	B	E	Nueva Venta
+539317	2020-12-29	07:58:58	1500	0	0	0	0	B	E	Nueva Venta
+539318	2020-12-29	08:06:48	1100	0	0	0	0	B	E	Nueva Venta
+539319	2020-12-29	08:12:40	1600	0	0	0	0	B	E	Nueva Venta
+539320	2020-12-29	08:12:41	0	0	0	0	0	B	E	Nueva Venta
+539321	2020-12-29	08:19:05	4100	0	3100	0	0	B	E	Nueva Venta
+539322	2020-12-29	08:19:38	1800	0	0	0	0	B	E	Nueva Venta
+539323	2020-12-29	08:20:12	1900	0	0	0	0	B	E	Nueva Venta
+539324	2020-12-29	08:20:24	0	0	0	0	0	B	E	Nueva Venta
+539325	2020-12-29	08:21:08	2000	0	0	0	0	B	E	Nueva Venta
+539326	2020-12-29	08:21:54	2000	0	0	0	0	B	E	Nueva Venta
+539327	2020-12-29	08:24:26	2700	0	0	0	0	B	E	Nueva Venta
+539328	2020-12-29	08:28:59	0	0	0	0	0	B	E	Nueva Venta
+539329	2020-12-29	08:29:30	4700	0	0	0	0	B	E	Nueva Venta
+539330	2020-12-29	08:42:05	2100	0	0	0	0	B	E	Nueva Venta
+539331	2020-12-29	08:42:06	0	0	0	0	0	B	E	Nueva Venta
+539332	2020-12-29	08:45:21	2100	0	0	0	0	B	E	Nueva Venta
+539333	2020-12-29	08:46:30	2600	0	0	0	0	B	E	Nueva Venta
+539334	2020-12-29	09:03:51	2500	0	0	0	0	B	E	Nueva Venta
+539335	2020-12-29	09:05:11	800	0	0	0	0	B	E	Nueva Venta
+539336	2020-12-29	09:05:30	4200	0	4200	0	0	B	E	Nueva Venta
+539337	2020-12-29	09:07:01	3100	0	0	0	0	B	E	Nueva Venta
+539338	2020-12-29	09:07:14	2200	0	0	0	0	B	E	Nueva Venta
+539339	2020-12-29	09:07:56	1900	0	0	0	0	B	E	Nueva Venta
+539340	2020-12-29	09:15:23	5000	0	0	0	0	B	E	Nueva Venta
+539341	2020-12-29	09:17:44	2130	0	0	0	0	B	E	Nueva Venta
+539342	2020-12-29	09:22:02	1000	0	0	0	0	B	E	Nueva Venta
+539343	2020-12-29	09:27:45	1500	0	0	0	0	B	E	Nueva Venta
+539344	2020-12-29	09:30:34	3300	0	2000	0	0	B	E	Nueva Venta
+539345	2020-12-29	09:31:34	2300	0	0	0	0	B	E	Nueva Venta
+539346	2020-12-29	09:33:17	1500	0	0	0	0	B	E	Nueva Venta
+539347	2020-12-29	09:35:45	2600	0	0	0	0	B	E	Nueva Venta
+539348	2020-12-29	09:37:46	1300	0	0	0	0	B	E	Nueva Venta
+539349	2020-12-29	09:38:10	3000	0	0	0	0	B	E	Nueva Venta
+539350	2020-12-29	09:40:42	1800	0	0	0	0	B	E	Nueva Venta
+539351	2020-12-29	09:41:20	2700	0	0	0	0	B	E	Nueva Venta
+539352	2020-12-29	09:42:00	4400	0	0	0	0	B	E	Nueva Venta
+539353	2020-12-29	09:42:22	6000	0	0	0	0	B	E	Nueva Venta
+539354	2020-12-29	09:43:06	3100	0	0	0	0	B	E	Nueva Venta
+539355	2020-12-29	09:46:32	1000	190	0	0	0	B	E	Nueva Venta
+539356	2020-12-29	09:46:48	3800	0	0	0	0	B	E	Boleta
+539357	2020-12-29	09:49:55	3200	0	0	0	0	B	E	Nueva Venta
+539358	2020-12-29	09:50:44	2000	0	0	0	0	B	E	Nueva Venta
+539359	2020-12-29	09:55:45	2300	0	0	0	0	B	E	Nueva Venta
+539360	2020-12-29	09:56:22	2300	0	0	0	0	B	E	Nueva Venta
+539361	2020-12-29	09:56:35	0	0	0	0	0	B	E	Nueva Venta
+539362	2020-12-29	09:57:49	0	0	0	0	0	B	E	Nueva Venta
+539363	2020-12-29	09:59:00	2200	0	0	0	0	B	E	Nueva Venta
+539364	2020-12-29	09:59:55	2400	0	0	0	0	B	E	Nueva Venta
+539365	2020-12-29	10:03:10	3150	0	0	0	0	B	E	Nueva Venta
+539366	2020-12-29	10:11:55	3250	0	0	0	0	B	E	Nueva Venta
+539367	2020-12-29	10:12:40	4400	0	1300	0	0	B	E	Nueva Venta
+539368	2020-12-29	10:23:06	14300	0	0	0	0	B	E	Nueva Venta
+539369	2020-12-29	10:28:41	2600	0	0	0	0	B	E	Nueva Venta
+539370	2020-12-29	10:30:22	3600	0	0	0	0	B	E	Nueva Venta
+539371	2020-12-29	10:29:39	0	0	0	0	0	B	E	Nueva Venta
+539372	2020-12-29	10:33:19	4900	0	0	0	0	B	E	Nueva Venta
+539373	2020-12-29	10:31:11	0	0	0	0	0	B	E	Nueva Venta
+539374	2020-12-29	10:45:12	0	0	0	0	0	B	E	Nueva Venta
+539375	2020-12-29	10:48:40	2200	0	0	0	0	B	E	Nueva Venta
+539376	2020-12-29	10:59:32	3200	0	0	0	0	B	E	Nueva Venta
+539377	2020-12-29	11:02:30	1100	0	0	0	0	B	E	Nueva Venta
+539378	2020-12-29	11:08:58	3300	0	0	0	0	B	E	Nueva Venta
+539379	2020-12-29	11:14:58	1400	0	0	0	0	B	E	Nueva Venta
+539380	2020-12-29	11:25:17	2700	0	2000	0	0	B	E	Nueva Venta
+539381	2020-12-29	11:27:25	0	0	0	0	0	B	E	Nueva Venta
+539382	2020-12-29	11:27:25	3800	0	0	0	0	B	E	Nueva Venta
+539383	2020-12-29	11:54:13	1200	0	0	0	0	B	E	Nva. Venta
+539384	2020-12-29	11:58:24	3200	0	0	0	0	B	E	Nueva Venta
+539385	2020-12-29	12:01:30	4400	0	0	0	0	B	E	Nueva Venta
+539386	2020-12-29	12:08:58	3000	0	3000	0	0	B	E	Nueva Venta
+539387	2020-12-29	12:13:07	4700	0	4000	0	0	B	E	Nueva Venta
+539388	2020-12-29	12:14:20	1200	0	0	0	0	B	E	Nueva Venta
+539389	2020-12-29	12:16:09	5400	0	3000	0	0	B	E	Nueva Venta
+539390	2020-12-29	12:33:44	3100	0	0	0	0	B	E	Nueva Venta
+539391	2020-12-29	12:39:47	1250	0	0	0	0	B	E	Nueva Venta
+539392	2020-12-29	12:53:42	2400	0	0	0	0	B	E	Nueva Venta
+539393	2020-12-29	13:13:35	3450	0	2000	0	0	B	E	Nueva Venta
+539394	2020-12-29	13:14:40	1850	0	0	0	0	B	E	Nueva Venta
+539395	2020-12-29	13:16:28	3500	0	0	0	0	B	E	Nueva Venta
+539396	2020-12-29	13:37:19	4600	0	0	0	0	B	E	Nueva Venta
+539397	2020-12-29	13:50:10	4600	0	0	0	0	B	E	Nueva Venta
+539398	2020-12-29	13:55:22	5500	0	4000	0	0	B	E	Nueva Venta
+539399	2020-12-29	13:57:08	2200	0	0	0	0	B	E	Nueva Venta
+539400	2020-12-29	14:00:01	3800	0	0	0	0	B	E	Nueva Venta
+539401	2020-12-29	14:05:53	8000	0	0	0	0	B	E	Nueva Venta
+539402	2020-12-29	14:22:59	4900	0	0	0	0	B	E	Nueva Venta
+539403	2020-12-29	14:24:23	0	0	0	0	0	B	E	Nueva Venta
+539404	2020-12-29	14:27:22	5000	0	0	0	0	B	E	Nueva Venta
+539405	2020-12-29	14:28:31	2490	0	0	0	0	B	E	Nueva Venta
+539406	2020-12-29	14:29:40	2400	0	0	0	0	B	E	Nueva Venta
+539407	2020-12-29	14:30:10	1950	0	0	0	0	B	E	Nueva Venta
+539408	2020-12-29	14:34:31	1400	0	0	0	0	B	E	Nueva Venta
+539409	2020-12-29	14:35:15	3200	0	0	0	0	B	E	Nueva Venta
+539410	2020-12-29	14:47:56	4800	0	0	0	0	B	E	Nueva Venta
+539411	2020-12-29	14:50:05	2100	0	0	0	0	B	E	Nueva Venta
+539412	2020-12-29	14:51:20	2100	0	0	0	0	B	E	Nueva Venta
+539413	2020-12-29	14:52:58	850	0	0	0	0	B	E	Nueva Venta
+539414	2020-12-29	14:54:11	5200	0	0	0	0	B	E	Nueva Venta
+539415	2020-12-29	14:57:04	5080	0	0	0	0	B	E	Nueva Venta
+539416	2020-12-29	14:57:56	4500	0	0	0	0	B	E	Nueva Venta
+539417	2020-12-29	15:04:48	3200	0	0	0	0	B	E	Nueva Venta
+539418	2020-12-29	15:09:31	3300	0	3300	0	0	B	E	Nueva Venta
+539419	2020-12-29	15:10:28	1600	0	0	0	0	B	E	Nueva Venta
+539420	2020-12-29	15:33:34	6600	0	2000	0	0	B	E	Nueva Venta
+539421	2020-12-29	15:40:23	4780	0	4300	0	0	B	E	Nueva Venta
+539422	2020-12-29	15:44:18	2800	0	0	0	0	B	E	Nueva Venta
+539423	2020-12-29	15:47:47	5300	0	4200	0	0	B	E	Nueva Venta
+539424	2020-12-29	16:01:34	1400	0	0	0	0	B	E	Nueva Venta
+539425	2020-12-29	17:30:17	500	0	0	0	0	B	E	Nueva Venta
+539426	2020-12-29	17:30:17	0	0	0	0	0	B	E	Nueva Venta
+539427	2020-12-30	07:41:03	2900	0	0	0	0	B	E	Nva. Venta
+539428	2020-12-30	07:45:00	3800	0	0	0	0	B	E	Nueva Venta
+539429	2020-12-30	07:45:48	5400	0	4200	0	0	B	E	Nueva Venta
+539430	2020-12-30	07:52:40	4400	0	0	0	0	B	E	Nueva Venta
+539431	2020-12-30	08:02:29	1200	0	0	0	0	B	E	Nueva Venta
+539432	2020-12-30	08:05:34	2400	0	0	0	0	B	E	Nueva Venta
+539433	2020-12-30	08:05:49	0	0	0	0	0	B	E	Nueva Venta
+539434	2020-12-30	08:06:30	6800	0	6800	0	0	B	E	Nueva Venta
+539435	2020-12-30	08:07:57	2500	0	0	0	0	B	E	Nueva Venta
+539436	2020-12-30	08:16:47	2000	0	0	0	0	B	E	Nueva Venta
+539437	2020-12-30	08:18:35	1700	0	0	0	0	B	E	Nueva Venta
+539438	2020-12-30	08:23:21	5300	0	0	0	0	B	E	Nueva Venta
+539439	2020-12-30	08:24:09	2200	0	0	0	0	B	E	Nueva Venta
+539440	2020-12-30	08:25:00	2500	0	0	0	0	B	E	Nueva Venta
+539441	2020-12-30	08:25:55	6050	0	4000	0	0	B	E	Nueva Venta
+539442	2020-12-30	08:26:36	1300	0	0	0	0	B	E	Nueva Venta
+539443	2020-12-30	08:28:59	3000	0	0	0	0	B	E	Nueva Venta
+539444	2020-12-30	08:30:10	2100	0	0	0	0	B	E	Nueva Venta
+539445	2020-12-30	08:30:59	3300	0	0	0	0	B	E	Nueva Venta
+539446	2020-12-30	08:32:37	1800	0	0	0	0	B	E	Nueva Venta
+539447	2020-12-30	08:46:05	2100	0	0	0	0	B	E	Nueva Venta
+539448	2020-12-30	08:49:16	700	0	0	0	0	B	E	Nueva Venta
+539449	2020-12-30	08:54:55	900	0	0	0	0	B	E	Nueva Venta
+539450	2020-12-30	08:55:20	3250	0	0	0	0	B	E	Nueva Venta
+539451	2020-12-30	08:59:42	2700	0	0	0	0	B	E	Nueva Venta
+539452	2020-12-30	09:01:22	6000	0	0	0	0	B	E	Nueva Venta
+539453	2020-12-30	09:02:55	1100	0	0	0	0	B	E	Nueva Venta
+539454	2020-12-30	09:04:42	3200	0	0	0	0	B	E	Nueva Venta
+539455	2020-12-30	09:10:24	0	0	0	0	0	B	E	Nueva Venta
+539456	2020-12-30	09:20:31	1800	0	1800	0	0	B	E	Nueva Venta
+539457	2020-12-30	09:26:35	2200	0	0	0	0	B	E	Nueva Venta
+539458	2020-12-30	09:28:11	2400	0	2000	0	0	B	E	Nueva Venta
+539459	2020-12-30	09:31:15	2500	0	0	0	0	B	E	Nueva Venta
+539460	2020-12-30	09:32:25	1800	0	0	0	0	B	E	Nueva Venta
+539461	2020-12-30	09:36:21	2900	0	0	0	0	B	E	Nueva Venta
+539462	2020-12-30	09:37:39	1900	0	0	0	0	B	E	Nueva Venta
+539463	2020-12-30	09:38:46	1100	0	0	0	0	B	E	Nueva Venta
+539464	2020-12-30	09:40:10	3500	0	0	0	0	B	E	Nueva Venta
+539465	2020-12-30	09:41:10	0	0	0	0	0	B	E	Nueva Venta
+539466	2020-12-30	09:42:02	4100	0	0	0	0	B	E	Nueva Venta
+539467	2020-12-30	09:43:04	2000	0	2000	0	0	B	E	Nueva Venta
+539468	2020-12-30	09:47:38	2300	0	0	0	0	B	E	Nueva Venta
+539469	2020-12-30	09:48:15	2400	0	0	0	0	B	E	Nueva Venta
+539470	2020-12-30	09:56:26	7800	0	4300	0	0	B	E	Nueva Venta
+539471	2020-12-30	09:58:43	2300	0	0	0	0	B	E	Nueva Venta
+539472	2020-12-30	09:58:56	1100	0	0	0	0	B	E	Nueva Venta
+539473	2020-12-30	09:59:51	1200	0	0	0	0	B	E	Nueva Venta
+539474	2020-12-30	10:02:57	2300	0	0	0	0	B	E	Nueva Venta
+539475	2020-12-30	10:04:18	6600	0	5200	0	0	B	E	Nueva Venta
+539476	2020-12-30	10:28:51	2000	0	0	0	0	B	E	Nueva Venta
+539477	2020-12-30	10:39:42	5300	0	0	0	0	B	E	Nueva Venta
+539478	2020-12-30	10:41:10	2500	0	0	0	0	B	E	Nueva Venta
+539479	2020-12-30	10:41:20	0	0	0	0	0	B	E	Nueva Venta
+539480	2020-12-30	10:55:12	2600	0	0	0	0	B	E	Nueva Venta
+539481	2020-12-30	11:02:48	0	0	0	0	0	B	E	Nueva Venta
+539482	2020-12-30	11:03:10	1200	0	0	0	0	B	E	Nueva Venta
+539483	2020-12-30	11:11:57	3900	0	0	0	0	B	E	Nueva Venta
+539484	2020-12-30	11:06:30	0	0	0	0	0	B	E	Nueva Venta
+539485	2020-12-30	11:12:39	1300	0	0	0	0	B	E	Nueva Venta
+539486	2020-12-30	11:25:59	2950	0	0	0	0	B	E	Nueva Venta
+539487	2020-12-30	11:26:00	0	0	0	0	0	B	E	Nueva Venta
+539488	2020-12-30	11:34:10	2700	0	0	0	0	B	E	Nueva Venta
+539489	2020-12-30	11:42:20	7350	0	4850	0	0	B	E	Nueva Venta
+539490	2020-12-30	12:16:11	4000	0	0	0	0	B	E	Nueva Venta
+539491	2020-12-30	12:16:17	0	0	0	0	0	B	E	Nueva Venta
+539492	2020-12-30	12:17:44	6700	0	5000	0	0	B	E	Nueva Venta
+539493	2020-12-30	12:23:36	8200	0	0	0	0	B	E	Nueva Venta
+539494	2020-12-30	12:40:05	6800	0	6800	0	0	B	E	Nueva Venta
+539495	2020-12-30	12:42:31	1600	0	0	0	0	B	E	Nueva Venta
+539496	2020-12-30	12:48:34	4300	0	0	0	0	B	E	Nueva Venta
+539497	2020-12-30	13:24:20	2950	0	0	0	0	B	E	Nueva Venta
+539498	2020-12-30	13:24:47	0	0	0	0	0	B	E	Nueva Venta
+539499	2020-12-30	13:31:19	6200	0	0	0	0	B	E	Nueva Venta
+539500	2020-12-30	13:39:23	4200	0	0	0	0	B	E	Nueva Venta
+539501	2020-12-30	13:44:27	1900	0	0	0	0	B	E	Nueva Venta
+539502	2020-12-30	14:01:08	3850	0	0	0	0	B	E	Nueva Venta
+539503	2020-12-30	14:02:43	3000	0	0	0	0	B	E	Nueva Venta
+539504	2020-12-30	14:02:54	0	0	0	0	0	B	E	Nueva Venta
+539505	2020-12-30	14:03:34	3700	0	0	0	0	B	E	Nueva Venta
+539506	2020-12-30	14:04:03	0	0	0	0	0	B	E	Nueva Venta
+539507	2020-12-30	14:04:49	4250	0	3400	0	0	B	E	Nueva Venta
+539508	2020-12-30	14:14:12	3100	0	3100	0	0	B	E	Nueva Venta
+539509	2020-12-30	14:17:04	3700	0	0	0	0	B	E	Nueva Venta
+539510	2020-12-30	14:15:30	0	0	0	0	0	B	E	Nueva Venta
+539511	2020-12-30	14:36:20	3200	0	0	0	0	B	E	Nueva Venta
+539512	2020-12-30	14:38:59	4650	0	2600	0	0	B	E	Nueva Venta
+539513	2020-12-30	14:44:18	4050	0	0	0	0	B	E	Nueva Venta
+539514	2020-12-30	14:53:15	3200	0	0	0	0	B	E	Nueva Venta
+539515	2020-12-30	15:03:18	3380	0	0	0	0	B	E	Nueva Venta
+539516	2020-12-30	15:04:18	4300	0	0	0	0	B	E	Nueva Venta
+539517	2020-12-30	15:05:59	2100	0	0	0	0	B	E	Nueva Venta
+539518	2020-12-30	15:07:24	1500	0	0	0	0	B	E	Nueva Venta
+539519	2020-12-30	15:07:53	0	0	0	0	0	B	E	Nueva Venta
+539520	2020-12-30	15:11:09	4800	0	0	0	0	B	E	Nueva Venta
+539521	2020-12-30	15:11:57	0	0	0	0	0	B	E	Nueva Venta
+539522	2020-12-30	15:13:58	3500	0	0	0	0	B	E	Nueva Venta
+539523	2020-12-30	15:14:43	3400	0	3400	0	0	B	E	Nueva Venta
+539524	2020-12-30	15:15:47	2400	0	0	0	0	B	E	Boleta
+539525	2020-12-30	15:20:38	0	0	0	0	0	B	E	Nueva Venta
+539526	2020-12-30	15:22:26	9900	0	0	0	0	B	E	Nueva Venta
+539527	2020-12-30	15:22:53	0	0	0	0	0	B	E	Nueva Venta
+539528	2020-12-30	15:23:52	9000	0	0	0	0	B	E	Nueva Venta
+539529	2020-12-30	16:02:31	7400	0	0	0	0	B	E	Nueva Venta
+539530	2020-12-30	16:14:57	3400	0	3400	0	0	B	E	Nueva Venta
+539531	2020-12-30	16:16:07	1250	0	0	0	0	B	E	Nueva Venta
+539532	2020-12-30	17:01:48	1800	0	0	0	0	B	E	Nueva Venta
+539533	2020-12-30	17:01:48	0	0	0	0	0	B	E	Nueva Venta
+539534	2020-12-30	17:22:38	1980	0	0	0	0	B	E	Nva. Venta
+539535	2020-12-30	17:27:22	1500	0	0	0	0	B	E	Nueva Venta
+539536	2020-12-30	17:27:22	0	0	0	0	0	B	E	Nueva Venta
+539537	2020-12-31	07:53:00	2800	0	0	0	0	B	E	Nva. Venta
+539538	2020-12-31	07:58:02	3300	0	0	0	0	B	E	Nueva Venta
+539539	2020-12-31	07:58:03	0	0	0	0	0	B	E	Nueva Venta
+539540	2020-12-31	08:06:43	2800	0	0	0	0	B	E	Nueva Venta
+539541	2020-12-31	08:07:47	2500	0	0	0	0	B	E	Nueva Venta
+539542	2020-12-31	08:08:41	2500	0	0	0	0	B	E	Nueva Venta
+539543	2020-12-31	08:12:47	400	0	0	0	0	B	E	Nueva Venta
+539544	2020-12-31	08:16:26	1300	0	0	0	0	B	E	Nueva Venta
+539545	2020-12-31	08:18:17	3300	0	0	0	0	B	E	Nueva Venta
+539546	2020-12-31	08:23:56	5200	0	0	0	0	B	E	Nueva Venta
+539547	2020-12-31	08:26:23	4500	0	0	0	0	B	E	Nueva Venta
+539548	2020-12-31	08:28:16	2000	0	0	0	0	B	E	Nueva Venta
+539549	2020-12-31	08:29:50	2600	0	0	0	0	B	E	Nueva Venta
+539550	2020-12-31	08:30:09	1100	0	0	0	0	B	E	Nueva Venta
+539551	2020-12-31	08:30:37	3200	0	0	0	0	B	E	Nueva Venta
+539552	2020-12-31	08:31:38	0	0	0	0	0	B	E	Nueva Venta
+539553	2020-12-31	08:32:22	3000	0	0	0	0	B	E	Nueva Venta
+539554	2020-12-31	08:33:04	2400	0	0	0	0	B	E	Nueva Venta
+539555	2020-12-31	08:34:18	2700	0	0	0	0	B	E	Nueva Venta
+539556	2020-12-31	08:36:45	2900	0	0	0	0	B	E	Nueva Venta
+539557	2020-12-31	08:42:02	3600	0	0	0	0	B	E	Nueva Venta
+539558	2020-12-31	08:46:13	3800	0	0	0	0	B	E	Nueva Venta
+539559	2020-12-31	08:53:21	3200	0	0	0	0	B	E	Nueva Venta
+539560	2020-12-31	08:54:19	850	0	0	0	0	B	E	Nueva Venta
+539561	2020-12-31	08:55:33	1400	0	0	0	0	B	E	Nueva Venta
+539562	2020-12-31	08:56:04	0	0	0	0	0	B	E	Nueva Venta
+539563	2020-12-31	08:57:12	1800	0	0	0	0	B	E	Nueva Venta
+539564	2020-12-31	09:00:15	2800	0	0	0	0	B	E	Nueva Venta
+539565	2020-12-31	09:01:27	6200	0	4200	0	0	B	E	Nueva Venta
+539566	2020-12-31	09:02:31	4300	817	0	0	0	B	E	Boleta
+539567	2020-12-31	09:03:19	2800	0	0	0	0	B	E	Nueva Venta
+539568	2020-12-31	09:03:55	4700	0	2000	0	0	B	E	Nueva Venta
+539569	2020-12-31	09:04:36	2600	0	2600	0	0	B	E	Nueva Venta
+539570	2020-12-31	09:07:23	3100	0	0	0	0	B	E	Nueva Venta
+539571	2020-12-31	09:08:06	5900	0	0	0	0	B	E	Nueva Venta
+539572	2020-12-31	09:28:51	700	0	0	0	0	B	E	Nueva Venta
+539573	2020-12-31	09:28:52	0	0	0	0	0	B	E	Nueva Venta
+539574	2020-12-31	09:41:59	600	0	0	0	0	B	E	Nueva Venta
+539575	2020-12-31	09:51:14	2250	0	0	0	0	B	E	Nueva Venta
+539576	2020-12-31	09:52:13	1700	0	0	0	0	B	E	Nueva Venta
+539577	2020-12-31	09:52:50	0	0	0	0	0	B	E	Nueva Venta
+539578	2020-12-31	09:54:11	3900	0	0	0	0	B	E	Nueva Venta
+539579	2020-12-31	09:59:45	2600	0	0	0	0	B	E	Nueva Venta
+539580	2020-12-31	10:02:43	3200	0	0	0	0	B	E	Nueva Venta
+539581	2020-12-31	10:11:40	1100	0	0	0	0	B	E	Nueva Venta
+539582	2020-12-31	10:14:04	0	0	0	0	0	B	E	Nueva Venta
+539583	2020-12-31	10:23:19	2800	0	0	0	0	B	E	Nueva Venta
+539584	2020-12-31	10:26:47	2600	0	0	0	0	B	E	Nueva Venta
+539585	2020-12-31	10:27:48	4950	0	3300	0	0	B	E	Nueva Venta
+539586	2020-12-31	10:50:39	1100	0	0	0	0	B	E	Nueva Venta
+539587	2020-12-31	11:00:06	2600	0	0	0	0	B	E	Nueva Venta
+539588	2020-12-31	11:00:18	0	0	0	0	0	B	E	Nueva Venta
+539589	2020-12-31	11:06:53	0	0	0	0	0	B	E	Nueva Venta
+539590	2020-12-31	11:32:11	4400	0	0	0	0	B	E	Nueva Venta
+539591	2020-12-31	11:56:40	6000	0	6000	0	0	B	E	Nueva Venta
+539592	2020-12-31	12:10:26	2200	0	0	0	0	B	E	Nueva Venta
+539593	2020-12-31	12:34:58	5280	0	0	0	0	B	E	Nueva Venta
+539594	2020-12-31	12:42:54	3000	0	3000	0	0	B	E	Nueva Venta
+539595	2020-12-31	12:42:54	0	0	0	0	0	B	E	Nueva Venta
+539596	2021-01-04	07:38:47	7900	0	0	0	0	B	E	Nva. Venta
+539597	2021-01-04	07:38:48	3300	0	0	0	0	B	E	Nueva Venta
+539598	2021-01-04	07:54:23	2500	0	0	0	0	B	E	Nva. Venta
+539599	2021-01-04	08:01:58	1500	0	0	0	0	B	E	Nueva Venta
+539600	2021-01-04	08:10:30	6600	0	4500	0	0	B	E	Nueva Venta
+539601	2021-01-04	08:11:02	2300	0	0	0	0	B	E	Nueva Venta
+539602	2021-01-04	08:11:03	0	0	0	0	0	B	E	Nueva Venta
+539603	2021-01-04	08:21:33	1200	0	0	0	0	B	E	Nueva Venta
+539604	2021-01-04	08:21:34	0	0	0	0	0	B	E	Nueva Venta
+539605	2021-01-04	08:22:45	800	0	0	0	0	B	E	Nueva Venta
+539606	2021-01-04	08:31:43	850	0	0	0	0	B	E	Nueva Venta
+539607	2021-01-04	08:34:01	4100	0	3000	0	0	B	E	Nueva Venta
+539608	2021-01-04	08:37:18	1900	0	0	0	0	B	E	Nueva Venta
+539609	2021-01-04	08:37:20	0	0	0	0	0	B	E	Nueva Venta
+539610	2021-01-04	08:40:27	1100	0	0	0	0	B	E	Nueva Venta
+539611	2021-01-04	08:41:33	1300	0	0	0	0	B	E	Nueva Venta
+539612	2021-01-04	08:45:27	2250	0	0	0	0	B	E	Nueva Venta
+539613	2021-01-04	08:48:53	1200	0	0	0	0	B	E	Nueva Venta
+539614	2021-01-04	08:49:48	1300	0	0	0	0	B	E	Nueva Venta
+539615	2021-01-04	08:50:04	2100	0	0	0	0	B	E	Nueva Venta
+539616	2021-01-04	08:52:17	1800	0	0	0	0	B	E	Nueva Venta
+539617	2021-01-04	09:00:26	1300	0	0	0	0	B	E	Nueva Venta
+539618	2021-01-04	09:02:05	0	0	0	0	0	B	E	Nueva Venta
+539619	2021-01-04	09:02:29	0	0	0	0	0	B	E	Nueva Venta
+539620	2021-01-04	09:06:59	0	0	0	0	0	B	E	Nueva Venta
+539621	2021-01-04	09:08:09	2300	0	0	0	0	B	E	Nueva Venta
+539622	2021-01-04	09:09:34	1600	0	0	0	0	B	E	Nueva Venta
+539623	2021-01-04	09:16:42	1700	0	0	0	0	B	E	Nueva Venta
+539624	2021-01-04	09:20:07	6900	0	4000	0	0	B	E	Nueva Venta
+539625	2021-01-04	09:19:21	0	0	0	0	0	B	E	Nueva Venta
+539626	2021-01-04	09:20:40	1800	0	0	0	0	B	E	Nueva Venta
+539627	2021-01-04	09:21:06	1600	0	0	0	0	B	E	Nueva Venta
+539628	2021-01-04	09:21:33	1800	0	0	0	0	B	E	Nueva Venta
+539629	2021-01-04	09:21:35	0	0	0	0	0	B	E	Nueva Venta
+539630	2021-01-04	09:34:39	1450	0	0	0	0	B	E	Nueva Venta
+539631	2021-01-04	09:40:34	1300	0	0	0	0	B	E	Nueva Venta
+539632	2021-01-04	09:44:48	3300	0	0	0	0	B	E	Nueva Venta
+539633	2021-01-04	09:45:42	3500	0	2500	0	0	B	E	Nueva Venta
+539634	2021-01-04	09:47:19	4300	0	0	0	0	B	E	Nueva Venta
+539635	2021-01-04	09:48:45	2950	0	0	0	0	B	E	Nueva Venta
+539636	2021-01-04	09:49:35	1100	0	0	0	0	B	E	Nueva Venta
+539637	2021-01-04	09:52:13	5900	0	0	0	0	B	E	Nueva Venta
+539638	2021-01-04	09:52:25	2000	0	2000	0	0	B	E	Nueva Venta
+539639	2021-01-04	09:52:53	2400	0	0	0	0	B	E	Nueva Venta
+539640	2021-01-04	09:54:04	1700	0	0	0	0	B	E	Nueva Venta
+539641	2021-01-04	09:57:17	2700	0	0	0	0	B	E	Nueva Venta
+539642	2021-01-04	09:54:55	0	0	0	0	0	B	E	Nueva Venta
+539643	2021-01-04	09:58:42	1300	0	0	0	0	B	E	Nueva Venta
+539644	2021-01-04	10:00:07	2700	0	0	0	0	B	E	Nueva Venta
+539645	2021-01-04	10:01:51	2450	0	0	0	0	B	E	Nueva Venta
+539646	2021-01-04	10:11:50	3400	0	0	0	0	B	E	Nueva Venta
+539647	2021-01-04	10:17:08	1100	0	0	0	0	B	E	Nueva Venta
+539648	2021-01-04	10:17:08	0	0	0	0	0	B	E	Nueva Venta
+539649	2021-01-04	11:14:46	1300	0	0	0	0	B	E	Nva. Venta
+539650	2021-01-04	11:15:09	1200	0	0	0	0	B	E	Nueva Venta
+539651	2021-01-04	11:26:55	2100	0	0	0	0	B	E	Nueva Venta
+539652	2021-01-04	11:43:39	2400	0	0	0	0	B	E	Nueva Venta
+539653	2021-01-04	11:47:20	1800	0	0	0	0	B	E	Nueva Venta
+539654	2021-01-04	11:51:15	3500	0	0	0	0	B	E	Nueva Venta
+539655	2021-01-04	12:00:03	1650	0	0	0	0	B	E	Nueva Venta
+539656	2021-01-04	12:36:32	1800	0	0	0	0	B	E	Nueva Venta
+539657	2021-01-04	12:36:33	0	0	0	0	0	B	E	Nueva Venta
+539658	2021-01-04	12:53:36	3650	0	0	0	0	B	E	Nueva Venta
+539659	2021-01-04	12:56:35	800	0	0	0	0	B	E	Nueva Venta
+539660	2021-01-04	13:01:17	0	0	0	0	0	B	E	Nueva Venta
+539661	2021-01-04	13:18:39	6390	0	2000	0	0	B	E	Nueva Venta
+539662	2021-01-04	13:24:10	4400	0	2000	0	0	B	E	Nueva Venta
+539663	2021-01-04	13:49:35	3150	0	0	0	0	B	E	Nueva Venta
+539664	2021-01-04	13:59:21	2470	0	0	0	0	B	E	Nueva Venta
+539665	2021-01-04	14:00:01	2700	0	0	0	0	B	E	Nueva Venta
+539666	2021-01-04	14:00:43	1500	0	0	0	0	B	E	Nueva Venta
+539667	2021-01-04	14:05:21	1900	0	0	0	0	B	E	Nueva Venta
+539668	2021-01-04	14:05:52	4200	0	0	0	0	B	E	Nueva Venta
+539669	2021-01-04	14:23:24	7400	0	0	0	0	B	E	Nueva Venta
+539670	2021-01-04	14:24:56	5200	0	0	0	0	B	E	Nueva Venta
+539671	2021-01-04	14:25:49	1690	0	0	0	0	B	E	Nueva Venta
+539672	2021-01-04	14:32:38	1650	0	0	0	0	B	E	Nueva Venta
+539673	2021-01-04	14:32:40	0	0	0	0	0	B	E	Nueva Venta
+539674	2021-01-04	14:36:37	3700	0	0	0	0	B	E	Nueva Venta
+539675	2021-01-04	14:39:05	8000	0	0	0	0	B	E	Nueva Venta
+539676	2021-01-04	14:43:03	0	0	0	0	0	B	E	Nueva Venta
+539677	2021-01-04	14:46:15	2200	0	0	0	0	B	E	Nueva Venta
+539678	2021-01-04	14:51:02	2700	0	0	0	0	B	E	Nueva Venta
+539679	2021-01-04	14:51:54	2500	0	0	0	0	B	E	Nueva Venta
+539680	2021-01-04	14:56:02	8100	0	6000	0	0	B	E	Nueva Venta
+539681	2021-01-04	14:56:30	0	0	0	0	0	B	E	Nueva Venta
+539682	2021-01-04	14:57:46	2100	0	0	0	0	B	E	Nueva Venta
+539683	2021-01-04	14:58:16	3550	0	0	0	0	B	E	Nueva Venta
+539684	2021-01-04	14:58:53	0	0	0	0	0	B	E	Nueva Venta
+539685	2021-01-04	15:00:26	0	0	0	0	0	B	E	Nueva Venta
+539686	2021-01-04	15:06:54	1100	0	0	0	0	B	E	Nueva Venta
+539687	2021-01-04	15:07:31	1400	0	0	0	0	B	E	Nueva Venta
+539688	2021-01-04	15:07:46	0	0	0	0	0	B	E	Nueva Venta
+539689	2021-01-04	15:10:33	1100	0	0	0	0	B	E	Nueva Venta
+539690	2021-01-04	15:11:56	2100	0	0	0	0	B	E	Nueva Venta
+539691	2021-01-04	15:13:05	2850	0	0	0	0	B	E	Nueva Venta
+539692	2021-01-04	15:12:39	0	0	0	0	0	B	E	Nueva Venta
+539693	2021-01-04	15:13:26	0	0	0	0	0	B	E	Nueva Venta
+539694	2021-01-04	15:38:15	5700	0	0	0	0	B	E	Nueva Venta
+539695	2021-01-04	15:39:22	1700	0	0	0	0	B	E	Nueva Venta
+539696	2021-01-04	15:40:53	3380	0	0	0	0	B	E	Nueva Venta
+539697	2021-01-04	15:47:07	0	0	0	0	0	B	E	Nueva Venta
+539698	2021-01-04	16:20:31	14250	0	0	0	0	B	E	Nueva Venta
+539699	2021-01-04	16:20:33	0	0	0	0	0	B	E	Nueva Venta
+539700	2021-01-04	16:26:12	0	0	0	0	0	B	E	Nueva Venta
+539701	2021-01-04	16:30:55	4100	0	0	0	0	B	E	Nueva Venta
+539702	2021-01-04	16:40:08	1700	0	0	0	0	B	E	Nueva Venta
+539703	2021-01-04	16:47:21	2200	0	0	0	0	B	E	Nueva Venta
+539704	2021-01-04	17:38:33	2690	0	0	0	0	B	E	Nueva Venta
+539705	2021-01-04	17:38:33	0	0	0	0	0	B	E	Nueva Venta
+539706	2021-01-04	18:02:57	0	0	0	0	0	B	E	Nva. Venta
+539707	2021-01-05	07:41:54	2350	0	0	0	0	B	E	Nva. Venta
+539708	2021-01-05	07:52:21	3250	0	0	0	0	B	E	Nueva Venta
+539709	2021-01-05	07:58:13	1100	0	0	0	0	B	E	Nueva Venta
+539710	2021-01-05	07:58:51	2300	0	0	0	0	B	E	Nueva Venta
+539711	2021-01-05	07:59:30	4900	0	0	0	0	B	E	Nueva Venta
+539712	2021-01-05	08:00:45	0	0	0	0	0	B	E	Nueva Venta
+539713	2021-01-05	08:06:35	2600	0	0	0	0	B	E	Nueva Venta
+539714	2021-01-05	08:07:20	2600	0	0	0	0	B	E	Nueva Venta
+539715	2021-01-05	08:07:43	0	0	0	0	0	B	E	Nueva Venta
+539716	2021-01-05	08:08:36	4100	0	0	0	0	B	E	Nueva Venta
+539717	2021-01-05	08:09:25	2500	0	0	0	0	B	E	Nueva Venta
+539718	2021-01-05	08:13:17	1400	0	0	0	0	B	E	Nueva Venta
+539719	2021-01-05	08:14:11	3500	0	3500	0	0	B	E	Nueva Venta
+539720	2021-01-05	08:14:33	0	0	0	0	0	B	E	Nueva Venta
+539721	2021-01-05	08:15:57	1600	0	0	0	0	B	E	Nueva Venta
+539722	2021-01-05	08:16:35	3700	0	0	0	0	B	E	Nueva Venta
+539723	2021-01-05	08:18:04	800	0	0	0	0	B	E	Nueva Venta
+539724	2021-01-05	08:18:19	3100	0	0	0	0	B	E	Nueva Venta
+539725	2021-01-05	08:19:46	1700	0	0	0	0	B	E	Nueva Venta
+539726	2021-01-05	08:24:18	3800	0	0	0	0	B	E	Nueva Venta
+539727	2021-01-05	08:25:29	1600	0	0	0	0	B	E	Nueva Venta
+539728	2021-01-05	08:27:55	2400	0	0	0	0	B	E	Nueva Venta
+539729	2021-01-05	08:28:06	0	0	0	0	0	B	E	Nueva Venta
+539730	2021-01-05	08:30:15	2600	0	0	0	0	B	E	Nueva Venta
+539731	2021-01-05	08:32:27	2600	0	0	0	0	B	E	Nueva Venta
+539732	2021-01-05	08:33:59	1500	0	0	0	0	B	E	Nueva Venta
+539733	2021-01-05	08:39:39	1400	0	0	0	0	B	E	Nueva Venta
+539734	2021-01-05	08:42:35	3300	0	0	0	0	B	E	Nueva Venta
+539735	2021-01-05	08:42:47	0	0	0	0	0	B	E	Nueva Venta
+539736	2021-01-05	08:43:30	4000	0	0	0	0	B	E	Nueva Venta
+539737	2021-01-05	08:50:07	3250	0	0	0	0	B	E	Nueva Venta
+539738	2021-01-05	08:51:06	2000	0	0	0	0	B	E	Nueva Venta
+539739	2021-01-05	08:51:43	1200	0	0	0	0	B	E	Nueva Venta
+539740	2021-01-05	08:52:00	2500	0	0	0	0	B	E	Nueva Venta
+539741	2021-01-05	08:53:34	4800	0	4200	0	0	B	E	Nueva Venta
+539742	2021-01-05	08:57:52	2200	0	0	0	0	B	E	Nueva Venta
+539743	2021-01-05	08:59:02	5800	0	0	0	0	B	E	Nueva Venta
+539744	2021-01-05	09:00:38	5700	0	2500	0	0	B	E	Nueva Venta
+539745	2021-01-05	09:01:19	1100	0	0	0	0	B	E	Nueva Venta
+539746	2021-01-05	09:02:29	1200	0	0	0	0	B	E	Nueva Venta
+539747	2021-01-05	09:04:16	2200	0	0	0	0	B	E	Nueva Venta
+539748	2021-01-05	09:04:25	1000	0	0	0	0	B	E	Nueva Venta
+539749	2021-01-05	09:10:10	4600	0	0	0	0	B	E	Nueva Venta
+539750	2021-01-05	09:10:11	0	0	0	0	0	B	E	Nueva Venta
+539751	2021-01-05	09:14:36	4500	0	0	0	0	B	E	Nueva Venta
+539752	2021-01-05	09:19:49	2700	0	0	0	0	B	E	Nueva Venta
+539753	2021-01-05	09:21:09	1300	0	0	0	0	B	E	Nueva Venta
+539754	2021-01-05	09:21:10	0	0	0	0	0	B	E	Nueva Venta
+539755	2021-01-05	09:24:12	1300	0	0	0	0	B	E	Nueva Venta
+539756	2021-01-05	09:32:27	2800	0	2000	0	0	B	E	Nueva Venta
+539757	2021-01-05	09:39:32	1300	0	0	0	0	B	E	Nueva Venta
+539758	2021-01-05	09:40:00	2100	0	0	0	0	B	E	Nueva Venta
+539759	2021-01-05	09:43:11	3400	0	0	0	0	B	E	Nueva Venta
+539760	2021-01-05	09:45:55	2500	0	0	0	0	B	E	Nueva Venta
+539761	2021-01-05	09:47:17	1900	0	0	0	0	B	E	Nueva Venta
+539762	2021-01-05	09:50:29	1600	0	0	0	0	B	E	Nueva Venta
+539763	2021-01-05	09:50:56	2350	0	0	0	0	B	E	Nueva Venta
+539764	2021-01-05	09:57:26	1100	0	0	0	0	B	E	Nueva Venta
+539765	2021-01-05	09:58:00	2350	0	0	0	0	B	E	Nueva Venta
+539766	2021-01-05	10:01:18	3100	0	0	0	0	B	E	Nueva Venta
+539767	2021-01-05	10:07:36	3400	0	0	0	0	B	E	Nueva Venta
+539768	2021-01-05	10:11:57	1200	0	0	0	0	B	E	Nueva Venta
+539769	2021-01-05	10:12:27	2400	0	0	0	0	B	E	Nueva Venta
+539770	2021-01-05	10:12:42	1400	0	0	0	0	B	E	Nueva Venta
+539771	2021-01-05	10:21:11	3950	0	0	0	0	B	E	Nueva Venta
+539772	2021-01-05	10:29:59	350	0	0	0	0	B	E	Nueva Venta
+539773	2021-01-05	10:31:05	1800	0	1800	0	0	B	E	Nueva Venta
+539774	2021-01-05	10:52:56	2000	0	0	0	0	B	E	Nueva Venta
+539775	2021-01-05	10:56:56	2100	0	0	0	0	B	E	Nueva Venta
+539776	2021-01-05	10:58:17	2400	0	0	0	0	B	E	Nueva Venta
+539777	2021-01-05	10:59:15	2450	0	0	0	0	B	E	Nueva Venta
+539778	2021-01-05	11:16:04	3300	0	0	0	0	B	E	Nueva Venta
+539779	2021-01-05	11:16:44	0	0	0	0	0	B	E	Nueva Venta
+539780	2021-01-05	11:27:39	1400	0	0	0	0	B	E	Nueva Venta
+539781	2021-01-05	11:29:10	5750	1092	0	0	0	B	E	Boleta
+539782	2021-01-05	11:29:12	0	0	0	0	0	B	E	Nueva Venta
+539783	2021-01-05	11:36:05	3500	0	0	0	0	B	E	Nueva Venta
+539784	2021-01-05	11:36:06	0	0	0	0	0	B	E	Nueva Venta
+539785	2021-01-05	11:40:54	700	0	0	0	0	B	E	Nueva Venta
+539786	2021-01-05	12:01:27	1400	0	0	0	0	B	E	Nueva Venta
+539787	2021-01-05	12:19:10	4400	0	0	0	0	B	E	Nueva Venta
+539788	2021-01-05	12:37:19	1200	0	0	0	0	B	E	Nueva Venta
+539789	2021-01-05	12:37:36	2800	0	0	0	0	B	E	Nueva Venta
+539790	2021-01-05	12:46:32	0	0	0	0	0	B	E	Nueva Venta
+539791	2021-01-05	13:34:51	5700	0	0	0	0	B	E	Nueva Venta
+539792	2021-01-05	13:51:51	0	0	0	0	0	B	E	Nueva Venta
+539793	2021-01-05	13:53:06	0	0	0	0	0	B	E	Nueva Venta
+539794	2021-01-05	14:07:08	5900	0	0	0	0	B	E	Nueva Venta
+539795	2021-01-05	14:15:03	3700	0	0	0	0	B	E	Nueva Venta
+539796	2021-01-05	14:24:45	3700	0	0	0	0	B	E	Nueva Venta
+539797	2021-01-05	14:25:56	4600	0	0	0	0	B	E	Nueva Venta
+539798	2021-01-05	14:31:24	1000	0	0	0	0	B	E	Nueva Venta
+539799	2021-01-05	14:45:29	800	0	0	0	0	B	E	Nueva Venta
+539800	2021-01-05	14:46:15	3200	0	0	0	0	B	E	Nueva Venta
+539801	2021-01-05	14:48:41	2700	0	0	0	0	B	E	Nueva Venta
+539802	2021-01-05	14:52:36	2350	0	0	0	0	B	E	Nueva Venta
+539803	2021-01-05	14:57:56	1300	0	0	0	0	B	E	Nueva Venta
+539804	2021-01-05	15:16:18	990	0	0	0	0	B	E	Nueva Venta
+539805	2021-01-05	15:16:19	0	0	0	0	0	B	E	Nueva Venta
+539806	2021-01-05	15:17:14	800	0	0	0	0	B	E	Nueva Venta
+539807	2021-01-05	15:29:12	800	0	0	0	0	B	E	Nueva Venta
+539808	2021-01-05	15:40:23	5070	0	0	0	0	B	E	Nueva Venta
+539809	2021-01-05	15:42:30	850	0	0	0	0	B	E	Nueva Venta
+539810	2021-01-05	16:01:34	7900	0	0	0	0	B	E	Nueva Venta
+539811	2021-01-05	16:38:09	1500	0	0	0	0	B	E	Nueva Venta
+539812	2021-01-05	16:38:32	2850	0	2000	0	0	B	E	Nueva Venta
+539813	2021-01-05	16:49:30	0	0	0	0	0	B	E	Nueva Venta
+539814	2021-01-05	16:57:17	2490	0	0	0	0	B	E	Nueva Venta
+539815	2021-01-05	16:57:17	0	0	0	0	0	B	E	Nueva Venta
+539816	2021-01-06	08:03:29	2800	0	0	0	0	B	E	Nva. Venta
+539817	2021-01-06	08:04:13	4600	0	0	0	0	B	E	Nueva Venta
+539818	2021-01-06	08:09:10	1300	0	0	0	0	B	E	Nueva Venta
+539819	2021-01-06	08:14:53	3100	0	0	0	0	B	E	Nueva Venta
+539820	2021-01-06	08:16:23	700	0	0	0	0	B	E	Nueva Venta
+539821	2021-01-06	08:20:31	2400	0	0	0	0	B	E	Nueva Venta
+539822	2021-01-06	08:23:30	2000	0	0	0	0	B	E	Nueva Venta
+539823	2021-01-06	08:24:13	1800	0	0	0	0	B	E	Nueva Venta
+539824	2021-01-06	08:30:42	3300	0	0	0	0	B	E	Nueva Venta
+539825	2021-01-06	08:30:43	0	0	0	0	0	B	E	Nueva Venta
+539826	2021-01-06	08:36:02	1800	0	0	0	0	B	E	Nva. Venta
+539827	2021-01-06	08:38:14	5900	0	0	0	0	B	E	Nueva Venta
+539828	2021-01-06	08:40:33	4400	0	0	0	0	B	E	Nueva Venta
+539829	2021-01-06	08:41:46	3300	0	0	0	0	B	E	Nueva Venta
+539830	2021-01-06	08:43:38	750	0	0	0	0	B	E	Nueva Venta
+539831	2021-01-06	08:44:14	6400	0	3400	0	0	B	E	Nueva Venta
+539832	2021-01-06	08:45:02	1950	0	0	0	0	B	E	Nueva Venta
+539833	2021-01-06	08:45:13	2500	0	0	0	0	B	E	Nueva Venta
+539834	2021-01-06	08:48:44	0	0	0	0	0	B	E	Nueva Venta
+539835	2021-01-06	08:54:05	4750	0	0	0	0	B	E	Nueva Venta
+539836	2021-01-06	08:54:43	2350	0	0	0	0	B	E	Nueva Venta
+539837	2021-01-06	08:55:54	2500	0	0	0	0	B	E	Nueva Venta
+539838	2021-01-06	08:56:38	1100	0	0	0	0	B	E	Nueva Venta
+539839	2021-01-06	08:58:55	2000	0	0	0	0	B	E	Nueva Venta
+539840	2021-01-06	09:01:13	1300	0	0	0	0	B	E	Nueva Venta
+539841	2021-01-06	09:03:27	3600	0	2000	0	0	B	E	Nueva Venta
+539842	2021-01-06	09:05:22	3100	0	0	0	0	B	E	Nueva Venta
+539843	2021-01-06	09:07:31	4100	0	0	0	0	B	E	Nueva Venta
+539844	2021-01-06	09:08:05	1200	0	0	0	0	B	E	Nueva Venta
+539845	2021-01-06	09:08:59	3700	0	0	0	0	B	E	Nueva Venta
+539846	2021-01-06	09:12:22	4200	0	0	0	0	B	E	Nueva Venta
+539847	2021-01-06	09:14:29	5700	0	0	0	0	B	E	Nueva Venta
+539848	2021-01-06	09:21:12	4100	0	0	0	0	B	E	Nueva Venta
+539849	2021-01-06	09:21:27	3250	0	0	0	0	B	E	Nueva Venta
+539850	2021-01-06	09:28:33	1600	0	0	0	0	B	E	Nueva Venta
+539851	2021-01-06	09:29:50	2200	0	0	0	0	B	E	Nueva Venta
+539852	2021-01-06	09:37:06	2550	0	0	0	0	B	E	Nueva Venta
+539853	2021-01-06	09:39:31	2600	0	0	0	0	B	E	Nueva Venta
+539854	2021-01-06	09:42:22	0	0	0	0	0	B	E	Nueva Venta
+539855	2021-01-06	09:44:47	1000	0	0	0	0	B	E	Nueva Venta
+539856	2021-01-06	09:45:21	1500	0	0	0	0	B	E	Nueva Venta
+539857	2021-01-06	09:45:32	0	0	0	0	0	B	E	Nueva Venta
+539858	2021-01-06	09:46:45	0	0	0	0	0	B	E	Nueva Venta
+539859	2021-01-06	09:47:49	4500	0	0	0	0	B	E	Nueva Venta
+539860	2021-01-06	09:49:03	1300	0	0	0	0	B	E	Nueva Venta
+539861	2021-01-06	09:51:04	3000	0	0	0	0	B	E	Nueva Venta
+539862	2021-01-06	09:53:17	2200	0	0	0	0	B	E	Nueva Venta
+539863	2021-01-06	09:53:54	3950	0	0	0	0	B	E	Nueva Venta
+539864	2021-01-06	09:56:12	1100	0	0	0	0	B	E	Nueva Venta
+539865	2021-01-06	10:01:19	2350	0	0	0	0	B	E	Nueva Venta
+539866	2021-01-06	10:02:11	3200	0	0	0	0	B	E	Nueva Venta
+539867	2021-01-06	10:01:26	0	0	0	0	0	B	E	Nueva Venta
+539868	2021-01-06	10:02:57	2300	0	0	0	0	B	E	Nueva Venta
+539869	2021-01-06	10:06:41	4000	0	0	0	0	B	E	Nueva Venta
+539870	2021-01-06	10:12:09	3300	0	0	0	0	B	E	Nueva Venta
+539871	2021-01-06	10:12:14	0	0	0	0	0	B	E	Nueva Venta
+539872	2021-01-06	10:17:36	3400	0	0	0	0	B	E	Nueva Venta
+539873	2021-01-06	10:21:56	1600	0	0	0	0	B	E	Nueva Venta
+539874	2021-01-06	10:28:12	2500	0	0	0	0	B	E	Nueva Venta
+539875	2021-01-06	10:33:50	2000	0	0	0	0	B	E	Nueva Venta
+539876	2021-01-06	10:46:48	1900	0	0	0	0	B	E	Nueva Venta
+539877	2021-01-06	10:47:27	6000	0	4000	0	0	B	E	Nueva Venta
+539878	2021-01-06	11:12:57	3700	0	0	0	0	B	E	Nueva Venta
+539879	2021-01-06	11:15:11	13450	0	0	0	0	B	E	Nueva Venta
+539880	2021-01-06	11:15:46	2100	0	0	0	0	B	E	Nueva Venta
+539881	2021-01-06	11:21:08	1100	0	0	0	0	B	E	Nueva Venta
+539882	2021-01-06	11:25:36	4250	0	0	0	0	B	E	Nueva Venta
+539883	2021-01-06	11:33:02	6150	0	4000	0	0	B	E	Nueva Venta
+539884	2021-01-06	11:50:21	5050	0	0	0	0	B	E	Nueva Venta
+539885	2021-01-06	11:51:09	5200	0	0	0	0	B	E	Nueva Venta
+539886	2021-01-06	12:08:58	1750	0	0	0	0	B	E	Nueva Venta
+539887	2021-01-06	12:14:04	5150	0	3500	0	0	B	E	Nueva Venta
+539888	2021-01-06	12:15:57	2400	0	0	0	0	B	E	Nueva Venta
+539889	2021-01-06	12:47:04	0	0	0	0	0	B	E	Nueva Venta
+539890	2021-01-06	12:55:05	5300	0	0	0	0	B	E	Nueva Venta
+539891	2021-01-06	13:45:30	3700	0	0	0	0	B	E	Nueva Venta
+539892	2021-01-06	13:53:34	4950	0	0	0	0	B	E	Nueva Venta
+539893	2021-01-06	14:09:21	5000	0	0	0	0	B	E	Nueva Venta
+539894	2021-01-06	14:10:09	2200	0	0	0	0	B	E	Nueva Venta
+539895	2021-01-06	14:11:39	0	0	0	0	0	B	E	Nueva Venta
+539896	2021-01-06	14:12:29	6500	0	0	0	0	B	E	Nueva Venta
+539897	2021-01-06	14:13:11	0	0	0	0	0	B	E	Nueva Venta
+539898	2021-01-06	14:13:55	3100	0	2600	0	0	B	E	Nueva Venta
+539899	2021-01-06	14:15:51	2400	0	0	0	0	B	E	Nueva Venta
+539900	2021-01-06	14:16:14	3200	0	0	0	0	B	E	Nueva Venta
+539901	2021-01-06	14:17:05	0	0	0	0	0	B	E	Nueva Venta
+539902	2021-01-06	14:24:22	4400	0	0	0	0	B	E	Nueva Venta
+539903	2021-01-06	14:24:41	800	0	0	0	0	B	E	Nueva Venta
+539904	2021-01-06	14:37:39	2600	0	0	0	0	B	E	Nueva Venta
+539905	2021-01-06	14:38:04	2800	0	0	0	0	B	E	Nueva Venta
+539906	2021-01-06	14:39:19	2100	0	0	0	0	B	E	Nueva Venta
+539907	2021-01-06	14:45:20	3200	0	0	0	0	B	E	Nueva Venta
+539908	2021-01-06	14:48:24	2600	0	0	0	0	B	E	Nueva Venta
+539909	2021-01-06	14:58:28	0	0	0	0	0	B	E	Nueva Venta
+539910	2021-01-06	14:55:13	6150	0	4000	0	0	B	E	Nueva Venta
+539911	2021-01-06	14:55:13	0	0	0	0	0	B	E	Nueva Venta
+539912	2021-01-06	15:02:55	2200	0	0	0	0	B	E	Nueva Venta
+539913	2021-01-06	15:04:12	4200	0	2000	0	0	B	E	Nueva Venta
+539914	2021-01-06	15:10:42	0	0	0	0	0	B	E	Nueva Venta
+539915	2021-01-06	15:17:36	2400	0	0	0	0	B	E	Nueva Venta
+539916	2021-01-06	15:17:52	2000	0	0	0	0	B	E	Nueva Venta
+539917	2021-01-06	15:20:29	0	0	0	0	0	B	E	Nueva Venta
+539918	2021-01-06	15:21:23	2050	0	0	0	0	B	E	Nueva Venta
+539919	2021-01-06	15:59:43	2100	0	0	0	0	B	E	Nueva Venta
+539920	2021-01-06	16:59:52	3550	0	0	0	0	B	E	Nueva Venta
+539921	2021-01-06	17:22:01	8400	0	8400	0	0	B	E	Nueva Venta
+539922	2021-01-06	17:22:01	800	0	0	0	0	B	E	Nueva Venta
+539923	2021-01-07	07:42:33	2400	0	0	0	0	B	E	Nva. Venta
+539924	2021-01-07	07:49:17	1400	0	0	0	0	B	E	Nueva Venta
+539925	2021-01-07	07:52:17	2900	0	0	0	0	B	E	Nueva Venta
+539926	2021-01-07	07:55:42	3200	0	0	0	0	B	E	Nueva Venta
+539927	2021-01-07	08:03:38	6800	0	6800	0	0	B	E	Nueva Venta
+539928	2021-01-07	08:04:30	2400	0	0	0	0	B	E	Nueva Venta
+539929	2021-01-07	08:12:14	1300	0	0	0	0	B	E	Nueva Venta
+539930	2021-01-07	08:12:56	750	0	0	0	0	B	E	Nueva Venta
+539931	2021-01-07	08:14:35	450	0	0	0	0	B	E	Nueva Venta
+539932	2021-01-07	08:17:45	600	0	0	0	0	B	E	Nueva Venta
+539933	2021-01-07	08:22:33	2900	0	0	0	0	B	E	Nueva Venta
+539934	2021-01-07	08:26:13	2300	0	0	0	0	B	E	Nueva Venta
+539935	2021-01-07	08:27:35	1700	0	0	0	0	B	E	Nueva Venta
+539936	2021-01-07	08:28:59	6700	0	0	0	0	B	E	Nueva Venta
+539937	2021-01-07	08:29:13	0	0	0	0	0	B	E	Nueva Venta
+539938	2021-01-07	08:30:50	3800	0	0	0	0	B	E	Nueva Venta
+539939	2021-01-07	08:31:07	0	0	0	0	0	B	E	Nueva Venta
+539940	2021-01-07	08:32:38	2700	0	0	0	0	B	E	Nueva Venta
+539941	2021-01-07	08:34:14	6600	0	0	0	0	B	E	Nueva Venta
+539942	2021-01-07	08:35:31	2200	0	0	0	0	B	E	Nueva Venta
+539943	2021-01-07	08:36:36	3650	0	0	0	0	B	E	Nueva Venta
+539944	2021-01-07	08:37:10	1800	0	0	0	0	B	E	Nueva Venta
+539945	2021-01-07	08:37:43	1100	0	0	0	0	B	E	Nueva Venta
+539946	2021-01-07	08:38:20	3500	0	2500	0	0	B	E	Nueva Venta
+539947	2021-01-07	08:39:06	1200	0	0	0	0	B	E	Nueva Venta
+539948	2021-01-07	08:39:41	2400	0	0	0	0	B	E	Nueva Venta
+539949	2021-01-07	08:39:47	0	0	0	0	0	B	E	Nueva Venta
+539950	2021-01-07	08:39:59	0	0	0	0	0	B	E	Nueva Venta
+539951	2021-01-07	08:46:26	1800	0	0	0	0	B	E	Nueva Venta
+539952	2021-01-07	08:48:28	2300	0	0	0	0	B	E	Nueva Venta
+539953	2021-01-07	08:48:59	2600	0	0	0	0	B	E	Nueva Venta
+539954	2021-01-07	08:51:16	3800	0	0	0	0	B	E	Nueva Venta
+539955	2021-01-07	08:53:48	3500	0	0	0	0	B	E	Nueva Venta
+539956	2021-01-07	08:54:06	2300	0	0	0	0	B	E	Nueva Venta
+539957	2021-01-07	08:54:46	2400	0	0	0	0	B	E	Nueva Venta
+539958	2021-01-07	08:55:59	2700	0	0	0	0	B	E	Nueva Venta
+539959	2021-01-07	08:56:31	600	0	0	0	0	B	E	Nueva Venta
+539960	2021-01-07	08:58:48	0	0	0	0	0	B	E	Nueva Venta
+539961	2021-01-07	08:59:12	2000	0	0	0	0	B	E	Nueva Venta
+539962	2021-01-07	09:01:20	2200	0	0	0	0	B	E	Nueva Venta
+539963	2021-01-07	09:03:56	0	0	0	0	0	B	E	Nueva Venta
+539964	2021-01-07	09:07:02	2300	0	0	0	0	B	E	Nueva Venta
+539965	2021-01-07	09:12:06	300	0	0	0	0	B	E	Nueva Venta
+539966	2021-01-07	09:12:45	2500	0	0	0	0	B	E	Nueva Venta
+539967	2021-01-07	09:14:24	0	0	0	0	0	B	E	Nueva Venta
+539968	2021-01-07	09:14:39	2100	0	0	0	0	B	E	Nueva Venta
+539969	2021-01-07	09:18:11	3300	0	0	0	0	B	E	Nueva Venta
+539970	2021-01-07	09:19:42	2600	0	0	0	0	B	E	Nueva Venta
+539971	2021-01-07	09:20:29	2300	0	0	0	0	B	E	Nueva Venta
+539972	2021-01-07	09:21:24	2400	0	0	0	0	B	E	Nueva Venta
+539973	2021-01-07	09:23:15	4100	0	0	0	0	B	E	Nueva Venta
+539974	2021-01-07	09:28:52	2850	0	0	0	0	B	E	Nueva Venta
+539975	2021-01-07	09:31:17	2500	0	1800	0	0	B	E	Nueva Venta
+539976	2021-01-07	09:32:10	3400	0	2000	0	0	B	E	Nueva Venta
+539977	2021-01-07	09:42:21	3800	0	0	0	0	B	E	Nueva Venta
+539978	2021-01-07	09:43:16	1000	0	0	0	0	B	E	Nueva Venta
+539979	2021-01-07	09:54:18	4600	0	0	0	0	B	E	Nueva Venta
+539980	2021-01-07	09:55:19	1900	0	0	0	0	B	E	Nueva Venta
+539981	2021-01-07	09:57:55	3200	0	0	0	0	B	E	Nueva Venta
+539982	2021-01-07	09:58:58	4100	0	0	0	0	B	E	Nueva Venta
+539983	2021-01-07	09:59:38	1400	0	0	0	0	B	E	Nueva Venta
+539984	2021-01-07	10:00:25	2600	0	0	0	0	B	E	Nueva Venta
+539985	2021-01-07	10:05:00	2350	0	0	0	0	B	E	Nueva Venta
+539986	2021-01-07	10:10:14	2700	0	0	0	0	B	E	Nueva Venta
+539987	2021-01-07	10:14:25	2300	0	0	0	0	B	E	Nueva Venta
+539988	2021-01-07	10:15:09	1900	0	0	0	0	B	E	Nueva Venta
+539989	2021-01-07	10:19:14	3600	0	0	0	0	B	E	Nueva Venta
+539990	2021-01-07	10:19:49	0	0	0	0	0	B	E	Nueva Venta
+539991	2021-01-07	10:22:11	1800	0	0	0	0	B	E	Nueva Venta
+539992	2021-01-07	10:24:07	3300	0	0	0	0	B	E	Nueva Venta
+539993	2021-01-07	10:24:42	0	0	0	0	0	B	E	Nueva Venta
+539994	2021-01-07	10:26:17	4400	0	0	0	0	B	E	Nueva Venta
+539995	2021-01-07	10:39:52	1900	0	0	0	0	B	E	Nueva Venta
+539996	2021-01-07	10:42:38	800	0	0	0	0	B	E	Nueva Venta
+539997	2021-01-07	10:44:21	1000	0	0	0	0	B	E	Nueva Venta
+539998	2021-01-07	10:45:17	2550	0	0	0	0	B	E	Nueva Venta
+539999	2021-01-07	11:01:12	1900	0	0	0	0	B	E	Nueva Venta
+540000	2021-01-07	11:14:36	2600	0	0	0	0	B	E	Nueva Venta
+540001	2021-01-07	11:18:06	4200	0	0	0	0	B	E	Nueva Venta
+540002	2021-01-07	11:14:46	0	0	0	0	0	B	E	Nueva Venta
+540003	2021-01-07	11:27:33	4000	0	0	0	0	B	E	Nueva Venta
+540004	2021-01-07	11:27:51	1100	0	0	0	0	B	E	Nueva Venta
+540005	2021-01-07	11:42:55	4600	0	3000	0	0	B	E	Nueva Venta
+540006	2021-01-07	12:03:12	1300	0	0	0	0	B	E	Nueva Venta
+540007	2021-01-07	12:07:10	5150	0	3400	0	0	B	E	Nueva Venta
+540008	2021-01-07	12:35:07	0	0	0	0	0	B	E	Nueva Venta
+540009	2021-01-07	12:36:15	0	0	0	0	0	B	E	Nueva Venta
+540010	2021-01-07	12:52:08	4290	0	0	0	0	B	E	Nueva Venta
+540011	2021-01-07	13:03:32	6800	0	6800	0	0	B	E	Nueva Venta
+540012	2021-01-07	13:14:23	7050	0	7050	0	0	B	E	Nueva Venta
+540013	2021-01-07	13:34:26	10200	0	0	0	0	B	E	Nueva Venta
+540014	2021-01-07	13:38:21	3000	0	0	0	0	B	E	Nueva Venta
+540015	2021-01-07	13:43:44	2550	0	0	0	0	B	E	Nueva Venta
+540016	2021-01-07	13:47:18	3150	0	0	0	0	B	E	Nueva Venta
+540017	2021-01-07	14:14:32	900	0	0	0	0	B	E	Nueva Venta
+540018	2021-01-07	14:20:57	2000	0	0	0	0	B	E	Nueva Venta
+540019	2021-01-07	14:25:11	2300	0	0	0	0	B	E	Nueva Venta
+540020	2021-01-07	14:25:50	1900	0	0	0	0	B	E	Nueva Venta
+540021	2021-01-07	14:27:50	0	0	0	0	0	B	E	Nueva Venta
+540022	2021-01-07	14:49:32	4000	0	0	0	0	B	E	Nueva Venta
+540023	2021-01-07	15:01:48	6400	0	0	0	0	B	E	Nueva Venta
+540024	2021-01-07	15:02:04	1400	0	0	0	0	B	E	Nueva Venta
+540025	2021-01-07	15:02:38	1850	0	0	0	0	B	E	Nueva Venta
+540026	2021-01-07	15:02:24	0	0	0	0	0	B	E	Nueva Venta
+540027	2021-01-07	15:02:55	0	0	0	0	0	B	E	Nueva Venta
+540028	2021-01-07	15:03:51	800	0	0	0	0	B	E	Nueva Venta
+540029	2021-01-07	15:04:27	900	0	0	0	0	B	E	Nueva Venta
+540030	2021-01-07	15:06:40	0	0	0	0	0	B	E	Nueva Venta
+540031	2021-01-07	15:07:19	3900	0	0	0	0	B	E	Nueva Venta
+540032	2021-01-07	15:09:24	0	0	0	0	0	B	E	Nueva Venta
+540033	2021-01-07	15:09:46	1500	0	0	0	0	B	E	Nueva Venta
+540034	2021-01-07	15:20:41	2750	0	0	0	0	B	E	Nueva Venta
+540035	2021-01-07	15:29:45	2300	0	0	0	0	B	E	Nueva Venta
+540036	2021-01-07	15:34:17	1300	0	0	0	0	B	E	Nueva Venta
+540037	2021-01-07	15:35:44	0	0	0	0	0	B	E	Nueva Venta
+540038	2021-01-07	15:36:13	0	0	0	0	0	B	E	Nueva Venta
+540039	2021-01-07	15:37:06	4250	0	0	0	0	B	E	Nueva Venta
+540040	2021-01-07	15:56:04	1650	0	0	0	0	B	E	Nueva Venta
+540041	2021-01-07	16:05:10	4250	0	0	0	0	B	E	Nueva Venta
+540042	2021-01-07	16:58:28	2170	0	0	0	0	B	E	Nueva Venta
+540043	2021-01-07	17:33:02	3800	0	0	0	0	B	E	Nueva Venta
+540044	2021-01-07	17:33:02	0	0	0	0	0	B	E	Nueva Venta
+540045	2021-01-08	07:52:18	1300	0	0	0	0	B	E	Nva. Venta
+540046	2021-01-08	07:53:03	400	0	0	0	0	B	E	Nueva Venta
+540047	2021-01-08	07:58:17	2600	0	0	0	0	B	E	Nueva Venta
+540048	2021-01-08	08:03:21	4100	0	0	0	0	B	E	Nueva Venta
+540049	2021-01-08	08:04:15	3850	0	0	0	0	B	E	Nueva Venta
+540050	2021-01-08	08:05:51	3200	0	0	0	0	B	E	Nueva Venta
+540051	2021-01-08	08:07:28	2400	0	0	0	0	B	E	Nueva Venta
+540052	2021-01-08	08:07:51	1600	0	0	0	0	B	E	Nueva Venta
+540053	2021-01-08	08:08:42	3500	0	0	0	0	B	E	Nueva Venta
+540054	2021-01-08	08:08:50	0	0	0	0	0	B	E	Nueva Venta
+540055	2021-01-08	08:09:34	0	0	0	0	0	B	E	Nueva Venta
+540056	2021-01-08	08:10:16	4200	0	0	0	0	B	E	Nueva Venta
+540057	2021-01-08	08:17:40	500	0	0	0	0	B	E	Nueva Venta
+540058	2021-01-08	08:21:22	400	0	0	0	0	B	E	Nueva Venta
+540059	2021-01-08	08:23:42	4900	0	3100	0	0	B	E	Nueva Venta
+540060	2021-01-08	08:25:11	1750	0	0	0	0	B	E	Nueva Venta
+540061	2021-01-08	08:27:05	3000	0	0	0	0	B	E	Nueva Venta
+540062	2021-01-08	08:35:21	3400	0	0	0	0	B	E	Nueva Venta
+540063	2021-01-08	08:35:40	2500	0	0	0	0	B	E	Nueva Venta
+540064	2021-01-08	08:36:34	2300	0	0	0	0	B	E	Nueva Venta
+540065	2021-01-08	08:38:06	2500	0	0	0	0	B	E	Nueva Venta
+540066	2021-01-08	08:41:27	2300	0	0	0	0	B	E	Nueva Venta
+540067	2021-01-08	08:41:42	3300	0	0	0	0	B	E	Nueva Venta
+540068	2021-01-08	08:46:07	6000	0	0	0	0	B	E	Nueva Venta
+540069	2021-01-08	08:47:07	0	0	0	0	0	B	E	Nueva Venta
+540070	2021-01-08	08:47:48	2500	0	0	0	0	B	E	Nueva Venta
+540071	2021-01-08	08:50:01	4500	0	0	0	0	B	E	Nueva Venta
+540072	2021-01-08	08:54:09	4800	0	0	0	0	B	E	Nueva Venta
+540073	2021-01-08	08:54:30	2200	0	0	0	0	B	E	Nueva Venta
+540074	2021-01-08	08:57:19	2500	0	0	0	0	B	E	Nueva Venta
+540075	2021-01-08	08:58:08	3750	0	0	0	0	B	E	Nueva Venta
+540076	2021-01-08	08:58:50	3200	0	0	0	0	B	E	Nueva Venta
+540077	2021-01-08	09:00:03	3100	0	0	0	0	B	E	Nueva Venta
+540078	2021-01-08	09:02:22	0	0	0	0	0	B	E	Nueva Venta
+540079	2021-01-08	09:03:24	3200	0	0	0	0	B	E	Nueva Venta
+540080	2021-01-08	09:04:06	2100	0	0	0	0	B	E	Nueva Venta
+540081	2021-01-08	09:04:14	1200	0	0	0	0	B	E	Nueva Venta
+540082	2021-01-08	09:06:47	2700	0	0	0	0	B	E	Nueva Venta
+540083	2021-01-08	09:08:11	2200	0	0	0	0	B	E	Nueva Venta
+540084	2021-01-08	09:09:06	4500	0	0	0	0	B	E	Nueva Venta
+540085	2021-01-08	09:10:28	2200	0	0	0	0	B	E	Nueva Venta
+540086	2021-01-08	09:11:42	2300	0	0	0	0	B	E	Nueva Venta
+540087	2021-01-08	09:12:58	4500	0	2000	0	0	B	E	Nueva Venta
+540088	2021-01-08	09:14:16	2400	0	0	0	0	B	E	Nueva Venta
+540089	2021-01-08	09:14:50	2600	0	0	0	0	B	E	Nueva Venta
+540090	2021-01-08	09:15:46	0	0	0	0	0	B	E	Nueva Venta
+540091	2021-01-08	09:16:59	2200	0	0	0	0	B	E	Nueva Venta
+540092	2021-01-08	09:20:03	2700	0	0	0	0	B	E	Nueva Venta
+540093	2021-01-08	09:22:12	2200	0	0	0	0	B	E	Nueva Venta
+540094	2021-01-08	09:23:09	1100	0	0	0	0	B	E	Nueva Venta
+540095	2021-01-08	09:23:44	1300	0	0	0	0	B	E	Nueva Venta
+540096	2021-01-08	09:35:02	250	0	0	0	0	B	E	Nueva Venta
+540097	2021-01-08	09:39:12	0	0	0	0	0	B	E	Nueva Venta
+540098	2021-01-08	09:40:35	1200	0	0	0	0	B	E	Nueva Venta
+540099	2021-01-08	09:41:20	2400	0	0	0	0	B	E	Nueva Venta
+540100	2021-01-08	09:41:56	0	0	0	0	0	B	E	Nueva Venta
+540101	2021-01-08	09:42:56	3100	0	0	0	0	B	E	Nueva Venta
+540102	2021-01-08	09:43:19	0	0	0	0	0	B	E	Nueva Venta
+540103	2021-01-08	09:43:58	1050	0	0	0	0	B	E	Nueva Venta
+540104	2021-01-08	09:44:28	1650	0	0	0	0	B	E	Nueva Venta
+540105	2021-01-08	09:45:24	2400	0	0	0	0	B	E	Nueva Venta
+540106	2021-01-08	09:45:46	0	0	0	0	0	B	E	Nueva Venta
+540107	2021-01-08	09:46:33	0	0	0	0	0	B	E	Nueva Venta
+540108	2021-01-08	09:47:01	1200	0	0	0	0	B	E	Nueva Venta
+540109	2021-01-08	09:48:01	6200	0	0	0	0	B	E	Nueva Venta
+540110	2021-01-08	09:48:46	2500	0	0	0	0	B	E	Nueva Venta
+540111	2021-01-08	09:49:35	3600	0	0	0	0	B	E	Nueva Venta
+540112	2021-01-08	09:49:52	3300	0	0	0	0	B	E	Nueva Venta
+540113	2021-01-08	09:50:26	0	0	0	0	0	B	E	Nueva Venta
+540114	2021-01-08	09:50:48	1600	0	0	0	0	B	E	Nueva Venta
+540115	2021-01-08	09:51:31	0	0	0	0	0	B	E	Nueva Venta
+540116	2021-01-08	09:53:41	3500	0	3500	0	0	B	E	Nueva Venta
+540117	2021-01-08	09:54:56	2700	0	0	0	0	B	E	Nueva Venta
+540118	2021-01-08	09:55:54	2600	0	0	0	0	B	E	Nueva Venta
+540119	2021-01-08	09:56:26	2300	0	0	0	0	B	E	Nueva Venta
+540120	2021-01-08	10:02:05	2300	0	0	0	0	B	E	Nueva Venta
+540121	2021-01-08	10:05:15	2500	0	0	0	0	B	E	Nueva Venta
+540122	2021-01-08	10:05:44	0	0	0	0	0	B	E	Nueva Venta
+540123	2021-01-08	10:08:47	2700	0	0	0	0	B	E	Nueva Venta
+540124	2021-01-08	10:14:11	2500	0	0	0	0	B	E	Nueva Venta
+540125	2021-01-08	10:14:59	2150	0	0	0	0	B	E	Nueva Venta
+540126	2021-01-08	10:15:19	700	0	0	0	0	B	E	Nueva Venta
+540127	2021-01-08	10:24:34	2400	0	0	0	0	B	E	Nueva Venta
+540128	2021-01-08	10:25:06	1300	0	0	0	0	B	E	Nueva Venta
+540129	2021-01-08	10:25:48	2200	0	0	0	0	B	E	Nueva Venta
+540130	2021-01-08	10:26:55	2400	0	0	0	0	B	E	Nueva Venta
+540131	2021-01-08	10:31:30	1300	0	0	0	0	B	E	Nueva Venta
+540132	2021-01-08	10:32:03	4100	0	0	0	0	B	E	Nueva Venta
+540133	2021-01-08	10:35:06	2500	0	0	0	0	B	E	Nueva Venta
+540134	2021-01-08	10:35:39	2600	0	0	0	0	B	E	Nueva Venta
+540135	2021-01-08	10:35:41	0	0	0	0	0	B	E	Nueva Venta
+540136	2021-01-08	10:35:55	0	0	0	0	0	B	E	Nueva Venta
+540137	2021-01-08	10:41:02	2200	0	0	0	0	B	E	Nueva Venta
+540138	2021-01-08	10:46:08	1600	0	0	0	0	B	E	Nueva Venta
+540139	2021-01-08	10:53:42	3500	0	0	0	0	B	E	Nueva Venta
+540140	2021-01-08	11:32:48	2800	0	0	0	0	B	E	Nueva Venta
+540141	2021-01-08	11:38:41	4850	0	3400	0	0	B	E	Nueva Venta
+540142	2021-01-08	11:44:50	1350	0	0	0	0	B	E	Nueva Venta
+540143	2021-01-08	11:46:08	1050	0	0	0	0	B	E	Nueva Venta
+540144	2021-01-08	11:56:49	350	0	0	0	0	B	E	Nueva Venta
+540145	2021-01-08	12:00:07	2850	0	2000	0	0	B	E	Nueva Venta
+540146	2021-01-08	12:01:41	5550	0	1300	0	0	B	E	Nueva Venta
+540147	2021-01-08	12:11:54	3400	0	0	0	0	B	E	Nueva Venta
+540148	2021-01-08	12:12:27	4200	0	0	0	0	B	E	Nueva Venta
+540149	2021-01-08	12:14:36	4300	0	0	0	0	B	E	Nueva Venta
+540150	2021-01-08	13:08:34	2000	0	0	0	0	B	E	Nueva Venta
+540151	2021-01-08	13:09:04	2900	0	0	0	0	B	E	Nueva Venta
+540152	2021-01-08	13:09:19	700	0	0	0	0	B	E	Nueva Venta
+540153	2021-01-08	13:16:22	0	0	0	0	0	B	E	Nueva Venta
+540154	2021-01-08	13:19:43	2800	0	0	0	0	B	E	Nueva Venta
+540155	2021-01-08	13:20:06	800	0	0	0	0	B	E	Nueva Venta
+540156	2021-01-08	13:36:10	3500	0	0	0	0	B	E	Nueva Venta
+540157	2021-01-08	13:39:33	6400	0	0	0	0	B	E	Nueva Venta
+540158	2021-01-08	13:42:56	4750	0	0	0	0	B	E	Nueva Venta
+540159	2021-01-08	13:43:57	1600	0	0	0	0	B	E	Nueva Venta
+540160	2021-01-08	13:59:27	1300	0	0	0	0	B	E	Nueva Venta
+540161	2021-01-08	14:01:34	3150	0	0	0	0	B	E	Nueva Venta
+540162	2021-01-08	14:07:04	3850	0	2000	0	0	B	E	Nueva Venta
+540163	2021-01-08	14:22:13	2100	0	0	0	0	B	E	Nueva Venta
+540164	2021-01-08	14:32:46	1850	0	0	0	0	B	E	Nueva Venta
+540165	2021-01-08	14:48:36	1800	0	0	0	0	B	E	Nueva Venta
+540166	2021-01-08	14:55:20	2100	0	0	0	0	B	E	Nueva Venta
+540167	2021-01-08	14:55:41	0	0	0	0	0	B	E	Nueva Venta
+540168	2021-01-08	14:58:37	1450	276	0	0	0	B	E	Boleta
+540169	2021-01-08	16:18:45	7850	0	4800	0	0	B	E	Nueva Venta
+540170	2021-01-08	17:12:12	1280	0	0	0	0	B	E	Nueva Venta
+540171	2021-01-08	17:30:12	5400	0	2000	0	0	B	E	Nueva Venta
+540172	2021-01-08	17:30:12	0	0	0	0	0	B	E	Nueva Venta
+540173	2021-01-11	07:47:02	1950	0	0	0	0	B	E	Nva. Venta
+540174	2021-01-11	07:47:40	3100	0	0	0	0	B	E	Nueva Venta
+540175	2021-01-11	07:54:46	5600	0	2000	0	0	B	E	Nueva Venta
+540176	2021-01-11	07:56:11	3700	0	0	0	0	B	E	Nueva Venta
+540177	2021-01-11	07:56:32	2900	0	0	0	0	B	E	Nueva Venta
+540178	2021-01-11	08:03:31	2300	0	0	0	0	B	E	Nueva Venta
+540179	2021-01-11	08:11:33	2300	0	0	0	0	B	E	Nueva Venta
+540180	2021-01-11	08:12:47	900	0	0	0	0	B	E	Nueva Venta
+540181	2021-01-11	08:23:14	500	0	0	0	0	B	E	Nueva Venta
+540182	2021-01-11	08:24:22	2600	0	0	0	0	B	E	Nueva Venta
+540183	2021-01-11	08:30:43	3950	0	3100	0	0	B	E	Nueva Venta
+540184	2021-01-11	08:36:13	3300	0	0	0	0	B	E	Nueva Venta
+540185	2021-01-11	08:36:35	2400	0	0	0	0	B	E	Nueva Venta
+540186	2021-01-11	08:38:05	0	0	0	0	0	B	E	Nueva Venta
+540187	2021-01-11	08:40:23	1600	0	0	0	0	B	E	Nueva Venta
+540188	2021-01-11	08:43:44	3700	0	0	0	0	B	E	Nueva Venta
+540189	2021-01-11	08:43:57	0	0	0	0	0	B	E	Nueva Venta
+540190	2021-01-11	08:44:54	3300	0	0	0	0	B	E	Nueva Venta
+540191	2021-01-11	08:45:23	1900	0	0	0	0	B	E	Nueva Venta
+540192	2021-01-11	08:45:58	2800	0	0	0	0	B	E	Nueva Venta
+540193	2021-01-11	08:47:22	2350	0	0	0	0	B	E	Nueva Venta
+540194	2021-01-11	08:47:54	2700	0	0	0	0	B	E	Nueva Venta
+540195	2021-01-11	08:48:14	0	0	0	0	0	B	E	Nueva Venta
+540196	2021-01-11	08:48:55	1900	0	0	0	0	B	E	Nueva Venta
+540197	2021-01-11	08:50:50	2300	0	0	0	0	B	E	Nueva Venta
+540198	2021-01-11	08:51:46	2200	0	0	0	0	B	E	Nueva Venta
+540199	2021-01-11	08:51:56	4800	0	0	0	0	B	E	Nueva Venta
+540200	2021-01-11	08:52:28	0	0	0	0	0	B	E	Nueva Venta
+540201	2021-01-11	08:53:03	900	0	0	0	0	B	E	Nueva Venta
+540202	2021-01-11	08:53:23	3650	0	0	0	0	B	E	Nueva Venta
+540203	2021-01-11	09:00:02	2100	0	0	0	0	B	E	Nueva Venta
+540204	2021-01-11	09:03:18	2400	0	0	0	0	B	E	Nueva Venta
+540205	2021-01-11	09:03:51	2800	0	0	0	0	B	E	Nueva Venta
+540206	2021-01-11	09:04:22	6600	0	3500	0	0	B	E	Nueva Venta
+540207	2021-01-11	09:07:53	2800	0	0	0	0	B	E	Nueva Venta
+540208	2021-01-11	09:05:03	0	0	0	0	0	B	E	Nueva Venta
+540209	2021-01-11	09:11:35	1100	0	0	0	0	B	E	Nueva Venta
+540210	2021-01-11	09:14:16	2300	0	0	0	0	B	E	Nueva Venta
+540211	2021-01-11	09:14:46	1100	0	0	0	0	B	E	Nueva Venta
+540212	2021-01-11	09:17:27	1000	0	0	0	0	B	E	Nueva Venta
+540213	2021-01-11	09:18:23	6500	0	0	0	0	B	E	Nueva Venta
+540214	2021-01-11	09:23:35	3550	0	0	0	0	B	E	Nueva Venta
+540215	2021-01-11	09:23:56	300	0	0	0	0	B	E	Nueva Venta
+540216	2021-01-11	09:24:04	3800	0	0	0	0	B	E	Nueva Venta
+540217	2021-01-11	09:25:53	2000	0	0	0	0	B	E	Nueva Venta
+540218	2021-01-11	09:27:13	5500	0	3400	0	0	B	E	Nueva Venta
+540219	2021-01-11	09:28:01	2700	0	0	0	0	B	E	Nueva Venta
+540220	2021-01-11	09:29:26	2400	0	0	0	0	B	E	Nueva Venta
+540221	2021-01-11	09:30:07	3400	0	0	0	0	B	E	Nueva Venta
+540222	2021-01-11	09:37:17	2400	0	0	0	0	B	E	Nueva Venta
+540223	2021-01-11	09:42:45	1650	0	0	0	0	B	E	Nueva Venta
+540224	2021-01-11	09:47:16	2100	0	0	0	0	B	E	Nueva Venta
+540225	2021-01-11	09:47:32	0	0	0	0	0	B	E	Nueva Venta
+540226	2021-01-11	09:48:12	2000	0	0	0	0	B	E	Nueva Venta
+540227	2021-01-11	09:54:16	4600	0	0	0	0	B	E	Nueva Venta
+540228	2021-01-11	09:56:57	2400	0	0	0	0	B	E	Nueva Venta
+540229	2021-01-11	10:03:33	5700	0	0	0	0	B	E	Nueva Venta
+540230	2021-01-11	10:04:13	0	0	0	0	0	B	E	Nueva Venta
+540231	2021-01-11	10:06:46	3500	0	0	0	0	B	E	Nueva Venta
+540232	2021-01-11	10:09:03	7200	0	0	0	0	B	E	Nueva Venta
+540233	2021-01-11	10:09:48	3100	0	0	0	0	B	E	Nueva Venta
+540234	2021-01-11	10:17:00	1100	0	0	0	0	B	E	Nueva Venta
+540235	2021-01-11	10:17:20	3850	0	0	0	0	B	E	Nueva Venta
+540236	2021-01-11	10:18:36	2250	0	0	0	0	B	E	Nueva Venta
+540237	2021-01-11	10:17:43	0	0	0	0	0	B	E	Nueva Venta
+540238	2021-01-11	10:21:46	0	0	0	0	0	B	E	Nueva Venta
+540239	2021-01-11	10:24:34	3300	0	0	0	0	B	E	Nueva Venta
+540240	2021-01-11	10:27:06	2350	0	0	0	0	B	E	Nueva Venta
+540241	2021-01-11	10:27:40	3700	0	0	0	0	B	E	Nueva Venta
+540242	2021-01-11	10:37:21	2700	0	0	0	0	B	E	Nueva Venta
+540243	2021-01-11	10:38:10	1900	0	0	0	0	B	E	Nueva Venta
+540244	2021-01-11	10:40:38	1700	0	0	0	0	B	E	Nueva Venta
+540245	2021-01-11	11:02:53	2100	0	0	0	0	B	E	Nueva Venta
+540246	2021-01-11	11:10:41	2200	0	0	0	0	B	E	Nueva Venta
+540247	2021-01-11	11:12:03	2100	0	0	0	0	B	E	Nueva Venta
+540248	2021-01-11	11:15:52	2500	0	0	0	0	B	E	Nueva Venta
+540249	2021-01-11	11:24:56	5100	0	0	0	0	B	E	Nueva Venta
+540250	2021-01-11	11:25:53	800	0	0	0	0	B	E	Nueva Venta
+540251	2021-01-11	11:39:51	0	0	0	0	0	B	E	Nueva Venta
+540252	2021-01-11	11:43:41	3100	0	0	0	0	B	E	Nueva Venta
+540253	2021-01-11	11:50:50	1400	0	0	0	0	B	E	Nueva Venta
+540254	2021-01-11	11:58:37	1300	0	0	0	0	B	E	Nueva Venta
+540255	2021-01-11	11:59:26	3800	0	0	0	0	B	E	Nueva Venta
+540256	2021-01-11	11:59:27	0	0	0	0	0	B	E	Boleta
+540257	2021-01-11	11:59:28	0	0	0	0	0	B	E	Nueva Venta
+540258	2021-01-11	12:09:35	450	0	0	0	0	B	E	Nueva Venta
+540259	2021-01-11	12:10:37	6700	0	3000	0	0	B	E	Nueva Venta
+540260	2021-01-11	12:10:45	1000	0	0	0	0	B	E	Nueva Venta
+540261	2021-01-11	12:35:18	6810	0	0	0	0	B	E	Nueva Venta
+540262	2021-01-11	12:36:11	3850	0	0	0	0	B	E	Nueva Venta
+540263	2021-01-11	13:01:18	3150	0	0	0	0	B	E	Nueva Venta
+540264	2021-01-11	13:16:48	1000	0	0	0	0	B	E	Nueva Venta
+540265	2021-01-11	13:40:31	1850	0	0	0	0	B	E	Nueva Venta
+540266	2021-01-11	13:50:29	6200	0	0	0	0	B	E	Nueva Venta
+540267	2021-01-11	13:58:56	0	0	0	0	0	B	E	Nueva Venta
+540268	2021-01-11	14:07:22	1150	0	0	0	0	B	E	Nueva Venta
+540269	2021-01-11	14:12:35	3700	0	0	0	0	B	E	Nueva Venta
+540270	2021-01-11	14:12:49	3380	0	0	0	0	B	E	Nueva Venta
+540271	2021-01-11	14:13:32	2700	0	0	0	0	B	E	Nueva Venta
+540272	2021-01-11	14:13:54	0	0	0	0	0	B	E	Nueva Venta
+540273	2021-01-11	14:17:52	9650	0	0	0	0	B	E	Nueva Venta
+540274	2021-01-11	14:33:34	0	0	0	0	0	B	E	Nueva Venta
+540275	2021-01-11	14:34:33	2100	0	0	0	0	B	E	Nueva Venta
+540276	2021-01-11	14:48:54	3800	0	0	0	0	B	E	Nueva Venta
+540277	2021-01-11	14:49:58	4200	0	0	0	0	B	E	Nueva Venta
+540278	2021-01-11	14:54:10	3200	0	0	0	0	B	E	Nueva Venta
+540279	2021-01-11	15:00:59	5500	0	0	0	0	B	E	Nueva Venta
+540280	2021-01-11	15:01:52	3200	0	0	0	0	B	E	Nueva Venta
+540281	2021-01-11	15:02:24	3200	0	0	0	0	B	E	Nueva Venta
+540282	2021-01-11	15:09:57	0	0	0	0	0	B	E	Nueva Venta
+540283	2021-01-11	15:10:45	6030	0	0	0	0	B	E	Nueva Venta
+540284	2021-01-11	15:12:43	5150	0	0	0	0	B	E	Nueva Venta
+540285	2021-01-11	15:17:13	0	0	0	0	0	B	E	Nueva Venta
+540286	2021-01-11	15:25:26	2800	0	0	0	0	B	E	Nueva Venta
+540287	2021-01-11	15:31:49	4100	0	0	0	0	B	E	Nueva Venta
+540288	2021-01-11	15:33:28	0	0	0	0	0	B	E	Nueva Venta
+540289	2021-01-11	15:56:02	3900	0	3900	0	0	B	E	Nueva Venta
+540290	2021-01-11	16:01:14	6100	0	0	0	0	B	E	Nueva Venta
+540291	2021-01-11	16:01:49	2590	0	0	0	0	B	E	Nueva Venta
+540292	2021-01-11	16:18:54	1800	0	1800	0	0	B	E	Nueva Venta
+540293	2021-01-11	16:21:13	1000	0	0	0	0	B	E	Nueva Venta
+540294	2021-01-11	16:21:29	0	0	0	0	0	B	E	Nueva Venta
+540295	2021-01-11	16:24:20	5550	0	0	0	0	B	E	Nueva Venta
+540296	2021-01-11	16:25:07	3400	0	3400	0	0	B	E	Nueva Venta
+540297	2021-01-11	16:57:40	800	0	0	0	0	B	E	Nueva Venta
+540298	2021-01-11	17:20:38	1330	0	0	0	0	B	E	Nueva Venta
+540299	2021-01-11	17:29:00	3200	0	2000	0	0	B	E	Nueva Venta
+540300	2021-01-11	17:41:37	2990	0	0	0	0	B	E	Nueva Venta
+540301	2021-01-11	17:41:37	0	0	0	0	0	B	E	Nueva Venta
+540302	2021-01-12	07:40:21	1700	0	0	0	0	B	E	Nva. Venta
+540303	2021-01-12	07:52:12	2600	0	0	0	0	B	E	Nueva Venta
+540304	2021-01-12	07:57:01	3500	0	0	0	0	B	E	Nueva Venta
+540305	2021-01-12	07:58:35	6800	0	6800	0	0	B	E	Nueva Venta
+540306	2021-01-12	07:58:51	1500	0	0	0	0	B	E	Nueva Venta
+540307	2021-01-12	08:04:39	2500	0	0	0	0	B	E	Nueva Venta
+540308	2021-01-12	08:08:03	2200	0	0	0	0	B	E	Nueva Venta
+540309	2021-01-12	08:09:31	400	0	0	0	0	B	E	Nueva Venta
+540310	2021-01-12	08:13:30	600	0	0	0	0	B	E	Nueva Venta
+540311	2021-01-12	08:20:57	1600	0	0	0	0	B	E	Nueva Venta
+540312	2021-01-12	08:21:22	850	0	0	0	0	B	E	Nueva Venta
+540313	2021-01-12	08:22:57	5150	0	0	0	0	B	E	Nueva Venta
+540314	2021-01-12	08:23:27	1000	0	0	0	0	B	E	Nueva Venta
+540315	2021-01-12	08:24:00	1800	0	0	0	0	B	E	Nueva Venta
+540316	2021-01-12	08:25:20	2600	0	0	0	0	B	E	Nueva Venta
+540317	2021-01-12	08:25:42	2100	0	0	0	0	B	E	Nueva Venta
+540318	2021-01-12	08:28:08	2400	0	0	0	0	B	E	Nueva Venta
+540319	2021-01-12	08:29:59	2800	0	0	0	0	B	E	Nueva Venta
+540320	2021-01-12	08:30:25	6100	0	0	0	0	B	E	Nueva Venta
+540321	2021-01-12	08:31:36	1200	0	0	0	0	B	E	Nueva Venta
+540322	2021-01-12	08:32:40	1900	0	0	0	0	B	E	Nueva Venta
+540323	2021-01-12	08:33:47	2500	0	0	0	0	B	E	Nueva Venta
+540324	2021-01-12	08:34:02	2550	0	0	0	0	B	E	Nueva Venta
+540325	2021-01-12	08:34:48	0	0	0	0	0	B	E	Nueva Venta
+540326	2021-01-12	08:35:42	2100	0	0	0	0	B	E	Nueva Venta
+540327	2021-01-12	08:37:23	2400	0	0	0	0	B	E	Nueva Venta
+540328	2021-01-12	08:38:05	2000	0	0	0	0	B	E	Nueva Venta
+540329	2021-01-12	08:38:29	5950	0	3900	0	0	B	E	Nueva Venta
+540330	2021-01-12	08:39:11	1100	0	0	0	0	B	E	Nueva Venta
+540331	2021-01-12	08:42:50	4200	0	0	0	0	B	E	Nueva Venta
+540332	2021-01-12	08:48:31	3900	0	0	0	0	B	E	Nueva Venta
+540333	2021-01-12	08:49:30	2000	0	0	0	0	B	E	Nueva Venta
+540334	2021-01-12	08:51:43	5500	0	0	0	0	B	E	Nueva Venta
+540335	2021-01-12	08:54:20	2300	0	0	0	0	B	E	Nueva Venta
+540336	2021-01-12	08:55:36	3500	0	0	0	0	B	E	Nueva Venta
+540337	2021-01-12	08:56:45	2600	0	0	0	0	B	E	Nueva Venta
+540338	2021-01-12	08:57:07	4500	0	0	0	0	B	E	Nueva Venta
+540339	2021-01-12	08:57:29	3000	0	0	0	0	B	E	Nueva Venta
+540340	2021-01-12	08:59:46	2500	0	0	0	0	B	E	Nueva Venta
+540341	2021-01-12	09:04:50	700	0	0	0	0	B	E	Nueva Venta
+540342	2021-01-12	09:06:35	6100	0	0	0	0	B	E	Nueva Venta
+540343	2021-01-12	09:07:01	2500	0	0	0	0	B	E	Nueva Venta
+540344	2021-01-12	09:08:04	2300	0	0	0	0	B	E	Nueva Venta
+540345	2021-01-12	09:10:08	1100	0	0	0	0	B	E	Nueva Venta
+540346	2021-01-12	09:10:20	0	0	0	0	0	B	E	Nueva Venta
+540347	2021-01-12	09:11:01	1000	0	0	0	0	B	E	Nueva Venta
+540348	2021-01-12	09:11:21	1200	0	0	0	0	B	E	Nueva Venta
+540349	2021-01-12	09:12:17	1500	0	0	0	0	B	E	Nueva Venta
+540350	2021-01-12	09:15:59	1100	0	0	0	0	B	E	Nueva Venta
+540351	2021-01-12	09:16:34	3100	0	0	0	0	B	E	Nueva Venta
+540352	2021-01-12	09:17:22	1300	0	0	0	0	B	E	Nueva Venta
+540353	2021-01-12	09:19:21	4900	0	0	0	0	B	E	Nueva Venta
+540354	2021-01-12	09:22:07	2000	0	0	0	0	B	E	Nueva Venta
+540355	2021-01-12	09:24:21	6150	0	0	0	0	B	E	Nueva Venta
+540356	2021-01-12	09:31:51	600	0	0	0	0	B	E	Nueva Venta
+540357	2021-01-12	09:32:05	0	0	0	0	0	B	E	Nueva Venta
+540358	2021-01-12	09:35:12	0	0	0	0	0	B	E	Nueva Venta
+540359	2021-01-12	09:36:25	0	0	0	0	0	B	E	Nueva Venta
+540360	2021-01-12	09:37:13	2500	0	0	0	0	B	E	Nueva Venta
+540361	2021-01-12	09:37:33	2700	0	0	0	0	B	E	Nueva Venta
+540362	2021-01-12	09:38:26	1800	0	0	0	0	B	E	Nueva Venta
+540363	2021-01-12	09:41:23	2600	0	0	0	0	B	E	Nueva Venta
+540364	2021-01-12	09:42:10	2100	0	0	0	0	B	E	Nueva Venta
+540365	2021-01-12	09:43:12	0	0	0	0	0	B	E	Nueva Venta
+540366	2021-01-12	09:46:09	1500	0	0	0	0	B	E	Nueva Venta
+540367	2021-01-12	09:43:30	0	0	0	0	0	B	E	Nueva Venta
+540368	2021-01-12	09:48:07	3400	0	0	0	0	B	E	Nueva Venta
+540369	2021-01-12	09:48:41	2700	0	0	0	0	B	E	Nueva Venta
+540370	2021-01-12	09:49:04	0	0	0	0	0	B	E	Nueva Venta
+540371	2021-01-12	09:52:28	2000	0	0	0	0	B	E	Nueva Venta
+540372	2021-01-12	09:53:40	5000	0	2500	0	0	B	E	Nueva Venta
+540373	2021-01-12	10:06:17	350	0	0	0	0	B	E	Nueva Venta
+540374	2021-01-12	10:09:21	650	0	0	0	0	B	E	Nueva Venta
+540375	2021-01-12	10:09:23	0	0	0	0	0	B	E	Nueva Venta
+540376	2021-01-12	10:12:40	4000	0	0	0	0	B	E	Nueva Venta
+540377	2021-01-12	10:15:47	2300	0	0	0	0	B	E	Nueva Venta
+540378	2021-01-12	10:16:20	2100	0	0	0	0	B	E	Nueva Venta
+540379	2021-01-12	10:22:08	2700	0	0	0	0	B	E	Nueva Venta
+540380	2021-01-12	10:24:56	0	0	0	0	0	B	E	Nueva Venta
+540381	2021-01-12	10:32:50	1900	0	0	0	0	B	E	Nueva Venta
+540382	2021-01-12	10:33:10	0	0	0	0	0	B	E	Nueva Venta
+540383	2021-01-12	10:33:47	2400	0	0	0	0	B	E	Nueva Venta
+540384	2021-01-12	10:35:40	700	0	0	0	0	B	E	Nueva Venta
+540385	2021-01-12	10:44:58	700	0	0	0	0	B	E	Nueva Venta
+540386	2021-01-12	11:00:20	6900	0	4200	0	0	B	E	Nueva Venta
+540387	2021-01-12	11:00:40	0	0	0	0	0	B	E	Nueva Venta
+540388	2021-01-12	11:02:59	2400	0	0	0	0	B	E	Nueva Venta
+540389	2021-01-12	11:06:05	0	0	0	0	0	B	E	Nueva Venta
+540390	2021-01-12	11:07:48	3100	0	0	0	0	B	E	Nueva Venta
+540391	2021-01-12	11:08:20	2900	0	0	0	0	B	E	Nueva Venta
+540392	2021-01-12	11:16:24	0	0	0	0	0	B	E	Nueva Venta
+540393	2021-01-12	11:28:05	3500	0	3500	0	0	B	E	Nueva Venta
+540394	2021-01-12	11:43:54	3950	0	2000	0	0	B	E	Nueva Venta
+540395	2021-01-12	11:45:28	0	0	0	0	0	B	E	Nueva Venta
+540396	2021-01-12	12:00:12	1800	0	1800	0	0	B	E	Nueva Venta
+540397	2021-01-12	12:04:59	0	0	0	0	0	B	E	Nueva Venta
+540398	2021-01-12	12:05:15	0	0	0	0	0	B	E	Nueva Venta
+540399	2021-01-12	12:06:12	3700	0	0	0	0	B	E	Nueva Venta
+540400	2021-01-12	12:29:41	1750	0	0	0	0	B	E	Nueva Venta
+540401	2021-01-12	12:30:18	1800	0	1800	0	0	B	E	Nueva Venta
+540402	2021-01-12	12:42:55	0	0	0	0	0	B	E	Nueva Venta
+540403	2021-01-12	12:43:06	2700	0	0	0	0	B	E	Nueva Venta
+540404	2021-01-12	12:43:41	0	0	0	0	0	B	E	Nueva Venta
+540405	2021-01-12	12:47:34	3350	0	2600	0	0	B	E	Nueva Venta
+540406	2021-01-12	12:49:10	2000	0	0	0	0	B	E	Nueva Venta
+540407	2021-01-12	13:23:00	1600	0	0	0	0	B	E	Nueva Venta
+540408	2021-01-12	13:24:16	1350	0	0	0	0	B	E	Nueva Venta
+540409	2021-01-12	13:36:55	3000	0	3000	0	0	B	E	Nueva Venta
+540410	2021-01-12	13:41:41	0	0	0	0	0	B	E	Nueva Venta
+540411	2021-01-12	13:42:05	3600	0	0	0	0	B	E	Nueva Venta
+540412	2021-01-12	13:53:54	2800	0	0	0	0	B	E	Nueva Venta
+540413	2021-01-12	13:55:43	8450	0	4200	0	0	B	E	Nueva Venta
+540414	2021-01-12	14:12:41	3200	0	0	0	0	B	E	Nueva Venta
+540415	2021-01-12	14:14:27	0	0	0	0	0	B	E	Nueva Venta
+540416	2021-01-12	14:14:42	1680	0	0	0	0	B	E	Nueva Venta
+540417	2021-01-12	14:20:26	5600	0	0	0	0	B	E	Nueva Venta
+540418	2021-01-12	14:20:56	0	0	0	0	0	B	E	Nueva Venta
+540419	2021-01-12	14:33:13	6800	0	2500	0	0	B	E	Nueva Venta
+540420	2021-01-12	14:46:39	2300	0	0	0	0	B	E	Nueva Venta
+540421	2021-01-12	14:48:26	4000	0	0	0	0	B	E	Nueva Venta
+540422	2021-01-12	14:51:59	3100	0	0	0	0	B	E	Nueva Venta
+540423	2021-01-12	14:52:19	3500	0	0	0	0	B	E	Nueva Venta
+540424	2021-01-12	14:59:36	0	0	0	0	0	B	E	Nueva Venta
+540425	2021-01-12	14:59:49	0	0	0	0	0	B	E	Nueva Venta
+540426	2021-01-12	15:02:03	3000	0	2500	0	0	B	E	Nueva Venta
+540427	2021-01-12	15:10:30	4000	0	2600	0	0	B	E	Nueva Venta
+540428	2021-01-12	15:13:43	4500	0	0	0	0	B	E	Nueva Venta
+540429	2021-01-12	15:15:05	0	0	0	0	0	B	E	Nueva Venta
+540430	2021-01-12	15:15:31	1400	0	0	0	0	B	E	Nueva Venta
+540431	2021-01-12	15:16:21	800	0	0	0	0	B	E	Nueva Venta
+540432	2021-01-12	15:19:25	2000	0	0	0	0	B	E	Nueva Venta
+540433	2021-01-12	15:26:55	2400	0	0	0	0	B	E	Nueva Venta
+540434	2021-01-12	15:28:34	2290	0	0	0	0	B	E	Nueva Venta
+540435	2021-01-12	16:36:52	4600	0	4200	0	0	B	E	Nueva Venta
+540436	2021-01-12	16:44:20	0	0	0	0	0	B	E	Nueva Venta
+540437	2021-01-12	16:44:37	1400	0	0	0	0	B	E	Nueva Venta
+540438	2021-01-12	16:48:05	4400	0	0	0	0	B	E	Nueva Venta
+540439	2021-01-12	16:48:05	0	0	0	0	0	B	E	Nueva Venta
+540440	2021-01-13	07:56:40	1900	0	0	0	0	B	E	Nva. Venta
+540441	2021-01-13	08:06:31	2400	0	0	0	0	B	E	Nueva Venta
+540442	2021-01-13	08:07:42	1600	0	0	0	0	B	E	Nueva Venta
+540443	2021-01-13	08:08:52	700	0	0	0	0	B	E	Nueva Venta
+540444	2021-01-13	08:09:44	700	0	0	0	0	B	E	Nueva Venta
+540445	2021-01-13	08:11:57	1500	0	0	0	0	B	E	Nueva Venta
+540446	2021-01-13	08:13:50	3300	0	0	0	0	B	E	Nueva Venta
+540447	2021-01-13	08:16:26	1900	0	0	0	0	B	E	Nueva Venta
+540448	2021-01-13	08:21:52	2000	0	2000	0	0	B	E	Nueva Venta
+540449	2021-01-13	08:23:56	600	0	0	0	0	B	E	Nueva Venta
+540450	2021-01-13	08:26:16	1300	0	0	0	0	B	E	Nueva Venta
+540451	2021-01-13	08:33:31	700	0	0	0	0	B	E	Nueva Venta
+540452	2021-01-13	08:34:14	2400	0	0	0	0	B	E	Nueva Venta
+540453	2021-01-13	08:34:22	0	0	0	0	0	B	E	Nueva Venta
+540454	2021-01-13	08:35:52	1100	0	0	0	0	B	E	Nueva Venta
+540455	2021-01-13	08:40:40	3300	0	0	0	0	B	E	Nueva Venta
+540456	2021-01-13	08:52:32	700	0	0	0	0	B	E	Nueva Venta
+540457	2021-01-13	08:54:30	1500	0	0	0	0	B	E	Nueva Venta
+540458	2021-01-13	09:01:49	2000	0	2000	0	0	B	E	Nueva Venta
+540459	2021-01-13	09:03:09	1550	0	0	0	0	B	E	Nueva Venta
+540460	2021-01-13	09:04:28	1100	0	0	0	0	B	E	Nueva Venta
+540461	2021-01-13	09:06:09	3200	0	0	0	0	B	E	Nueva Venta
+540462	2021-01-13	09:07:51	4200	0	0	0	0	B	E	Nueva Venta
+540463	2021-01-13	09:08:42	2000	0	0	0	0	B	E	Nueva Venta
+540464	2021-01-13	09:08:44	0	0	0	0	0	B	E	Nueva Venta
+540465	2021-01-13	09:10:32	3100	0	0	0	0	B	E	Nueva Venta
+540466	2021-01-13	09:20:49	1550	0	0	0	0	B	E	Nueva Venta
+540467	2021-01-13	09:21:19	4500	0	0	0	0	B	E	Nueva Venta
+540468	2021-01-13	09:22:11	3450	0	0	0	0	B	E	Nueva Venta
+540469	2021-01-13	09:23:16	1950	0	0	0	0	B	E	Nueva Venta
+540470	2021-01-13	09:24:49	3200	0	0	0	0	B	E	Nueva Venta
+540471	2021-01-13	09:27:26	3200	0	0	0	0	B	E	Nueva Venta
+540472	2021-01-13	09:28:27	6600	0	0	0	0	B	E	Nueva Venta
+540473	2021-01-13	09:31:37	1900	0	0	0	0	B	E	Nueva Venta
+540474	2021-01-13	09:32:08	2200	0	0	0	0	B	E	Nueva Venta
+540475	2021-01-13	09:32:20	2400	0	0	0	0	B	E	Nueva Venta
+540476	2021-01-13	09:32:52	850	0	0	0	0	B	E	Nueva Venta
+540477	2021-01-13	09:37:40	3080	0	0	0	0	B	E	Nueva Venta
+540478	2021-01-13	09:38:08	3850	0	2500	0	0	B	E	Nueva Venta
+540479	2021-01-13	09:39:01	1400	0	0	0	0	B	E	Nueva Venta
+540480	2021-01-13	09:41:29	3100	0	0	0	0	B	E	Nueva Venta
+540481	2021-01-13	09:42:02	3200	0	0	0	0	B	E	Nueva Venta
+540482	2021-01-13	09:50:46	2400	0	0	0	0	B	E	Nueva Venta
+540483	2021-01-13	09:50:59	2200	0	0	0	0	B	E	Nueva Venta
+540484	2021-01-13	09:51:58	5400	0	3000	0	0	B	E	Nueva Venta
+540485	2021-01-13	09:55:50	2900	0	0	0	0	B	E	Nueva Venta
+540486	2021-01-13	09:56:30	2100	0	0	0	0	B	E	Nueva Venta
+540487	2021-01-13	09:58:48	2350	0	0	0	0	B	E	Nueva Venta
+540488	2021-01-13	10:09:54	3100	0	0	0	0	B	E	Nueva Venta
+540489	2021-01-13	10:11:51	0	0	0	0	0	B	E	Nueva Venta
+540490	2021-01-13	10:12:17	1600	0	0	0	0	B	E	Nueva Venta
+540491	2021-01-13	10:19:25	1600	304	0	0	0	B	E	Boleta
+540492	2021-01-13	10:19:47	0	0	0	0	0	B	E	Nueva Venta
+540493	2021-01-13	10:25:47	0	0	0	0	0	B	E	Nueva Venta
+540494	2021-01-13	10:35:45	3000	0	0	0	0	B	E	Nueva Venta
+540495	2021-01-13	10:39:20	0	0	0	0	0	B	E	Nueva Venta
+540496	2021-01-13	10:39:59	2900	0	0	0	0	B	E	Nueva Venta
+540497	2021-01-13	10:40:38	0	0	0	0	0	B	E	Nueva Venta
+540498	2021-01-13	10:41:31	950	0	0	0	0	B	E	Nueva Venta
+540499	2021-01-13	10:43:59	7800	0	0	0	0	B	E	Nueva Venta
+540500	2021-01-13	10:44:24	0	0	0	0	0	B	E	Nueva Venta
+540501	2021-01-13	10:44:48	1900	0	0	0	0	B	E	Nueva Venta
+540502	2021-01-13	11:00:21	3900	0	0	0	0	B	E	Nueva Venta
+540503	2021-01-13	11:01:14	1800	0	0	0	0	B	E	Nueva Venta
+540504	2021-01-13	11:01:45	0	0	0	0	0	B	E	Nueva Venta
+540505	2021-01-13	11:02:00	0	0	0	0	0	B	E	Nueva Venta
+540506	2021-01-13	11:05:01	3650	0	0	0	0	B	E	Nueva Venta
+540507	2021-01-13	11:09:34	2000	0	0	0	0	B	E	Nueva Venta
+540508	2021-01-13	11:25:09	1500	0	0	0	0	B	E	Nueva Venta
+540509	2021-01-13	11:43:13	2000	0	0	0	0	B	E	Nueva Venta
+540510	2021-01-13	11:48:58	2400	0	0	0	0	B	E	Nueva Venta
+540511	2021-01-13	12:14:25	2600	0	0	0	0	B	E	Nueva Venta
+540512	2021-01-13	12:14:59	2000	0	0	0	0	B	E	Nueva Venta
+540513	2021-01-13	12:59:44	3080	0	0	0	0	B	E	Nueva Venta
+540514	2021-01-13	12:59:59	4700	0	0	0	0	B	E	Nueva Venta
+540515	2021-01-13	13:07:47	0	0	0	0	0	B	E	Nueva Venta
+540516	2021-01-13	13:08:59	3000	0	0	0	0	B	E	Nueva Venta
+540517	2021-01-13	13:15:21	4450	0	0	0	0	B	E	Nueva Venta
+540518	2021-01-13	13:16:11	2000	380	0	0	0	B	E	Boleta
+540519	2021-01-13	13:27:36	2700	0	0	0	0	B	E	Nueva Venta
+540520	2021-01-13	13:51:41	6300	0	0	0	0	B	E	Nueva Venta
+540521	2021-01-13	13:59:50	1800	0	1800	0	0	B	E	Nueva Venta
+540522	2021-01-13	13:59:50	0	0	0	0	0	B	E	Nueva Venta
+540523	2021-01-13	14:03:20	0	0	0	0	0	B	E	Nva. Venta
+540524	2021-01-13	14:13:15	450	0	0	0	0	B	E	Nueva Venta
+540525	2021-01-13	14:14:01	2050	0	0	0	0	B	E	Nueva Venta
+540526	2021-01-13	14:32:30	4000	0	0	0	0	B	E	Nueva Venta
+540527	2021-01-13	14:33:42	7500	0	0	0	0	B	E	Nueva Venta
+540528	2021-01-13	14:35:57	6400	0	0	0	0	B	E	Nueva Venta
+540529	2021-01-13	14:42:02	2490	0	0	0	0	B	E	Nueva Venta
+540530	2021-01-13	15:09:17	4000	0	0	0	0	B	E	Nueva Venta
+540531	2021-01-13	15:27:19	8400	0	0	0	0	B	E	Nueva Venta
+540532	2021-01-13	15:28:37	2900	0	0	0	0	B	E	Nueva Venta
+540533	2021-01-13	15:29:18	1700	0	0	0	0	B	E	Nueva Venta
+540534	2021-01-13	16:10:55	2700	0	2000	0	0	B	E	Nueva Venta
+540535	2021-01-13	16:20:30	2100	0	0	0	0	B	E	Nueva Venta
+540536	2021-01-13	16:24:25	3400	0	3400	0	0	B	E	Nueva Venta
+540537	2021-01-13	16:24:56	2100	0	0	0	0	B	E	Nueva Venta
+540538	2021-01-13	16:27:24	2400	0	0	0	0	B	E	Nueva Venta
+540539	2021-01-13	16:48:20	1750	0	0	0	0	B	E	Nueva Venta
+540540	2021-01-13	17:03:44	1900	0	0	0	0	B	E	Nueva Venta
+540541	2021-01-13	17:49:35	2400	0	0	0	0	B	E	Nueva Venta
+540542	2021-01-13	17:49:36	5080	0	0	0	0	B	E	Nueva Venta
+540543	2021-01-14	07:54:06	0	0	0	0	0	B	E	Nva. Venta
+540544	2021-01-14	07:55:13	0	0	0	0	0	B	E	Nueva Venta
+540545	2021-01-14	07:57:02	0	0	0	0	0	B	E	Nueva Venta
+540546	2021-01-14	08:00:14	5450	0	3400	0	0	B	E	Nueva Venta
+540547	2021-01-14	08:00:35	3200	0	0	0	0	B	E	Nueva Venta
+540548	2021-01-14	08:07:10	3400	0	0	0	0	B	E	Nueva Venta
+540549	2021-01-14	08:21:48	1100	0	0	0	0	B	E	Nueva Venta
+540550	2021-01-14	08:24:27	4050	0	0	0	0	B	E	Nueva Venta
+540551	2021-01-14	08:25:06	1900	0	0	0	0	B	E	Nueva Venta
+540552	2021-01-14	08:25:47	4100	0	0	0	0	B	E	Nueva Venta
+540553	2021-01-14	08:27:33	1300	0	0	0	0	B	E	Nueva Venta
+540554	2021-01-14	08:28:03	3100	0	0	0	0	B	E	Nueva Venta
+540555	2021-01-14	08:29:55	3200	0	0	0	0	B	E	Nueva Venta
+540556	2021-01-14	08:30:50	2800	0	0	0	0	B	E	Nueva Venta
+540557	2021-01-14	08:31:09	5500	0	4200	0	0	B	E	Nueva Venta
+540558	2021-01-14	08:36:00	2300	0	0	0	0	B	E	Nueva Venta
+540559	2021-01-14	08:38:31	3500	0	0	0	0	B	E	Nueva Venta
+540560	2021-01-14	08:41:16	5300	0	0	0	0	B	E	Nueva Venta
+540561	2021-01-14	08:41:32	3300	0	0	0	0	B	E	Nueva Venta
+540562	2021-01-14	08:47:36	2800	0	0	0	0	B	E	Nueva Venta
+540563	2021-01-14	08:47:54	0	0	0	0	0	B	E	Nueva Venta
+540564	2021-01-14	08:54:15	1500	0	0	0	0	B	E	Nueva Venta
+540565	2021-01-14	09:00:44	1500	0	0	0	0	B	E	Nueva Venta
+540566	2021-01-14	09:01:28	3500	0	0	0	0	B	E	Nueva Venta
+540567	2021-01-14	09:05:28	0	0	0	0	0	B	E	Nueva Venta
+540568	2021-01-14	09:06:13	1600	0	0	0	0	B	E	Nueva Venta
+540569	2021-01-14	09:07:29	3600	0	0	0	0	B	E	Nueva Venta
+540570	2021-01-14	09:09:25	7600	0	4200	0	0	B	E	Nueva Venta
+540571	2021-01-14	09:09:50	0	0	0	0	0	B	E	Nueva Venta
+540572	2021-01-14	09:11:01	3000	0	0	0	0	B	E	Nueva Venta
+540573	2021-01-14	09:11:50	3600	0	0	0	0	B	E	Nueva Venta
+540574	2021-01-14	09:20:36	2400	0	0	0	0	B	E	Nueva Venta
+540575	2021-01-14	09:24:21	4000	0	0	0	0	B	E	Nueva Venta
+540576	2021-01-14	09:24:29	0	0	0	0	0	B	E	Nueva Venta
+540577	2021-01-14	09:24:59	1900	0	0	0	0	B	E	Nueva Venta
+540578	2021-01-14	09:31:07	2500	0	0	0	0	B	E	Nueva Venta
+540579	2021-01-14	09:31:39	2300	0	0	0	0	B	E	Nueva Venta
+540580	2021-01-14	09:40:24	500	0	0	0	0	B	E	Nueva Venta
+540581	2021-01-14	09:47:03	3500	0	0	0	0	B	E	Nueva Venta
+540582	2021-01-14	09:47:50	0	0	0	0	0	B	E	Nueva Venta
+540583	2021-01-14	09:56:35	5950	0	2500	0	0	B	E	Nueva Venta
+540584	2021-01-14	10:11:25	1000	0	0	0	0	B	E	Nueva Venta
+540585	2021-01-14	10:15:45	2100	0	0	0	0	B	E	Nueva Venta
+540586	2021-01-14	10:18:28	3150	0	0	0	0	B	E	Nueva Venta
+540587	2021-01-14	10:20:29	1100	0	0	0	0	B	E	Nueva Venta
+540588	2021-01-14	10:28:21	1100	0	0	0	0	B	E	Nueva Venta
+540589	2021-01-14	10:45:37	1500	0	0	0	0	B	E	Nueva Venta
+540590	2021-01-14	10:47:10	6200	0	0	0	0	B	E	Nueva Venta
+540591	2021-01-14	10:58:28	700	0	0	0	0	B	E	Nueva Venta
+540592	2021-01-14	11:14:29	850	0	0	0	0	B	E	Nueva Venta
+540593	2021-01-14	11:21:57	1800	0	0	0	0	B	E	Nueva Venta
+540594	2021-01-14	11:54:33	1200	0	0	0	0	B	E	Nueva Venta
+540595	2021-01-14	12:10:37	1100	0	0	0	0	B	E	Nueva Venta
+540596	2021-01-14	12:19:32	0	0	0	0	0	B	E	Nueva Venta
+540597	2021-01-14	12:20:01	2300	0	0	0	0	B	E	Nueva Venta
+540598	2021-01-14	12:22:58	7200	0	5000	0	0	B	E	Nueva Venta
+540599	2021-01-14	12:23:33	6900	0	6900	0	0	B	E	Nueva Venta
+540600	2021-01-14	13:46:31	2400	0	0	0	0	B	E	Nueva Venta
+540601	2021-01-14	13:48:27	2000	0	0	0	0	B	E	Nueva Venta
+540602	2021-01-14	14:07:31	6200	0	0	0	0	B	E	Nueva Venta
+540603	2021-01-14	14:07:53	0	0	0	0	0	B	E	Nueva Venta
+540604	2021-01-14	14:10:45	2200	0	0	0	0	B	E	Nueva Venta
+540605	2021-01-14	14:24:35	4900	0	0	0	0	B	E	Nueva Venta
+540606	2021-01-14	14:25:03	0	0	0	0	0	B	E	Nueva Venta
+540607	2021-01-14	14:25:18	0	0	0	0	0	B	E	Nueva Venta
+540608	2021-01-14	14:25:28	0	0	0	0	0	B	E	Nueva Venta
+540609	2021-01-14	14:27:15	0	0	0	0	0	B	E	Nueva Venta
+540610	2021-01-14	14:28:43	0	0	0	0	0	B	E	Nueva Venta
+540611	2021-01-14	14:45:35	2200	0	0	0	0	B	E	Nueva Venta
+540612	2021-01-14	14:46:10	5500	0	0	0	0	B	E	Nueva Venta
+540613	2021-01-14	14:46:11	0	0	0	0	0	B	E	Nueva Venta
+540614	2021-01-14	14:47:12	0	0	0	0	0	B	E	Boleta
+540615	2021-01-14	14:48:33	3200	0	0	0	0	B	E	Nueva Venta
+540616	2021-01-14	14:51:36	8950	0	0	0	0	B	E	Nueva Venta
+540617	2021-01-14	15:04:38	3900	0	3900	0	0	B	E	Nueva Venta
+540618	2021-01-14	15:07:06	1400	0	0	0	0	B	E	Nueva Venta
+540619	2021-01-14	15:08:07	700	0	0	0	0	B	E	Nueva Venta
+540620	2021-01-14	15:09:34	800	0	0	0	0	B	E	Nueva Venta
+540621	2021-01-14	15:12:05	13700	0	12000	0	0	B	E	Nueva Venta
+540622	2021-01-14	15:14:39	2400	0	0	0	0	B	E	Nueva Venta
+540623	2021-01-14	15:53:17	650	0	0	0	0	B	E	Nueva Venta
+540624	2021-01-14	16:04:34	9000	0	0	0	0	B	E	Nueva Venta
+540625	2021-01-14	16:10:03	3390	0	0	0	0	B	E	Nueva Venta
+540626	2021-01-14	16:10:54	2800	0	0	0	0	B	E	Nueva Venta
+540627	2021-01-14	16:42:02	2340	0	0	0	0	B	E	Nueva Venta
+540628	2021-01-14	16:42:02	3000	0	0	0	0	B	E	Nueva Venta
+540629	2021-01-15	07:38:20	7700	0	0	0	0	B	E	Nva. Venta
+540630	2021-01-15	07:42:40	1950	0	0	0	0	B	E	Nueva Venta
+540631	2021-01-15	07:56:11	4200	0	0	0	0	B	E	Nueva Venta
+540632	2021-01-15	08:02:18	5600	0	0	0	0	B	E	Nueva Venta
+540633	2021-01-15	08:03:41	2600	0	0	0	0	B	E	Nueva Venta
+540634	2021-01-15	08:07:12	2400	0	0	0	0	B	E	Nueva Venta
+540635	2021-01-15	08:07:41	2900	0	0	0	0	B	E	Nueva Venta
+540636	2021-01-15	08:17:04	6300	0	0	0	0	B	E	Nueva Venta
+540637	2021-01-15	08:17:18	3100	0	0	0	0	B	E	Nueva Venta
+540638	2021-01-15	08:17:25	0	0	0	0	0	B	E	Nueva Venta
+540639	2021-01-15	08:19:32	0	0	0	0	0	B	E	Nueva Venta
+540640	2021-01-15	08:19:52	0	0	0	0	0	B	E	Nueva Venta
+540641	2021-01-15	08:20:11	3250	0	0	0	0	B	E	Nueva Venta
+540642	2021-01-15	08:21:09	2300	0	0	0	0	B	E	Nueva Venta
+540643	2021-01-15	08:21:50	3100	0	0	0	0	B	E	Nueva Venta
+540644	2021-01-15	08:22:50	3300	0	0	0	0	B	E	Nueva Venta
+540645	2021-01-15	08:23:35	1200	0	0	0	0	B	E	Nueva Venta
+540646	2021-01-15	08:23:54	450	0	0	0	0	B	E	Nueva Venta
+540647	2021-01-15	08:25:58	3000	0	0	0	0	B	E	Nueva Venta
+540648	2021-01-15	08:28:53	3400	0	0	0	0	B	E	Nueva Venta
+540649	2021-01-15	08:29:13	2900	0	1800	0	0	B	E	Nueva Venta
+540650	2021-01-15	08:34:11	1300	0	0	0	0	B	E	Nueva Venta
+540651	2021-01-15	08:42:31	2900	0	0	0	0	B	E	Nueva Venta
+540652	2021-01-15	08:45:17	3100	0	0	0	0	B	E	Nueva Venta
+540653	2021-01-15	08:50:56	2400	0	0	0	0	B	E	Nueva Venta
+540654	2021-01-15	08:51:32	2400	0	0	0	0	B	E	Nueva Venta
+540655	2021-01-15	08:52:28	2500	0	0	0	0	B	E	Nueva Venta
+540656	2021-01-15	08:54:14	2000	0	0	0	0	B	E	Nueva Venta
+540657	2021-01-15	08:59:25	4300	0	0	0	0	B	E	Nueva Venta
+540658	2021-01-15	09:01:40	1300	0	0	0	0	B	E	Nueva Venta
+540659	2021-01-15	09:01:50	0	0	0	0	0	B	E	Nueva Venta
+540660	2021-01-15	09:13:14	1300	0	0	0	0	B	E	Nueva Venta
+540661	2021-01-15	09:15:48	1000	0	0	0	0	B	E	Nueva Venta
+540662	2021-01-15	09:16:44	3800	0	0	0	0	B	E	Nueva Venta
+540663	2021-01-15	09:17:23	3500	0	0	0	0	B	E	Nueva Venta
+540664	2021-01-15	09:18:27	2500	0	0	0	0	B	E	Nueva Venta
+540665	2021-01-15	09:19:07	1200	0	0	0	0	B	E	Nueva Venta
+540666	2021-01-15	09:22:19	800	0	0	0	0	B	E	Nueva Venta
+540667	2021-01-15	09:23:01	0	0	0	0	0	B	E	Nueva Venta
+540668	2021-01-15	09:23:40	7000	0	0	0	0	B	E	Nueva Venta
+540669	2021-01-15	09:25:45	4500	0	0	0	0	B	E	Nueva Venta
+540670	2021-01-15	09:26:27	1450	0	0	0	0	B	E	Nueva Venta
+540671	2021-01-15	09:37:30	1000	0	0	0	0	B	E	Nueva Venta
+540672	2021-01-15	09:42:39	0	0	0	0	0	B	E	Nueva Venta
+540673	2021-01-15	09:50:10	3750	0	2500	0	0	B	E	Nueva Venta
+540674	2021-01-15	09:58:28	5700	0	0	0	0	B	E	Nueva Venta
+540675	2021-01-15	09:56:11	0	0	0	0	0	B	E	Nueva Venta
+540676	2021-01-15	10:01:02	1550	0	0	0	0	B	E	Nueva Venta
+540677	2021-01-15	10:02:03	4400	0	0	0	0	B	E	Nueva Venta
+540678	2021-01-15	10:02:59	1800	0	0	0	0	B	E	Nueva Venta
+540679	2021-01-15	10:04:15	1100	0	0	0	0	B	E	Nueva Venta
+540680	2021-01-15	10:04:58	3800	0	0	0	0	B	E	Nueva Venta
+540681	2021-01-15	10:19:51	3600	0	0	0	0	B	E	Nueva Venta
+540682	2021-01-15	10:21:36	1800	0	0	0	0	B	E	Nueva Venta
+540683	2021-01-15	10:22:36	2400	0	0	0	0	B	E	Nueva Venta
+540684	2021-01-15	10:23:08	4050	0	2000	0	0	B	E	Nueva Venta
+540685	2021-01-15	10:24:41	2500	0	0	0	0	B	E	Nueva Venta
+540686	2021-01-15	10:31:57	1200	0	0	0	0	B	E	Nueva Venta
+540687	2021-01-15	10:32:51	4200	0	2000	0	0	B	E	Nueva Venta
+540688	2021-01-15	10:34:29	3300	0	0	0	0	B	E	Nueva Venta
+540689	2021-01-15	10:41:33	1450	0	0	0	0	B	E	Nueva Venta
+540690	2021-01-15	10:50:56	2400	0	0	0	0	B	E	Nueva Venta
+540691	2021-01-15	10:54:11	3400	0	0	0	0	B	E	Nueva Venta
+540692	2021-01-15	10:59:21	2800	0	0	0	0	B	E	Nueva Venta
+540693	2021-01-15	11:02:34	6400	0	4200	0	0	B	E	Nueva Venta
+540694	2021-01-15	11:06:27	3150	0	0	0	0	B	E	Nueva Venta
+540695	2021-01-15	11:46:42	3000	0	2000	0	0	B	E	Nueva Venta
+540696	2021-01-15	11:59:12	800	0	0	0	0	B	E	Nueva Venta
+540697	2021-01-15	12:18:10	6500	0	5200	0	0	B	E	Nueva Venta
+540698	2021-01-15	12:18:12	0	0	0	0	0	B	E	Nueva Venta
+540699	2021-01-15	12:18:14	0	0	0	0	0	B	E	Nueva Venta
+540700	2021-01-15	12:47:59	1100	0	0	0	0	B	E	Nueva Venta
+540701	2021-01-15	12:48:01	0	0	0	0	0	B	E	Nueva Venta
+540702	2021-01-15	12:50:46	1500	0	0	0	0	B	E	Nueva Venta
+540703	2021-01-15	13:00:17	4500	0	0	0	0	B	E	Nueva Venta
+540704	2021-01-15	13:03:29	1700	0	0	0	0	B	E	Nueva Venta
+540705	2021-01-15	13:03:31	0	0	0	0	0	B	E	Nueva Venta
+540706	2021-01-15	13:24:20	1400	0	0	0	0	B	E	Nueva Venta
+540707	2021-01-15	13:24:39	4900	0	0	0	0	B	E	Nueva Venta
+540708	2021-01-15	13:25:02	0	0	0	0	0	B	E	Nueva Venta
+540709	2021-01-15	13:47:40	1000	0	0	0	0	B	E	Nueva Venta
+540710	2021-01-15	14:06:35	700	0	0	0	0	B	E	Nueva Venta
+540711	2021-01-15	14:07:18	4650	0	0	0	0	B	E	Nueva Venta
+540712	2021-01-15	14:16:10	3500	0	0	0	0	B	E	Nueva Venta
+540713	2021-01-15	14:41:28	3400	0	0	0	0	B	E	Nueva Venta
+540714	2021-01-15	15:05:45	950	0	0	0	0	B	E	Nueva Venta
+540715	2021-01-15	15:06:04	3580	0	2600	0	0	B	E	Nueva Venta
+540716	2021-01-15	15:13:40	800	152	0	0	0	B	E	Boleta
+540717	2021-01-15	15:14:07	1650	0	0	0	0	B	E	Nueva Venta
+540718	2021-01-15	15:14:31	0	0	0	0	0	B	E	Nueva Venta
+540719	2021-01-15	15:23:25	4600	0	0	0	0	B	E	Nueva Venta
+540720	2021-01-15	15:48:40	2400	0	0	0	0	B	E	Nueva Venta
+540721	2021-01-15	16:21:00	4680	0	2000	0	0	B	E	Nueva Venta
+540722	2021-01-15	17:08:40	2500	0	0	0	0	B	E	Nueva Venta
+540723	2021-01-15	17:12:52	3100	0	0	0	0	B	E	Nueva Venta
+540724	2021-01-15	17:14:43	0	0	0	0	0	B	E	Nueva Venta
+540725	2021-01-15	17:20:11	3900	0	3900	0	0	B	E	Nueva Venta
+540726	2021-01-15	17:42:55	800	0	0	0	0	B	E	Nueva Venta
+540727	2021-01-15	17:42:55	2150	0	0	0	0	B	E	Nueva Venta
+540728	2021-01-18	07:42:05	2650	0	0	0	0	B	E	Nva. Venta
+540729	2021-01-18	07:52:13	0	0	0	0	0	B	E	Nueva Venta
+540730	2021-01-18	07:53:45	1400	0	0	0	0	B	E	Nueva Venta
+540731	2021-01-18	08:01:25	900	0	0	0	0	B	E	Nueva Venta
+540732	2021-01-18	08:01:59	4600	0	3400	0	0	B	E	Nueva Venta
+540733	2021-01-18	08:02:25	800	0	0	0	0	B	E	Nueva Venta
+540734	2021-01-18	08:03:05	3400	0	0	0	0	B	E	Nueva Venta
+540735	2021-01-18	08:10:02	600	0	0	0	0	B	E	Nueva Venta
+540736	2021-01-18	08:10:54	1500	0	0	0	0	B	E	Nueva Venta
+540737	2021-01-18	08:13:12	1600	0	0	0	0	B	E	Nueva Venta
+540738	2021-01-18	08:13:24	0	0	0	0	0	B	E	Nueva Venta
+540739	2021-01-18	08:23:25	3400	0	0	0	0	B	E	Nueva Venta
+540740	2021-01-18	08:24:34	700	0	0	0	0	B	E	Nueva Venta
+540741	2021-01-18	08:26:43	3500	0	3100	0	0	B	E	Nueva Venta
+540742	2021-01-18	08:29:08	2600	0	0	0	0	B	E	Nueva Venta
+540743	2021-01-18	08:30:32	3500	0	0	0	0	B	E	Nueva Venta
+540744	2021-01-18	08:33:29	2100	0	0	0	0	B	E	Nueva Venta
+540745	2021-01-18	08:34:13	2100	0	0	0	0	B	E	Nueva Venta
+540746	2021-01-18	08:34:49	2500	0	0	0	0	B	E	Nueva Venta
+540747	2021-01-18	08:42:39	1400	0	0	0	0	B	E	Nueva Venta
+540748	2021-01-18	08:46:16	1300	0	0	0	0	B	E	Nueva Venta
+540749	2021-01-18	08:52:53	700	0	0	0	0	B	E	Nueva Venta
+540750	2021-01-18	08:59:09	2300	0	0	0	0	B	E	Nueva Venta
+540751	2021-01-18	09:05:20	1550	0	0	0	0	B	E	Nueva Venta
+540752	2021-01-18	09:05:53	3100	0	0	0	0	B	E	Nueva Venta
+540753	2021-01-18	09:07:05	3700	0	0	0	0	B	E	Nueva Venta
+540754	2021-01-18	09:14:52	1200	0	0	0	0	B	E	Nueva Venta
+540755	2021-01-18	09:17:23	1100	0	0	0	0	B	E	Nueva Venta
+540756	2021-01-18	09:17:53	1950	0	0	0	0	B	E	Nueva Venta
+540757	2021-01-18	09:18:12	0	0	0	0	0	B	E	Nueva Venta
+540758	2021-01-18	09:22:44	2200	0	0	0	0	B	E	Nueva Venta
+540759	2021-01-18	09:24:04	900	0	0	0	0	B	E	Nueva Venta
+540760	2021-01-18	09:24:54	2600	0	0	0	0	B	E	Nueva Venta
+540761	2021-01-18	09:27:45	1200	0	0	0	0	B	E	Nueva Venta
+540762	2021-01-18	09:30:03	1300	0	0	0	0	B	E	Nueva Venta
+540763	2021-01-18	09:30:32	0	0	0	0	0	B	E	Nueva Venta
+540764	2021-01-18	09:30:59	2800	0	0	0	0	B	E	Nueva Venta
+540765	2021-01-18	09:31:13	1100	0	0	0	0	B	E	Nueva Venta
+540766	2021-01-18	09:31:33	0	0	0	0	0	B	E	Nueva Venta
+540767	2021-01-18	09:34:52	3500	0	0	0	0	B	E	Nueva Venta
+540768	2021-01-18	09:46:19	700	0	0	0	0	B	E	Nueva Venta
+540769	2021-01-18	10:09:48	1100	0	0	0	0	B	E	Nueva Venta
+540770	2021-01-18	10:11:11	5150	0	0	0	0	B	E	Nueva Venta
+540771	2021-01-18	10:11:50	1900	0	0	0	0	B	E	Nueva Venta
+540772	2021-01-18	10:12:28	8800	0	0	0	0	B	E	Nueva Venta
+540773	2021-01-18	10:13:26	6000	0	0	0	0	B	E	Nueva Venta
+540774	2021-01-18	10:13:45	3100	0	0	0	0	B	E	Nueva Venta
+540775	2021-01-18	10:13:55	0	0	0	0	0	B	E	Nueva Venta
+540776	2021-01-18	10:14:52	2300	0	0	0	0	B	E	Nueva Venta
+540777	2021-01-18	10:23:50	1700	0	0	0	0	B	E	Nueva Venta
+540778	2021-01-18	10:28:27	0	0	0	0	0	B	E	Nueva Venta
+540779	2021-01-18	10:43:47	0	0	0	0	0	B	E	Nueva Venta
+540780	2021-01-18	10:47:09	2500	0	0	0	0	B	E	Nueva Venta
+540781	2021-01-18	10:47:29	3000	0	3000	0	0	B	E	Nueva Venta
+540782	2021-01-18	10:48:08	0	0	0	0	0	B	E	Nueva Venta
+540783	2021-01-18	11:08:27	2700	0	0	0	0	B	E	Nueva Venta
+540784	2021-01-18	11:11:23	2700	0	0	0	0	B	E	Nueva Venta
+540785	2021-01-18	11:17:36	0	0	0	0	0	B	E	Nueva Venta
+540786	2021-01-18	11:39:38	3450	0	0	0	0	B	E	Nueva Venta
+540787	2021-01-18	11:50:13	2450	0	0	0	0	B	E	Nueva Venta
+540788	2021-01-18	12:12:15	1250	0	0	0	0	B	E	Nueva Venta
+540789	2021-01-18	12:12:25	1400	0	0	0	0	B	E	Nueva Venta
+540790	2021-01-18	12:17:56	1900	0	0	0	0	B	E	Nueva Venta
+540791	2021-01-18	12:18:22	6600	0	6600	0	0	B	E	Nueva Venta
+540792	2021-01-18	12:28:00	3300	0	3300	0	0	B	E	Nueva Venta
+540793	2021-01-18	12:52:08	4400	0	0	0	0	B	E	Nueva Venta
+540794	2021-01-18	13:12:48	8100	0	5400	0	0	B	E	Nueva Venta
+540795	2021-01-18	13:28:39	5400	0	0	0	0	B	E	Nueva Venta
+540796	2021-01-18	13:36:21	1400	0	0	0	0	B	E	Nueva Venta
+540797	2021-01-18	13:43:40	6800	0	3500	0	0	B	E	Nueva Venta
+540798	2021-01-18	13:46:19	2000	0	0	0	0	B	E	Nueva Venta
+540799	2021-01-18	14:03:17	4600	0	4000	0	0	B	E	Nueva Venta
+540800	2021-01-18	14:04:15	7400	0	0	0	0	B	E	Nueva Venta
+540801	2021-01-18	14:08:41	4250	0	0	0	0	B	E	Nueva Venta
+540802	2021-01-18	14:09:27	0	0	0	0	0	B	E	Nueva Venta
+540803	2021-01-18	14:10:29	2400	0	0	0	0	B	E	Nueva Venta
+540804	2021-01-18	14:11:34	4000	0	0	0	0	B	E	Nueva Venta
+540805	2021-01-18	14:13:41	2150	0	0	0	0	B	E	Nueva Venta
+540806	2021-01-18	14:32:53	4700	0	0	0	0	B	E	Nueva Venta
+540807	2021-01-18	14:49:57	0	0	0	0	0	B	E	Nueva Venta
+540808	2021-01-18	14:52:01	2200	0	0	0	0	B	E	Nueva Venta
+540809	2021-01-18	14:53:53	3600	0	0	0	0	B	E	Nueva Venta
+540810	2021-01-18	14:58:11	2490	0	0	0	0	B	E	Nueva Venta
+540811	2021-01-18	15:02:29	0	0	0	0	0	B	E	Nueva Venta
+540812	2021-01-18	15:09:13	4490	0	0	0	0	B	E	Nueva Venta
+540813	2021-01-18	15:10:03	1500	0	0	0	0	B	E	Nueva Venta
+540814	2021-01-18	15:16:17	3200	0	2000	0	0	B	E	Nueva Venta
+540815	2021-01-18	15:27:47	2490	0	0	0	0	B	E	Nueva Venta
+540816	2021-01-18	15:28:38	2750	0	0	0	0	B	E	Nueva Venta
+540817	2021-01-18	15:30:06	2100	0	0	0	0	B	E	Nueva Venta
+540818	2021-01-18	16:03:50	2200	0	0	0	0	B	E	Nueva Venta
+540819	2021-01-18	16:04:27	4000	0	0	0	0	B	E	Nueva Venta
+540820	2021-01-18	16:05:50	600	0	0	0	0	B	E	Nueva Venta
+540821	2021-01-18	16:07:51	700	0	0	0	0	B	E	Nueva Venta
+540822	2021-01-18	17:06:08	4050	0	2000	0	0	B	E	Nueva Venta
+540823	2021-01-18	17:35:01	600	0	0	0	0	B	E	Nueva Venta
+540824	2021-01-18	17:35:01	0	0	0	0	0	B	E	Nueva Venta
+540825	2021-01-19	07:50:17	1800	0	0	0	0	B	E	Nva. Venta
+540826	2021-01-19	07:55:33	2400	0	0	0	0	B	E	Nueva Venta
+540827	2021-01-19	07:57:41	4700	0	0	0	0	B	E	Nueva Venta
+540828	2021-01-19	08:04:27	1650	0	0	0	0	B	E	Nueva Venta
+540829	2021-01-19	08:14:40	3400	0	0	0	0	B	E	Nueva Venta
+540830	2021-01-19	08:15:21	2300	0	0	0	0	B	E	Nueva Venta
+540831	2021-01-19	08:16:00	1300	0	0	0	0	B	E	Nueva Venta
+540832	2021-01-19	08:19:28	2400	0	0	0	0	B	E	Nueva Venta
+540833	2021-01-19	08:23:06	2400	0	0	0	0	B	E	Nueva Venta
+540834	2021-01-19	08:23:28	500	0	0	0	0	B	E	Nueva Venta
+540835	2021-01-19	08:25:15	2500	0	0	0	0	B	E	Nueva Venta
+540836	2021-01-19	08:37:37	1200	0	0	0	0	B	E	Nueva Venta
+540837	2021-01-19	08:43:33	2600	0	0	0	0	B	E	Nueva Venta
+540838	2021-01-19	08:49:03	350	0	0	0	0	B	E	Nueva Venta
+540839	2021-01-19	08:49:37	2300	0	0	0	0	B	E	Nueva Venta
+540840	2021-01-19	08:49:44	2200	0	0	0	0	B	E	Nueva Venta
+540841	2021-01-19	08:51:20	2600	0	0	0	0	B	E	Nueva Venta
+540842	2021-01-19	08:53:14	900	0	0	0	0	B	E	Nueva Venta
+540843	2021-01-19	09:03:23	800	0	0	0	0	B	E	Nueva Venta
+540844	2021-01-19	09:04:51	3700	0	0	0	0	B	E	Nueva Venta
+540845	2021-01-19	09:05:19	2000	0	0	0	0	B	E	Nueva Venta
+540846	2021-01-19	09:07:51	3600	0	0	0	0	B	E	Nueva Venta
+540847	2021-01-19	09:10:41	1750	0	0	0	0	B	E	Nueva Venta
+540848	2021-01-19	09:10:57	2750	0	0	0	0	B	E	Nueva Venta
+540849	2021-01-19	09:10:58	1100	0	0	0	0	B	E	Nueva Venta
+540850	2021-01-19	09:24:50	2100	0	0	0	0	B	E	Nva. Venta
+540851	2021-01-19	09:26:07	2800	532	0	0	0	B	E	Boleta
+540852	2021-01-19	09:26:55	2400	0	0	0	0	B	E	Nueva Venta
+540853	2021-01-19	09:27:25	1300	0	0	0	0	B	E	Nueva Venta
+540854	2021-01-19	09:29:32	1300	0	0	0	0	B	E	Nueva Venta
+540855	2021-01-19	09:30:18	2500	0	0	0	0	B	E	Nueva Venta
+540856	2021-01-19	09:30:46	3100	0	0	0	0	B	E	Nueva Venta
+540857	2021-01-19	09:33:50	1800	0	0	0	0	B	E	Nueva Venta
+540858	2021-01-19	09:34:58	2000	0	0	0	0	B	E	Nueva Venta
+540859	2021-01-19	09:37:35	2800	0	0	0	0	B	E	Nueva Venta
+540860	2021-01-19	09:41:55	6650	0	3400	0	0	B	E	Nueva Venta
+540861	2021-01-19	09:45:12	2700	0	0	0	0	B	E	Nueva Venta
+540862	2021-01-19	09:45:47	2700	0	0	0	0	B	E	Nueva Venta
+540863	2021-01-19	09:47:44	0	0	0	0	0	B	E	Nueva Venta
+540864	2021-01-19	09:48:47	1700	0	0	0	0	B	E	Nueva Venta
+540865	2021-01-19	09:49:44	3500	0	0	0	0	B	E	Nueva Venta
+540866	2021-01-19	09:51:31	2500	0	0	0	0	B	E	Nueva Venta
+540867	2021-01-19	09:52:18	1300	0	0	0	0	B	E	Nueva Venta
+540868	2021-01-19	10:05:16	5800	0	4000	0	0	B	E	Nueva Venta
+540869	2021-01-19	10:06:50	1000	0	0	0	0	B	E	Nueva Venta
+540870	2021-01-19	10:07:13	1100	0	0	0	0	B	E	Nueva Venta
+540871	2021-01-19	10:20:26	3500	0	0	0	0	B	E	Nueva Venta
+540872	2021-01-19	10:20:53	3100	0	2000	0	0	B	E	Nueva Venta
+540873	2021-01-19	10:25:36	4990	0	3500	0	0	B	E	Nueva Venta
+540874	2021-01-19	10:26:17	700	0	0	0	0	B	E	Nueva Venta
+540875	2021-01-19	10:29:03	4450	0	0	0	0	B	E	Nueva Venta
+540876	2021-01-19	10:29:45	2750	0	0	0	0	B	E	Nueva Venta
+540877	2021-01-19	10:30:54	2100	0	0	0	0	B	E	Nueva Venta
+540878	2021-01-19	10:31:09	0	0	0	0	0	B	E	Nueva Venta
+540879	2021-01-19	10:37:21	5100	0	0	0	0	B	E	Nueva Venta
+540880	2021-01-19	10:44:24	4400	0	0	0	0	B	E	Nueva Venta
+540881	2021-01-19	10:44:32	2500	0	0	0	0	B	E	Nueva Venta
+540882	2021-01-19	10:50:44	2100	0	0	0	0	B	E	Nueva Venta
+540883	2021-01-19	10:50:52	2000	0	0	0	0	B	E	Nueva Venta
+540884	2021-01-19	11:06:32	11450	0	9800	0	0	B	E	Nueva Venta
+540885	2021-01-19	11:06:45	0	0	0	0	0	B	E	Nueva Venta
+540886	2021-01-19	11:33:12	900	0	0	0	0	B	E	Nueva Venta
+540887	2021-01-19	11:41:41	0	0	0	0	0	B	E	Nueva Venta
+540888	2021-01-19	11:57:22	2700	0	0	0	0	B	E	Nueva Venta
+540889	2021-01-19	11:58:51	2500	0	0	0	0	B	E	Nueva Venta
+540890	2021-01-19	12:12:24	4600	0	0	0	0	B	E	Nueva Venta
+540891	2021-01-19	12:22:09	5400	0	5400	0	0	B	E	Nueva Venta
+540892	2021-01-19	12:28:24	2500	0	0	0	0	B	E	Nueva Venta
+540893	2021-01-19	12:29:54	5700	0	0	0	0	B	E	Nueva Venta
+540894	2021-01-19	12:29:55	0	0	0	0	0	B	E	Nueva Venta
+540895	2021-01-19	12:37:09	0	0	0	0	0	B	E	Nueva Venta
+540896	2021-01-19	13:05:46	2100	399	0	0	0	B	E	Boleta
+540897	2021-01-19	13:07:19	2850	0	2000	0	0	B	E	Nueva Venta
+540898	2021-01-19	13:10:28	0	0	0	0	0	B	E	Nueva Venta
+540899	2021-01-19	13:22:39	11000	0	7000	0	0	B	E	Nueva Venta
+540900	2021-01-19	13:23:33	2200	0	0	0	0	B	E	Nueva Venta
+540901	2021-01-19	13:30:37	0	0	0	0	0	B	E	Nueva Venta
+540902	2021-01-19	13:46:21	700	0	0	0	0	B	E	Nueva Venta
+540903	2021-01-19	13:57:35	1500	0	0	0	0	B	E	Nueva Venta
+540904	2021-01-19	13:58:25	3000	0	0	0	0	B	E	Nueva Venta
+540905	2021-01-19	13:58:30	0	0	0	0	0	B	E	Boleta
+540906	2021-01-19	13:59:01	0	0	0	0	0	B	E	Nueva Venta
+540907	2021-01-19	13:59:49	4200	0	4200	0	0	B	E	Boleta
+540908	2021-01-19	14:00:26	2350	0	0	0	0	B	E	Nueva Venta
+540909	2021-01-19	14:01:47	4300	0	0	0	0	B	E	Nueva Venta
+540910	2021-01-19	14:09:02	0	0	0	0	0	B	E	Nueva Venta
+540911	2021-01-19	14:11:27	3550	0	0	0	0	B	E	Nueva Venta
+540912	2021-01-19	14:14:02	3600	0	0	0	0	B	E	Nueva Venta
+540913	2021-01-19	14:37:46	4700	0	0	0	0	B	E	Nueva Venta
+540914	2021-01-19	14:38:56	2400	0	0	0	0	B	E	Nueva Venta
+540915	2021-01-19	14:46:47	2400	0	0	0	0	B	E	Nueva Venta
+540916	2021-01-19	15:11:17	2100	0	0	0	0	B	E	Nueva Venta
+540917	2021-01-19	15:28:09	2050	0	0	0	0	B	E	Nueva Venta
+540918	2021-01-19	15:30:32	6800	0	6800	0	0	B	E	Nueva Venta
+540919	2021-01-19	15:32:59	3380	0	0	0	0	B	E	Nueva Venta
+540920	2021-01-19	15:38:57	2000	0	0	0	0	B	E	Nueva Venta
+540921	2021-01-19	15:39:39	3380	0	0	0	0	B	E	Nueva Venta
+540922	2021-01-19	16:38:54	1400	0	0	0	0	B	E	Nueva Venta
+540923	2021-01-19	16:38:54	0	0	0	0	0	B	E	Nueva Venta
+540924	2021-01-20	07:51:57	2300	0	0	0	0	B	E	Nva. Venta
+540925	2021-01-20	08:02:48	1900	0	0	0	0	B	E	Nueva Venta
+540926	2021-01-20	08:09:52	400	0	0	0	0	B	E	Nueva Venta
+540927	2021-01-20	08:11:46	400	0	0	0	0	B	E	Nueva Venta
+540928	2021-01-20	08:12:34	1100	0	0	0	0	B	E	Nueva Venta
+540929	2021-01-20	08:13:30	600	0	0	0	0	B	E	Nueva Venta
+540930	2021-01-20	08:15:51	900	0	0	0	0	B	E	Nueva Venta
+540931	2021-01-20	08:21:36	1300	0	0	0	0	B	E	Nueva Venta
+540932	2021-01-20	08:22:29	900	0	0	0	0	B	E	Nueva Venta
+540933	2021-01-20	08:24:43	1250	0	0	0	0	B	E	Nueva Venta
+540934	2021-01-20	08:25:26	1600	0	0	0	0	B	E	Nueva Venta
+540935	2021-01-20	08:28:06	4600	0	0	0	0	B	E	Nueva Venta
+540936	2021-01-20	08:28:06	3100	0	0	0	0	B	E	Nueva Venta
+540937	2021-01-20	08:42:33	2100	0	0	0	0	B	E	Nva. Venta
+540938	2021-01-20	08:45:02	2850	0	0	0	0	B	E	Nueva Venta
+540939	2021-01-20	08:47:43	600	0	0	0	0	B	E	Nueva Venta
+540940	2021-01-20	08:48:03	5800	0	0	0	0	B	E	Nueva Venta
+540941	2021-01-20	08:48:23	0	0	0	0	0	B	E	Nueva Venta
+540942	2021-01-20	08:48:50	3300	0	0	0	0	B	E	Nueva Venta
+540943	2021-01-20	08:49:15	0	0	0	0	0	B	E	Nueva Venta
+540944	2021-01-20	08:50:18	3500	0	0	0	0	B	E	Nueva Venta
+540945	2021-01-20	08:51:39	3100	0	0	0	0	B	E	Nueva Venta
+540946	2021-01-20	08:52:00	2200	0	0	0	0	B	E	Nueva Venta
+540947	2021-01-20	08:57:49	2000	0	0	0	0	B	E	Nueva Venta
+540948	2021-01-20	08:59:17	3100	0	0	0	0	B	E	Nueva Venta
+540949	2021-01-20	08:59:54	3500	0	0	0	0	B	E	Nueva Venta
+540950	2021-01-20	09:02:26	4000	0	0	0	0	B	E	Nueva Venta
+540951	2021-01-20	09:06:08	2800	0	0	0	0	B	E	Nueva Venta
+540952	2021-01-20	09:08:27	2200	0	0	0	0	B	E	Nueva Venta
+540953	2021-01-20	09:10:15	1300	0	0	0	0	B	E	Nueva Venta
+540954	2021-01-20	09:11:28	2000	0	0	0	0	B	E	Nueva Venta
+540955	2021-01-20	09:11:46	3200	0	0	0	0	B	E	Nueva Venta
+540956	2021-01-20	09:21:20	1000	0	0	0	0	B	E	Nueva Venta
+540957	2021-01-20	09:23:41	1600	0	0	0	0	B	E	Nueva Venta
+540958	2021-01-20	09:28:50	6600	0	3000	0	0	B	E	Nueva Venta
+540959	2021-01-20	09:38:39	5050	0	0	0	0	B	E	Nueva Venta
+540960	2021-01-20	09:41:28	900	0	0	0	0	B	E	Nueva Venta
+540961	2021-01-20	09:47:19	6200	0	2000	0	0	B	E	Nueva Venta
+540962	2021-01-20	09:47:43	0	0	0	0	0	B	E	Nueva Venta
+540963	2021-01-20	09:48:31	7400	0	0	0	0	B	E	Nueva Venta
+540964	2021-01-20	09:53:20	0	0	0	0	0	B	E	Nueva Venta
+540965	2021-01-20	09:53:57	3950	0	2500	0	0	B	E	Nueva Venta
+540966	2021-01-20	09:55:34	3700	0	0	0	0	B	E	Nueva Venta
+540967	2021-01-20	09:56:21	3200	0	0	0	0	B	E	Nueva Venta
+540968	2021-01-20	09:57:29	0	0	0	0	0	B	E	Nueva Venta
+540969	2021-01-20	09:59:50	6800	0	0	0	0	B	E	Nueva Venta
+540970	2021-01-20	10:00:13	2400	0	0	0	0	B	E	Nueva Venta
+540971	2021-01-20	10:00:59	0	0	0	0	0	B	E	Nueva Venta
+540972	2021-01-20	10:10:00	2000	0	0	0	0	B	E	Nueva Venta
+540973	2021-01-20	10:12:41	3500	0	0	0	0	B	E	Nueva Venta
+540974	2021-01-20	10:15:35	1800	0	0	0	0	B	E	Nueva Venta
+540975	2021-01-20	10:16:05	2200	0	0	0	0	B	E	Nueva Venta
+540976	2021-01-20	10:20:35	2600	0	0	0	0	B	E	Nueva Venta
+540977	2021-01-20	10:21:36	4250	0	0	0	0	B	E	Nueva Venta
+540978	2021-01-20	10:22:06	1600	0	0	0	0	B	E	Nueva Venta
+540979	2021-01-20	10:22:42	0	0	0	0	0	B	E	Nueva Venta
+540980	2021-01-20	10:23:42	1800	0	0	0	0	B	E	Nueva Venta
+540981	2021-01-20	10:24:41	0	0	0	0	0	B	E	Nueva Venta
+540982	2021-01-20	10:26:02	1800	0	0	0	0	B	E	Nueva Venta
+540983	2021-01-20	10:28:21	3800	0	3000	0	0	B	E	Nueva Venta
+540984	2021-01-20	10:31:20	4900	0	0	0	0	B	E	Nueva Venta
+540985	2021-01-20	10:35:14	1400	0	0	0	0	B	E	Nueva Venta
+540986	2021-01-20	10:36:07	4000	760	0	0	0	B	E	Boleta
+540987	2021-01-20	10:48:05	5700	0	3400	0	0	B	E	Nueva Venta
+540988	2021-01-20	11:09:27	2300	0	0	0	0	B	E	Nueva Venta
+540989	2021-01-20	11:37:11	5200	0	3000	0	0	B	E	Nueva Venta
+540990	2021-01-20	11:48:27	3300	0	0	0	0	B	E	Nueva Venta
+540991	2021-01-20	12:21:34	4000	0	4000	0	0	B	E	Nueva Venta
+540992	2021-01-20	12:57:49	4100	0	0	0	0	B	E	Nueva Venta
+540993	2021-01-20	13:09:15	4800	0	0	0	0	B	E	Nueva Venta
+540994	2021-01-20	13:11:50	800	0	0	0	0	B	E	Nueva Venta
+540995	2021-01-20	13:19:56	2200	0	0	0	0	B	E	Nueva Venta
+540996	2021-01-20	14:31:50	3000	0	2500	0	0	B	E	Nueva Venta
+540997	2021-01-20	14:35:03	4150	0	0	0	0	B	E	Nueva Venta
+540998	2021-01-20	14:46:21	5700	0	0	0	0	B	E	Nueva Venta
+540999	2021-01-20	14:50:50	2200	0	0	0	0	B	E	Nueva Venta
+541000	2021-01-20	14:53:14	4300	0	2000	0	0	B	E	Nueva Venta
+541001	2021-01-20	14:57:46	2300	0	0	0	0	B	E	Nueva Venta
+541002	2021-01-20	15:13:35	3000	0	3000	0	0	B	E	Nueva Venta
+541003	2021-01-20	15:15:38	3200	0	2500	0	0	B	E	Nueva Venta
+541004	2021-01-20	15:29:42	1700	0	0	0	0	B	E	Nueva Venta
+541005	2021-01-20	15:45:27	0	0	0	0	0	B	E	Nueva Venta
+541006	2021-01-20	16:11:19	3650	0	0	0	0	B	E	Nueva Venta
+541007	2021-01-20	17:31:39	4200	0	4200	0	0	B	E	Nueva Venta
+541008	2021-01-20	17:32:03	3300	0	2600	0	0	B	E	Nueva Venta
+541009	2021-01-20	17:32:03	0	0	0	0	0	B	E	Nueva Venta
+541010	2021-01-21	07:41:44	5300	0	3300	0	0	B	E	Nva. Venta
+541011	2021-01-21	07:46:47	5500	0	0	0	0	B	E	Nueva Venta
+541012	2021-01-21	07:47:13	4100	0	0	0	0	B	E	Nueva Venta
+541013	2021-01-21	07:49:02	2800	0	0	0	0	B	E	Nueva Venta
+541014	2021-01-21	07:58:27	2000	0	0	0	0	B	E	Nueva Venta
+541015	2021-01-21	07:59:46	600	0	0	0	0	B	E	Nueva Venta
+541016	2021-01-21	07:59:51	0	0	0	0	0	B	E	Nueva Venta
+541017	2021-01-21	08:18:44	1100	0	0	0	0	B	E	Nueva Venta
+541018	2021-01-21	08:19:30	4500	0	0	0	0	B	E	Nueva Venta
+541019	2021-01-21	08:20:39	3100	0	0	0	0	B	E	Nueva Venta
+541020	2021-01-21	08:25:29	2700	0	0	0	0	B	E	Nueva Venta
+541021	2021-01-21	08:25:50	700	0	0	0	0	B	E	Nueva Venta
+541022	2021-01-21	08:26:52	0	0	0	0	0	B	E	Nueva Venta
+541023	2021-01-21	08:27:54	2200	0	0	0	0	B	E	Nueva Venta
+541024	2021-01-21	08:30:08	2000	0	0	0	0	B	E	Nueva Venta
+541025	2021-01-21	08:31:51	3700	0	0	0	0	B	E	Nueva Venta
+541026	2021-01-21	08:32:39	0	0	0	0	0	B	E	Nueva Venta
+541027	2021-01-21	08:39:13	1300	0	0	0	0	B	E	Nueva Venta
+541028	2021-01-21	08:47:06	2600	0	0	0	0	B	E	Nueva Venta
+541029	2021-01-21	08:42:43	0	0	0	0	0	B	E	Nueva Venta
+541030	2021-01-21	08:49:28	3500	0	0	0	0	B	E	Nueva Venta
+541031	2021-01-21	08:49:47	2600	0	0	0	0	B	E	Nueva Venta
+541032	2021-01-21	08:59:38	1550	0	0	0	0	B	E	Nueva Venta
+541033	2021-01-21	08:59:49	3500	0	0	0	0	B	E	Nueva Venta
+541034	2021-01-21	09:00:29	1800	0	0	0	0	B	E	Nueva Venta
+541035	2021-01-21	09:00:57	2700	0	0	0	0	B	E	Nueva Venta
+541036	2021-01-21	09:01:26	0	0	0	0	0	B	E	Nueva Venta
+541037	2021-01-21	09:01:57	2900	0	0	0	0	B	E	Nueva Venta
+541038	2021-01-21	09:02:13	0	0	0	0	0	B	E	Nueva Venta
+541039	2021-01-21	09:03:34	4100	779	0	0	0	B	E	Boleta
+541040	2021-01-21	09:04:36	3700	0	2000	0	0	B	E	Nueva Venta
+541041	2021-01-21	09:05:18	4950	0	2000	0	0	B	E	Nueva Venta
+541042	2021-01-21	09:06:50	2400	0	0	0	0	B	E	Nueva Venta
+541043	2021-01-21	09:10:52	2300	0	0	0	0	B	E	Nueva Venta
+541044	2021-01-21	09:11:23	1400	0	0	0	0	B	E	Nueva Venta
+541045	2021-01-21	09:11:28	0	0	0	0	0	B	E	Nueva Venta
+541046	2021-01-21	09:11:57	1100	0	0	0	0	B	E	Nueva Venta
+541047	2021-01-21	09:12:24	0	0	0	0	0	B	E	Nueva Venta
+541048	2021-01-21	09:16:24	1100	0	0	0	0	B	E	Nueva Venta
+541049	2021-01-21	09:24:36	3500	0	0	0	0	B	E	Nueva Venta
+541050	2021-01-21	09:25:13	2800	0	0	0	0	B	E	Nueva Venta
+541051	2021-01-21	09:30:07	350	0	0	0	0	B	E	Nueva Venta
+541052	2021-01-21	09:31:07	1300	0	0	0	0	B	E	Nueva Venta
+541053	2021-01-21	09:34:48	1600	0	0	0	0	B	E	Nueva Venta
+541054	2021-01-21	09:35:46	4200	0	0	0	0	B	E	Nueva Venta
+541055	2021-01-21	09:50:53	2800	0	0	0	0	B	E	Nueva Venta
+541056	2021-01-21	09:55:14	2650	0	0	0	0	B	E	Nueva Venta
+541057	2021-01-21	09:55:49	2400	0	0	0	0	B	E	Nueva Venta
+541058	2021-01-21	09:57:52	3700	0	0	0	0	B	E	Nueva Venta
+541059	2021-01-21	09:58:53	2400	0	0	0	0	B	E	Nueva Venta
+541060	2021-01-21	09:59:12	2400	0	0	0	0	B	E	Nueva Venta
+541061	2021-01-21	09:59:51	3950	0	2500	0	0	B	E	Nueva Venta
+541062	2021-01-21	10:04:14	700	0	0	0	0	B	E	Nueva Venta
+541063	2021-01-21	10:16:51	700	0	0	0	0	B	E	Nueva Venta
+541064	2021-01-21	10:20:41	1700	0	0	0	0	B	E	Nueva Venta
+541065	2021-01-21	10:22:52	900	0	0	0	0	B	E	Nueva Venta
+541066	2021-01-21	10:49:04	3800	0	0	0	0	B	E	Nueva Venta
+541067	2021-01-21	10:52:40	1500	285	0	0	0	B	E	Boleta
+541068	2021-01-21	10:55:10	1900	0	0	0	0	B	E	Nueva Venta
+541069	2021-01-21	10:55:40	1300	0	0	0	0	B	E	Nueva Venta
+541070	2021-01-21	11:05:58	4600	0	3000	0	0	B	E	Nueva Venta
+541071	2021-01-21	11:07:31	500	0	0	0	0	B	E	Nueva Venta
+541072	2021-01-21	11:16:43	2300	0	0	0	0	B	E	Nueva Venta
+541073	2021-01-21	11:17:38	2400	0	0	0	0	B	E	Nueva Venta
+541074	2021-01-21	11:28:50	3400	0	0	0	0	B	E	Nueva Venta
+541075	2021-01-21	11:30:38	4600	0	2000	0	0	B	E	Nueva Venta
+541076	2021-01-21	11:51:10	1000	0	0	0	0	B	E	Nueva Venta
+541077	2021-01-21	11:54:22	4250	0	0	0	0	B	E	Nueva Venta
+541078	2021-01-21	11:55:42	2900	0	0	0	0	B	E	Nueva Venta
+541079	2021-01-21	12:01:53	0	0	0	0	0	B	E	Nueva Venta
+541080	2021-01-21	12:13:48	4800	0	0	0	0	B	E	Nueva Venta
+541081	2021-01-21	12:37:45	2350	0	0	0	0	B	E	Nueva Venta
+541082	2021-01-21	12:38:09	700	0	0	0	0	B	E	Nueva Venta
+541083	2021-01-21	12:45:06	1550	0	0	0	0	B	E	Nueva Venta
+541084	2021-01-21	12:49:02	2000	0	2000	0	0	B	E	Nueva Venta
+541085	2021-01-21	13:13:50	3000	0	3000	0	0	B	E	Nueva Venta
+541086	2021-01-21	13:52:42	6100	0	0	0	0	B	E	Nueva Venta
+541087	2021-01-21	13:54:09	8500	0	6400	0	0	B	E	Nueva Venta
+541088	2021-01-21	13:55:38	5800	0	0	0	0	B	E	Nueva Venta
+541089	2021-01-21	13:58:30	4200	0	4200	0	0	B	E	Nueva Venta
+541090	2021-01-21	14:27:10	3000	0	0	0	0	B	E	Nueva Venta
+541091	2021-01-21	14:44:20	2400	0	0	0	0	B	E	Nueva Venta
+541092	2021-01-21	14:46:40	10900	0	10200	0	0	B	E	Nueva Venta
+541093	2021-01-21	14:47:43	4100	0	3400	0	0	B	E	Nueva Venta
+541094	2021-01-21	14:53:04	3730	0	0	0	0	B	E	Nueva Venta
+541095	2021-01-21	15:02:19	800	0	0	0	0	B	E	Nueva Venta
+541096	2021-01-21	15:18:36	1740	0	0	0	0	B	E	Nueva Venta
+541097	2021-01-21	15:18:43	0	0	0	0	0	B	E	Nueva Venta
+541098	2021-01-21	15:21:29	2100	0	0	0	0	B	E	Nueva Venta
+541099	2021-01-21	15:28:21	2300	0	0	0	0	B	E	Nueva Venta
+541100	2021-01-21	15:29:00	3100	0	0	0	0	B	E	Nueva Venta
+541101	2021-01-21	15:29:54	0	0	0	0	0	B	E	Nueva Venta
+541102	2021-01-21	15:31:25	0	0	0	0	0	B	E	Nueva Venta
+541103	2021-01-21	15:55:19	2350	0	0	0	0	B	E	Nueva Venta
+541104	2021-01-21	16:07:23	0	0	0	0	0	B	E	Nueva Venta
+541105	2021-01-21	16:07:24	0	0	0	0	0	B	E	Nueva Venta
+541106	2021-01-21	17:18:32	0	0	0	0	0	B	E	Nva. Venta
+541107	2021-01-21	17:18:43	0	0	0	0	0	B	E	Nva. Venta
+541108	2021-01-22	07:53:19	2000	0	0	0	0	B	E	Nva. Venta
+541109	2021-01-22	07:56:39	2700	0	0	0	0	B	E	Nueva Venta
+541110	2021-01-22	07:57:31	1900	0	0	0	0	B	E	Nueva Venta
+541111	2021-01-22	07:59:43	0	0	0	0	0	B	E	Nueva Venta
+541112	2021-01-22	08:06:54	2000	0	0	0	0	B	E	Nueva Venta
+541113	2021-01-22	08:07:53	3900	0	3900	0	0	B	E	Nueva Venta
+541114	2021-01-22	08:11:28	0	0	0	0	0	B	E	Nueva Venta
+541115	2021-01-22	08:15:10	6800	0	0	0	0	B	E	Nueva Venta
+541116	2021-01-22	08:19:35	600	0	0	0	0	B	E	Nueva Venta
+541117	2021-01-22	08:23:59	3850	0	0	0	0	B	E	Nueva Venta
+541118	2021-01-22	08:24:46	5500	0	3400	0	0	B	E	Nueva Venta
+541119	2021-01-22	08:26:45	2300	0	0	0	0	B	E	Nueva Venta
+541120	2021-01-22	08:26:45	0	0	0	0	0	B	E	Nueva Venta
+541121	2021-01-22	08:49:34	2600	0	0	0	0	B	E	Nva. Venta
+541122	2021-01-22	08:56:18	2600	0	0	0	0	B	E	Nueva Venta
+541123	2021-01-22	08:58:28	4600	0	0	0	0	B	E	Nueva Venta
+541124	2021-01-22	08:59:05	0	0	0	0	0	B	E	Nueva Venta
+541125	2021-01-22	09:00:31	1100	0	0	0	0	B	E	Nueva Venta
+541126	2021-01-22	09:01:23	2600	0	0	0	0	B	E	Nueva Venta
+541127	2021-01-22	09:01:48	2100	0	0	0	0	B	E	Nueva Venta
+541128	2021-01-22	09:02:31	2200	0	0	0	0	B	E	Nueva Venta
+541129	2021-01-22	09:06:01	2400	0	0	0	0	B	E	Nueva Venta
+541130	2021-01-22	09:07:08	3200	0	0	0	0	B	E	Nueva Venta
+541131	2021-01-22	09:09:38	1300	0	0	0	0	B	E	Nueva Venta
+541132	2021-01-22	09:11:01	2200	0	0	0	0	B	E	Nueva Venta
+541133	2021-01-22	09:34:11	1500	0	0	0	0	B	E	Nueva Venta
+541134	2021-01-22	09:37:01	2600	0	0	0	0	B	E	Nueva Venta
+541135	2021-01-22	09:38:09	3250	0	0	0	0	B	E	Nueva Venta
+541136	2021-01-22	09:40:23	700	0	0	0	0	B	E	Nueva Venta
+541137	2021-01-22	09:44:06	3800	0	0	0	0	B	E	Nueva Venta
+541138	2021-01-22	09:48:00	4000	0	0	0	0	B	E	Nueva Venta
+541139	2021-01-22	09:51:53	1100	0	0	0	0	B	E	Nueva Venta
+541140	2021-01-22	09:52:25	3950	0	0	0	0	B	E	Nueva Venta
+541141	2021-01-22	09:52:58	3100	0	0	0	0	B	E	Nueva Venta
+541142	2021-01-22	10:04:13	1600	0	0	0	0	B	E	Nueva Venta
+541143	2021-01-22	10:04:58	1100	0	0	0	0	B	E	Nueva Venta
+541144	2021-01-22	10:15:40	2800	0	0	0	0	B	E	Nueva Venta
+541145	2021-01-22	10:20:39	2700	0	0	0	0	B	E	Nueva Venta
+541146	2021-01-22	10:23:18	1000	0	0	0	0	B	E	Nueva Venta
+541147	2021-01-22	10:25:38	2000	0	2000	0	0	B	E	Nueva Venta
+541148	2021-01-22	10:26:19	1600	0	0	0	0	B	E	Nueva Venta
+541149	2021-01-22	10:29:27	6800	0	3400	0	0	B	E	Nueva Venta
+541150	2021-01-22	10:30:25	1800	0	0	0	0	B	E	Nueva Venta
+541151	2021-01-22	10:35:43	7000	0	4000	0	0	B	E	Nueva Venta
+541152	2021-01-22	10:37:05	2600	0	0	0	0	B	E	Nueva Venta
+541153	2021-01-22	10:40:24	3500	0	0	0	0	B	E	Nueva Venta
+541154	2021-01-22	10:40:51	4600	0	4000	0	0	B	E	Nueva Venta
+541155	2021-01-22	11:06:09	3300	0	0	0	0	B	E	Nueva Venta
+541156	2021-01-22	11:26:41	2450	0	0	0	0	B	E	Nueva Venta
+541157	2021-01-22	11:31:18	3600	0	0	0	0	B	E	Nueva Venta
+541158	2021-01-22	11:42:04	3300	0	0	0	0	B	E	Nueva Venta
+541159	2021-01-22	11:43:30	2450	0	0	0	0	B	E	Nueva Venta
+541160	2021-01-22	11:44:51	3600	0	0	0	0	B	E	Nueva Venta
+541161	2021-01-22	11:47:35	2000	0	0	0	0	B	E	Nueva Venta
+541162	2021-01-22	12:02:55	2580	0	0	0	0	B	E	Nueva Venta
+541163	2021-01-22	12:07:57	1330	0	0	0	0	B	E	Nueva Venta
+541164	2021-01-22	12:10:43	3900	0	0	0	0	B	E	Nueva Venta
+541165	2021-01-22	12:41:01	4500	0	3400	0	0	B	E	Nueva Venta
+541166	2021-01-22	13:23:32	1200	0	0	0	0	B	E	Nueva Venta
+541167	2021-01-22	13:24:57	5100	0	0	0	0	B	E	Nueva Venta
+541168	2021-01-22	13:39:04	1200	0	0	0	0	B	E	Nueva Venta
+541169	2021-01-22	13:43:36	1800	0	0	0	0	B	E	Nueva Venta
+541170	2021-01-22	14:02:32	7200	0	4400	0	0	B	E	Nueva Venta
+541171	2021-01-22	14:03:11	0	0	0	0	0	B	E	Nueva Venta
+541172	2021-01-22	14:05:20	1690	0	0	0	0	B	E	Nueva Venta
+541173	2021-01-22	14:13:41	4000	0	0	0	0	B	E	Nueva Venta
+541174	2021-01-22	14:45:57	1100	0	0	0	0	B	E	Nueva Venta
+541175	2021-01-22	14:47:16	2450	0	0	0	0	B	E	Nueva Venta
+541176	2021-01-22	14:48:18	3450	0	0	0	0	B	E	Nueva Venta
+541177	2021-01-22	15:38:56	10000	0	7400	0	0	B	E	Nueva Venta
+541178	2021-01-22	16:20:00	1400	0	0	0	0	B	E	Nueva Venta
+541179	2021-01-22	16:20:01	1800	0	0	0	0	B	E	Nueva Venta
+541180	2021-01-25	07:44:31	2900	0	0	0	0	B	E	Nva. Venta
+541181	2021-01-25	07:45:39	2800	0	0	0	0	B	E	Nueva Venta
+541182	2021-01-25	07:46:42	2600	0	0	0	0	B	E	Nueva Venta
+541183	2021-01-25	07:56:57	1100	0	0	0	0	B	E	Nueva Venta
+541184	2021-01-25	08:08:04	5900	0	4200	0	0	B	E	Nueva Venta
+541185	2021-01-25	08:09:06	6450	0	0	0	0	B	E	Nueva Venta
+541186	2021-01-25	08:12:04	6400	0	4000	0	0	B	E	Nueva Venta
+541187	2021-01-25	08:21:55	1500	0	0	0	0	B	E	Nueva Venta
+541188	2021-01-25	08:22:11	2600	0	0	0	0	B	E	Nueva Venta
+541189	2021-01-25	08:29:59	4400	0	0	0	0	B	E	Nueva Venta
+541190	2021-01-25	08:35:55	4100	0	0	0	0	B	E	Nueva Venta
+541191	2021-01-25	08:36:33	6000	0	0	0	0	B	E	Nueva Venta
+541192	2021-01-25	08:37:29	1300	0	0	0	0	B	E	Nueva Venta
+541193	2021-01-25	08:38:23	5550	0	0	0	0	B	E	Nueva Venta
+541194	2021-01-25	08:41:13	2400	0	0	0	0	B	E	Nueva Venta
+541195	2021-01-25	08:42:02	1900	0	0	0	0	B	E	Nueva Venta
+541196	2021-01-25	08:42:55	1300	0	0	0	0	B	E	Nueva Venta
+541197	2021-01-25	08:46:32	1200	0	0	0	0	B	E	Nueva Venta
+541198	2021-01-25	08:46:44	2150	0	0	0	0	B	E	Nueva Venta
+541199	2021-01-25	08:51:01	700	0	0	0	0	B	E	Nueva Venta
+541200	2021-01-25	09:03:44	2700	0	0	0	0	B	E	Nueva Venta
+541201	2021-01-25	09:04:55	3400	0	3400	0	0	B	E	Nueva Venta
+541202	2021-01-25	09:05:48	1300	0	0	0	0	B	E	Nueva Venta
+541203	2021-01-25	09:08:39	2500	0	2500	0	0	B	E	Nueva Venta
+541204	2021-01-25	09:16:25	2300	0	0	0	0	B	E	Nueva Venta
+541205	2021-01-25	09:21:37	1100	0	0	0	0	B	E	Nueva Venta
+541206	2021-01-25	09:24:42	2800	0	0	0	0	B	E	Nueva Venta
+541207	2021-01-25	09:26:17	700	0	0	0	0	B	E	Nueva Venta
+541208	2021-01-25	09:29:17	1800	0	0	0	0	B	E	Nueva Venta
+541209	2021-01-25	09:30:05	1650	0	0	0	0	B	E	Nueva Venta
+541210	2021-01-25	09:30:23	700	0	0	0	0	B	E	Nueva Venta
+541211	2021-01-25	09:34:50	2850	0	0	0	0	B	E	Nueva Venta
+541212	2021-01-25	09:39:01	0	0	0	0	0	B	E	Nueva Venta
+541213	2021-01-25	09:45:32	1350	0	0	0	0	B	E	Nueva Venta
+541214	2021-01-25	09:46:12	2100	0	0	0	0	B	E	Nueva Venta
+541215	2021-01-25	09:46:23	2750	0	0	0	0	B	E	Nueva Venta
+541216	2021-01-25	09:47:56	700	0	0	0	0	B	E	Nueva Venta
+541217	2021-01-25	09:55:07	3500	0	0	0	0	B	E	Nueva Venta
+541218	2021-01-25	09:55:27	0	0	0	0	0	B	E	Nueva Venta
+541219	2021-01-25	09:56:14	2350	0	0	0	0	B	E	Nueva Venta
+541220	2021-01-25	09:58:33	5350	0	0	0	0	B	E	Nueva Venta
+541221	2021-01-25	09:59:21	2400	0	0	0	0	B	E	Nueva Venta
+541222	2021-01-25	10:03:46	2600	0	0	0	0	B	E	Nueva Venta
+541223	2021-01-25	10:11:35	700	0	0	0	0	B	E	Nueva Venta
+541224	2021-01-25	10:25:27	4000	0	4000	0	0	B	E	Nueva Venta
+541225	2021-01-25	10:25:57	2800	0	0	0	0	B	E	Nueva Venta
+541226	2021-01-25	10:27:29	0	0	0	0	0	B	E	Nueva Venta
+541227	2021-01-25	10:40:31	700	0	0	0	0	B	E	Nueva Venta
+541228	2021-01-25	11:10:26	9700	0	1800	0	0	B	E	Nueva Venta
+541229	2021-01-25	11:11:01	4000	0	0	0	0	B	E	Nueva Venta
+541230	2021-01-25	11:18:08	0	0	0	0	0	B	E	Nueva Venta
+541231	2021-01-25	11:28:56	1700	0	0	0	0	B	E	Nueva Venta
+541232	2021-01-25	11:31:26	6500	0	0	0	0	B	E	Nueva Venta
+541233	2021-01-25	11:31:52	3300	0	0	0	0	B	E	Nueva Venta
+541234	2021-01-25	11:36:30	2000	0	0	0	0	B	E	Nueva Venta
+541235	2021-01-25	11:39:24	4350	0	3400	0	0	B	E	Nueva Venta
+541236	2021-01-25	11:42:00	2600	494	0	0	0	B	E	Boleta
+541237	2021-01-25	11:43:30	2400	0	0	0	0	B	E	Nueva Venta
+541238	2021-01-25	11:53:24	1480	0	0	0	0	B	E	Nueva Venta
+541239	2021-01-25	12:16:30	2900	0	0	0	0	B	E	Nueva Venta
+541240	2021-01-25	12:16:54	2500	0	0	0	0	B	E	Nueva Venta
+541241	2021-01-25	12:29:36	1950	0	0	0	0	B	E	Nueva Venta
+541242	2021-01-25	12:31:27	2100	0	0	0	0	B	E	Nueva Venta
+541243	2021-01-25	12:38:06	0	0	0	0	0	B	E	Nueva Venta
+541244	2021-01-25	12:42:09	3000	0	3000	0	0	B	E	Nueva Venta
+541245	2021-01-25	12:52:50	6200	0	0	0	0	B	E	Nueva Venta
+541246	2021-01-25	12:50:00	0	0	0	0	0	B	E	Nueva Venta
+541247	2021-01-25	13:03:37	1600	0	0	0	0	B	E	Nueva Venta
+541248	2021-01-25	13:06:53	4500	0	4200	0	0	B	E	Nueva Venta
+541249	2021-01-25	13:09:55	2400	0	0	0	0	B	E	Nueva Venta
+541250	2021-01-25	13:29:09	4900	0	0	0	0	B	E	Nueva Venta
+541251	2021-01-25	13:32:29	2950	0	0	0	0	B	E	Nueva Venta
+541252	2021-01-25	13:56:36	3350	0	0	0	0	B	E	Nueva Venta
+541253	2021-01-25	13:58:45	2000	0	0	0	0	B	E	Nueva Venta
+541254	2021-01-25	14:01:16	4000	0	4000	0	0	B	E	Nueva Venta
+541255	2021-01-25	14:08:25	4200	0	0	0	0	B	E	Nueva Venta
+541256	2021-01-25	14:09:40	700	0	0	0	0	B	E	Nueva Venta
+541257	2021-01-25	14:10:25	0	0	0	0	0	B	E	Nueva Venta
+541258	2021-01-25	14:13:36	5100	0	0	0	0	B	E	Nueva Venta
+541259	2021-01-25	14:15:04	4400	0	0	0	0	B	E	Nueva Venta
+541260	2021-01-25	14:17:13	5000	0	0	0	0	B	E	Nueva Venta
+541261	2021-01-25	14:37:28	3800	0	0	0	0	B	E	Nueva Venta
+541262	2021-01-25	14:38:31	2500	0	0	0	0	B	E	Nueva Venta
+541263	2021-01-25	14:41:54	4000	0	4000	0	0	B	E	Nueva Venta
+541264	2021-01-25	14:43:27	2300	0	0	0	0	B	E	Nueva Venta
+541265	2021-01-25	14:48:38	2100	0	0	0	0	B	E	Nueva Venta
+541266	2021-01-25	14:49:28	1150	0	0	0	0	B	E	Nueva Venta
+541267	2021-01-25	14:50:22	2100	0	0	0	0	B	E	Nueva Venta
+541268	2021-01-25	15:34:44	5200	0	0	0	0	B	E	Nueva Venta
+541269	2021-01-25	15:45:34	2400	0	0	0	0	B	E	Nueva Venta
+541270	2021-01-25	15:52:39	4000	0	0	0	0	B	E	Nueva Venta
+541271	2021-01-25	15:54:12	5850	0	4200	0	0	B	E	Nueva Venta
+541272	2021-01-25	15:54:36	2980	0	0	0	0	B	E	Nueva Venta
+541273	2021-01-25	16:16:04	4500	0	3500	0	0	B	E	Nueva Venta
+541274	2021-01-25	17:28:02	3000	0	0	0	0	B	E	Nueva Venta
+541275	2021-01-25	17:29:00	1300	0	0	0	0	B	E	Nueva Venta
+541276	2021-01-25	17:29:00	1700	0	0	0	0	B	E	Nueva Venta
+541277	2021-01-26	07:37:55	6650	0	0	0	0	B	E	Nva. Venta
+541278	2021-01-26	07:38:17	2000	0	0	0	0	B	E	Nueva Venta
+541279	2021-01-26	07:43:22	3500	0	0	0	0	B	E	Nueva Venta
+541280	2021-01-26	07:56:50	4500	0	0	0	0	B	E	Nueva Venta
+541281	2021-01-26	07:57:05	0	0	0	0	0	B	E	Nueva Venta
+541282	2021-01-26	08:00:14	3100	0	0	0	0	B	E	Nueva Venta
+541283	2021-01-26	08:04:21	3400	0	3400	0	0	B	E	Nueva Venta
+541284	2021-01-26	08:12:10	1100	0	0	0	0	B	E	Nueva Venta
+541285	2021-01-26	08:16:14	4100	0	0	0	0	B	E	Nueva Venta
+541286	2021-01-26	08:20:06	2100	0	0	0	0	B	E	Nueva Venta
+541287	2021-01-26	08:25:39	1900	0	0	0	0	B	E	Nueva Venta
+541288	2021-01-26	08:27:26	2600	0	0	0	0	B	E	Nueva Venta
+541289	2021-01-26	08:28:15	2100	0	0	0	0	B	E	Nueva Venta
+541290	2021-01-26	08:30:35	3100	0	0	0	0	B	E	Nueva Venta
+541291	2021-01-26	08:34:25	3400	0	0	0	0	B	E	Nueva Venta
+541292	2021-01-26	08:35:43	4000	0	0	0	0	B	E	Nueva Venta
+541293	2021-01-26	08:37:30	1300	0	0	0	0	B	E	Nueva Venta
+541294	2021-01-26	08:39:32	0	0	0	0	0	B	E	Nueva Venta
+541295	2021-01-26	08:39:40	0	0	0	0	0	B	E	Nueva Venta
+541296	2021-01-26	08:40:30	4700	0	3400	0	0	B	E	Nueva Venta
+541297	2021-01-26	08:41:35	0	0	0	0	0	B	E	Nueva Venta
+541298	2021-01-26	08:41:55	1300	0	0	0	0	B	E	Nueva Venta
+541299	2021-01-26	08:42:07	1900	0	0	0	0	B	E	Nueva Venta
+541300	2021-01-26	08:42:40	3000	0	0	0	0	B	E	Nueva Venta
+541301	2021-01-26	08:46:13	2000	0	0	0	0	B	E	Nueva Venta
+541302	2021-01-26	08:48:50	3400	646	0	0	0	B	E	Boleta
+541303	2021-01-26	08:49:05	1450	0	0	0	0	B	E	Nueva Venta
+541304	2021-01-26	08:49:58	1800	0	0	0	0	B	E	Nueva Venta
+541305	2021-01-26	08:54:13	1350	0	0	0	0	B	E	Nueva Venta
+541306	2021-01-26	08:56:00	2000	0	2000	0	0	B	E	Nueva Venta
+541307	2021-01-26	08:56:53	2600	0	0	0	0	B	E	Nueva Venta
+541308	2021-01-26	08:57:36	4600	0	0	0	0	B	E	Nueva Venta
+541309	2021-01-26	09:01:17	2000	0	0	0	0	B	E	Nueva Venta
+541310	2021-01-26	09:01:51	2900	0	0	0	0	B	E	Nueva Venta
+541311	2021-01-26	09:14:14	3400	0	0	0	0	B	E	Nueva Venta
+541312	2021-01-26	09:15:27	2650	0	0	0	0	B	E	Nueva Venta
+541313	2021-01-26	09:16:43	2500	0	0	0	0	B	E	Nueva Venta
+541314	2021-01-26	09:17:18	4100	0	2000	0	0	B	E	Nueva Venta
+541315	2021-01-26	09:19:26	5100	0	0	0	0	B	E	Nueva Venta
+541316	2021-01-26	09:25:17	2950	0	0	0	0	B	E	Nueva Venta
+541317	2021-01-26	09:26:36	2300	0	0	0	0	B	E	Nueva Venta
+541318	2021-01-26	09:28:04	3150	0	0	0	0	B	E	Nueva Venta
+541319	2021-01-26	09:29:07	2100	0	0	0	0	B	E	Nueva Venta
+541320	2021-01-26	09:29:15	2100	0	0	0	0	B	E	Nueva Venta
+541321	2021-01-26	09:29:45	0	0	0	0	0	B	E	Nueva Venta
+541322	2021-01-26	09:32:06	1100	0	0	0	0	B	E	Nueva Venta
+541323	2021-01-26	09:33:00	2850	0	0	0	0	B	E	Nueva Venta
+541324	2021-01-26	09:35:10	2100	0	0	0	0	B	E	Nueva Venta
+541325	2021-01-26	09:35:49	2000	0	0	0	0	B	E	Nueva Venta
+541326	2021-01-26	09:38:19	2700	0	0	0	0	B	E	Nueva Venta
+541327	2021-01-26	09:41:30	8300	1577	0	0	0	B	E	Boleta
+541328	2021-01-26	09:44:17	2400	0	0	0	0	B	E	Nueva Venta
+541329	2021-01-26	09:46:48	2800	0	0	0	0	B	E	Nueva Venta
+541330	2021-01-26	09:48:57	3400	0	0	0	0	B	E	Nueva Venta
+541331	2021-01-26	09:58:05	350	0	0	0	0	B	E	Nueva Venta
+541332	2021-01-26	10:04:03	650	0	0	0	0	B	E	Nueva Venta
+541333	2021-01-26	10:10:44	3690	0	0	0	0	B	E	Nueva Venta
+541334	2021-01-26	10:24:52	1300	0	0	0	0	B	E	Nueva Venta
+541335	2021-01-26	10:32:09	3400	0	0	0	0	B	E	Nueva Venta
+541336	2021-01-26	10:38:13	1450	0	0	0	0	B	E	Nueva Venta
+541337	2021-01-26	10:40:05	2850	0	0	0	0	B	E	Nueva Venta
+541338	2021-01-26	10:42:10	2000	0	0	0	0	B	E	Nueva Venta
+541339	2021-01-26	10:43:55	3100	0	0	0	0	B	E	Nueva Venta
+541340	2021-01-26	10:57:51	6300	0	3000	0	0	B	E	Nueva Venta
+541341	2021-01-26	10:58:12	1100	0	0	0	0	B	E	Nueva Venta
+541342	2021-01-26	11:01:07	5500	0	0	0	0	B	E	Nueva Venta
+541343	2021-01-26	11:11:39	2400	0	0	0	0	B	E	Nueva Venta
+541344	2021-01-26	11:14:27	5350	0	0	0	0	B	E	Nueva Venta
+541345	2021-01-26	11:14:56	0	0	0	0	0	B	E	Nueva Venta
+541346	2021-01-26	11:16:27	1850	0	0	0	0	B	E	Nueva Venta
+541347	2021-01-26	11:27:53	5190	0	0	0	0	B	E	Nueva Venta
+541348	2021-01-26	11:58:05	2400	0	0	0	0	B	E	Nueva Venta
+541349	2021-01-26	12:35:32	1650	0	0	0	0	B	E	Nueva Venta
+541350	2021-01-26	13:11:56	800	0	0	0	0	B	E	Nueva Venta
+541351	2021-01-26	13:52:35	800	152	0	0	0	B	E	Boleta
+541352	2021-01-26	13:53:31	1600	0	0	0	0	B	E	Nueva Venta
+541353	2021-01-26	13:57:11	5490	0	0	0	0	B	E	Nueva Venta
+541354	2021-01-26	14:22:01	5200	0	0	0	0	B	E	Nueva Venta
+541355	2021-01-26	14:27:34	1100	0	0	0	0	B	E	Nueva Venta
+541356	2021-01-26	14:27:53	2600	0	0	0	0	B	E	Nueva Venta
+541357	2021-01-26	14:34:52	1200	0	0	0	0	B	E	Nueva Venta
+541358	2021-01-26	14:35:45	4400	0	0	0	0	B	E	Nueva Venta
+541359	2021-01-26	14:42:21	0	0	0	0	0	B	E	Nueva Venta
+541360	2021-01-26	15:09:24	2600	0	2600	0	0	B	E	Nueva Venta
+541361	2021-01-26	15:15:20	1100	0	0	0	0	B	E	Nueva Venta
+541362	2021-01-26	15:16:02	2050	0	0	0	0	B	E	Nueva Venta
+541363	2021-01-26	15:30:44	4600	0	2500	0	0	B	E	Nueva Venta
+541364	2021-01-26	15:30:45	0	0	0	0	0	B	E	Nueva Venta
+541365	2021-01-26	15:39:30	700	0	0	0	0	B	E	Nueva Venta
+541366	2021-01-26	15:43:48	1100	0	0	0	0	B	E	Nueva Venta
+541367	2021-01-26	15:46:23	3380	0	0	0	0	B	E	Nueva Venta
+541368	2021-01-26	15:53:21	4600	0	0	0	0	B	E	Nueva Venta
+541369	2021-01-26	16:39:30	3300	0	0	0	0	B	E	Nueva Venta
+541370	2021-01-26	16:39:30	3380	0	0	0	0	B	E	Nueva Venta
+541371	2021-01-27	07:43:02	1800	0	0	0	0	B	E	Nva. Venta
+541372	2021-01-27	07:44:57	3100	0	0	0	0	B	E	Nueva Venta
+541373	2021-01-27	08:02:01	1400	0	0	0	0	B	E	Nueva Venta
+541374	2021-01-27	08:07:40	6100	0	4000	0	0	B	E	Nueva Venta
+541375	2021-01-27	08:14:03	1800	0	0	0	0	B	E	Nueva Venta
+541376	2021-01-27	08:14:32	850	0	0	0	0	B	E	Nueva Venta
+541377	2021-01-27	08:21:07	2400	0	0	0	0	B	E	Nueva Venta
+541378	2021-01-27	08:26:30	4300	0	3100	0	0	B	E	Nueva Venta
+541379	2021-01-27	08:29:33	2200	0	0	0	0	B	E	Nueva Venta
+541380	2021-01-27	08:40:18	2200	0	0	0	0	B	E	Nueva Venta
+541381	2021-01-27	08:46:15	4500	0	0	0	0	B	E	Nueva Venta
+541382	2021-01-27	08:47:23	4300	0	0	0	0	B	E	Nueva Venta
+541383	2021-01-27	08:50:08	2400	0	0	0	0	B	E	Nueva Venta
+541384	2021-01-27	08:51:11	2200	0	0	0	0	B	E	Nueva Venta
+541385	2021-01-27	08:54:00	1700	0	0	0	0	B	E	Nueva Venta
+541386	2021-01-27	08:54:32	2600	0	0	0	0	B	E	Nueva Venta
+541387	2021-01-27	08:56:22	1800	0	0	0	0	B	E	Nueva Venta
+541388	2021-01-27	08:57:04	2100	0	0	0	0	B	E	Nueva Venta
+541389	2021-01-27	09:12:47	3400	0	0	0	0	B	E	Nueva Venta
+541390	2021-01-27	09:02:12	0	0	0	0	0	B	E	Nueva Venta
+541391	2021-01-27	09:13:28	2550	0	0	0	0	B	E	Nueva Venta
+541392	2021-01-27	09:13:52	1300	0	0	0	0	B	E	Nueva Venta
+541393	2021-01-27	09:16:46	5100	0	0	0	0	B	E	Nueva Venta
+541394	2021-01-27	09:18:24	1450	0	0	0	0	B	E	Nueva Venta
+541395	2021-01-27	09:19:01	0	0	0	0	0	B	E	Nueva Venta
+541396	2021-01-27	09:19:25	2300	0	0	0	0	B	E	Nueva Venta
+541397	2021-01-27	09:21:37	2400	0	0	0	0	B	E	Nueva Venta
+541398	2021-01-27	09:22:40	1900	0	0	0	0	B	E	Nueva Venta
+541399	2021-01-27	09:28:15	2700	0	0	0	0	B	E	Nueva Venta
+541400	2021-01-27	09:29:30	2100	0	0	0	0	B	E	Nueva Venta
+541401	2021-01-27	09:31:04	2500	0	0	0	0	B	E	Nueva Venta
+541402	2021-01-27	09:41:01	2650	0	0	0	0	B	E	Nueva Venta
+541403	2021-01-27	09:43:51	8000	114	7400	0	0	B	E	Boleta
+541404	2021-01-27	09:46:28	1000	0	0	0	0	B	E	Nueva Venta
+541405	2021-01-27	09:51:00	1100	0	0	0	0	B	E	Nueva Venta
+541406	2021-01-27	09:51:40	6000	0	5000	0	0	B	E	Nueva Venta
+541407	2021-01-27	09:55:42	2000	0	0	0	0	B	E	Nueva Venta
+541408	2021-01-27	09:57:42	3300	0	0	0	0	B	E	Nueva Venta
+541409	2021-01-27	10:08:08	2700	0	0	0	0	B	E	Nueva Venta
+541410	2021-01-27	10:12:38	3700	0	0	0	0	B	E	Nueva Venta
+541411	2021-01-27	10:13:39	2300	0	0	0	0	B	E	Nueva Venta
+541412	2021-01-27	10:14:59	3700	0	0	0	0	B	E	Nueva Venta
+541413	2021-01-27	10:18:13	3000	0	0	0	0	B	E	Nueva Venta
+541414	2021-01-27	10:20:49	0	0	0	0	0	B	E	Nueva Venta
+541415	2021-01-27	10:24:18	2600	0	0	0	0	B	E	Nueva Venta
+541416	2021-01-27	10:30:36	3900	0	0	0	0	B	E	Nueva Venta
+541417	2021-01-27	10:35:30	0	0	0	0	0	B	E	Nueva Venta
+541418	2021-01-27	10:39:19	0	0	0	0	0	B	E	Nueva Venta
+541419	2021-01-27	10:42:37	2600	0	2600	0	0	B	E	Nueva Venta
+541420	2021-01-27	10:49:24	1500	0	0	0	0	B	E	Nueva Venta
+541421	2021-01-27	10:50:03	3300	0	0	0	0	B	E	Nueva Venta
+541422	2021-01-27	10:53:39	4500	0	0	0	0	B	E	Nueva Venta
+541423	2021-01-27	10:56:50	5500	0	0	0	0	B	E	Nueva Venta
+541424	2021-01-27	11:03:22	3500	0	0	0	0	B	E	Nueva Venta
+541425	2021-01-27	11:11:12	1800	0	0	0	0	B	E	Nueva Venta
+541426	2021-01-27	11:12:17	2600	0	0	0	0	B	E	Nueva Venta
+541427	2021-01-27	11:12:26	0	0	0	0	0	B	E	Nueva Venta
+541428	2021-01-27	11:53:01	1900	0	0	0	0	B	E	Nueva Venta
+541429	2021-01-27	11:59:16	2000	0	0	0	0	B	E	Nueva Venta
+541430	2021-01-27	12:08:48	300	0	0	0	0	B	E	Nueva Venta
+541431	2021-01-27	12:09:32	4000	0	0	0	0	B	E	Nueva Venta
+541432	2021-01-27	12:19:20	1200	0	0	0	0	B	E	Nueva Venta
+541433	2021-01-27	12:20:14	2350	0	0	0	0	B	E	Nueva Venta
+541434	2021-01-27	12:50:51	350	0	0	0	0	B	E	Nueva Venta
+541435	2021-01-27	12:51:40	4000	0	3000	0	0	B	E	Nueva Venta
+541436	2021-01-27	12:51:59	0	0	0	0	0	B	E	Nueva Venta
+541437	2021-01-27	13:40:35	5100	0	0	0	0	B	E	Nueva Venta
+541438	2021-01-27	13:47:21	4100	0	0	0	0	B	E	Nueva Venta
+541439	2021-01-27	13:48:34	1600	0	0	0	0	B	E	Nueva Venta
+541440	2021-01-27	13:48:51	1500	0	0	0	0	B	E	Nueva Venta
+541441	2021-01-27	13:56:27	4500	0	0	0	0	B	E	Nueva Venta
+541442	2021-01-27	13:59:00	3380	0	0	0	0	B	E	Nueva Venta
+541443	2021-01-27	14:04:03	4850	0	0	0	0	B	E	Nueva Venta
+541444	2021-01-27	14:08:00	3800	0	2000	0	0	B	E	Nueva Venta
+541445	2021-01-27	14:23:30	7180	0	2500	0	0	B	E	Nueva Venta
+541446	2021-01-27	14:24:29	8700	0	0	0	0	B	E	Nueva Venta
+541447	2021-01-27	14:25:08	4000	0	0	0	0	B	E	Nueva Venta
+541448	2021-01-27	14:32:20	500	0	0	0	0	B	E	Nueva Venta
+541449	2021-01-27	14:46:31	3200	0	0	0	0	B	E	Nueva Venta
+541450	2021-01-27	14:51:07	2800	0	0	0	0	B	E	Nueva Venta
+541451	2021-01-27	14:58:06	10200	0	0	0	0	B	E	Nueva Venta
+541452	2021-01-27	15:00:06	4600	0	0	0	0	B	E	Nueva Venta
+541453	2021-01-27	15:00:46	0	0	0	0	0	B	E	Nueva Venta
+541454	2021-01-27	15:01:49	5100	0	0	0	0	B	E	Nueva Venta
+541455	2021-01-27	15:16:50	6480	0	0	0	0	B	E	Nueva Venta
+541456	2021-01-27	15:26:52	700	0	0	0	0	B	E	Nueva Venta
+541457	2021-01-27	15:27:59	1300	0	0	0	0	B	E	Nueva Venta
+541458	2021-01-27	15:36:09	2600	0	0	0	0	B	E	Nueva Venta
+541459	2021-01-27	15:38:02	3590	0	0	0	0	B	E	Nueva Venta
+541460	2021-01-27	15:36:58	0	0	0	0	0	B	E	Nueva Venta
+541461	2021-01-27	15:55:31	2790	0	0	0	0	B	E	Nueva Venta
+541462	2021-01-27	15:56:05	3100	0	0	0	0	B	E	Nueva Venta
+541463	2021-01-27	16:34:35	1200	0	0	0	0	B	E	Nueva Venta
+541464	2021-01-27	16:46:46	2690	0	0	0	0	B	E	Nueva Venta
+541465	2021-01-27	16:48:17	5500	0	3500	0	0	B	E	Nueva Venta
+541466	2021-01-27	17:34:15	3900	0	3400	0	0	B	E	Nueva Venta
+541467	2021-01-27	17:36:00	500	0	0	0	0	B	E	Nueva Venta
+541468	2021-01-27	18:05:18	2200	0	0	0	0	B	E	Nueva Venta
+541469	2021-01-27	18:07:39	4200	0	4200	0	0	B	E	Nueva Venta
+541470	2021-01-27	18:07:39	0	0	0	0	0	B	E	Nueva Venta
+541471	2021-01-28	07:42:44	3200	0	0	0	0	B	E	Nva. Venta
+541472	2021-01-28	07:42:51	0	0	0	0	0	B	E	Nueva Venta
+541473	2021-01-28	07:43:13	1700	0	0	0	0	B	E	Nueva Venta
+541474	2021-01-28	07:43:51	650	0	0	0	0	B	E	Nueva Venta
+541475	2021-01-28	07:47:22	800	0	0	0	0	B	E	Nueva Venta
+541476	2021-01-28	07:47:22	0	0	0	0	0	B	E	Nueva Venta
+541477	2021-01-28	07:55:26	9250	0	0	0	0	B	E	Nva. Venta
+541478	2021-01-28	08:04:33	1700	0	0	0	0	B	E	Nueva Venta
+541479	2021-01-28	08:10:37	7100	0	4200	0	0	B	E	Nueva Venta
+541480	2021-01-28	08:12:26	4600	0	0	0	0	B	E	Nueva Venta
+541481	2021-01-28	08:16:58	2600	0	0	0	0	B	E	Nueva Venta
+541482	2021-01-28	08:19:50	2100	0	0	0	0	B	E	Nueva Venta
+541483	2021-01-28	08:22:52	6300	0	4400	0	0	B	E	Nueva Venta
+541484	2021-01-28	08:28:02	2600	0	0	0	0	B	E	Nueva Venta
+541485	2021-01-28	08:28:35	4200	0	4200	0	0	B	E	Nueva Venta
+541486	2021-01-28	08:45:41	7300	0	0	0	0	B	E	Nueva Venta
+541487	2021-01-28	08:50:22	2100	0	0	0	0	B	E	Nueva Venta
+541488	2021-01-28	08:51:13	1100	0	0	0	0	B	E	Nueva Venta
+541489	2021-01-28	08:52:00	2600	0	0	0	0	B	E	Nueva Venta
+541490	2021-01-28	08:52:18	3000	0	0	0	0	B	E	Nueva Venta
+541491	2021-01-28	08:52:18	0	0	0	0	0	B	E	Nueva Venta
+541492	2021-01-28	08:53:58	2900	0	0	0	0	B	E	Nva. Venta
+541493	2021-01-28	08:56:31	900	0	0	0	0	B	E	Nueva Venta
+541494	2021-01-28	08:58:21	3400	0	0	0	0	B	E	Nueva Venta
+541495	2021-01-28	08:58:50	6200	0	0	0	0	B	E	Nueva Venta
+541496	2021-01-28	08:59:12	3900	0	0	0	0	B	E	Nueva Venta
+541497	2021-01-28	08:59:24	1500	0	0	0	0	B	E	Nueva Venta
+541498	2021-01-28	09:04:49	1700	0	0	0	0	B	E	Nueva Venta
+541499	2021-01-28	09:04:59	1100	0	0	0	0	B	E	Nueva Venta
+541500	2021-01-28	09:05:24	1100	0	0	0	0	B	E	Nueva Venta
+541501	2021-01-28	09:05:36	2500	0	0	0	0	B	E	Nueva Venta
+541502	2021-01-28	09:06:22	1100	0	0	0	0	B	E	Nueva Venta
+541503	2021-01-28	09:07:00	2400	0	0	0	0	B	E	Nueva Venta
+541504	2021-01-28	09:08:13	1900	0	0	0	0	B	E	Nueva Venta
+541505	2021-01-28	09:09:21	3100	0	0	0	0	B	E	Nueva Venta
+541506	2021-01-28	09:11:59	1800	0	0	0	0	B	E	Nueva Venta
+541507	2021-01-28	09:13:40	1300	0	0	0	0	B	E	Nueva Venta
+541508	2021-01-28	09:18:40	2400	0	0	0	0	B	E	Nueva Venta
+541509	2021-01-28	09:23:48	4100	0	0	0	0	B	E	Nueva Venta
+541510	2021-01-28	09:30:18	500	0	0	0	0	B	E	Nueva Venta
+541511	2021-01-28	09:30:37	1300	0	0	0	0	B	E	Nueva Venta
+541512	2021-01-28	09:30:52	2600	0	0	0	0	B	E	Nueva Venta
+541513	2021-01-28	09:31:47	2650	0	0	0	0	B	E	Nueva Venta
+541514	2021-01-28	09:37:31	1400	0	0	0	0	B	E	Nueva Venta
+541515	2021-01-28	09:37:49	2700	0	0	0	0	B	E	Nueva Venta
+541516	2021-01-28	09:44:36	1550	0	0	0	0	B	E	Nueva Venta
+541517	2021-01-28	09:45:05	1100	0	0	0	0	B	E	Nueva Venta
+541518	2021-01-28	09:46:06	1800	0	0	0	0	B	E	Nueva Venta
+541519	2021-01-28	09:50:33	2400	0	0	0	0	B	E	Nueva Venta
+541520	2021-01-28	09:58:50	2400	0	0	0	0	B	E	Nueva Venta
+541521	2021-01-28	10:01:48	1300	0	0	0	0	B	E	Nueva Venta
+541522	2021-01-28	10:11:14	9750	0	6500	0	0	B	E	Nueva Venta
+541523	2021-01-28	10:11:23	1700	0	0	0	0	B	E	Nueva Venta
+541524	2021-01-28	10:24:45	4550	0	0	0	0	B	E	Nueva Venta
+541525	2021-01-28	10:24:59	2000	0	0	0	0	B	E	Nueva Venta
+541526	2021-01-28	10:44:14	2300	0	0	0	0	B	E	Nueva Venta
+541527	2021-01-28	10:45:31	3800	0	0	0	0	B	E	Nueva Venta
+541528	2021-01-28	10:46:22	5500	0	0	0	0	B	E	Nueva Venta
+541529	2021-01-28	10:55:28	6300	0	4000	0	0	B	E	Nueva Venta
+541530	2021-01-28	11:08:56	2350	0	0	0	0	B	E	Nueva Venta
+541531	2021-01-28	11:15:30	0	0	0	0	0	B	E	Nueva Venta
+541532	2021-01-28	11:39:06	2400	0	0	0	0	B	E	Nueva Venta
+541533	2021-01-28	11:45:16	1100	0	0	0	0	B	E	Nueva Venta
+541534	2021-01-28	12:12:44	2600	0	0	0	0	B	E	Nueva Venta
+541535	2021-01-28	12:13:21	2500	0	0	0	0	B	E	Nueva Venta
+541536	2021-01-28	12:24:30	700	0	0	0	0	B	E	Nueva Venta
+541537	2021-01-28	12:26:07	4700	0	0	0	0	B	E	Nueva Venta
+541538	2021-01-28	12:26:27	4300	0	0	0	0	B	E	Nueva Venta
+541539	2021-01-28	12:50:11	0	0	0	0	0	B	E	Nueva Venta
+541540	2021-01-28	13:02:49	2600	0	2000	0	0	B	E	Nueva Venta
+541541	2021-01-28	13:07:48	5000	0	0	0	0	B	E	Nueva Venta
+541542	2021-01-28	13:14:41	3300	0	0	0	0	B	E	Nueva Venta
+541543	2021-01-28	13:16:10	0	0	0	0	0	B	E	Nueva Venta
+541544	2021-01-28	13:17:01	4500	0	0	0	0	B	E	Nueva Venta
+541545	2021-01-28	13:18:17	3000	0	0	0	0	B	E	Nueva Venta
+541546	2021-01-28	13:18:52	0	0	0	0	0	B	E	Nueva Venta
+541547	2021-01-28	13:19:19	2500	0	0	0	0	B	E	Nueva Venta
+541548	2021-01-28	13:19:51	0	0	0	0	0	B	E	Nueva Venta
+541549	2021-01-28	13:21:53	3780	0	0	0	0	B	E	Nueva Venta
+541550	2021-01-28	13:22:38	2500	0	0	0	0	B	E	Nueva Venta
+541551	2021-01-28	13:28:26	3000	0	0	0	0	B	E	Nueva Venta
+541552	2021-01-28	13:29:12	3000	0	0	0	0	B	E	Nueva Venta
+541553	2021-01-28	13:42:56	3500	0	0	0	0	B	E	Nueva Venta
+541554	2021-01-28	13:43:39	2500	0	0	0	0	B	E	Nueva Venta
+541555	2021-01-28	13:44:16	0	0	0	0	0	B	E	Nueva Venta
+541556	2021-01-28	14:00:29	2100	0	0	0	0	B	E	Nueva Venta
+541557	2021-01-28	14:01:59	4300	0	3400	0	0	B	E	Nueva Venta
+541558	2021-01-28	14:03:43	2500	0	0	0	0	B	E	Nueva Venta
+541559	2021-01-28	14:04:48	1800	0	0	0	0	B	E	Nueva Venta
+541560	2021-01-28	14:16:37	2280	0	0	0	0	B	E	Nueva Venta
+541561	2021-01-28	14:05:49	0	0	0	0	0	B	E	Nueva Venta
+541562	2021-01-28	14:21:50	2600	0	0	0	0	B	E	Nueva Venta
+541563	2021-01-28	14:26:17	1350	0	0	0	0	B	E	Nueva Venta
+541564	2021-01-28	14:27:10	900	0	0	0	0	B	E	Nueva Venta
+541565	2021-01-28	14:27:28	0	0	0	0	0	B	E	Nueva Venta
+541566	2021-01-28	14:34:06	1300	0	0	0	0	B	E	Nueva Venta
+541567	2021-01-28	14:34:32	700	0	0	0	0	B	E	Nueva Venta
+541568	2021-01-28	14:40:39	1300	0	0	0	0	B	E	Nueva Venta
+541569	2021-01-28	14:40:53	1800	0	1800	0	0	B	E	Nueva Venta
+541570	2021-01-28	14:41:44	2100	0	0	0	0	B	E	Nueva Venta
+541571	2021-01-28	14:41:47	0	0	0	0	0	B	E	Nueva Venta
+541572	2021-01-28	14:42:33	600	114	0	0	0	B	E	Boleta
+541573	2021-01-28	14:43:29	3650	0	0	0	0	B	E	Nueva Venta
+541574	2021-01-28	14:45:32	1000	0	0	0	0	B	E	Nueva Venta
+541575	2021-01-28	15:00:35	3380	0	0	0	0	B	E	Nueva Venta
+541576	2021-01-28	15:11:51	0	0	0	0	0	B	E	Nueva Venta
+541577	2021-01-28	15:23:53	2100	0	0	0	0	B	E	Nueva Venta
+541578	2021-01-28	15:38:20	4800	0	0	0	0	B	E	Nueva Venta
+541579	2021-01-28	15:39:45	700	0	0	0	0	B	E	Nueva Venta
+541580	2021-01-28	15:48:23	1900	0	0	0	0	B	E	Nueva Venta
+541581	2021-01-28	15:48:24	0	0	0	0	0	B	E	Nueva Venta
+541582	2021-01-28	15:49:48	4100	0	3400	0	0	B	E	Nva. Venta
+541583	2021-01-28	16:07:42	0	0	0	0	0	B	E	Nva. Venta7891991000826
+541584	2021-01-28	16:16:12	0	0	0	0	0	B	E	Nva. Venta
+541585	2021-01-28	16:21:05	6670	0	0	0	0	B	E	Nueva Venta
+541586	2021-01-28	16:40:27	1100	0	0	0	0	B	E	Nueva Venta
+541587	2021-01-28	16:46:21	2000	0	0	0	0	B	E	Nueva Venta
+541588	2021-01-28	16:54:31	3380	0	0	0	0	B	E	Nueva Venta
+541589	2021-01-28	17:05:45	3100	0	0	0	0	B	E	Nueva Venta
+541590	2021-01-28	17:06:13	3000	0	0	0	0	B	E	Nueva Venta
+541591	2021-01-28	17:09:47	3400	0	3400	0	0	B	E	Nueva Venta
+541592	2021-01-28	17:23:09	9000	0	0	0	0	B	E	Nueva Venta
+541593	2021-01-28	17:24:03	3400	0	0	0	0	B	E	Nueva Venta
+541594	2021-01-28	17:36:27	6500	0	0	0	0	B	E	Nueva Venta
+541595	2021-01-28	17:36:27	500	0	0	0	0	B	E	Nueva Venta
+541596	2021-01-29	07:48:04	2000	0	2000	0	0	B	E	Nva. Venta
+541597	2021-01-29	08:04:46	950	0	0	0	0	B	E	Nueva Venta
+541598	2021-01-29	08:09:17	5650	0	4200	0	0	B	E	Nueva Venta
+541599	2021-01-29	08:14:25	5000	0	4000	0	0	B	E	Nueva Venta
+541600	2021-01-29	08:15:59	850	0	0	0	0	B	E	Nueva Venta
+541601	2021-01-29	08:17:29	1300	0	0	0	0	B	E	Nueva Venta
+541602	2021-01-29	08:23:20	4600	0	3500	0	0	B	E	Nueva Venta
+541603	2021-01-29	08:23:58	3300	0	0	0	0	B	E	Nueva Venta
+541604	2021-01-29	08:29:17	1800	0	1800	0	0	B	E	Nueva Venta
+541605	2021-01-29	08:29:50	0	0	0	0	0	B	E	Nueva Venta
+541606	2021-01-29	08:30:07	0	0	0	0	0	B	E	Nueva Venta
+541607	2021-01-29	08:35:24	1300	0	0	0	0	B	E	Nueva Venta
+541608	2021-01-29	08:36:15	4600	0	4000	0	0	B	E	Nueva Venta
+541609	2021-01-29	08:37:03	2400	0	0	0	0	B	E	Nueva Venta
+541610	2021-01-29	08:38:38	1900	0	0	0	0	B	E	Nueva Venta
+541611	2021-01-29	08:41:08	1100	0	0	0	0	B	E	Nueva Venta
+541612	2021-01-29	08:41:28	2100	0	0	0	0	B	E	Nueva Venta
+541613	2021-01-29	08:44:32	3100	0	0	0	0	B	E	Nueva Venta
+541614	2021-01-29	08:47:24	1600	0	0	0	0	B	E	Nueva Venta
+541615	2021-01-29	08:47:39	3900	0	0	0	0	B	E	Nueva Venta
+541616	2021-01-29	08:53:15	7400	0	0	0	0	B	E	Nueva Venta
+541617	2021-01-29	08:56:45	2300	0	0	0	0	B	E	Nueva Venta
+541618	2021-01-29	08:57:44	7200	0	0	0	0	B	E	Nueva Venta
+541619	2021-01-29	08:58:17	0	0	0	0	0	B	E	Nueva Venta
+541620	2021-01-29	09:01:09	3400	0	0	0	0	B	E	Nueva Venta
+541621	2021-01-29	09:03:01	2500	0	0	0	0	B	E	Nueva Venta
+541622	2021-01-29	09:04:17	500	0	0	0	0	B	E	Nueva Venta
+541623	2021-01-29	09:04:39	0	0	0	0	0	B	E	Nueva Venta
+541624	2021-01-29	09:05:34	800	0	0	0	0	B	E	Nueva Venta
+541625	2021-01-29	09:08:35	2100	0	0	0	0	B	E	Nueva Venta
+541626	2021-01-29	09:10:54	1300	0	0	0	0	B	E	Nueva Venta
+541627	2021-01-29	09:11:34	1750	0	0	0	0	B	E	Nueva Venta
+541628	2021-01-29	09:12:06	0	0	0	0	0	B	E	Nueva Venta
+541629	2021-01-29	09:13:10	0	0	0	0	0	B	E	Nueva Venta
+541630	2021-01-29	09:13:59	2400	0	0	0	0	B	E	Nueva Venta
+541631	2021-01-29	09:15:51	2900	0	0	0	0	B	E	Nueva Venta
+541632	2021-01-29	09:16:55	1300	0	0	0	0	B	E	Nueva Venta
+541633	2021-01-29	09:17:04	2000	0	0	0	0	B	E	Nueva Venta
+541634	2021-01-29	09:17:48	5600	0	0	0	0	B	E	Nueva Venta
+541635	2021-01-29	09:18:42	2200	0	0	0	0	B	E	Nueva Venta
+541636	2021-01-29	09:19:34	2600	0	0	0	0	B	E	Nueva Venta
+541637	2021-01-29	09:21:24	1100	0	0	0	0	B	E	Nueva Venta
+541638	2021-01-29	09:22:22	2100	0	0	0	0	B	E	Nueva Venta
+541639	2021-01-29	09:22:39	4200	0	0	0	0	B	E	Nueva Venta
+541640	2021-01-29	09:23:15	0	0	0	0	0	B	E	Nueva Venta
+541641	2021-01-29	09:24:08	1100	0	0	0	0	B	E	Nueva Venta
+541642	2021-01-29	09:26:37	3800	0	0	0	0	B	E	Nueva Venta
+541643	2021-01-29	09:27:28	5400	0	3400	0	0	B	E	Nueva Venta
+541644	2021-01-29	09:35:56	2400	0	0	0	0	B	E	Nueva Venta
+541645	2021-01-29	09:36:57	4800	0	0	0	0	B	E	Nueva Venta
+541646	2021-01-29	09:48:20	6900	0	0	0	0	B	E	Nueva Venta
+541647	2021-01-29	09:48:48	5300	0	0	0	0	B	E	Nueva Venta
+541648	2021-01-29	09:49:56	1800	0	0	0	0	B	E	Nueva Venta
+541649	2021-01-29	09:50:54	0	0	0	0	0	B	E	Nueva Venta
+541650	2021-01-29	09:56:14	1600	0	0	0	0	B	E	Nueva Venta
+541651	2021-01-29	10:03:58	1050	0	0	0	0	B	E	Nueva Venta
+541652	2021-01-29	10:04:46	2400	0	0	0	0	B	E	Nueva Venta
+541653	2021-01-29	10:05:00	2500	0	0	0	0	B	E	Nueva Venta
+541654	2021-01-29	10:05:51	2600	494	0	0	0	B	E	Boleta
+541655	2021-01-29	10:06:22	2200	0	0	0	0	B	E	Nueva Venta
+541656	2021-01-29	10:13:25	550	0	0	0	0	B	E	Nueva Venta
+541657	2021-01-29	10:19:22	500	0	0	0	0	B	E	Nueva Venta
+541658	2021-01-29	10:25:29	1100	0	0	0	0	B	E	Nueva Venta
+541659	2021-01-29	10:27:05	3100	0	0	0	0	B	E	Nueva Venta
+541660	2021-01-29	10:32:04	3300	0	0	0	0	B	E	Nueva Venta
+541661	2021-01-29	10:28:53	0	0	0	0	0	B	E	Nueva Venta
+541662	2021-01-29	10:50:55	2100	0	0	0	0	B	E	Nueva Venta
+541663	2021-01-29	10:53:00	1500	0	0	0	0	B	E	Nueva Venta
+541664	2021-01-29	10:59:23	4100	0	0	0	0	B	E	Nueva Venta
+541665	2021-01-29	11:11:56	4500	0	3400	0	0	B	E	Nueva Venta
+541666	2021-01-29	11:15:40	2500	0	0	0	0	B	E	Nueva Venta
+541667	2021-01-29	11:21:59	3000	0	0	0	0	B	E	Nueva Venta
+541668	2021-01-29	11:40:47	3000	0	0	0	0	B	E	Nueva Venta
+541669	2021-01-29	11:40:47	0	0	0	0	0	B	E	Nueva Venta
+541670	2021-01-29	11:44:06	0	0	0	0	0	B	E	Nva. Venta
+541671	2021-01-29	12:34:18	600	0	0	0	0	B	E	Nva. Venta
+541672	2021-01-29	13:51:34	1500	0	0	0	0	B	E	Nueva Venta
+541673	2021-01-29	13:53:09	5100	0	0	0	0	B	E	Nueva Venta
+541674	2021-01-29	14:15:10	4100	0	0	0	0	B	E	Nueva Venta
+541675	2021-01-29	14:15:56	3000	0	0	0	0	B	E	Nueva Venta
+541676	2021-01-29	14:16:12	1600	0	0	0	0	B	E	Nueva Venta
+541677	2021-01-29	14:22:45	3100	0	0	0	0	B	E	Nueva Venta
+541678	2021-01-29	14:25:29	1400	0	0	0	0	B	E	Nueva Venta
+541679	2021-01-29	14:30:09	2300	0	0	0	0	B	E	Nueva Venta
+541680	2021-01-29	17:20:46	7200	0	5000	0	0	B	E	Nueva Venta
+541681	2021-01-29	17:20:46	0	0	0	0	0	B	E	Nueva Venta
+541682	2021-02-01	07:37:13	1800	0	0	0	0	B	E	Nva. Venta
+541683	2021-02-01	07:38:50	2600	0	0	0	0	B	E	Nueva Venta
+541684	2021-02-01	07:44:25	7650	0	0	0	0	B	E	Nueva Venta
+541685	2021-02-01	07:47:41	3900	0	0	0	0	B	E	Nueva Venta
+541686	2021-02-01	07:57:00	1000	0	0	0	0	B	E	Nueva Venta
+541687	2021-02-01	08:04:16	4700	0	3400	0	0	B	E	Nueva Venta
+541688	2021-02-01	08:10:53	4200	0	0	0	0	B	E	Nueva Venta
+541689	2021-02-01	08:11:47	4400	0	4400	0	0	B	E	Nueva Venta
+541690	2021-02-01	08:17:12	2300	0	1800	0	0	B	E	Nueva Venta
+541691	2021-02-01	08:17:44	1300	0	0	0	0	B	E	Nueva Venta
+541692	2021-02-01	08:18:47	1700	0	0	0	0	B	E	Nueva Venta
+541693	2021-02-01	08:25:16	1100	0	0	0	0	B	E	Nueva Venta
+541694	2021-02-01	08:27:29	2000	0	0	0	0	B	E	Nueva Venta
+541695	2021-02-01	08:30:00	3700	0	0	0	0	B	E	Nueva Venta
+541696	2021-02-01	08:47:03	4000	0	0	0	0	B	E	Nueva Venta
+541697	2021-02-01	08:47:24	0	0	0	0	0	B	E	Nueva Venta
+541698	2021-02-01	08:47:50	2700	0	0	0	0	B	E	Nueva Venta
+541699	2021-02-01	08:48:18	0	0	0	0	0	B	E	Nueva Venta
+541700	2021-02-01	08:49:25	2400	0	0	0	0	B	E	Nueva Venta
+541701	2021-02-01	08:49:48	0	0	0	0	0	B	E	Nueva Venta
+541702	2021-02-01	08:51:43	2500	0	0	0	0	B	E	Nueva Venta
+541703	2021-02-01	08:52:04	1900	0	0	0	0	B	E	Nueva Venta
+541704	2021-02-01	08:55:12	6600	0	0	0	0	B	E	Nueva Venta
+541705	2021-02-01	08:55:29	3300	0	0	0	0	B	E	Nueva Venta
+541706	2021-02-01	08:56:35	1350	0	0	0	0	B	E	Nueva Venta
+541707	2021-02-01	08:58:23	1500	0	0	0	0	B	E	Nueva Venta
+541708	2021-02-01	08:58:52	5800	0	4400	0	0	B	E	Nueva Venta
+541709	2021-02-01	09:15:34	5050	0	0	0	0	B	E	Nueva Venta
+541710	2021-02-01	09:15:57	1800	0	0	0	0	B	E	Nueva Venta
+541711	2021-02-01	09:16:40	0	0	0	0	0	B	E	Nueva Venta
+541712	2021-02-01	09:17:15	1400	0	0	0	0	B	E	Nueva Venta
+541713	2021-02-01	09:17:45	0	0	0	0	0	B	E	Nueva Venta
+541714	2021-02-01	09:20:13	1900	0	0	0	0	B	E	Nueva Venta
+541715	2021-02-01	09:33:52	0	0	0	0	0	B	E	Nueva Venta
+541716	2021-02-01	09:40:12	1800	0	0	0	0	B	E	Nueva Venta
+541717	2021-02-01	09:40:29	2400	0	0	0	0	B	E	Nueva Venta
+541718	2021-02-01	09:41:54	3400	0	0	0	0	B	E	Nueva Venta
+541719	2021-02-01	09:42:53	2400	0	0	0	0	B	E	Nueva Venta
+541720	2021-02-01	09:44:20	650	0	0	0	0	B	E	Nueva Venta
+541721	2021-02-01	09:48:26	3100	0	0	0	0	B	E	Nueva Venta
+541722	2021-02-01	09:52:28	2200	0	0	0	0	B	E	Nueva Venta
+541723	2021-02-01	09:53:09	2600	0	0	0	0	B	E	Nueva Venta
+541724	2021-02-01	09:53:55	2800	0	0	0	0	B	E	Nueva Venta
+541725	2021-02-01	09:54:06	1000	0	0	0	0	B	E	Nueva Venta
+541726	2021-02-01	09:56:20	3400	0	0	0	0	B	E	Nueva Venta
+541727	2021-02-01	09:59:23	2300	0	0	0	0	B	E	Nueva Venta
+541728	2021-02-01	09:58:39	0	0	0	0	0	B	E	Nueva Venta
+541729	2021-02-01	10:00:17	2800	0	0	0	0	B	E	Nueva Venta
+541730	2021-02-01	10:00:30	0	0	0	0	0	B	E	Nueva Venta
+541731	2021-02-01	10:12:28	6200	0	2000	0	0	B	E	Nueva Venta
+541732	2021-02-01	10:17:45	4000	0	3000	0	0	B	E	Nueva Venta
+541733	2021-02-01	10:46:29	1400	0	0	0	0	B	E	Nueva Venta
+541734	2021-02-01	11:04:31	990	188	0	0	0	B	E	Boleta
+541735	2021-02-01	11:06:27	0	0	0	0	0	B	E	Nueva Venta
+541736	2021-02-01	11:22:58	7200	0	3500	0	0	B	E	Nueva Venta
+541737	2021-02-01	11:24:31	3000	0	0	0	0	B	E	Nueva Venta
+541738	2021-02-01	11:39:01	2950	0	0	0	0	B	E	Nueva Venta
+541739	2021-02-01	11:40:03	3300	0	0	0	0	B	E	Nueva Venta
+541740	2021-02-01	11:52:14	7900	0	0	0	0	B	E	Nueva Venta
+541741	2021-02-01	12:02:15	8200	0	4000	0	0	B	E	Nueva Venta
+541742	2021-02-01	12:02:37	2000	0	0	0	0	B	E	Nueva Venta
+541743	2021-02-01	12:12:00	0	0	0	0	0	B	E	Nueva Venta
+541744	2021-02-01	12:29:47	2600	0	0	0	0	B	E	Nueva Venta
+541745	2021-02-01	13:01:23	2200	0	0	0	0	B	E	Nueva Venta
+541746	2021-02-01	13:35:07	5500	0	3000	0	0	B	E	Nueva Venta
+541747	2021-02-01	13:35:33	4100	0	0	0	0	B	E	Nueva Venta
+541748	2021-02-01	13:37:26	0	0	0	0	0	B	E	Nueva Venta
+541749	2021-02-01	13:52:47	1750	0	0	0	0	B	E	Nueva Venta
+541750	2021-02-01	13:59:40	3700	0	0	0	0	B	E	Nueva Venta
+541751	2021-02-01	14:25:15	4500	0	0	0	0	B	E	Nueva Venta
+541752	2021-02-01	14:26:43	2100	0	0	0	0	B	E	Nueva Venta
+541753	2021-02-01	14:35:57	7500	0	3500	0	0	B	E	Nueva Venta
+541754	2021-02-01	14:37:28	0	0	0	0	0	B	E	Nueva Venta
+541755	2021-02-01	14:38:58	2100	0	0	0	0	B	E	Nueva Venta
+541756	2021-02-01	14:39:16	3800	0	0	0	0	B	E	Nueva Venta
+541757	2021-02-01	14:55:11	3500	0	3500	0	0	B	E	Nueva Venta
+541758	2021-02-01	14:59:29	2000	0	0	0	0	B	E	Nueva Venta
+541759	2021-02-01	15:00:06	4000	0	0	0	0	B	E	Nueva Venta
+541760	2021-02-01	15:04:44	2600	0	0	0	0	B	E	Nueva Venta
+541761	2021-02-01	15:09:10	2650	0	0	0	0	B	E	Nueva Venta
+541762	2021-02-01	15:14:34	3000	0	0	0	0	B	E	Nueva Venta
+541763	2021-02-01	15:23:20	2000	0	2000	0	0	B	E	Nueva Venta
+541764	2021-02-01	15:23:40	2100	0	0	0	0	B	E	Nueva Venta
+541765	2021-02-01	15:24:04	1300	0	0	0	0	B	E	Nueva Venta
+541766	2021-02-01	15:24:05	0	0	0	0	0	B	E	Nueva Venta
+541767	2021-02-01	15:24:52	1850	0	0	0	0	B	E	Nueva Venta
+541768	2021-02-01	15:28:50	0	0	0	0	0	B	E	Nueva Venta
+541769	2021-02-01	15:29:08	1800	0	1800	0	0	B	E	Nueva Venta
+541770	2021-02-01	15:42:08	2100	0	0	0	0	B	E	Nueva Venta
+541771	2021-02-01	16:07:50	1300	0	0	0	0	B	E	Nueva Venta
+541772	2021-02-01	16:19:00	1800	0	0	0	0	B	E	Nueva Venta
+541773	2021-02-01	16:20:42	3100	0	0	0	0	B	E	Nueva Venta
+541774	2021-02-01	16:22:37	0	0	0	0	0	B	E	Nueva Venta
+541775	2021-02-01	16:22:37	600	0	0	0	0	B	E	Nueva Venta
+541776	2021-02-02	07:42:26	0	0	0	0	0	B	E	Nva. Venta
+541777	2021-02-02	08:04:57	4400	0	0	0	0	B	E	Nva. Venta
+541778	2021-02-02	08:05:03	0	0	0	0	0	B	E	Nueva Venta
+541779	2021-02-02	08:05:24	400	0	0	0	0	B	E	Nueva Venta
+541780	2021-02-02	08:09:33	2800	0	0	0	0	B	E	Nueva Venta
+541781	2021-02-02	08:23:37	2000	0	0	0	0	B	E	Nueva Venta
+541782	2021-02-02	08:35:54	2400	0	0	0	0	B	E	Nueva Venta
+541783	2021-02-02	08:39:07	2000	0	0	0	0	B	E	Nueva Venta
+541784	2021-02-02	08:42:33	3500	0	0	0	0	B	E	Nueva Venta
+541785	2021-02-02	08:47:52	2300	0	0	0	0	B	E	Nueva Venta
+541786	2021-02-02	08:48:38	0	0	0	0	0	B	E	Nueva Venta
+541787	2021-02-02	08:51:37	3300	0	0	0	0	B	E	Nueva Venta
+541788	2021-02-02	08:52:22	2700	0	0	0	0	B	E	Nueva Venta
+541789	2021-02-02	08:53:00	2200	0	0	0	0	B	E	Nueva Venta
+541790	2021-02-02	08:55:41	5000	0	0	0	0	B	E	Nueva Venta
+541791	2021-02-02	08:56:31	2400	0	0	0	0	B	E	Nueva Venta
+541792	2021-02-02	08:57:18	1300	0	0	0	0	B	E	Nueva Venta
+541793	2021-02-02	08:57:37	3900	0	0	0	0	B	E	Nueva Venta
+541794	2021-02-02	09:06:03	1800	0	0	0	0	B	E	Nueva Venta
+541795	2021-02-02	09:07:22	3400	0	0	0	0	B	E	Nueva Venta
+541796	2021-02-02	09:10:43	0	0	0	0	0	B	E	Nueva Venta
+541797	2021-02-02	09:11:05	2000	0	0	0	0	B	E	Nueva Venta
+541798	2021-02-02	09:13:06	0	0	0	0	0	B	E	Nueva Venta
+541799	2021-02-02	09:13:22	700	0	0	0	0	B	E	Nueva Venta
+541800	2021-02-02	09:14:02	1100	0	0	0	0	B	E	Nueva Venta
+541801	2021-02-02	09:14:50	2000	0	2000	0	0	B	E	Nueva Venta
+541802	2021-02-02	09:18:51	4800	0	0	0	0	B	E	Nueva Venta
+541803	2021-02-02	09:22:09	2100	0	0	0	0	B	E	Nueva Venta
+541804	2021-02-02	09:24:52	1000	0	0	0	0	B	E	Nueva Venta
+541805	2021-02-02	09:26:22	2500	0	0	0	0	B	E	Nueva Venta
+541806	2021-02-02	09:28:41	4700	0	0	0	0	B	E	Nueva Venta
+541807	2021-02-02	09:29:16	4200	0	0	0	0	B	E	Nueva Venta
+541808	2021-02-02	09:30:28	3900	0	0	0	0	B	E	Nueva Venta
+541809	2021-02-02	09:37:24	3600	0	0	0	0	B	E	Nueva Venta
+541810	2021-02-02	09:39:15	1650	0	0	0	0	B	E	Nueva Venta
+541811	2021-02-02	09:40:58	1900	0	0	0	0	B	E	Nueva Venta
+541812	2021-02-02	09:48:35	2700	0	0	0	0	B	E	Nueva Venta
+541813	2021-02-02	09:53:31	2400	0	0	0	0	B	E	Nueva Venta
+541814	2021-02-02	09:53:41	1100	0	0	0	0	B	E	Nueva Venta
+541815	2021-02-02	09:55:43	2400	0	0	0	0	B	E	Nueva Venta
+541816	2021-02-02	09:58:05	0	0	0	0	0	B	E	Nueva Venta
+541817	2021-02-02	09:58:56	1300	0	0	0	0	B	E	Nueva Venta
+541818	2021-02-02	09:59:58	0	0	0	0	0	B	E	Nueva Venta
+541819	2021-02-02	10:00:58	4800	0	0	0	0	B	E	Nueva Venta
+541820	2021-02-02	10:08:17	2400	0	0	0	0	B	E	Nueva Venta
+541821	2021-02-02	10:10:23	1600	0	0	0	0	B	E	Nueva Venta
+541822	2021-02-02	10:11:26	0	0	0	0	0	B	E	Nueva Venta
+541823	2021-02-02	10:11:50	0	0	0	0	0	B	E	Nueva Venta
+541824	2021-02-02	10:12:47	3900	0	0	0	0	B	E	Nueva Venta
+541825	2021-02-02	10:14:13	1300	0	0	0	0	B	E	Nueva Venta
+541826	2021-02-02	10:16:03	3400	0	0	0	0	B	E	Nueva Venta
+541827	2021-02-02	10:19:27	2750	0	0	0	0	B	E	Nueva Venta
+541828	2021-02-02	10:21:18	2700	0	0	0	0	B	E	Nueva Venta
+541829	2021-02-02	10:38:35	1300	0	0	0	0	B	E	Nueva Venta
+541830	2021-02-02	10:39:08	2400	0	0	0	0	B	E	Nueva Venta
+541831	2021-02-02	10:39:54	2400	0	0	0	0	B	E	Nueva Venta
+541832	2021-02-02	10:59:47	5300	0	3000	0	0	B	E	Nueva Venta
+541833	2021-02-02	11:04:01	2500	0	0	0	0	B	E	Nueva Venta
+541834	2021-02-02	11:06:09	4600	0	0	0	0	B	E	Nueva Venta
+541835	2021-02-02	11:17:27	7600	0	5000	0	0	B	E	Nueva Venta
+541836	2021-02-02	11:47:59	2200	0	0	0	0	B	E	Nueva Venta
+541837	2021-02-02	12:01:29	3400	0	2000	0	0	B	E	Nueva Venta
+541838	2021-02-02	12:02:51	8600	0	0	0	0	B	E	Nueva Venta
+541839	2021-02-02	12:19:25	950	0	0	0	0	B	E	Nueva Venta
+541840	2021-02-02	12:24:18	1900	0	0	0	0	B	E	Nueva Venta
+541841	2021-02-02	12:25:23	6400	0	4400	0	0	B	E	Nueva Venta
+541842	2021-02-02	12:57:41	1300	0	0	0	0	B	E	Nueva Venta
+541843	2021-02-02	13:00:54	2500	0	0	0	0	B	E	Nueva Venta
+541844	2021-02-02	13:02:07	4000	0	0	0	0	B	E	Nueva Venta
+541845	2021-02-02	13:24:39	4400	0	4400	0	0	B	E	Nueva Venta
+541846	2021-02-02	13:25:05	3000	0	3000	0	0	B	E	Nueva Venta
+541847	2021-02-02	14:02:24	5300	0	2600	0	0	B	E	Nueva Venta
+541848	2021-02-02	14:16:01	4300	0	0	0	0	B	E	Nueva Venta
+541849	2021-02-02	14:16:36	1600	0	0	0	0	B	E	Nueva Venta
+541850	2021-02-02	14:16:36	0	0	0	0	0	B	E	Nueva Venta
+541851	2021-02-02	14:26:31	300	0	0	0	0	B	E	Nueva Venta
+541852	2021-02-02	14:27:02	0	0	0	0	0	B	E	Nueva Venta
+541853	2021-02-02	14:27:13	0	0	0	0	0	B	E	Nueva Venta
+541854	2021-02-02	14:38:15	0	0	0	0	0	B	E	Nueva Venta
+541855	2021-02-02	14:38:34	0	0	0	0	0	B	E	Nueva Venta
+541856	2021-02-02	14:39:16	2050	0	0	0	0	B	E	Nueva Venta
+541857	2021-02-02	14:39:20	0	0	0	0	0	B	E	Nueva Venta
+541858	2021-02-02	14:43:52	850	0	0	0	0	B	E	Nueva Venta
+541859	2021-02-02	14:46:04	1800	0	0	0	0	B	E	Nueva Venta
+541860	2021-02-02	14:52:48	0	0	0	0	0	B	E	Nueva Venta
+541861	2021-02-02	14:54:38	3400	0	0	0	0	B	E	Nueva Venta
+541862	2021-02-02	14:57:17	2100	0	0	0	0	B	E	Nueva Venta
+541863	2021-02-02	14:58:37	2500	0	2500	0	0	B	E	Nueva Venta
+541864	2021-02-02	15:00:34	7580	0	0	0	0	B	E	Nueva Venta
+541865	2021-02-02	15:02:22	0	0	0	0	0	B	E	Nueva Venta
+541866	2021-02-02	15:03:57	6300	0	4000	0	0	B	E	Nueva Venta
+541867	2021-02-02	15:10:19	1800	0	1800	0	0	B	E	Nueva Venta
+541868	2021-02-02	15:10:50	3000	0	0	0	0	B	E	Nueva Venta
+541869	2021-02-02	15:13:02	4500	0	4500	0	0	B	E	Nueva Venta
+541870	2021-02-02	15:19:51	800	0	0	0	0	B	E	Nueva Venta
+541871	2021-02-02	15:25:13	2200	0	0	0	0	B	E	Nueva Venta
+541872	2021-02-02	15:28:08	2150	0	0	0	0	B	E	Nueva Venta
+541873	2021-02-02	15:31:16	2100	0	0	0	0	B	E	Nueva Venta
+541874	2021-02-02	15:40:03	3700	0	0	0	0	B	E	Nueva Venta
+541875	2021-02-02	15:45:14	6930	0	0	0	0	B	E	Nueva Venta
+541876	2021-02-02	15:45:37	0	0	0	0	0	B	E	Nueva Venta
+541877	2021-02-02	15:46:22	1300	0	0	0	0	B	E	Nueva Venta
+541878	2021-02-02	15:46:40	0	0	0	0	0	B	E	Nueva Venta
+541879	2021-02-02	15:46:54	1000	0	0	0	0	B	E	Nueva Venta
+541880	2021-02-02	16:31:15	3300	0	0	0	0	B	E	Nueva Venta
+541881	2021-02-02	16:41:21	1500	0	0	0	0	B	E	Nueva Venta
+541882	2021-02-02	16:41:21	0	0	0	0	0	B	E	Nueva Venta
+541883	2021-02-02	17:33:43	0	0	0	0	0	B	E	Nva. Venta
+541884	2021-02-02	17:33:52	0	0	0	0	0	B	E	Nva. Venta
+541885	2021-02-03	07:48:02	2000	0	0	0	0	B	E	Nva. Venta
+541886	2021-02-03	07:48:17	2900	0	0	0	0	B	E	Nueva Venta
+541887	2021-02-03	08:00:18	6200	0	0	0	0	B	E	Nueva Venta
+541888	2021-02-03	08:05:12	5500	0	4200	0	0	B	E	Nueva Venta
+541889	2021-02-03	08:10:05	700	0	0	0	0	B	E	Nueva Venta
+541890	2021-02-03	08:11:41	600	0	0	0	0	B	E	Nueva Venta
+541891	2021-02-03	08:12:47	900	0	0	0	0	B	E	Nueva Venta
+541892	2021-02-03	08:16:28	900	0	0	0	0	B	E	Nueva Venta
+541893	2021-02-03	08:17:44	1100	0	0	0	0	B	E	Nueva Venta
+541894	2021-02-03	08:18:29	700	0	0	0	0	B	E	Nueva Venta
+541895	2021-02-03	08:19:04	500	0	0	0	0	B	E	Nueva Venta
+541896	2021-02-03	08:20:11	900	0	0	0	0	B	E	Nueva Venta
+541897	2021-02-03	08:33:04	1200	0	0	0	0	B	E	Nueva Venta
+541898	2021-02-03	08:36:53	2600	0	0	0	0	B	E	Nueva Venta
+541899	2021-02-03	08:42:50	0	0	0	0	0	B	E	Nueva Venta
+541900	2021-02-03	08:48:12	450	0	0	0	0	B	E	Nueva Venta
+541901	2021-02-03	08:54:11	700	0	0	0	0	B	E	Nueva Venta
+541902	2021-02-03	08:56:13	2200	0	0	0	0	B	E	Nueva Venta
+541903	2021-02-03	09:05:47	0	0	0	0	0	B	E	Nueva Venta
+541904	2021-02-03	09:06:14	2600	0	0	0	0	B	E	Nueva Venta
+541905	2021-02-03	09:20:48	5650	0	4200	0	0	B	E	Nueva Venta
+541906	2021-02-03	09:21:54	800	0	0	0	0	B	E	Nueva Venta
+541907	2021-02-03	09:30:38	2200	0	0	0	0	B	E	Nueva Venta
+541908	2021-02-03	09:35:18	3000	0	0	0	0	B	E	Nueva Venta
+541909	2021-02-03	09:38:25	0	0	0	0	0	B	E	Nueva Venta
+541910	2021-02-03	09:39:27	0	0	0	0	0	B	E	Nueva Venta
+541911	2021-02-03	09:40:24	2600	0	0	0	0	B	E	Nueva Venta
+541912	2021-02-03	09:42:28	4550	0	0	0	0	B	E	Nueva Venta
+541913	2021-02-03	09:43:49	3800	0	0	0	0	B	E	Nueva Venta
+541914	2021-02-03	09:46:39	4400	0	0	0	0	B	E	Nueva Venta
+541915	2021-02-03	09:46:52	0	0	0	0	0	B	E	Nueva Venta
+541916	2021-02-03	09:47:42	0	0	0	0	0	B	E	Nueva Venta
+541917	2021-02-03	09:52:51	3000	0	0	0	0	B	E	Nueva Venta
+541918	2021-02-03	09:54:42	3300	0	0	0	0	B	E	Nueva Venta
+541919	2021-02-03	09:55:03	5000	0	0	0	0	B	E	Nueva Venta
+541920	2021-02-03	09:57:21	2800	0	0	0	0	B	E	Nueva Venta
+541921	2021-02-03	09:58:35	0	0	0	0	0	B	E	Nueva Venta
+541922	2021-02-03	09:59:33	1100	0	0	0	0	B	E	Nueva Venta
+541923	2021-02-03	10:00:16	1300	0	0	0	0	B	E	Nueva Venta
+541924	2021-02-03	10:00:58	1100	0	0	0	0	B	E	Nueva Venta
+541925	2021-02-03	10:03:01	3700	0	0	0	0	B	E	Nueva Venta
+541926	2021-02-03	10:23:01	2100	0	0	0	0	B	E	Nueva Venta
+541927	2021-02-03	10:25:23	2800	0	0	0	0	B	E	Nueva Venta
+541928	2021-02-03	10:26:18	2950	0	0	0	0	B	E	Nueva Venta
+541929	2021-02-03	10:31:06	700	0	0	0	0	B	E	Nueva Venta
+541930	2021-02-03	10:55:53	1600	0	0	0	0	B	E	Nueva Venta
+541931	2021-02-03	11:01:51	3000	0	0	0	0	B	E	Nueva Venta
+541932	2021-02-03	11:02:35	4000	0	3000	0	0	B	E	Nueva Venta
+541933	2021-02-03	11:03:35	1900	0	0	0	0	B	E	Nueva Venta
+541934	2021-02-03	11:11:14	2200	0	0	0	0	B	E	Nueva Venta
+541935	2021-02-03	11:26:54	6800	0	4500	0	0	B	E	Nueva Venta
+541936	2021-02-03	11:32:16	2700	0	0	0	0	B	E	Nueva Venta
+541937	2021-02-03	11:34:04	3000	0	0	0	0	B	E	Nueva Venta
+541938	2021-02-03	11:55:01	3500	0	0	0	0	B	E	Nueva Venta
+541939	2021-02-03	11:58:18	4300	0	0	0	0	B	E	Nueva Venta
+541940	2021-02-03	12:36:35	3000	0	0	0	0	B	E	Nueva Venta
+541941	2021-02-03	12:57:34	3700	0	0	0	0	B	E	Nueva Venta
+541942	2021-02-03	12:57:35	0	0	0	0	0	B	E	Nueva Venta
+541943	2021-02-03	13:11:51	0	0	0	0	0	B	E	Nueva Venta
+541944	2021-02-03	13:13:18	2800	0	0	0	0	B	E	Nueva Venta
+541945	2021-02-03	13:16:15	2500	0	0	0	0	B	E	Nueva Venta
+541946	2021-02-03	13:20:07	2900	0	0	0	0	B	E	Nueva Venta
+541947	2021-02-03	13:16:31	0	0	0	0	0	B	E	Nueva Venta
+541948	2021-02-03	13:43:03	1850	0	0	0	0	B	E	Nueva Venta
+541949	2021-02-03	13:56:08	4820	0	0	0	0	B	E	Nueva Venta
+541950	2021-02-03	13:56:58	800	0	0	0	0	B	E	Nueva Venta
+541951	2021-02-03	14:07:11	0	0	0	0	0	B	E	Nueva Venta
+541952	2021-02-03	14:07:25	0	0	0	0	0	B	E	Nueva Venta
+541953	2021-02-03	14:07:32	0	0	0	0	0	B	E	Nueva Venta
+541954	2021-02-03	14:08:32	2300	0	0	0	0	B	E	Nueva Venta
+541955	2021-02-03	14:08:35	0	0	0	0	0	B	E	Nueva Venta
+541956	2021-02-03	14:08:46	0	0	0	0	0	B	E	Nueva Venta
+541957	2021-02-03	14:13:34	9900	0	0	0	0	B	E	Nueva Venta
+541958	2021-02-03	14:21:35	12800	0	0	0	0	B	E	Nueva Venta
+541959	2021-02-03	14:37:58	4800	0	2500	0	0	B	E	Nueva Venta
+541960	2021-02-03	14:41:02	1550	0	0	0	0	B	E	Nueva Venta
+541961	2021-02-03	14:50:01	2900	0	0	0	0	B	E	Nueva Venta
+541962	2021-02-03	14:50:37	3190	0	0	0	0	B	E	Nueva Venta
+541963	2021-02-03	14:51:48	2900	0	0	0	0	B	E	Nueva Venta
+541964	2021-02-03	14:52:32	3100	0	0	0	0	B	E	Nueva Venta
+541965	2021-02-03	14:54:11	1400	0	0	0	0	B	E	Nueva Venta
+541966	2021-02-03	14:54:32	700	0	0	0	0	B	E	Nueva Venta
+541967	2021-02-03	15:03:06	2100	0	0	0	0	B	E	Nueva Venta
+541968	2021-02-03	15:04:26	4000	0	4000	0	0	B	E	Nueva Venta
+541969	2021-02-03	15:06:17	1450	0	0	0	0	B	E	Nueva Venta
+541970	2021-02-03	15:08:36	1900	0	0	0	0	B	E	Nueva Venta
+541971	2021-02-03	15:34:42	2090	0	0	0	0	B	E	Nueva Venta
+541972	2021-02-03	15:42:20	3300	0	0	0	0	B	E	Nueva Venta
+541973	2021-02-03	15:43:00	2670	0	0	0	0	B	E	Nueva Venta
+541974	2021-02-03	15:51:51	3250	0	0	0	0	B	E	Nueva Venta
+541975	2021-02-03	15:55:14	350	0	0	0	0	B	E	Nueva Venta
+541976	2021-02-03	15:56:34	1000	0	0	0	0	B	E	Nueva Venta
+541977	2021-02-03	15:56:35	0	0	0	0	0	B	E	Nueva Venta
+541978	2021-02-04	07:44:13	1400	0	0	0	0	B	E	Nva. Venta
+541979	2021-02-04	07:47:13	7150	0	0	0	0	B	E	Nueva Venta
+541980	2021-02-04	07:48:31	3700	0	0	0	0	B	E	Nueva Venta
+541981	2021-02-04	07:50:39	2400	0	0	0	0	B	E	Nueva Venta
+541982	2021-02-04	07:56:05	2000	0	0	0	0	B	E	Nueva Venta
+541983	2021-02-04	07:57:39	0	0	0	0	0	B	E	Nueva Venta
+541984	2021-02-04	07:59:26	4400	0	0	0	0	B	E	Nueva Venta
+541985	2021-02-04	07:59:28	0	0	0	0	0	B	E	Nueva Venta
+541986	2021-02-04	08:06:22	1900	0	0	0	0	B	E	Nueva Venta
+541987	2021-02-04	08:15:29	3800	0	3400	0	0	B	E	Nueva Venta
+541988	2021-02-04	08:22:23	900	0	0	0	0	B	E	Nueva Venta
+541989	2021-02-04	08:23:03	300	0	0	0	0	B	E	Nueva Venta
+541990	2021-02-04	08:24:14	700	0	0	0	0	B	E	Nueva Venta
+541991	2021-02-04	08:27:47	1400	0	0	0	0	B	E	Nueva Venta
+541992	2021-02-04	08:30:14	0	0	0	0	0	B	E	Nueva Venta
+541993	2021-02-04	08:30:55	2400	0	0	0	0	B	E	Nueva Venta
+541994	2021-02-04	08:32:20	1900	0	0	0	0	B	E	Nueva Venta
+541995	2021-02-04	08:33:59	2100	0	0	0	0	B	E	Nueva Venta
+541996	2021-02-04	08:38:09	1300	0	0	0	0	B	E	Nueva Venta
+541997	2021-02-04	08:38:58	1100	0	0	0	0	B	E	Nueva Venta
+541998	2021-02-04	08:43:26	3800	0	2000	0	0	B	E	Nueva Venta
+541999	2021-02-04	08:46:19	2100	0	0	0	0	B	E	Nueva Venta
+542000	2021-02-04	08:47:00	4400	0	0	0	0	B	E	Nueva Venta
+542001	2021-02-04	08:47:02	0	0	0	0	0	B	E	Nueva Venta
+542002	2021-02-04	08:48:42	3600	0	0	0	0	B	E	Nueva Venta
+542003	2021-02-04	08:50:34	2700	0	0	0	0	B	E	Nueva Venta
+542004	2021-02-04	08:55:39	4500	0	0	0	0	B	E	Nueva Venta
+542005	2021-02-04	08:59:13	1800	0	0	0	0	B	E	Nueva Venta
+542006	2021-02-04	09:01:08	1800	0	0	0	0	B	E	Nueva Venta
+542007	2021-02-04	09:01:43	2100	0	0	0	0	B	E	Nueva Venta
+542008	2021-02-04	09:02:08	2000	0	0	0	0	B	E	Nueva Venta
+542009	2021-02-04	09:02:09	0	0	0	0	0	B	E	Nueva Venta
+542010	2021-02-04	09:03:43	0	0	0	0	0	B	E	Boleta
+542011	2021-02-04	09:09:41	3700	0	0	0	0	B	E	Nueva Venta
+542012	2021-02-04	09:12:58	1900	0	0	0	0	B	E	Nueva Venta
+542013	2021-02-04	09:20:01	4400	0	4400	0	0	B	E	Nueva Venta
+542014	2021-02-04	09:49:18	4900	0	1800	0	0	B	E	Nueva Venta
+542015	2021-02-04	09:49:57	2900	0	0	0	0	B	E	Nueva Venta
+542016	2021-02-04	10:03:25	3750	0	0	0	0	B	E	Nueva Venta
+542017	2021-02-04	10:04:23	5500	0	4200	0	0	B	E	Nueva Venta
+542018	2021-02-04	10:04:57	2600	0	0	0	0	B	E	Nueva Venta
+542019	2021-02-04	10:06:13	2800	0	0	0	0	B	E	Nueva Venta
+542020	2021-02-04	10:09:31	7000	0	4400	0	0	B	E	Nueva Venta
+542021	2021-02-04	10:11:01	3750	0	0	0	0	B	E	Nueva Venta
+542022	2021-02-04	10:12:14	4100	0	0	0	0	B	E	Nueva Venta
+542023	2021-02-04	10:20:10	2750	0	0	0	0	B	E	Nueva Venta
+542024	2021-02-04	10:20:55	2100	0	0	0	0	B	E	Nueva Venta
+542025	2021-02-04	10:28:44	2000	0	0	0	0	B	E	Nueva Venta
+542026	2021-02-04	10:29:56	3900	0	0	0	0	B	E	Nueva Venta
+542027	2021-02-04	10:40:02	2800	0	0	0	0	B	E	Nueva Venta
+542028	2021-02-04	10:50:05	3000	0	0	0	0	B	E	Nueva Venta
+542029	2021-02-04	10:51:04	1800	0	0	0	0	B	E	Nueva Venta
+542030	2021-02-04	10:50:30	0	0	0	0	0	B	E	Nueva Venta
+542031	2021-02-04	10:51:54	2000	0	0	0	0	B	E	Nueva Venta
+542032	2021-02-04	11:20:19	2700	0	0	0	0	B	E	Nueva Venta
+542033	2021-02-04	12:00:03	6200	0	3400	0	0	B	E	Nueva Venta
+542034	2021-02-04	12:04:26	4150	0	0	0	0	B	E	Nueva Venta
+542035	2021-02-04	12:16:12	500	0	0	0	0	B	E	Nueva Venta
+542036	2021-02-04	12:25:03	1300	0	0	0	0	B	E	Nueva Venta
+542037	2021-02-04	12:49:02	3450	0	0	0	0	B	E	Nueva Venta
+542038	2021-02-04	14:11:24	10400	0	0	0	0	B	E	Nueva Venta
+542039	2021-02-04	14:16:37	4000	0	0	0	0	B	E	Nueva Venta
+542040	2021-02-04	14:18:07	2700	0	0	0	0	B	E	Nueva Venta
+542041	2021-02-04	14:23:50	2700	0	0	0	0	B	E	Nueva Venta
+542042	2021-02-04	14:29:19	1850	0	0	0	0	B	E	Nueva Venta
+542043	2021-02-04	14:47:09	0	0	0	0	0	B	E	Nueva Venta
+542044	2021-02-04	14:48:16	4040	0	0	0	0	B	E	Nueva Venta
+542045	2021-02-04	14:48:35	0	0	0	0	0	B	E	Nueva Venta
+542046	2021-02-04	14:52:45	3100	0	0	0	0	B	E	Nueva Venta
+542047	2021-02-04	14:58:50	0	0	0	0	0	B	E	Nueva Venta
+542048	2021-02-04	15:04:39	5700	0	0	0	0	B	E	Nueva Venta
+542049	2021-02-04	15:11:25	1930	0	0	0	0	B	E	Nueva Venta
+542050	2021-02-04	15:12:35	0	0	0	0	0	B	E	Nueva Venta
+542051	2021-02-04	16:05:35	2100	0	0	0	0	B	E	Nueva Venta
+542052	2021-02-04	16:08:25	4000	0	0	0	0	B	E	Nueva Venta
+542053	2021-02-04	16:09:32	0	0	0	0	0	B	E	Nueva Venta
+542054	2021-02-04	16:37:24	9000	0	0	0	0	B	E	Nueva Venta
+542055	2021-02-04	17:28:49	4190	0	0	0	0	B	E	Nueva Venta
+542056	2021-02-04	18:02:45	3100	0	0	0	0	B	E	Nueva Venta
+542057	2021-02-04	18:02:45	0	0	0	0	0	B	E	Nueva Venta
+542058	2021-02-05	07:47:51	2900	0	0	0	0	B	E	Nva. Venta
+542059	2021-02-05	07:48:57	1100	0	0	0	0	B	E	Nueva Venta
+542060	2021-02-05	07:49:45	1900	0	0	0	0	B	E	Nueva Venta
+542061	2021-02-05	07:51:35	0	0	0	0	0	B	E	Nueva Venta
+542062	2021-02-05	07:55:38	7100	0	0	0	0	B	E	Nueva Venta
+542063	2021-02-05	07:59:56	6500	0	4200	0	0	B	E	Nueva Venta
+542064	2021-02-05	08:23:58	900	0	0	0	0	B	E	Nueva Venta
+542065	2021-02-05	08:28:19	2400	0	1800	0	0	B	E	Nueva Venta
+542066	2021-02-05	08:29:22	3200	0	0	0	0	B	E	Nueva Venta
+542067	2021-02-05	08:35:07	2000	0	0	0	0	B	E	Nueva Venta
+542068	2021-02-05	08:42:30	1900	0	0	0	0	B	E	Nueva Venta
+542069	2021-02-05	08:45:30	2100	0	0	0	0	B	E	Nueva Venta
+542070	2021-02-05	08:46:16	0	0	0	0	0	B	E	Nueva Venta
+542071	2021-02-05	08:50:13	0	0	0	0	0	B	E	Nueva Venta
+542072	2021-02-05	08:54:03	4500	0	0	0	0	B	E	Nueva Venta
+542073	2021-02-05	08:51:40	0	0	0	0	0	B	E	Nueva Venta
+542074	2021-02-05	08:54:22	2100	0	0	0	0	B	E	Nueva Venta
+542075	2021-02-05	08:54:27	0	0	0	0	0	B	E	Nueva Venta
+542076	2021-02-05	08:57:42	2400	0	0	0	0	B	E	Nueva Venta
+542077	2021-02-05	08:58:19	2400	0	0	0	0	B	E	Nueva Venta
+542078	2021-02-05	08:58:46	2450	0	0	0	0	B	E	Nueva Venta
+542079	2021-02-05	08:58:56	2200	0	0	0	0	B	E	Nueva Venta
+542080	2021-02-05	08:59:06	0	0	0	0	0	B	E	Nueva Venta
+542081	2021-02-05	09:00:42	3100	589	0	0	0	B	E	Boleta
+542082	2021-02-05	09:02:21	1100	0	0	0	0	B	E	Nueva Venta
+542083	2021-02-05	09:03:12	2700	0	0	0	0	B	E	Nueva Venta
+542084	2021-02-05	09:03:31	0	0	0	0	0	B	E	Nueva Venta
+542085	2021-02-05	09:04:03	2000	0	0	0	0	B	E	Nueva Venta
+542086	2021-02-05	09:04:29	4700	0	0	0	0	B	E	Nueva Venta
+542087	2021-02-05	09:05:46	2200	0	0	0	0	B	E	Nueva Venta
+542088	2021-02-05	09:07:09	0	0	0	0	0	B	E	Nueva Venta
+542089	2021-02-05	09:08:00	2600	0	0	0	0	B	E	Nueva Venta
+542090	2021-02-05	09:09:34	1800	0	0	0	0	B	E	Nueva Venta
+542091	2021-02-05	09:10:09	0	0	0	0	0	B	E	Nueva Venta
+542092	2021-02-05	09:10:52	6600	0	3500	0	0	B	E	Nueva Venta
+542093	2021-02-05	09:11:48	3100	0	0	0	0	B	E	Nueva Venta
+542094	2021-02-05	09:12:45	1900	0	0	0	0	B	E	Nueva Venta
+542095	2021-02-05	09:13:22	3900	0	0	0	0	B	E	Nueva Venta
+542096	2021-02-05	09:13:31	0	0	0	0	0	B	E	Nueva Venta
+542097	2021-02-05	09:14:01	2600	0	0	0	0	B	E	Nueva Venta
+542098	2021-02-05	09:14:54	3100	0	0	0	0	B	E	Nueva Venta
+542099	2021-02-05	09:15:29	1100	0	0	0	0	B	E	Nueva Venta
+542100	2021-02-05	09:16:14	1900	0	0	0	0	B	E	Nueva Venta
+542101	2021-02-05	09:17:02	7000	0	1800	0	0	B	E	Nueva Venta
+542102	2021-02-05	09:17:12	0	0	0	0	0	B	E	Nueva Venta
+542103	2021-02-05	09:17:51	3100	0	0	0	0	B	E	Nueva Venta
+542104	2021-02-05	09:18:27	2500	0	0	0	0	B	E	Nueva Venta
+542105	2021-02-05	09:18:58	1300	0	0	0	0	B	E	Nueva Venta
+542106	2021-02-05	09:20:00	1300	0	0	0	0	B	E	Nueva Venta
+542107	2021-02-05	09:20:31	0	0	0	0	0	B	E	Nueva Venta
+542108	2021-02-05	09:20:57	1100	0	0	0	0	B	E	Nueva Venta
+542109	2021-02-05	09:37:47	2200	0	0	0	0	B	E	Nueva Venta
+542110	2021-02-05	09:43:24	5200	0	0	0	0	B	E	Nueva Venta
+542111	2021-02-05	09:43:45	3700	0	0	0	0	B	E	Nueva Venta
+542112	2021-02-05	09:44:45	1100	0	0	0	0	B	E	Nueva Venta
+542113	2021-02-05	09:47:21	2600	0	0	0	0	B	E	Nueva Venta
+542114	2021-02-05	10:03:05	4500	0	0	0	0	B	E	Nueva Venta
+542115	2021-02-05	10:04:05	2400	0	0	0	0	B	E	Nueva Venta
+542116	2021-02-05	10:04:25	2900	0	0	0	0	B	E	Nueva Venta
+542117	2021-02-05	10:05:05	2700	0	0	0	0	B	E	Nueva Venta
+542118	2021-02-05	10:05:54	4050	0	0	0	0	B	E	Nueva Venta
+542119	2021-02-05	10:07:56	2400	0	0	0	0	B	E	Nueva Venta
+542120	2021-02-05	10:14:50	1300	0	0	0	0	B	E	Nueva Venta
+542121	2021-02-05	10:24:02	600	0	0	0	0	B	E	Nueva Venta
+542122	2021-02-05	10:25:24	2300	0	0	0	0	B	E	Nueva Venta
+542123	2021-02-05	10:25:49	0	0	0	0	0	B	E	Nueva Venta
+542124	2021-02-05	10:43:04	3700	0	0	0	0	B	E	Nueva Venta
+542125	2021-02-05	10:43:57	0	0	0	0	0	B	E	Nueva Venta
+542126	2021-02-05	10:46:07	0	0	0	0	0	B	E	Nueva Venta
+542127	2021-02-05	10:46:47	0	0	0	0	0	B	E	Nueva Venta
+542128	2021-02-05	10:49:21	2600	0	0	0	0	B	E	Nueva Venta
+542129	2021-02-05	10:51:09	1100	0	0	0	0	B	E	Nueva Venta
+542130	2021-02-05	10:56:31	0	0	0	0	0	B	E	Nueva Venta
+542131	2021-02-05	10:59:17	1300	247	0	0	0	B	E	Boleta
+542132	2021-02-05	10:59:52	0	0	0	0	0	B	E	Nueva Venta
+542133	2021-02-05	11:18:42	1300	0	0	0	0	B	E	Nueva Venta
+542134	2021-02-05	11:22:09	1900	0	0	0	0	B	E	Nueva Venta
+542135	2021-02-05	13:40:45	1800	0	0	0	0	B	E	Nueva Venta
+542136	2021-02-05	13:54:44	5000	0	0	0	0	B	E	Nueva Venta
+542137	2021-02-05	13:58:42	2600	0	0	0	0	B	E	Nueva Venta
+542138	2021-02-05	14:13:08	7600	0	4500	0	0	B	E	Nueva Venta
+542139	2021-02-05	14:14:41	5550	0	0	0	0	B	E	Nueva Venta
+542140	2021-02-05	14:43:00	3380	0	0	0	0	B	E	Nueva Venta
+542141	2021-02-05	14:46:12	2000	0	2000	0	0	B	E	Nueva Venta
+542142	2021-02-05	15:08:52	5390	0	3400	0	0	B	E	Nueva Venta
+542143	2021-02-05	15:11:40	0	0	0	0	0	B	E	Nueva Venta
+542144	2021-02-05	15:16:46	1350	0	0	0	0	B	E	Nueva Venta
+542145	2021-02-05	15:53:25	850	0	0	0	0	B	E	Nueva Venta
+542146	2021-02-05	16:04:30	0	0	0	0	0	B	E	Nueva Venta
+542147	2021-02-05	16:12:09	1000	0	0	0	0	B	E	Nueva Venta
+542148	2021-02-05	16:21:47	2890	0	0	0	0	B	E	Nueva Venta
+542149	2021-02-05	16:44:41	2940	0	0	0	0	B	E	Nueva Venta
+542150	2021-02-05	16:44:42	0	0	0	0	0	B	E	Nueva Venta
+542151	2021-02-08	07:47:55	1900	0	0	0	0	B	E	Nva. Venta
+542152	2021-02-08	07:53:00	1300	0	0	0	0	B	E	Nueva Venta
+542153	2021-02-08	08:05:05	3200	0	0	0	0	B	E	Nueva Venta
+542154	2021-02-08	08:20:57	750	0	0	0	0	B	E	Nueva Venta
+542155	2021-02-08	08:22:43	2600	0	0	0	0	B	E	Nueva Venta
+542156	2021-02-08	08:22:44	0	0	0	0	0	B	E	Nueva Venta
+542157	2021-02-08	08:29:57	1100	0	0	0	0	B	E	Nva. Venta
+542158	2021-02-08	08:31:01	400	0	0	0	0	B	E	Nueva Venta
+542159	2021-02-08	08:36:31	1000	0	0	0	0	B	E	Nueva Venta
+542160	2021-02-08	08:38:10	1100	0	0	0	0	B	E	Nueva Venta
+542161	2021-02-08	08:45:24	3900	0	0	0	0	B	E	Nueva Venta
+542162	2021-02-08	08:47:01	2100	0	0	0	0	B	E	Nueva Venta
+542163	2021-02-08	08:48:59	500	0	0	0	0	B	E	Nueva Venta
+542164	2021-02-08	08:50:07	0	0	0	0	0	B	E	Nueva Venta
+542165	2021-02-08	08:51:34	5200	0	3400	0	0	B	E	Nueva Venta
+542166	2021-02-08	08:52:56	2300	0	0	0	0	B	E	Nueva Venta
+542167	2021-02-08	08:59:05	0	0	0	0	0	B	E	Nueva Venta
+542168	2021-02-08	09:05:03	4300	0	0	0	0	B	E	Nueva Venta
+542169	2021-02-08	09:09:20	0	0	0	0	0	B	E	Nueva Venta
+542170	2021-02-08	09:11:05	3400	0	3400	0	0	B	E	Nueva Venta
+542171	2021-02-08	09:11:16	1300	0	0	0	0	B	E	Nueva Venta
+542172	2021-02-08	09:12:11	3100	0	0	0	0	B	E	Nueva Venta
+542173	2021-02-08	09:14:48	2100	0	0	0	0	B	E	Nueva Venta
+542174	2021-02-08	09:15:49	5100	0	0	0	0	B	E	Nueva Venta
+542175	2021-02-08	09:17:59	0	0	0	0	0	B	E	Nueva Venta
+542176	2021-02-08	09:20:13	3100	0	0	0	0	B	E	Nueva Venta
+542177	2021-02-08	09:21:01	1100	0	0	0	0	B	E	Nueva Venta
+542178	2021-02-08	09:21:18	2000	0	2000	0	0	B	E	Nueva Venta
+542179	2021-02-08	09:23:08	2200	0	0	0	0	B	E	Nueva Venta
+542180	2021-02-08	09:25:16	900	0	0	0	0	B	E	Nueva Venta
+542181	2021-02-08	09:29:06	3900	0	0	0	0	B	E	Nueva Venta
+542182	2021-02-08	09:35:02	500	0	0	0	0	B	E	Nueva Venta
+542183	2021-02-08	09:36:17	2300	0	0	0	0	B	E	Nueva Venta
+542184	2021-02-08	09:39:14	2600	0	0	0	0	B	E	Nueva Venta
+542185	2021-02-08	09:43:23	1100	0	0	0	0	B	E	Nueva Venta
+542186	2021-02-08	09:44:49	1900	0	0	0	0	B	E	Nueva Venta
+542187	2021-02-08	09:48:30	5400	0	0	0	0	B	E	Nueva Venta
+542188	2021-02-08	09:51:58	2600	0	0	0	0	B	E	Nueva Venta
+542189	2021-02-08	09:52:25	1500	0	0	0	0	B	E	Nueva Venta
+542190	2021-02-08	09:53:32	800	0	0	0	0	B	E	Nueva Venta
+542191	2021-02-08	09:58:01	2400	0	0	0	0	B	E	Nueva Venta
+542192	2021-02-08	10:00:58	2800	0	0	0	0	B	E	Nueva Venta
+542193	2021-02-08	10:03:24	3000	0	0	0	0	B	E	Nueva Venta
+542194	2021-02-08	10:12:19	2000	0	2000	0	0	B	E	Nueva Venta
+542195	2021-02-08	10:13:12	1100	0	0	0	0	B	E	Nueva Venta
+542196	2021-02-08	10:19:34	3100	0	0	0	0	B	E	Nueva Venta
+542197	2021-02-08	10:21:59	3100	0	0	0	0	B	E	Nueva Venta
+542198	2021-02-08	10:29:06	1600	0	0	0	0	B	E	Nueva Venta
+542199	2021-02-08	10:31:08	1600	0	0	0	0	B	E	Nueva Venta
+542200	2021-02-08	10:31:35	700	0	0	0	0	B	E	Nueva Venta
+542201	2021-02-08	10:34:03	3800	0	0	0	0	B	E	Nueva Venta
+542202	2021-02-08	10:37:33	850	0	0	0	0	B	E	Nueva Venta
+542203	2021-02-08	10:41:29	2600	0	0	0	0	B	E	Nueva Venta
+542204	2021-02-08	10:43:50	0	0	0	0	0	B	E	Nueva Venta
+542205	2021-02-08	11:09:10	600	0	0	0	0	B	E	Nueva Venta
+542206	2021-02-08	11:11:15	2200	0	0	0	0	B	E	Nueva Venta
+542207	2021-02-08	11:14:48	4800	0	3500	0	0	B	E	Nueva Venta
+542208	2021-02-08	11:15:00	0	0	0	0	0	B	E	Nueva Venta
+542209	2021-02-08	11:35:35	0	0	0	0	0	B	E	Nueva Venta
+542210	2021-02-08	11:39:24	1500	0	0	0	0	B	E	Nueva Venta
+542211	2021-02-08	11:48:46	3400	0	3400	0	0	B	E	Nueva Venta
+542212	2021-02-08	12:09:21	0	0	0	0	0	B	E	Nueva Venta
+542213	2021-02-08	12:10:48	1300	0	0	0	0	B	E	Nueva Venta
+542214	2021-02-08	12:14:01	1800	0	1800	0	0	B	E	Nueva Venta
+542215	2021-02-08	12:19:42	2100	0	0	0	0	B	E	Nueva Venta
+542216	2021-02-08	12:47:42	5500	0	0	0	0	B	E	Nueva Venta
+542217	2021-02-08	12:48:51	10300	0	4500	0	0	B	E	Nueva Venta
+542218	2021-02-08	13:25:19	6000	0	0	0	0	B	E	Nueva Venta
+542219	2021-02-08	13:26:54	6600	0	4000	0	0	B	E	Nueva Venta
+542220	2021-02-08	13:34:48	1300	0	0	0	0	B	E	Nueva Venta
+542221	2021-02-08	13:35:14	3860	0	0	0	0	B	E	Nueva Venta
+542222	2021-02-08	13:42:07	3300	0	0	0	0	B	E	Nueva Venta
+542223	2021-02-08	13:51:35	700	0	0	0	0	B	E	Nueva Venta
+542224	2021-02-08	13:51:49	3300	0	0	0	0	B	E	Nueva Venta
+542225	2021-02-08	14:15:21	600	0	0	0	0	B	E	Nueva Venta
+542226	2021-02-08	14:18:08	3000	0	0	0	0	B	E	Nueva Venta
+542227	2021-02-08	14:19:58	5200	0	0	0	0	B	E	Nueva Venta
+542228	2021-02-08	14:25:43	0	0	0	0	0	B	E	Nueva Venta
+542229	2021-02-08	14:34:32	4700	0	0	0	0	B	E	Nueva Venta
+542230	2021-02-08	14:29:15	550	0	0	0	0	B	E	Nueva Venta
+542231	2021-02-08	14:31:54	2600	0	0	0	0	B	E	Nueva Venta
+542232	2021-02-08	14:32:27	0	0	0	0	0	B	E	Nueva Venta
+542233	2021-02-08	14:33:07	0	0	0	0	0	B	E	Nueva Venta
+542234	2021-02-08	14:33:07	0	0	0	0	0	B	E	Nueva Venta
+542235	2021-02-08	14:41:00	0	0	0	0	0	B	E	Nueva Venta
+542236	2021-02-08	14:41:52	2150	0	0	0	0	B	E	Nueva Venta
+542237	2021-02-08	14:44:19	2100	0	0	0	0	B	E	Nueva Venta
+542238	2021-02-08	14:44:47	0	0	0	0	0	B	E	Nueva Venta
+542239	2021-02-08	14:53:45	3970	0	0	0	0	B	E	Nueva Venta
+542240	2021-02-08	15:01:17	4100	0	1800	0	0	B	E	Nueva Venta
+542241	2021-02-08	15:05:54	0	0	0	0	0	B	E	Nueva Venta
+542242	2021-02-08	15:15:34	980	0	0	0	0	B	E	Nueva Venta
+542243	2021-02-08	15:19:41	4700	0	2500	0	0	B	E	Nueva Venta
+542244	2021-02-08	16:00:17	2400	0	0	0	0	B	E	Nueva Venta
+542245	2021-02-08	16:39:42	2610	0	0	0	0	B	E	Nueva Venta
+542246	2021-02-08	16:40:23	2800	0	0	0	0	B	E	Nueva Venta
+542247	2021-02-08	16:40:24	0	0	0	0	0	B	E	Boleta
+542248	2021-02-08	16:41:57	3380	0	0	0	0	B	E	Nueva Venta
+542249	2021-02-08	16:51:59	8850	0	0	0	0	B	E	Nueva Venta
+542250	2021-02-08	16:52:38	2200	0	0	0	0	B	E	Nueva Venta
+542251	2021-02-08	17:16:27	1200	0	0	0	0	B	E	Nueva Venta
+542252	2021-02-08	17:34:04	2500	0	2500	0	0	B	E	Nueva Venta
+542253	2021-02-08	17:58:06	2500	0	2500	0	0	B	E	Nueva Venta
+542254	2021-02-08	18:21:52	1750	0	0	0	0	B	E	Nueva Venta
+542255	2021-02-08	18:26:28	2290	0	0	0	0	B	E	Nueva Venta
+542256	2021-02-08	18:26:28	0	0	0	0	0	B	E	Nueva Venta
+542257	2021-02-08	18:27:54	0	0	0	0	0	B	E	Nva. Venta
+542258	2021-02-09	08:14:45	6000	0	3400	0	0	B	E	Nva. Venta
+542259	2021-02-09	08:15:26	2100	0	0	0	0	B	E	Nueva Venta
+542260	2021-02-09	08:15:46	0	0	0	0	0	B	E	Nueva Venta
+542261	2021-02-09	08:18:10	2500	0	0	0	0	B	E	Nueva Venta
+542262	2021-02-09	08:18:45	0	0	0	0	0	B	E	Nueva Venta
+542263	2021-02-09	08:23:10	8000	0	8000	0	0	B	E	Nueva Venta
+542264	2021-02-09	08:27:01	0	0	0	0	0	B	E	Nueva Venta
+542265	2021-02-09	08:30:27	2000	0	0	0	0	B	E	Nueva Venta
+542266	2021-02-09	08:34:09	2400	0	0	0	0	B	E	Nueva Venta
+542267	2021-02-09	08:49:14	450	0	0	0	0	B	E	Nueva Venta
+542268	2021-02-09	08:49:16	0	0	0	0	0	B	E	Nueva Venta
+542269	2021-02-09	08:53:38	5750	0	3400	0	0	B	E	Nueva Venta
+542270	2021-02-09	08:55:43	1400	0	0	0	0	B	E	Nueva Venta
+542271	2021-02-09	08:56:22	2800	0	0	0	0	B	E	Nueva Venta
+542272	2021-02-09	09:03:30	1100	0	0	0	0	B	E	Nueva Venta
+542273	2021-02-09	09:03:44	0	0	0	0	0	B	E	Nueva Venta
+542274	2021-02-09	09:07:43	2100	0	0	0	0	B	E	Nueva Venta
+542275	2021-02-09	09:08:20	3000	0	0	0	0	B	E	Nueva Venta
+542276	2021-02-09	09:10:54	2100	0	0	0	0	B	E	Nueva Venta
+542277	2021-02-09	09:14:39	2300	0	0	0	0	B	E	Nueva Venta
+542278	2021-02-09	09:16:17	3600	0	0	0	0	B	E	Nueva Venta
+542279	2021-02-09	09:18:17	2700	0	0	0	0	B	E	Nueva Venta
+542280	2021-02-09	09:24:48	1100	0	0	0	0	B	E	Nueva Venta
+542281	2021-02-09	09:24:50	0	0	0	0	0	B	E	Nueva Venta
+542282	2021-02-09	09:24:50	0	0	0	0	0	B	E	Nueva Venta
+542283	2021-02-09	09:24:50	0	0	0	0	0	B	E	Nueva Venta
+542284	2021-02-09	09:24:51	0	0	0	0	0	B	E	Nueva Venta
+542285	2021-02-09	09:24:51	0	0	0	0	0	B	E	Nueva Venta
+542286	2021-02-09	09:32:35	2500	0	0	0	0	B	E	Nueva Venta
+542287	2021-02-09	09:34:04	1500	0	0	0	0	B	E	Nueva Venta
+542288	2021-02-09	09:46:32	2400	0	0	0	0	B	E	Nueva Venta
+542289	2021-02-09	09:52:33	3900	0	0	0	0	B	E	Nueva Venta
+542290	2021-02-09	09:53:23	4750	0	0	0	0	B	E	Nueva Venta
+542291	2021-02-09	09:54:45	1850	0	0	0	0	B	E	Nueva Venta
+542292	2021-02-09	09:57:02	3500	0	0	0	0	B	E	Nueva Venta
+542293	2021-02-09	10:06:38	1800	0	0	0	0	B	E	Nueva Venta
+542294	2021-02-09	10:07:47	2200	0	0	0	0	B	E	Nueva Venta
+542295	2021-02-09	10:14:15	2300	0	0	0	0	B	E	Nueva Venta
+542296	2021-02-09	10:15:36	4600	0	0	0	0	B	E	Nueva Venta
+542297	2021-02-09	10:20:34	2400	0	0	0	0	B	E	Nueva Venta
+542298	2021-02-09	10:21:30	2550	0	0	0	0	B	E	Nueva Venta
+542299	2021-02-09	10:23:37	2600	0	0	0	0	B	E	Nueva Venta
+542300	2021-02-09	10:24:31	2600	0	0	0	0	B	E	Nueva Venta
+542301	2021-02-09	10:25:22	1100	0	0	0	0	B	E	Nueva Venta
+542302	2021-02-09	10:27:19	4900	0	4400	0	0	B	E	Nueva Venta
+542303	2021-02-09	10:31:01	0	0	0	0	0	B	E	Nueva Venta
+542304	2021-02-09	10:53:19	1700	0	0	0	0	B	E	Nueva Venta
+542305	2021-02-09	10:56:02	1500	0	0	0	0	B	E	Nueva Venta
+542306	2021-02-09	10:59:16	1000	0	0	0	0	B	E	Nueva Venta
+542307	2021-02-09	11:04:40	0	0	0	0	0	B	E	Nueva Venta
+542308	2021-02-09	11:08:50	3300	0	0	0	0	B	E	Nueva Venta
+542309	2021-02-09	11:14:08	2550	0	0	0	0	B	E	Nueva Venta
+542310	2021-02-09	11:17:12	1800	0	0	0	0	B	E	Nueva Venta
+542311	2021-02-09	11:17:53	1100	0	0	0	0	B	E	Nueva Venta
+542312	2021-02-09	11:25:08	5400	0	0	0	0	B	E	Nueva Venta
+542313	2021-02-09	11:26:11	6200	0	0	0	0	B	E	Nueva Venta
+542314	2021-02-09	11:27:01	2100	0	0	0	0	B	E	Nueva Venta
+542315	2021-02-09	11:38:07	3780	0	0	0	0	B	E	Nueva Venta
+542316	2021-02-09	12:19:20	5500	0	0	0	0	B	E	Nueva Venta
+542317	2021-02-09	12:21:28	1900	0	0	0	0	B	E	Nueva Venta
+542318	2021-02-09	12:47:49	2400	0	0	0	0	B	E	Nueva Venta
+542319	2021-02-09	12:54:40	4200	0	4200	0	0	B	E	Nueva Venta
+542320	2021-02-09	12:59:09	800	0	0	0	0	B	E	Nueva Venta
+542321	2021-02-09	13:08:39	4300	0	0	0	0	B	E	Nueva Venta
+542322	2021-02-09	13:42:42	1200	0	0	0	0	B	E	Nueva Venta
+542323	2021-02-09	13:43:02	0	0	0	0	0	B	E	Nueva Venta
+542324	2021-02-09	13:44:07	3800	0	0	0	0	B	E	Nueva Venta
+542325	2021-02-09	14:14:28	3400	0	3400	0	0	B	E	Nueva Venta
+542326	2021-02-09	14:18:19	3380	0	0	0	0	B	E	Nueva Venta
+542327	2021-02-09	14:19:05	1800	0	0	0	0	B	E	Nueva Venta
+542328	2021-02-09	14:19:31	1350	0	0	0	0	B	E	Nueva Venta
+542329	2021-02-09	14:28:05	7700	0	4000	0	0	B	E	Nueva Venta
+542330	2021-02-09	14:36:45	1900	0	0	0	0	B	E	Nueva Venta
+542331	2021-02-09	15:13:20	1000	0	0	0	0	B	E	Nueva Venta
+542332	2021-02-09	15:30:23	1600	0	0	0	0	B	E	Nueva Venta
+542333	2021-02-09	15:31:21	1000	0	0	0	0	B	E	Nueva Venta
+542334	2021-02-09	16:01:21	2100	0	0	0	0	B	E	Nueva Venta
+542335	2021-02-09	16:33:06	2000	0	0	0	0	B	E	Nueva Venta
+542336	2021-02-09	16:33:06	0	0	0	0	0	B	E	Nueva Venta
+542337	2021-02-10	07:40:01	1100	0	0	0	0	B	E	Nva. Venta
+542338	2021-02-10	07:43:54	2300	0	0	0	0	B	E	Nueva Venta
+542339	2021-02-10	07:53:35	0	0	0	0	0	B	E	Nueva Venta
+542340	2021-02-10	07:54:25	0	0	0	0	0	B	E	Nueva Venta
+542341	2021-02-10	08:07:08	5700	0	3000	0	0	B	E	Nueva Venta
+542342	2021-02-10	08:09:33	1100	0	0	0	0	B	E	Nueva Venta
+542343	2021-02-10	08:11:56	3300	0	0	0	0	B	E	Nueva Venta
+542344	2021-02-10	08:18:09	1800	0	1800	0	0	B	E	Nueva Venta
+542345	2021-02-10	08:19:16	1700	0	0	0	0	B	E	Nueva Venta
+542346	2021-02-10	08:34:43	4200	0	4200	0	0	B	E	Nueva Venta
+542347	2021-02-10	08:46:22	3600	0	0	0	0	B	E	Nueva Venta
+542348	2021-02-10	08:48:03	6100	0	0	0	0	B	E	Nueva Venta
+542349	2021-02-10	08:49:01	5000	0	0	0	0	B	E	Nueva Venta
+542350	2021-02-10	08:49:59	4400	0	0	0	0	B	E	Nueva Venta
+542351	2021-02-10	08:51:09	1450	0	0	0	0	B	E	Nueva Venta
+542352	2021-02-10	08:53:39	2050	0	0	0	0	B	E	Nueva Venta
+542353	2021-02-10	08:56:30	3400	0	3400	0	0	B	E	Nueva Venta
+542354	2021-02-10	08:57:13	2500	0	2500	0	0	B	E	Nueva Venta
+542355	2021-02-10	08:59:22	750	0	0	0	0	B	E	Nueva Venta
+542356	2021-02-10	09:00:38	2400	0	0	0	0	B	E	Nueva Venta
+542357	2021-02-10	09:02:09	0	0	0	0	0	B	E	Nueva Venta
+542358	2021-02-10	09:05:09	3400	0	0	0	0	B	E	Nueva Venta
+542359	2021-02-10	09:07:15	2400	0	0	0	0	B	E	Nueva Venta
+542360	2021-02-10	09:10:50	2400	0	0	0	0	B	E	Nueva Venta
+542361	2021-02-10	09:12:20	5200	0	0	0	0	B	E	Nueva Venta
+542362	2021-02-10	09:12:24	0	0	0	0	0	B	E	Nueva Venta
+542363	2021-02-10	09:14:28	3100	0	0	0	0	B	E	Nueva Venta
+542364	2021-02-10	09:15:35	2400	0	0	0	0	B	E	Nueva Venta
+542365	2021-02-10	09:16:19	1400	0	0	0	0	B	E	Nueva Venta
+542366	2021-02-10	09:16:52	900	0	0	0	0	B	E	Nueva Venta
+542367	2021-02-10	09:18:16	3500	0	0	0	0	B	E	Nueva Venta
+542368	2021-02-10	09:19:39	2700	0	0	0	0	B	E	Nueva Venta
+542369	2021-02-10	09:27:38	2850	0	0	0	0	B	E	Nueva Venta
+542370	2021-02-10	09:35:52	1100	0	0	0	0	B	E	Nueva Venta
+542371	2021-02-10	09:41:10	2100	0	0	0	0	B	E	Nueva Venta
+542372	2021-02-10	09:43:58	3100	0	0	0	0	B	E	Nueva Venta
+542373	2021-02-10	09:45:23	1900	0	0	0	0	B	E	Nueva Venta
+542374	2021-02-10	09:49:09	2400	0	0	0	0	B	E	Nueva Venta
+542375	2021-02-10	09:50:02	3500	0	0	0	0	B	E	Nueva Venta
+542376	2021-02-10	09:56:29	2300	0	0	0	0	B	E	Nueva Venta
+542377	2021-02-10	09:59:53	700	0	0	0	0	B	E	Nueva Venta
+542378	2021-02-10	10:02:06	1100	0	0	0	0	B	E	Nueva Venta
+542379	2021-02-10	10:04:12	7650	0	0	0	0	B	E	Nueva Venta
+542380	2021-02-10	10:07:10	4300	0	0	0	0	B	E	Nueva Venta
+542381	2021-02-10	10:08:21	5800	0	0	0	0	B	E	Nueva Venta
+542382	2021-02-10	10:11:26	4900	0	0	0	0	B	E	Nueva Venta
+542383	2021-02-10	10:12:37	2300	0	0	0	0	B	E	Nueva Venta
+542384	2021-02-10	10:20:24	1000	0	0	0	0	B	E	Nueva Venta
+542385	2021-02-10	10:21:28	4000	0	0	0	0	B	E	Nueva Venta
+542386	2021-02-10	10:25:04	1000	0	0	0	0	B	E	Nueva Venta
+542387	2021-02-10	10:27:55	4300	0	0	0	0	B	E	Nueva Venta
+542388	2021-02-10	10:29:48	4500	0	0	0	0	B	E	Nueva Venta
+542389	2021-02-10	10:37:32	5700	0	4000	0	0	B	E	Nueva Venta
+542390	2021-02-10	10:44:03	700	0	0	0	0	B	E	Nueva Venta
+542391	2021-02-10	10:48:22	850	0	0	0	0	B	E	Nueva Venta
+542392	2021-02-10	11:01:09	1600	0	0	0	0	B	E	Nueva Venta
+542393	2021-02-10	11:17:17	5300	0	0	0	0	B	E	Nueva Venta
+542394	2021-02-10	11:22:40	1100	0	0	0	0	B	E	Nueva Venta
+542395	2021-02-10	11:24:20	4000	0	4000	0	0	B	E	Nueva Venta
+542396	2021-02-10	11:27:12	900	0	0	0	0	B	E	Nueva Venta
+542397	2021-02-10	11:35:35	2200	0	0	0	0	B	E	Nueva Venta
+542398	2021-02-10	11:46:13	3400	0	3400	0	0	B	E	Nueva Venta
+542399	2021-02-10	12:31:17	4100	779	0	0	0	B	E	Boleta
+542400	2021-02-10	12:35:46	3400	0	0	0	0	B	E	Nueva Venta
+542401	2021-02-10	12:36:26	2200	0	0	0	0	B	E	Nueva Venta
+542402	2021-02-10	12:45:29	1000	0	0	0	0	B	E	Nueva Venta
+542403	2021-02-10	12:46:23	1000	0	0	0	0	B	E	Nueva Venta
+542404	2021-02-10	12:52:36	2800	0	0	0	0	B	E	Nueva Venta
+542405	2021-02-10	13:29:32	2100	0	0	0	0	B	E	Nueva Venta
+542406	2021-02-10	13:35:51	1100	0	0	0	0	B	E	Nueva Venta
+542407	2021-02-10	13:38:32	3650	0	0	0	0	B	E	Nueva Venta
+542408	2021-02-10	13:40:29	1600	0	0	0	0	B	E	Nueva Venta
+542409	2021-02-10	13:53:13	4100	0	0	0	0	B	E	Nueva Venta
+542410	2021-02-10	14:04:29	2200	0	0	0	0	B	E	Nueva Venta
+542411	2021-02-10	14:11:55	1500	0	0	0	0	B	E	Nueva Venta
+542412	2021-02-10	14:19:29	1150	0	0	0	0	B	E	Nueva Venta
+542413	2021-02-10	14:27:56	1800	0	1800	0	0	B	E	Nueva Venta
+542414	2021-02-10	14:28:39	2150	0	0	0	0	B	E	Nueva Venta
+542415	2021-02-10	14:35:16	7200	0	4000	0	0	B	E	Nueva Venta
+542416	2021-02-10	14:35:40	500	0	0	0	0	B	E	Nueva Venta
+542417	2021-02-10	14:39:47	1350	0	0	0	0	B	E	Nueva Venta
+542418	2021-02-10	14:41:37	2150	0	0	0	0	B	E	Nueva Venta
+542419	2021-02-10	14:42:14	1100	0	0	0	0	B	E	Nueva Venta
+542420	2021-02-10	15:14:42	4190	0	0	0	0	B	E	Nueva Venta
+542421	2021-02-10	15:23:51	3200	0	0	0	0	B	E	Nueva Venta
+542422	2021-02-10	15:25:49	2100	0	0	0	0	B	E	Nueva Venta
+542423	2021-02-10	15:34:24	0	0	0	0	0	B	E	Nueva Venta
+542424	2021-02-10	15:36:19	0	0	0	0	0	B	E	Nueva Venta
+542425	2021-02-10	15:44:12	1000	0	0	0	0	B	E	Nueva Venta
+542426	2021-02-10	15:46:05	2000	0	2000	0	0	B	E	Nueva Venta
+542427	2021-02-10	15:53:14	1000	0	0	0	0	B	E	Nueva Venta
+542428	2021-02-10	16:01:05	1100	0	0	0	0	B	E	Nueva Venta
+542429	2021-02-10	16:01:05	0	0	0	0	0	B	E	Nueva Venta
+542430	2021-02-10	19:29:37	0	0	0	0	0	B	E	Nva. Venta
+542431	2021-02-10	19:32:18	0	0	0	0	0	B	E	Nva. Venta
+542432	2021-02-11	07:51:27	1700	0	0	0	0	B	E	Nva. Venta
+542433	2021-02-11	07:52:56	0	0	0	0	0	B	E	Nueva Venta
+542434	2021-02-11	07:54:06	1800	0	0	0	0	B	E	Nueva Venta
+542435	2021-02-11	07:58:09	7800	0	0	0	0	B	E	Nueva Venta
+542436	2021-02-11	08:06:05	2200	0	0	0	0	B	E	Nueva Venta
+542437	2021-02-11	08:08:51	0	0	0	0	0	B	E	Nueva Venta
+542438	2021-02-11	08:18:33	2100	0	0	0	0	B	E	Nueva Venta
+542439	2021-02-11	08:18:58	0	0	0	0	0	B	E	Nueva Venta
+542440	2021-02-11	08:19:57	3950	0	0	0	0	B	E	Nueva Venta
+542441	2021-02-11	08:21:59	1400	0	0	0	0	B	E	Nueva Venta
+542442	2021-02-11	08:23:53	4600	0	0	0	0	B	E	Nueva Venta
+542443	2021-02-11	08:24:35	800	0	0	0	0	B	E	Nueva Venta
+542444	2021-02-11	08:25:25	1000	0	0	0	0	B	E	Nueva Venta
+542445	2021-02-11	08:32:17	2400	0	0	0	0	B	E	Nueva Venta
+542446	2021-02-11	08:38:59	1250	0	0	0	0	B	E	Nueva Venta
+542447	2021-02-11	08:43:36	3100	0	0	0	0	B	E	Nueva Venta
+542448	2021-02-11	08:45:36	1700	0	0	0	0	B	E	Nueva Venta
+542449	2021-02-11	08:46:16	2400	0	0	0	0	B	E	Nueva Venta
+542450	2021-02-11	08:47:59	2400	0	0	0	0	B	E	Nueva Venta
+542451	2021-02-11	08:52:25	2050	0	0	0	0	B	E	Nueva Venta
+542452	2021-02-11	09:12:57	3100	0	0	0	0	B	E	Nueva Venta
+542453	2021-02-11	09:15:09	1100	0	0	0	0	B	E	Nueva Venta
+542454	2021-02-11	09:17:31	5400	0	0	0	0	B	E	Nueva Venta
+542455	2021-02-11	09:17:48	1300	0	0	0	0	B	E	Nueva Venta
+542456	2021-02-11	09:19:10	2400	0	0	0	0	B	E	Nueva Venta
+542457	2021-02-11	09:19:40	1600	0	0	0	0	B	E	Nueva Venta
+542458	2021-02-11	09:21:17	4000	0	4000	0	0	B	E	Nueva Venta
+542459	2021-02-11	09:22:01	0	0	0	0	0	B	E	Nueva Venta
+542460	2021-02-11	09:23:08	3600	0	0	0	0	B	E	Nueva Venta
+542461	2021-02-11	09:26:45	2100	0	0	0	0	B	E	Nueva Venta
+542462	2021-02-11	09:34:08	1300	0	0	0	0	B	E	Nueva Venta
+542463	2021-02-11	09:40:39	7000	0	0	0	0	B	E	Nueva Venta
+542464	2021-02-11	09:41:26	2200	0	0	0	0	B	E	Nueva Venta
+542465	2021-02-11	09:42:11	2400	0	0	0	0	B	E	Nueva Venta
+542466	2021-02-11	09:55:20	2600	0	0	0	0	B	E	Nueva Venta
+542467	2021-02-11	09:56:15	1300	0	0	0	0	B	E	Nueva Venta
+542468	2021-02-11	09:56:59	2200	0	0	0	0	B	E	Nueva Venta
+542469	2021-02-11	10:00:21	2600	0	0	0	0	B	E	Nueva Venta
+542470	2021-02-11	10:01:56	6800	0	3500	0	0	B	E	Nueva Venta
+542471	2021-02-11	10:02:32	1800	0	0	0	0	B	E	Nueva Venta
+542472	2021-02-11	10:05:04	1900	0	0	0	0	B	E	Nueva Venta
+542473	2021-02-11	10:05:33	2000	0	2000	0	0	B	E	Nueva Venta
+542474	2021-02-11	10:14:44	3400	0	0	0	0	B	E	Nueva Venta
+542475	2021-02-11	10:18:08	2400	0	0	0	0	B	E	Nueva Venta
+542476	2021-02-11	10:20:41	2600	0	0	0	0	B	E	Nueva Venta
+542477	2021-02-11	10:20:41	3300	0	2000	0	0	B	E	Nueva Venta
+542478	2021-02-11	10:43:27	2950	0	0	0	0	B	E	Nva. Venta
+542479	2021-02-11	11:05:28	4850	0	0	0	0	B	E	Nueva Venta
+542480	2021-02-11	11:07:26	0	0	0	0	0	B	E	Nueva Venta
+542481	2021-02-11	11:15:54	4300	0	0	0	0	B	E	Nueva Venta
+542482	2021-02-11	11:23:57	2600	0	0	0	0	B	E	Nueva Venta
+542483	2021-02-11	11:48:44	2300	0	0	0	0	B	E	Nueva Venta
+542484	2021-02-11	11:58:09	9400	0	0	0	0	B	E	Nueva Venta
+542485	2021-02-11	12:20:17	5500	0	0	0	0	B	E	Nueva Venta
+542486	2021-02-11	12:27:10	7050	0	0	0	0	B	E	Nueva Venta
+542487	2021-02-11	12:53:46	1900	0	0	0	0	B	E	Nueva Venta
+542488	2021-02-11	13:08:14	2350	0	0	0	0	B	E	Nueva Venta
+542489	2021-02-11	13:27:53	4000	0	4000	0	0	B	E	Nueva Venta
+542490	2021-02-11	13:52:23	1600	0	0	0	0	B	E	Nueva Venta
+542491	2021-02-11	13:56:05	1500	0	0	0	0	B	E	Nueva Venta
+542492	2021-02-11	13:56:56	3380	0	0	0	0	B	E	Nueva Venta
+542493	2021-02-11	14:07:00	0	0	0	0	0	B	E	Nueva Venta
+542494	2021-02-11	14:07:00	500	0	0	0	0	B	E	Nueva Venta
+542495	2021-02-12	08:20:57	2500	0	2500	0	0	B	E	Nva. Venta
+542496	2021-02-12	08:24:27	7800	0	5800	0	0	B	E	Nueva Venta
+542497	2021-02-12	08:30:58	3000	0	3000	0	0	B	E	Nueva Venta
+542498	2021-02-12	09:21:32	700	0	0	0	0	B	E	Nueva Venta
+542499	2021-02-12	09:22:26	900	0	0	0	0	B	E	Nueva Venta
+542500	2021-02-12	09:43:20	3600	0	0	0	0	B	E	Nueva Venta
+542501	2021-02-12	10:48:59	4600	0	0	0	0	B	E	Nueva Venta
+542502	2021-02-12	12:24:56	17700	0	0	0	0	B	E	Nueva Venta
+542503	2021-02-12	12:52:15	7800	0	7400	0	0	B	E	Nueva Venta
+542504	2021-02-12	12:54:27	1000	0	0	0	0	B	E	Nueva Venta
+542505	2021-02-12	13:04:11	1600	0	0	0	0	B	E	Nueva Venta
+542506	2021-02-12	14:09:10	7000	0	0	0	0	B	E	Nueva Venta
+542507	2021-02-12	16:12:28	10500	0	7600	0	0	B	E	Nueva Venta
+542508	2021-02-12	16:12:28	10500	0	8400	0	0	B	E	Nueva Venta
+542509	2021-02-15	07:37:57	1900	0	0	0	0	B	E	Nva. Venta
+542510	2021-02-15	07:41:27	4000	0	0	0	0	B	E	Nueva Venta
+542511	2021-02-15	07:43:07	4300	0	0	0	0	B	E	Nueva Venta
+542512	2021-02-15	07:47:19	2000	0	0	0	0	B	E	Nueva Venta
+542513	2021-02-15	07:52:12	6350	0	0	0	0	B	E	Nueva Venta
+542514	2021-02-15	08:08:19	2200	0	0	0	0	B	E	Nueva Venta
+542515	2021-02-15	08:09:07	1750	0	0	0	0	B	E	Nueva Venta
+542516	2021-02-15	08:11:23	2000	0	2000	0	0	B	E	Nueva Venta
+542517	2021-02-15	08:16:42	1100	0	0	0	0	B	E	Nueva Venta
+542518	2021-02-15	08:19:53	3300	0	0	0	0	B	E	Nueva Venta
+542519	2021-02-15	08:20:56	3500	0	0	0	0	B	E	Nueva Venta
+542520	2021-02-15	08:24:05	2050	0	0	0	0	B	E	Nueva Venta
+542521	2021-02-15	08:25:02	2000	0	0	0	0	B	E	Nueva Venta
+542522	2021-02-15	08:26:11	2600	0	0	0	0	B	E	Nueva Venta
+542523	2021-02-15	08:30:11	2400	0	0	0	0	B	E	Nueva Venta
+542524	2021-02-15	08:32:07	700	0	0	0	0	B	E	Nueva Venta
+542525	2021-02-15	08:33:46	2450	0	0	0	0	B	E	Nueva Venta
+542526	2021-02-15	08:36:25	3600	0	0	0	0	B	E	Nueva Venta
+542527	2021-02-15	08:37:23	2600	0	0	0	0	B	E	Nueva Venta
+542528	2021-02-15	08:37:56	3800	0	0	0	0	B	E	Nueva Venta
+542529	2021-02-15	08:39:55	3500	0	0	0	0	B	E	Nueva Venta
+542530	2021-02-15	08:41:46	0	0	0	0	0	B	E	Nueva Venta
+542531	2021-02-15	08:43:23	2400	0	0	0	0	B	E	Nueva Venta
+542532	2021-02-15	08:44:14	2200	0	0	0	0	B	E	Nueva Venta
+542533	2021-02-15	08:45:37	3050	0	0	0	0	B	E	Nueva Venta
+542534	2021-02-15	08:47:26	3750	0	0	0	0	B	E	Nueva Venta
+542535	2021-02-15	08:48:33	1500	0	0	0	0	B	E	Nueva Venta
+542536	2021-02-15	08:52:13	1100	0	0	0	0	B	E	Nueva Venta
+542537	2021-02-15	08:54:22	2400	0	0	0	0	B	E	Nueva Venta
+542538	2021-02-15	08:55:21	0	0	0	0	0	B	E	Nueva Venta
+542539	2021-02-15	09:01:38	2100	0	0	0	0	B	E	Nueva Venta
+542540	2021-02-15	09:02:29	4800	0	0	0	0	B	E	Nueva Venta
+542541	2021-02-15	09:02:55	0	0	0	0	0	B	E	Nueva Venta
+542542	2021-02-15	09:04:13	1300	0	0	0	0	B	E	Nueva Venta
+542543	2021-02-15	09:06:04	900	0	0	0	0	B	E	Nueva Venta
+542544	2021-02-15	09:07:18	1700	0	0	0	0	B	E	Nueva Venta
+542545	2021-02-15	09:07:36	0	0	0	0	0	B	E	Nueva Venta
+542546	2021-02-15	09:18:15	2650	0	0	0	0	B	E	Nueva Venta
+542547	2021-02-15	09:19:13	3350	0	0	0	0	B	E	Nueva Venta
+542548	2021-02-15	09:22:59	6500	0	3400	0	0	B	E	Nueva Venta
+542549	2021-02-15	09:23:40	0	0	0	0	0	B	E	Nueva Venta
+542550	2021-02-15	09:26:04	2100	0	0	0	0	B	E	Nueva Venta
+542551	2021-02-15	09:27:26	2400	0	0	0	0	B	E	Nueva Venta
+542552	2021-02-15	09:28:34	3900	0	0	0	0	B	E	Nueva Venta
+542553	2021-02-15	09:35:28	2600	0	0	0	0	B	E	Nueva Venta
+542554	2021-02-15	09:37:26	2600	0	0	0	0	B	E	Nueva Venta
+542555	2021-02-15	09:39:10	1400	0	0	0	0	B	E	Nueva Venta
+542556	2021-02-15	09:40:26	2000	0	0	0	0	B	E	Nueva Venta
+542557	2021-02-15	09:42:31	2400	0	0	0	0	B	E	Nueva Venta
+542558	2021-02-15	09:47:06	3400	0	0	0	0	B	E	Nueva Venta
+542559	2021-02-15	09:48:24	5000	0	0	0	0	B	E	Nueva Venta
+542560	2021-02-15	09:49:45	4300	0	0	0	0	B	E	Nueva Venta
+542561	2021-02-15	09:53:15	0	0	0	0	0	B	E	Nueva Venta
+542562	2021-02-15	09:54:14	2800	0	0	0	0	B	E	Nueva Venta
+542563	2021-02-15	09:54:30	1300	0	0	0	0	B	E	Nueva Venta
+542564	2021-02-15	09:55:29	1600	0	0	0	0	B	E	Nueva Venta
+542565	2021-02-15	09:57:45	2300	0	0	0	0	B	E	Nueva Venta
+542566	2021-02-15	09:59:56	3650	0	0	0	0	B	E	Nueva Venta
+542567	2021-02-15	10:01:55	1800	0	0	0	0	B	E	Nueva Venta
+542568	2021-02-15	10:05:24	3700	0	0	0	0	B	E	Nueva Venta
+542569	2021-02-15	10:08:29	2500	0	0	0	0	B	E	Nueva Venta
+542570	2021-02-15	10:10:18	1100	0	0	0	0	B	E	Nueva Venta
+542571	2021-02-15	10:11:06	1800	0	0	0	0	B	E	Nueva Venta
+542572	2021-02-15	10:12:00	3400	0	3400	0	0	B	E	Nueva Venta
+542573	2021-02-15	10:13:08	2950	0	0	0	0	B	E	Nueva Venta
+542574	2021-02-15	10:14:27	400	0	0	0	0	B	E	Nueva Venta
+542575	2021-02-15	10:15:16	1100	0	0	0	0	B	E	Nueva Venta
+542576	2021-02-15	10:17:55	2700	0	0	0	0	B	E	Nueva Venta
+542577	2021-02-15	10:29:06	3400	0	0	0	0	B	E	Nueva Venta
+542578	2021-02-15	10:31:11	1450	0	0	0	0	B	E	Nueva Venta
+542579	2021-02-15	10:32:41	4900	0	0	0	0	B	E	Nueva Venta
+542580	2021-02-15	10:54:23	1500	0	0	0	0	B	E	Nueva Venta
+542581	2021-02-15	10:57:30	4400	0	4400	0	0	B	E	Nueva Venta
+542582	2021-02-15	11:03:29	2700	0	0	0	0	B	E	Nueva Venta
+542583	2021-02-15	11:11:19	5100	0	4000	0	0	B	E	Nueva Venta
+542584	2021-02-15	11:14:08	7700	0	0	0	0	B	E	Nueva Venta
+542585	2021-02-15	11:27:22	4000	0	4000	0	0	B	E	Nueva Venta
+542586	2021-02-15	11:36:39	2700	0	0	0	0	B	E	Nueva Venta
+542587	2021-02-15	11:49:40	1350	0	0	0	0	B	E	Nueva Venta
+542588	2021-02-15	11:54:22	2100	0	0	0	0	B	E	Nueva Venta
+542589	2021-02-15	11:57:25	1000	0	0	0	0	B	E	Nueva Venta
+542590	2021-02-15	12:41:58	2800	0	2000	0	0	B	E	Nueva Venta
+542591	2021-02-15	12:43:24	2300	0	0	0	0	B	E	Nueva Venta
+542592	2021-02-15	12:57:31	2300	0	0	0	0	B	E	Nueva Venta
+542593	2021-02-15	13:08:21	2900	0	0	0	0	B	E	Nueva Venta
+542594	2021-02-15	13:12:23	3000	0	3000	0	0	B	E	Nueva Venta
+542595	2021-02-15	13:14:30	1500	0	0	0	0	B	E	Nueva Venta
+542596	2021-02-15	13:20:20	1200	0	0	0	0	B	E	Nueva Venta
+542597	2021-02-15	13:21:11	1700	0	0	0	0	B	E	Nueva Venta
+542598	2021-02-15	13:36:03	3000	0	3000	0	0	B	E	Nueva Venta
+542599	2021-02-15	13:46:52	700	0	0	0	0	B	E	Nueva Venta
+542600	2021-02-15	14:01:36	900	0	0	0	0	B	E	Nueva Venta
+542601	2021-02-15	14:09:04	4800	0	0	0	0	B	E	Nueva Venta
+542602	2021-02-15	14:10:23	1550	0	0	0	0	B	E	Nueva Venta
+542603	2021-02-15	14:10:25	0	0	0	0	0	B	E	Nueva Venta
+542604	2021-02-15	14:11:46	800	0	0	0	0	B	E	Nueva Venta
+542605	2021-02-15	14:17:52	7000	0	0	0	0	B	E	Nueva Venta
+542606	2021-02-15	14:20:41	2560	0	0	0	0	B	E	Nueva Venta
+542607	2021-02-15	14:22:33	0	0	0	0	0	B	E	Nueva Venta
+542608	2021-02-15	14:39:06	4850	0	0	0	0	B	E	Nueva Venta
+542609	2021-02-15	14:41:26	1800	0	0	0	0	B	E	Nueva Venta
+542610	2021-02-15	15:09:55	0	0	0	0	0	B	E	Nueva Venta
+542611	2021-02-15	15:12:34	2100	0	0	0	0	B	E	Nueva Venta
+542612	2021-02-15	16:03:06	870	0	0	0	0	B	E	Nueva Venta
+542613	2021-02-15	16:04:10	2000	0	0	0	0	B	E	Nueva Venta
+542614	2021-02-15	16:34:35	3300	0	0	0	0	B	E	Nueva Venta
+542615	2021-02-15	16:47:59	1800	0	1800	0	0	B	E	Nueva Venta
+542616	2021-02-15	19:01:19	5900	0	2000	0	0	B	E	Nueva Venta
+542617	2021-02-16	07:37:26	2950	0	0	0	0	B	E	Nueva Venta
+542618	2021-02-16	08:04:13	8800	0	0	0	0	B	E	Nueva Venta
+542619	2021-02-16	08:07:08	2900	0	0	0	0	B	E	Nueva Venta
+542620	2021-02-16	08:08:24	2000	0	0	0	0	B	E	Nueva Venta
+542621	2021-02-16	08:20:58	1800	0	0	0	0	B	E	Nueva Venta
+542622	2021-02-16	08:26:16	500	0	0	0	0	B	E	Nueva Venta
+542623	2021-02-16	08:26:49	0	0	0	0	0	B	E	Nueva Venta
+542624	2021-02-16	08:27:55	2150	0	0	0	0	B	E	Nueva Venta
+542625	2021-02-16	08:29:05	1800	0	0	0	0	B	E	Nueva Venta
+542626	2021-02-16	08:35:09	2900	0	0	0	0	B	E	Nueva Venta
+542627	2021-02-16	08:41:40	2600	0	0	0	0	B	E	Nueva Venta
+542628	2021-02-16	08:42:45	800	0	0	0	0	B	E	Nueva Venta
+542629	2021-02-16	08:46:30	1000	0	0	0	0	B	E	Nueva Venta
+542630	2021-02-16	08:49:00	1300	0	0	0	0	B	E	Nueva Venta
+542631	2021-02-16	08:50:02	2100	0	0	0	0	B	E	Nueva Venta
+542632	2021-02-16	08:52:17	1300	247	0	0	0	B	E	Boleta
+542633	2021-02-16	08:53:24	5000	0	0	0	0	B	E	Nueva Venta
+542634	2021-02-16	09:00:41	1100	0	0	0	0	B	E	Nueva Venta
+542635	2021-02-16	09:04:19	2100	0	0	0	0	B	E	Nueva Venta
+542636	2021-02-16	09:05:37	2700	0	0	0	0	B	E	Nueva Venta
+542637	2021-02-16	09:09:06	3100	0	0	0	0	B	E	Nueva Venta
+542638	2021-02-16	09:10:01	2400	0	0	0	0	B	E	Nueva Venta
+542639	2021-02-16	09:11:21	3100	0	0	0	0	B	E	Nueva Venta
+542640	2021-02-16	09:19:12	1300	0	0	0	0	B	E	Nueva Venta
+542641	2021-02-16	09:20:08	1400	0	0	0	0	B	E	Nueva Venta
+542642	2021-02-16	09:22:24	1100	0	0	0	0	B	E	Nueva Venta
+542643	2021-02-16	09:24:06	5800	0	0	0	0	B	E	Nueva Venta
+542644	2021-02-16	09:25:40	2800	0	0	0	0	B	E	Nueva Venta
+542645	2021-02-16	09:27:20	9100	0	0	0	0	B	E	Nueva Venta
+542646	2021-02-16	09:30:04	2300	0	0	0	0	B	E	Nueva Venta
+542647	2021-02-16	09:33:54	1400	0	0	0	0	B	E	Nueva Venta
+542648	2021-02-16	09:37:49	2550	0	0	0	0	B	E	Nueva Venta
+542649	2021-02-16	09:39:26	2100	0	0	0	0	B	E	Nueva Venta
+542650	2021-02-16	09:40:43	2500	0	0	0	0	B	E	Nueva Venta
+542651	2021-02-16	10:00:44	2700	0	0	0	0	B	E	Nueva Venta
+542652	2021-02-16	10:01:18	900	0	0	0	0	B	E	Nueva Venta
+542653	2021-02-16	10:02:03	1800	0	0	0	0	B	E	Nueva Venta
+542654	2021-02-16	10:02:26	1300	0	0	0	0	B	E	Nueva Venta
+542655	2021-02-16	10:04:21	2700	0	0	0	0	B	E	Nueva Venta
+542656	2021-02-16	10:09:46	0	0	0	0	0	B	E	Nueva Venta
+542657	2021-02-16	10:11:19	3100	0	0	0	0	B	E	Nueva Venta
+542658	2021-02-16	10:15:34	2700	0	0	0	0	B	E	Nueva Venta
+542659	2021-02-16	10:17:06	1850	0	0	0	0	B	E	Nueva Venta
+542660	2021-02-16	10:18:34	2050	0	0	0	0	B	E	Nueva Venta
+542661	2021-02-16	10:20:53	3700	0	0	0	0	B	E	Nueva Venta
+542662	2021-02-16	10:22:26	2400	0	0	0	0	B	E	Nueva Venta
+542663	2021-02-16	10:25:16	3850	0	0	0	0	B	E	Nueva Venta
+542664	2021-02-16	10:28:45	6100	0	0	0	0	B	E	Nueva Venta
+542665	2021-02-16	10:30:51	2200	0	0	0	0	B	E	Nueva Venta
+542666	2021-02-16	10:34:23	1000	0	0	0	0	B	E	Nueva Venta
+542667	2021-02-16	10:37:44	1650	0	0	0	0	B	E	Nueva Venta
+542668	2021-02-16	10:39:43	2800	0	0	0	0	B	E	Nueva Venta
+542669	2021-02-16	10:43:12	1700	0	0	0	0	B	E	Nueva Venta
+542670	2021-02-16	10:48:10	2100	0	0	0	0	B	E	Nueva Venta
+542671	2021-02-16	10:52:57	2400	0	0	0	0	B	E	Nueva Venta
+542672	2021-02-16	10:55:52	1450	0	0	0	0	B	E	Nueva Venta
+542673	2021-02-16	10:58:53	2600	0	0	0	0	B	E	Nueva Venta
+542674	2021-02-16	11:00:35	2400	0	2000	0	0	B	E	Nueva Venta
+542675	2021-02-16	11:13:25	6400	0	0	0	0	B	E	Nueva Venta
+542676	2021-02-16	11:15:15	2600	0	0	0	0	B	E	Nueva Venta
+542677	2021-02-16	11:19:03	1350	0	0	0	0	B	E	Nueva Venta
+542678	2021-02-16	11:45:24	9100	0	7400	0	0	B	E	Nueva Venta
+542679	2021-02-16	11:48:35	3500	0	0	0	0	B	E	Nueva Venta
+542680	2021-02-16	11:49:41	4000	0	0	0	0	B	E	Nueva Venta
+542681	2021-02-16	11:56:50	2400	0	0	0	0	B	E	Nueva Venta
+542682	2021-02-16	12:23:28	450	0	0	0	0	B	E	Nueva Venta
+542683	2021-02-16	12:37:44	1600	0	0	0	0	B	E	Nueva Venta
+542684	2021-02-16	12:38:36	800	0	0	0	0	B	E	Nueva Venta
+542685	2021-02-16	12:41:51	0	0	0	0	0	B	E	Nueva Venta
+542686	2021-02-16	12:42:18	0	0	0	0	0	B	E	Nueva Venta
+542687	2021-02-16	13:41:34	2100	0	0	0	0	B	E	Nueva Venta
+542688	2021-02-16	13:54:45	6400	0	6400	0	0	B	E	Nueva Venta
+542689	2021-02-16	14:01:04	1100	0	0	0	0	B	E	Nueva Venta
+542690	2021-02-16	14:04:49	2000	0	0	0	0	B	E	Nueva Venta
+542691	2021-02-16	14:06:01	1600	0	0	0	0	B	E	Nueva Venta
+542692	2021-02-16	14:12:44	1550	0	0	0	0	B	E	Nueva Venta
+542693	2021-02-16	14:18:05	4200	0	0	0	0	B	E	Nueva Venta
+542694	2021-02-16	14:27:29	1550	0	0	0	0	B	E	Nueva Venta
+542695	2021-02-16	14:28:52	2100	0	0	0	0	B	E	Nueva Venta
+542696	2021-02-16	14:35:39	5400	0	0	0	0	B	E	Nueva Venta
+542697	2021-02-16	14:33:25	0	0	0	0	0	B	E	Nueva Venta
+542698	2021-02-16	14:45:38	2300	0	0	0	0	B	E	Nueva Venta
+542699	2021-02-16	14:48:59	0	0	0	0	0	B	E	Nueva Venta
+542700	2021-02-16	14:53:29	2300	0	0	0	0	B	E	Nueva Venta
+542701	2021-02-16	14:59:18	800	0	0	0	0	B	E	Nueva Venta
+542702	2021-02-16	15:09:49	1550	0	0	0	0	B	E	Nueva Venta
+542703	2021-02-16	15:10:34	400	0	0	0	0	B	E	Nueva Venta
+542704	2021-02-16	15:17:44	300	0	0	0	0	B	E	Nueva Venta
+542705	2021-02-16	15:33:21	7400	0	0	0	0	B	E	Nueva Venta
+542706	2021-02-16	15:37:42	7800	0	0	0	0	B	E	Nueva Venta
+542707	2021-02-16	15:56:02	6800	0	6800	0	0	B	E	Nueva Venta
+542708	2021-02-17	07:31:13	8800	0	8800	0	0	B	E	Nueva Venta
+542709	2021-02-17	07:44:09	1900	0	0	0	0	B	E	Nueva Venta
+542710	2021-02-17	07:47:15	2900	0	0	0	0	B	E	Nueva Venta
+542711	2021-02-17	08:14:31	2200	0	0	0	0	B	E	Nueva Venta
+542712	2021-02-17	08:16:36	2000	0	0	0	0	B	E	Nueva Venta
+542713	2021-02-17	08:28:01	1800	0	0	0	0	B	E	Nueva Venta
+542714	2021-02-17	08:28:51	2100	0	0	0	0	B	E	Nueva Venta
+542715	2021-02-17	08:33:21	1450	0	0	0	0	B	E	Nueva Venta
+542716	2021-02-17	08:40:37	3800	0	0	0	0	B	E	Nueva Venta
+542717	2021-02-17	08:43:26	2400	0	0	0	0	B	E	Nueva Venta
+542718	2021-02-17	08:52:21	1000	0	0	0	0	B	E	Nueva Venta
+542719	2021-02-17	08:57:42	2300	0	0	0	0	B	E	Nueva Venta
+542720	2021-02-17	08:58:23	1600	0	0	0	0	B	E	Nueva Venta
+542721	2021-02-17	08:59:56	0	0	0	0	0	B	E	Nueva Venta
+542722	2021-02-17	09:12:09	2000	0	0	0	0	B	E	Nueva Venta
+542723	2021-02-17	09:13:54	2700	0	0	0	0	B	E	Nueva Venta
+542724	2021-02-17	09:18:23	4300	0	0	0	0	B	E	Nueva Venta
+542725	2021-02-17	09:20:13	600	0	0	0	0	B	E	Nueva Venta
+542726	2021-02-17	09:23:14	2800	0	0	0	0	B	E	Nueva Venta
+542727	2021-02-17	09:31:22	2400	0	0	0	0	B	E	Nueva Venta
+542728	2021-02-17	09:33:35	3500	665	0	0	0	B	E	Nueva Venta
+542729	2021-02-17	09:37:02	4600	874	0	0	0	B	E	Boleta
+542730	2021-02-17	09:40:02	2400	0	0	0	0	B	E	Nueva Venta
+542731	2021-02-17	09:41:49	5550	0	0	0	0	B	E	Nueva Venta
+542732	2021-02-17	09:46:36	3200	0	0	0	0	B	E	Nueva Venta
+542733	2021-02-17	09:47:55	1800	0	0	0	0	B	E	Nueva Venta
+542734	2021-02-17	09:51:54	1000	0	0	0	0	B	E	Nueva Venta
+542735	2021-02-17	09:56:21	7100	0	0	0	0	B	E	Nueva Venta
+542736	2021-02-17	10:08:41	1600	0	0	0	0	B	E	Nueva Venta
+542737	2021-02-17	10:09:30	1350	0	0	0	0	B	E	Nueva Venta
+542738	2021-02-17	10:11:23	800	0	0	0	0	B	E	Nueva Venta
+542739	2021-02-17	10:13:38	3100	0	0	0	0	B	E	Nueva Venta
+542740	2021-02-17	10:15:12	5150	0	0	0	0	B	E	Nueva Venta
+542741	2021-02-17	10:27:35	3300	0	0	0	0	B	E	Nueva Venta
+542742	2021-02-17	10:40:10	2000	0	0	0	0	B	E	Nueva Venta
+542743	2021-02-17	10:45:15	5400	0	4000	0	0	B	E	Nueva Venta
+542744	2021-02-17	11:01:35	4100	0	0	0	0	B	E	Nueva Venta
+542745	2021-02-17	11:02:37	2300	0	0	0	0	B	E	Nueva Venta
+542746	2021-02-17	11:03:52	1400	0	0	0	0	B	E	Nueva Venta
+542747	2021-02-17	11:09:38	3100	0	2000	0	0	B	E	Nueva Venta
+542748	2021-02-17	11:12:40	0	0	0	0	0	B	E	Nueva Venta
+542749	2021-02-17	11:13:38	3200	0	0	0	0	B	E	Nueva Venta
+542750	2021-02-17	11:17:10	3700	0	2000	0	0	B	E	Nueva Venta
+542751	2021-02-17	11:40:09	1900	0	0	0	0	B	E	Nueva Venta
+542752	2021-02-17	11:46:43	5500	0	4300	0	0	B	E	Nueva Venta
+542753	2021-02-17	11:47:50	3200	0	0	0	0	B	E	Nueva Venta
+542754	2021-02-17	11:51:47	0	0	0	0	0	B	E	Nueva Venta
+542755	2021-02-17	11:56:20	1200	0	0	0	0	B	E	Nueva Venta
+542756	2021-02-17	12:41:36	2250	0	0	0	0	B	E	Nueva Venta
+542757	2021-02-17	12:58:25	3000	0	3000	0	0	B	E	Nueva Venta
+542758	2021-02-17	13:00:42	4200	0	0	0	0	B	E	Nueva Venta
+542759	2021-02-17	13:03:03	1600	0	0	0	0	B	E	Nueva Venta
+542760	2021-02-17	13:11:50	8600	0	8600	0	0	B	E	Nueva Venta
+542761	2021-02-17	13:22:02	4000	0	0	0	0	B	E	Nueva Venta
+542762	2021-02-17	13:33:13	4700	0	0	0	0	B	E	Nueva Venta
+542763	2021-02-17	13:37:22	2400	0	0	0	0	B	E	Nueva Venta
+542764	2021-02-17	13:40:46	600	0	0	0	0	B	E	Nueva Venta
+542765	2021-02-17	13:42:22	4090	0	0	0	0	B	E	Nueva Venta
+542766	2021-02-17	13:52:32	3800	0	0	0	0	B	E	Nueva Venta
+542767	2021-02-17	14:02:14	1700	0	0	0	0	B	E	Nueva Venta
+542768	2021-02-17	14:12:59	700	0	0	0	0	B	E	Nueva Venta
+542769	2021-02-17	14:29:01	7200	0	4000	0	0	B	E	Nueva Venta
+542770	2021-02-17	14:28:42	0	0	0	0	0	B	E	Nueva Venta
+542771	2021-02-17	14:45:49	0	0	0	0	0	B	E	Nueva Venta
+542772	2021-02-17	14:49:30	4800	0	0	0	0	B	E	Nueva Venta
+542773	2021-02-17	14:52:52	1250	0	0	0	0	B	E	Nueva Venta
+542774	2021-02-17	17:58:29	1400	0	0	0	0	B	E	Nueva Venta
+542775	2021-02-17	18:30:42	2700	0	0	0	0	B	E	Nueva Venta
+542776	2021-02-18	07:38:42	3000	0	3000	0	0	B	E	Nueva Venta
+542777	2021-02-18	07:40:45	2000	0	0	0	0	B	E	Nueva Venta
+542778	2021-02-18	07:43:11	7850	0	0	0	0	B	E	Nueva Venta
+542779	2021-02-18	07:47:43	2700	0	0	0	0	B	E	Nueva Venta
+542780	2021-02-18	07:50:30	1100	0	0	0	0	B	E	Nueva Venta
+542781	2021-02-18	08:11:37	3400	0	0	0	0	B	E	Nueva Venta
+542782	2021-02-18	08:15:58	4900	0	0	0	0	B	E	Nueva Venta
+542783	2021-02-18	08:22:21	6500	0	0	0	0	B	E	Nueva Venta
+542784	2021-02-18	08:27:00	1000	0	0	0	0	B	E	Nueva Venta
+542785	2021-02-18	08:28:26	0	0	0	0	0	B	E	Nueva Venta
+542786	2021-02-18	08:34:23	4800	0	0	0	0	B	E	Nueva Venta
+542787	2021-02-18	08:39:06	4800	0	0	0	0	B	E	Nueva Venta
+542788	2021-02-18	08:42:10	3100	0	0	0	0	B	E	Nueva Venta
+542789	2021-02-18	08:43:01	3400	0	0	0	0	B	E	Nueva Venta
+542790	2021-02-18	08:44:25	7000	0	0	0	0	B	E	Nueva Venta
+542791	2021-02-18	08:45:58	3500	0	0	0	0	B	E	Nueva Venta
+542792	2021-02-18	08:46:54	0	0	0	0	0	B	E	Nueva Venta
+542793	2021-02-18	08:50:31	2400	0	0	0	0	B	E	Nueva Venta
+542794	2021-02-18	08:51:37	7650	0	0	0	0	B	E	Nueva Venta
+542795	2021-02-18	08:54:11	2000	0	0	0	0	B	E	Nueva Venta
+542796	2021-02-18	08:54:24	0	0	0	0	0	B	E	Nueva Venta
+542797	2021-02-18	08:57:00	2100	0	0	0	0	B	E	Nueva Venta
+542798	2021-02-18	08:57:46	2200	0	0	0	0	B	E	Nueva Venta
+542799	2021-02-18	09:09:29	0	0	0	0	0	B	E	Nueva Venta
+542800	2021-02-18	09:12:14	1400	0	0	0	0	B	E	Nueva Venta
+542801	2021-02-18	09:16:39	1700	0	0	0	0	B	E	Nueva Venta
+542802	2021-02-18	09:17:06	1400	0	0	0	0	B	E	Nueva Venta
+542803	2021-02-18	09:17:53	3100	0	0	0	0	B	E	Nueva Venta
+542804	2021-02-18	09:19:08	4500	0	0	0	0	B	E	Nueva Venta
+542805	2021-02-18	09:19:37	0	0	0	0	0	B	E	Nueva Venta
+542806	2021-02-18	09:20:50	3250	0	0	0	0	B	E	Nueva Venta
+542807	2021-02-18	09:22:13	3300	0	0	0	0	B	E	Nueva Venta
+542808	2021-02-18	09:23:18	1750	0	0	0	0	B	E	Nueva Venta
+542809	2021-02-18	09:24:49	1100	0	0	0	0	B	E	Nueva Venta
+542810	2021-02-18	09:25:07	3700	0	0	0	0	B	E	Nueva Venta
+542811	2021-02-18	09:25:59	3700	0	0	0	0	B	E	Nueva Venta
+542812	2021-02-18	09:28:57	1550	0	0	0	0	B	E	Nueva Venta
+542813	2021-02-18	09:35:48	5000	0	0	0	0	B	E	Nueva Venta
+542814	2021-02-18	09:36:55	2000	0	0	0	0	B	E	Nueva Venta
+542815	2021-02-18	09:40:09	3000	0	0	0	0	B	E	Nueva Venta
+542816	2021-02-18	09:45:40	2800	0	0	0	0	B	E	Nueva Venta
+542817	2021-02-18	09:49:11	2950	0	0	0	0	B	E	Nueva Venta
+542818	2021-02-18	09:53:36	2700	0	0	0	0	B	E	Nueva Venta
+542819	2021-02-18	09:52:03	0	0	0	0	0	B	E	Nueva Venta
+542820	2021-02-18	09:54:20	2100	0	0	0	0	B	E	Nueva Venta
+542821	2021-02-18	10:01:30	2000	0	0	0	0	B	E	Nueva Venta
+542822	2021-02-18	10:02:05	3400	0	3400	0	0	B	E	Nueva Venta
+542823	2021-02-18	10:03:07	500	0	0	0	0	B	E	Nueva Venta
+542824	2021-02-18	10:04:44	2850	0	0	0	0	B	E	Nueva Venta
+542825	2021-02-18	10:06:36	5200	0	0	0	0	B	E	Nueva Venta
+542826	2021-02-18	10:07:17	2600	0	0	0	0	B	E	Nueva Venta
+542827	2021-02-18	10:10:22	5100	0	0	0	0	B	E	Nueva Venta
+542828	2021-02-18	10:12:27	3300	0	0	0	0	B	E	Nueva Venta
+542829	2021-02-18	10:13:54	4200	0	0	0	0	B	E	Nueva Venta
+542830	2021-02-18	10:53:28	2100	0	0	0	0	B	E	Nueva Venta
+542831	2021-02-18	10:57:00	2700	0	0	0	0	B	E	Nueva Venta
+542832	2021-02-18	11:39:59	6700	0	0	0	0	B	E	Nueva Venta
+542833	2021-02-18	11:40:07	1900	0	0	0	0	B	E	Nueva Venta
+542834	2021-02-18	11:41:16	3200	0	0	0	0	B	E	Nueva Venta
+542835	2021-02-18	12:07:09	1000	0	0	0	0	B	E	Nueva Venta
+542836	2021-02-18	13:24:36	6400	0	4500	0	0	B	E	Nueva Venta
+542837	2021-02-18	13:41:51	4200	0	0	0	0	B	E	Nueva Venta
+542838	2021-02-18	14:00:25	4400	0	0	0	0	B	E	Nueva Venta
+542839	2021-02-18	14:09:35	3900	0	0	0	0	B	E	Nueva Venta
+542840	2021-02-18	14:12:59	1800	0	0	0	0	B	E	Nueva Venta
+542841	2021-02-18	14:14:26	1400	0	0	0	0	B	E	Nueva Venta
+542842	2021-02-18	14:25:39	3500	0	0	0	0	B	E	Nueva Venta
+542843	2021-02-18	14:36:45	600	0	0	0	0	B	E	Nueva Venta
+542844	2021-02-18	14:39:31	5700	0	0	0	0	B	E	Nueva Venta
+542845	2021-02-18	14:49:34	2150	0	0	0	0	B	E	Nueva Venta
+542846	2021-02-18	14:53:37	2000	0	0	0	0	B	E	Nueva Venta
+542847	2021-02-18	15:12:14	0	0	0	0	0	B	E	Nueva Venta
+542848	2021-02-18	15:21:43	750	0	0	0	0	B	E	Nueva Venta
+542849	2021-02-18	15:27:19	1950	0	0	0	0	B	E	Nueva Venta
+542850	2021-02-18	17:03:32	700	0	0	0	0	B	E	Nueva Venta
+542851	2021-02-19	07:39:47	2600	0	0	0	0	B	E	Nueva Venta
+542852	2021-02-19	07:40:05	0	0	0	0	0	B	E	Nueva Venta
+542853	2021-02-19	07:45:57	9400	0	0	0	0	B	E	Nueva Venta
+542854	2021-02-19	07:47:58	1450	0	0	0	0	B	E	Nueva Venta
+542855	2021-02-19	07:56:35	600	0	0	0	0	B	E	Nueva Venta
+542856	2021-02-19	08:17:54	700	0	0	0	0	B	E	Nueva Venta
+542857	2021-02-19	08:19:37	3300	0	0	0	0	B	E	Nueva Venta
+542858	2021-02-19	08:21:05	2400	0	0	0	0	B	E	Nueva Venta
+542859	2021-02-19	08:23:27	1800	0	1800	0	0	B	E	Nueva Venta
+542860	2021-02-19	08:24:31	12600	0	12600	0	0	B	E	Nueva Venta
+542861	2021-02-19	08:26:56	3600	0	0	0	0	B	E	Nueva Venta
+542862	2021-02-19	08:27:46	500	0	0	0	0	B	E	Nueva Venta
+542863	2021-02-19	08:31:27	3700	0	1800	0	0	B	E	Nueva Venta
+542864	2021-02-19	08:36:05	1800	0	1800	0	0	B	E	Nueva Venta
+542865	2021-02-19	08:37:37	2300	0	0	0	0	B	E	Nueva Venta
+542866	2021-02-19	08:39:23	1100	0	0	0	0	B	E	Nueva Venta
+542867	2021-02-19	08:42:33	2400	0	0	0	0	B	E	Nueva Venta
+542868	2021-02-19	08:42:53	2000	0	0	0	0	B	E	Nueva Venta
+542869	2021-02-19	08:45:29	1800	0	0	0	0	B	E	Nueva Venta
+542870	2021-02-19	08:49:47	3100	0	0	0	0	B	E	Nueva Venta
+542871	2021-02-19	08:52:38	2200	0	0	0	0	B	E	Nueva Venta
+542872	2021-02-19	08:56:02	6050	0	0	0	0	B	E	Nueva Venta
+542873	2021-02-19	09:01:23	5100	0	4000	0	0	B	E	Nueva Venta
+542874	2021-02-19	09:03:19	5100	0	0	0	0	B	E	Nueva Venta
+542875	2021-02-19	09:04:49	2250	0	0	0	0	B	E	Nueva Venta
+542876	2021-02-19	09:13:02	2500	0	0	0	0	B	E	Nueva Venta
+542877	2021-02-19	09:13:49	3200	0	0	0	0	B	E	Nueva Venta
+542878	2021-02-19	09:15:04	1800	0	0	0	0	B	E	Nueva Venta
+542879	2021-02-19	09:15:43	3100	0	0	0	0	B	E	Nueva Venta
+542880	2021-02-19	09:17:34	6000	0	4000	0	0	B	E	Nueva Venta
+542881	2021-02-19	09:22:03	1900	0	0	0	0	B	E	Nueva Venta
+542882	2021-02-19	09:25:14	2000	0	0	0	0	B	E	Nueva Venta
+542883	2021-02-19	09:27:48	3800	0	2500	0	0	B	E	Nueva Venta
+542884	2021-02-19	09:30:47	5700	0	0	0	0	B	E	Nueva Venta
+542885	2021-02-19	09:33:17	3000	0	0	0	0	B	E	Nueva Venta
+542886	2021-02-19	09:34:18	2400	0	2000	0	0	B	E	Nueva Venta
+542887	2021-02-19	09:35:07	1000	0	0	0	0	B	E	Nueva Venta
+542888	2021-02-19	09:37:17	1750	0	0	0	0	B	E	Nueva Venta
+542889	2021-02-19	09:37:56	3100	0	2000	0	0	B	E	Nueva Venta
+542890	2021-02-19	09:43:41	2700	0	0	0	0	B	E	Nueva Venta
+542891	2021-02-19	09:44:51	1300	0	0	0	0	B	E	Nueva Venta
+542892	2021-02-19	09:49:16	2500	0	0	0	0	B	E	Nueva Venta
+542893	2021-02-19	09:50:54	2900	0	0	0	0	B	E	Nueva Venta
+542894	2021-02-19	09:58:20	2550	0	0	0	0	B	E	Nueva Venta
+542895	2021-02-19	10:00:31	920	0	0	0	0	B	E	Nueva Venta
+542896	2021-02-19	10:05:36	3400	0	0	0	0	B	E	Nueva Venta
+542897	2021-02-19	10:07:44	5100	0	4000	0	0	B	E	Nueva Venta
+542898	2021-02-19	10:16:20	2000	0	0	0	0	B	E	Nueva Venta
+542899	2021-02-19	10:28:42	1300	0	0	0	0	B	E	Nueva Venta
+542900	2021-02-19	10:30:18	2300	0	0	0	0	B	E	Nueva Venta
+542901	2021-02-19	10:31:40	2000	0	0	0	0	B	E	Nueva Venta
+542902	2021-02-19	10:47:51	1300	0	0	0	0	B	E	Nueva Venta
+542903	2021-02-19	10:53:55	2400	0	0	0	0	B	E	Nueva Venta
+542904	2021-02-19	11:08:41	2300	0	0	0	0	B	E	Nueva Venta
+542905	2021-02-19	11:09:59	400	0	0	0	0	B	E	Nueva Venta
+542906	2021-02-19	11:11:05	1800	0	0	0	0	B	E	Nueva Venta
+542907	2021-02-19	11:12:36	2300	0	0	0	0	B	E	Nueva Venta
+542908	2021-02-19	11:38:00	700	0	0	0	0	B	E	Nueva Venta
+542909	2021-02-19	11:38:04	0	0	0	0	0	B	E	Nueva Venta
+542910	2021-02-19	11:38:04	6500	0	5000	0	0	B	E	Nueva Venta
+542911	2021-02-19	12:05:05	1000	0	0	0	0	B	E	Nva. Venta
+542912	2021-02-19	12:00:52	2300	0	0	0	0	B	E	Nueva Venta
+542913	2021-02-19	12:00:52	0	0	0	0	0	B	E	Nueva Venta
+542914	2021-02-19	12:05:05	350	0	0	0	0	B	E	Nueva Venta
+542915	2021-02-19	12:14:51	11900	0	8000	0	0	B	E	Nva. Venta
+542916	2021-02-19	12:20:18	3350	0	0	0	0	B	E	Nva. Venta
+542917	2021-02-19	12:20:18	0	0	0	0	0	B	E	Nueva Venta
+542918	2021-02-19	12:36:29	1400	0	0	0	0	B	E	Nva. Venta
+542919	2021-02-19	12:37:13	0	0	0	0	0	B	E	Nueva Venta
+542920	2021-02-19	12:37:14	0	0	0	0	0	B	E	Nueva Venta
+542921	2021-02-19	12:40:37	1650	0	0	0	0	B	E	Nva. Venta
+542922	2021-02-19	12:50:10	3000	0	3000	0	0	B	E	Nueva Venta
+542923	2021-02-19	13:00:46	2000	0	0	0	0	B	E	Nueva Venta
+542924	2021-02-19	13:02:07	3300	0	0	0	0	B	E	Nueva Venta
+542925	2021-02-19	13:12:11	1900	0	0	0	0	B	E	Nueva Venta
+542926	2021-02-19	13:13:30	3500	0	0	0	0	B	E	Nueva Venta
+542927	2021-02-19	13:28:24	3200	0	0	0	0	B	E	Nueva Venta
+542928	2021-02-19	13:32:34	1000	0	0	0	0	B	E	Nueva Venta
+542929	2021-02-19	13:32:34	2000	0	0	0	0	B	E	Nueva Venta
+542930	2021-02-19	13:42:55	6800	0	6800	0	0	B	E	Nva. Venta
+542931	2021-02-19	13:45:25	800	0	0	0	0	B	E	Nva. Venta
+542932	2021-02-19	15:12:40	1300	0	0	0	0	B	E	Nva. Venta
+542933	2021-02-19	15:18:17	3190	0	0	0	0	B	E	Nueva Venta
+542934	2021-02-19	16:16:17	1500	0	0	0	0	B	E	Nueva Venta
+542935	2021-02-19	16:35:02	1300	0	0	0	0	B	E	Nueva Venta
+542936	2021-02-19	16:35:40	1500	0	0	0	0	B	E	Nueva Venta
+542937	2021-02-22	07:40:58	1750	0	0	0	0	B	E	Nueva Venta
+542938	2021-02-22	07:44:12	6270	0	0	0	0	B	E	Nueva Venta
+542939	2021-02-22	07:44:59	1000	0	0	0	0	B	E	Nueva Venta
+542940	2021-02-22	07:50:14	2000	0	0	0	0	B	E	Nueva Venta
+542941	2021-02-22	08:07:41	0	0	0	0	0	B	E	Nueva Venta
+542942	2021-02-22	08:09:14	4000	0	2000	0	0	B	E	Nueva Venta
+542943	2021-02-22	08:10:45	4100	0	0	0	0	B	E	Nueva Venta
+542944	2021-02-22	08:14:36	2200	0	0	0	0	B	E	Nueva Venta
+542945	2021-02-22	08:15:52	1650	0	0	0	0	B	E	Nueva Venta
+542946	2021-02-22	08:18:51	2000	0	0	0	0	B	E	Nueva Venta
+542947	2021-02-22	08:22:05	2100	0	0	0	0	B	E	Nueva Venta
+542948	2021-02-22	08:29:39	1750	0	0	0	0	B	E	Nueva Venta
+542949	2021-02-22	08:35:10	5450	0	5050	0	0	B	E	Nueva Venta
+542950	2021-02-22	08:35:30	0	0	0	0	0	B	E	Nueva Venta
+542951	2021-02-22	08:37:32	4000	0	0	0	0	B	E	Nueva Venta
+542952	2021-02-22	08:38:44	1600	0	0	0	0	B	E	Nueva Venta
+542953	2021-02-22	08:57:52	2600	0	0	0	0	B	E	Nueva Venta
+542954	2021-02-22	08:58:46	3100	0	0	0	0	B	E	Nueva Venta
+542955	2021-02-22	09:00:44	4800	0	0	0	0	B	E	Nueva Venta
+542956	2021-02-22	09:02:23	2300	0	0	0	0	B	E	Nueva Venta
+542957	2021-02-22	09:05:46	1000	0	0	0	0	B	E	Nueva Venta
+542958	2021-02-22	09:07:30	2550	0	0	0	0	B	E	Nueva Venta
+542959	2021-02-22	09:10:04	3100	0	0	0	0	B	E	Nueva Venta
+542960	2021-02-22	09:12:07	2600	0	0	0	0	B	E	Nueva Venta
+542961	2021-02-22	09:14:13	4800	0	0	0	0	B	E	Nueva Venta
+542962	2021-02-22	09:16:13	2200	0	0	0	0	B	E	Nueva Venta
+542963	2021-02-22	09:16:50	0	0	0	0	0	B	E	Nueva Venta
+542964	2021-02-22	09:18:17	1100	0	0	0	0	B	E	Nueva Venta
+542965	2021-02-22	09:22:44	4300	0	0	0	0	B	E	Nueva Venta
+542966	2021-02-22	09:23:27	1500	0	0	0	0	B	E	Nueva Venta
+542967	2021-02-22	09:24:20	3050	0	0	0	0	B	E	Nueva Venta
+542968	2021-02-22	09:27:32	2400	0	0	0	0	B	E	Nueva Venta
+542969	2021-02-22	09:28:16	3700	0	0	0	0	B	E	Nueva Venta
+542970	2021-02-22	09:29:57	2400	0	0	0	0	B	E	Nueva Venta
+542971	2021-02-22	09:34:41	2050	0	0	0	0	B	E	Nueva Venta
+542972	2021-02-22	09:35:01	0	0	0	0	0	B	E	Nueva Venta
+542973	2021-02-22	09:36:26	3800	0	0	0	0	B	E	Nueva Venta
+542974	2021-02-22	09:40:07	1400	0	0	0	0	B	E	Nueva Venta
+542975	2021-02-22	09:44:54	4650	0	0	0	0	B	E	Nueva Venta
+542976	2021-02-22	09:45:42	1150	0	0	0	0	B	E	Nueva Venta
+542977	2021-02-22	09:54:17	5700	0	3000	0	0	B	E	Nueva Venta
+542978	2021-02-22	09:55:29	2400	0	0	0	0	B	E	Nueva Venta
+542979	2021-02-22	09:57:44	2000	0	0	0	0	B	E	Nueva Venta
+542980	2021-02-22	10:06:47	3900	0	0	0	0	B	E	Nueva Venta
+542981	2021-02-22	10:09:05	2600	0	0	0	0	B	E	Nueva Venta
+542982	2021-02-22	10:12:07	1300	0	0	0	0	B	E	Nueva Venta
+542983	2021-02-22	10:25:49	0	0	0	0	0	B	E	Nueva Venta
+542984	2021-02-22	10:26:42	1050	0	0	0	0	B	E	Nueva Venta
+542985	2021-02-22	10:34:16	900	0	0	0	0	B	E	Nueva Venta
+542986	2021-02-22	10:34:44	900	0	0	0	0	B	E	Nueva Venta
+542987	2021-02-22	10:36:17	1300	0	0	0	0	B	E	Nueva Venta
+542988	2021-02-22	10:56:07	1300	0	0	0	0	B	E	Nueva Venta
+542989	2021-02-22	10:56:07	0	0	0	0	0	B	E	Nueva Venta
+542990	2021-02-22	11:10:09	600	0	0	0	0	B	E	Nva. Venta
+542991	2021-02-22	11:12:14	3000	0	0	0	0	B	E	Nueva Venta
+542992	2021-02-22	11:30:27	0	0	0	0	0	B	E	Nueva Venta
+542993	2021-02-22	11:35:17	0	0	0	0	0	B	E	Nueva Venta
+542994	2021-02-22	11:38:49	8400	0	0	0	0	B	E	Nueva Venta
+542995	2021-02-22	11:49:31	500	0	0	0	0	B	E	Nueva Venta
+542996	2021-02-22	11:49:31	0	0	0	0	0	B	E	Nueva Venta
+542997	2021-02-22	11:54:58	500	0	0	0	0	B	E	Nva. Venta
+542998	2021-02-22	11:56:02	2600	0	0	0	0	B	E	Nueva Venta
+542999	2021-02-22	12:20:18	0	0	0	0	0	B	E	Nueva Venta
+543000	2021-02-22	12:29:01	3000	0	3000	0	0	B	E	Nueva Venta
+543001	2021-02-22	12:30:18	2600	0	0	0	0	B	E	Nueva Venta
+543002	2021-02-22	14:40:12	700	0	0	0	0	B	E	Nueva Venta
+543003	2021-02-22	14:41:02	0	0	0	0	0	B	E	Nueva Venta
+543004	2021-02-22	14:50:42	1750	0	0	0	0	B	E	Nueva Venta
+543005	2021-02-22	14:51:56	1900	0	0	0	0	B	E	Nueva Venta
+543006	2021-02-22	14:54:34	2100	0	0	0	0	B	E	Nueva Venta
+543007	2021-02-22	14:55:25	3400	0	0	0	0	B	E	Nueva Venta
+543008	2021-02-22	15:04:37	4850	0	0	0	0	B	E	Nueva Venta
+543009	2021-02-22	15:26:24	1800	0	0	0	0	B	E	Nueva Venta
+543010	2021-02-22	15:43:42	3350	0	0	0	0	B	E	Nueva Venta
+543011	2021-02-22	15:47:41	1550	0	0	0	0	B	E	Nueva Venta
+543012	2021-02-23	07:43:17	850	0	0	0	0	B	E	Nueva Venta
+543013	2021-02-23	07:45:40	3200	0	0	0	0	B	E	Nueva Venta
+543014	2021-02-23	07:47:48	900	0	0	0	0	B	E	Nueva Venta
+543015	2021-02-23	07:57:38	2700	0	0	0	0	B	E	Nueva Venta
+543016	2021-02-23	08:02:38	1500	0	0	0	0	B	E	Nueva Venta
+543017	2021-02-23	08:12:33	2100	0	0	0	0	B	E	Nueva Venta
+543018	2021-02-23	08:13:41	0	0	0	0	0	B	E	Nueva Venta
+543019	2021-02-23	08:16:57	2750	0	0	0	0	B	E	Nueva Venta
+543020	2021-02-23	08:17:45	500	0	0	0	0	B	E	Nueva Venta
+543021	2021-02-23	08:23:53	3100	0	0	0	0	B	E	Nueva Venta
+543022	2021-02-23	08:26:58	1100	0	0	0	0	B	E	Nueva Venta
+543023	2021-02-23	08:29:19	6500	0	0	0	0	B	E	Nueva Venta
+543024	2021-02-23	08:38:43	300	0	0	0	0	B	E	Nueva Venta
+543025	2021-02-23	08:39:07	500	0	0	0	0	B	E	Nueva Venta
+543026	2021-02-23	08:44:15	3900	0	0	0	0	B	E	Nueva Venta
+543027	2021-02-23	08:48:49	0	0	0	0	0	B	E	Nueva Venta
+543028	2021-02-23	09:01:57	2200	0	0	0	0	B	E	Nueva Venta
+543029	2021-02-23	09:10:27	2400	0	0	0	0	B	E	Nueva Venta
+543030	2021-02-23	09:14:31	750	0	0	0	0	B	E	Nueva Venta
+543031	2021-02-23	09:17:10	2600	0	0	0	0	B	E	Nueva Venta
+543032	2021-02-23	09:18:46	1000	0	0	0	0	B	E	Nueva Venta
+543033	2021-02-23	09:19:30	4600	0	4200	0	0	B	E	Nueva Venta
+543034	2021-02-23	09:21:22	2400	0	0	0	0	B	E	Nueva Venta
+543035	2021-02-23	09:22:17	0	0	0	0	0	B	E	Nueva Venta
+543036	2021-02-23	09:22:54	3200	0	0	0	0	B	E	Nueva Venta
+543037	2021-02-23	09:24:25	2600	0	0	0	0	B	E	Nueva Venta
+543038	2021-02-23	09:27:25	2700	0	0	0	0	B	E	Nueva Venta
+543039	2021-02-23	09:31:54	1300	0	0	0	0	B	E	Nueva Venta
+543040	2021-02-23	09:35:11	4400	0	0	0	0	B	E	Nueva Venta
+543041	2021-02-23	09:37:19	750	0	0	0	0	B	E	Nueva Venta
+543042	2021-02-23	09:37:58	3800	0	0	0	0	B	E	Nueva Venta
+543043	2021-02-23	09:38:33	2800	0	0	0	0	B	E	Nueva Venta
+543044	2021-02-23	09:39:36	0	0	0	0	0	B	E	Nueva Venta
+543045	2021-02-23	09:40:34	2400	0	0	0	0	B	E	Nueva Venta
+543046	2021-02-23	09:42:02	5600	0	0	0	0	B	E	Nueva Venta
+543047	2021-02-23	09:42:09	1650	0	0	0	0	B	E	Nueva Venta
+543048	2021-02-23	09:42:58	2600	0	0	0	0	B	E	Nueva Venta
+543049	2021-02-23	09:45:20	0	0	0	0	0	B	E	Nueva Venta
+543050	2021-02-23	09:46:17	7250	0	0	0	0	B	E	Nueva Venta
+543051	2021-02-23	09:47:21	500	0	0	0	0	B	E	Nueva Venta
+543052	2021-02-23	09:51:21	2750	0	0	0	0	B	E	Nueva Venta
+543053	2021-02-23	09:52:36	4200	0	0	0	0	B	E	Nueva Venta
+543054	2021-02-23	09:55:11	4800	0	0	0	0	B	E	Nueva Venta
+543055	2021-02-23	09:55:57	1800	0	0	0	0	B	E	Nueva Venta
+543056	2021-02-23	09:56:59	4000	0	0	0	0	B	E	Nueva Venta
+543057	2021-02-23	09:56:59	0	0	0	0	0	B	E	Nueva Venta
+543058	2021-02-23	10:01:51	2000	0	2000	0	0	B	E	Nva. Venta
+543059	2021-02-23	10:02:35	4300	0	0	0	0	B	E	Nueva Venta
+543060	2021-02-23	10:05:38	2400	0	0	0	0	B	E	Nueva Venta
+543061	2021-02-23	10:08:59	2500	0	0	0	0	B	E	Nueva Venta
+543062	2021-02-23	10:10:44	2500	0	0	0	0	B	E	Nueva Venta
+543063	2021-02-23	10:15:03	1900	0	0	0	0	B	E	Nueva Venta
+543064	2021-02-23	10:28:24	3600	0	0	0	0	B	E	Nueva Venta
+543065	2021-02-23	10:30:19	2400	0	0	0	0	B	E	Nueva Venta
+543066	2021-02-23	10:36:50	700	0	0	0	0	B	E	Nueva Venta
+543067	2021-02-23	10:38:10	2900	0	0	0	0	B	E	Nueva Venta
+543068	2021-02-23	10:39:10	1900	0	0	0	0	B	E	Nueva Venta
+543069	2021-02-23	10:40:03	0	0	0	0	0	B	E	Nueva Venta
+543070	2021-02-23	10:44:51	5350	0	0	0	0	B	E	Nueva Venta
+543071	2021-02-23	10:54:33	1800	0	1800	0	0	B	E	Nueva Venta
+543072	2021-02-23	10:55:31	0	0	0	0	0	B	E	Nueva Venta
+543073	2021-02-23	11:07:53	350	0	0	0	0	B	E	Nueva Venta
+543074	2021-02-23	11:13:09	4600	0	0	0	0	B	E	Nueva Venta
+543075	2021-02-23	11:30:02	900	0	0	0	0	B	E	Nueva Venta
+543076	2021-02-23	12:04:10	4500	0	0	0	0	B	E	Nueva Venta
+543077	2021-02-23	12:17:52	2700	0	0	0	0	B	E	Nueva Venta
+543078	2021-02-23	12:18:49	0	0	0	0	0	B	E	Nueva Venta
+543079	2021-02-23	12:21:48	0	0	0	0	0	B	E	Nueva Venta
+543080	2021-02-23	12:25:44	1050	0	0	0	0	B	E	Nueva Venta
+543081	2021-02-23	12:32:06	3300	0	0	0	0	B	E	Nueva Venta
+543082	2021-02-23	12:37:56	2700	0	0	0	0	B	E	Nueva Venta
+543083	2021-02-23	13:54:39	800	0	0	0	0	B	E	Nueva Venta
+543084	2021-02-23	14:02:55	400	0	0	0	0	B	E	Nueva Venta
+543085	2021-02-23	14:07:02	0	0	0	0	0	B	E	Nueva Venta
+543086	2021-02-23	14:08:25	0	0	0	0	0	B	E	Nueva Venta
+543087	2021-02-23	14:10:51	4600	0	0	0	0	B	E	Nueva Venta
+543088	2021-02-23	14:27:21	850	0	0	0	0	B	E	Nueva Venta
+543089	2021-02-23	14:36:23	4000	0	4000	0	0	B	E	Nueva Venta
+543090	2021-02-23	14:45:31	1550	0	0	0	0	B	E	Nueva Venta
+543091	2021-02-23	14:49:48	5400	0	4400	0	0	B	E	Nueva Venta
+543092	2021-02-23	14:56:52	1500	0	0	0	0	B	E	Nueva Venta
+543093	2021-02-23	14:58:17	3050	0	0	0	0	B	E	Nueva Venta
+543094	2021-02-23	15:12:19	0	0	0	0	0	B	E	Nueva Venta
+543095	2021-02-23	15:14:57	4400	0	4400	0	0	B	E	Nueva Venta
+543096	2021-02-23	15:22:22	2750	0	0	0	0	B	E	Nueva Venta
+543097	2021-02-23	15:24:12	2100	0	0	0	0	B	E	Nueva Venta
+543098	2021-02-23	15:25:06	1400	0	0	0	0	B	E	Nueva Venta
+543099	2021-02-23	15:42:24	3400	0	0	0	0	B	E	Nueva Venta
+543100	2021-02-23	15:44:26	3200	0	0	0	0	B	E	Nueva Venta
+543101	2021-02-23	15:49:06	3190	0	0	0	0	B	E	Nueva Venta
+543102	2021-02-24	07:41:31	3000	0	3000	0	0	B	E	Nueva Venta
+543103	2021-02-24	07:42:01	0	0	0	0	0	B	E	Nueva Venta
+543104	2021-02-24	07:52:26	3000	0	0	0	0	B	E	Nueva Venta
+543105	2021-02-24	07:59:42	4000	0	2000	0	0	B	E	Nueva Venta
+543106	2021-02-24	08:00:15	1600	0	0	0	0	B	E	Nueva Venta
+543107	2021-02-24	08:10:32	4650	0	3400	0	0	B	E	Nueva Venta
+543108	2021-02-24	08:12:29	2400	0	0	0	0	B	E	Nueva Venta
+543109	2021-02-24	08:14:58	1500	0	0	0	0	B	E	Nueva Venta
+543110	2021-02-24	08:15:16	5000	0	4000	0	0	B	E	Nueva Venta
+543111	2021-02-24	08:16:41	0	0	0	0	0	B	E	Nueva Venta
+543112	2021-02-24	08:20:19	2500	0	0	0	0	B	E	Nueva Venta
+543113	2021-02-24	08:29:25	3300	0	0	0	0	B	E	Nueva Venta
+543114	2021-02-24	08:30:09	0	0	0	0	0	B	E	Nueva Venta
+543115	2021-02-24	08:31:02	2600	0	0	0	0	B	E	Nueva Venta
+543116	2021-02-24	08:35:11	2300	0	0	0	0	B	E	Nueva Venta
+543117	2021-02-24	08:39:31	9800	0	4000	0	0	B	E	Nueva Venta
+543118	2021-02-24	08:40:37	4100	0	0	0	0	B	E	Nueva Venta
+543119	2021-02-24	08:41:27	2000	0	0	0	0	B	E	Nueva Venta
+543120	2021-02-24	08:42:11	2100	0	0	0	0	B	E	Nueva Venta
+543121	2021-02-24	08:45:00	2500	0	0	0	0	B	E	Nueva Venta
+543122	2021-02-24	08:47:49	2200	0	0	0	0	B	E	Nueva Venta
+543123	2021-02-24	08:48:35	0	0	0	0	0	B	E	Nueva Venta
+543124	2021-02-24	08:50:24	3300	0	0	0	0	B	E	Nueva Venta
+543125	2021-02-24	08:54:39	2400	0	0	0	0	B	E	Nueva Venta
+543126	2021-02-24	08:57:07	4300	0	0	0	0	B	E	Nueva Venta
+543127	2021-02-24	09:00:43	1700	0	0	0	0	B	E	Nueva Venta
+543128	2021-02-24	09:02:16	2400	0	0	0	0	B	E	Nueva Venta
+543129	2021-02-24	09:03:04	3650	0	0	0	0	B	E	Nueva Venta
+543130	2021-02-24	09:07:14	4800	0	0	0	0	B	E	Nueva Venta
+543131	2021-02-24	09:08:02	1300	0	0	0	0	B	E	Nueva Venta
+543132	2021-02-24	09:10:44	3300	0	0	0	0	B	E	Nueva Venta
+543133	2021-02-24	09:11:40	4500	0	0	0	0	B	E	Nueva Venta
+543134	2021-02-24	09:28:36	0	0	0	0	0	B	E	Nueva Venta
+543135	2021-02-24	09:29:39	1550	0	0	0	0	B	E	Nueva Venta
+543136	2021-02-24	09:32:05	4900	0	3400	0	0	B	E	Nueva Venta
+543137	2021-02-24	09:34:48	3350	0	0	0	0	B	E	Nueva Venta
+543138	2021-02-24	09:35:36	1850	0	0	0	0	B	E	Nueva Venta
+543139	2021-02-24	09:39:20	3050	0	0	0	0	B	E	Nueva Venta
+543140	2021-02-24	09:41:15	4300	0	0	0	0	B	E	Nueva Venta
+543141	2021-02-24	09:43:56	3000	0	0	0	0	B	E	Nueva Venta
+543142	2021-02-24	09:45:26	5300	0	0	0	0	B	E	Nueva Venta
+543143	2021-02-24	09:47:48	0	0	0	0	0	B	E	Nueva Venta
+543144	2021-02-24	09:49:12	4800	0	2500	0	0	B	E	Nueva Venta
+543145	2021-02-24	09:53:13	1950	0	0	0	0	B	E	Nueva Venta
+543146	2021-02-24	09:55:51	4000	0	0	0	0	B	E	Nueva Venta
+543147	2021-02-24	09:55:51	0	0	0	0	0	B	E	Nueva Venta
+543148	2021-02-24	10:03:33	800	0	0	0	0	B	E	Nva. Venta
+543149	2021-02-24	10:05:59	6650	0	4400	0	0	B	E	Nueva Venta
+543150	2021-02-24	10:08:00	900	0	0	0	0	B	E	Nueva Venta
+543151	2021-02-24	10:21:39	1800	0	0	0	0	B	E	Nueva Venta
+543152	2021-02-24	10:39:24	5600	0	3400	0	0	B	E	Nueva Venta
+543153	2021-02-24	10:41:42	800	0	0	0	0	B	E	Nueva Venta
+543154	2021-02-24	10:43:40	2200	0	0	0	0	B	E	Nueva Venta
+543155	2021-02-24	10:49:28	3500	0	0	0	0	B	E	Nueva Venta
+543156	2021-02-24	10:59:02	2300	0	0	0	0	B	E	Nueva Venta
+543157	2021-02-24	11:03:16	4300	0	0	0	0	B	E	Nueva Venta
+543158	2021-02-24	11:05:28	4200	0	0	0	0	B	E	Nueva Venta
+543159	2021-02-24	11:07:44	1300	0	0	0	0	B	E	Nueva Venta
+543160	2021-02-24	11:13:55	1600	0	0	0	0	B	E	Nueva Venta
+543161	2021-02-24	11:19:57	3850	0	0	0	0	B	E	Nueva Venta
+543162	2021-02-24	11:27:11	5100	0	0	0	0	B	E	Nueva Venta
+543163	2021-02-24	11:48:26	1700	0	0	0	0	B	E	Nueva Venta
+543164	2021-02-24	11:50:35	2200	0	0	0	0	B	E	Nueva Venta
+543165	2021-02-24	11:58:23	4300	0	4300	0	0	B	E	Nueva Venta
+543166	2021-02-24	12:11:48	3400	0	3400	0	0	B	E	Nueva Venta
+543167	2021-02-24	12:12:53	300	0	0	0	0	B	E	Nueva Venta
+543168	2021-02-24	12:26:34	1350	0	0	0	0	B	E	Nueva Venta
+543169	2021-02-24	12:33:20	4050	0	0	0	0	B	E	Nueva Venta
+543170	2021-02-24	12:36:20	4200	0	0	0	0	B	E	Nueva Venta
+543171	2021-02-24	12:48:04	2850	0	0	0	0	B	E	Nueva Venta
+543172	2021-02-24	13:33:23	450	0	0	0	0	B	E	Nueva Venta
+543173	2021-02-24	13:40:18	300	0	0	0	0	B	E	Nueva Venta
+543174	2021-02-24	14:04:04	8000	0	0	0	0	B	E	Nueva Venta
+543175	2021-02-24	14:09:05	4000	0	4000	0	0	B	E	Nueva Venta
+543176	2021-02-24	14:09:53	2300	0	0	0	0	B	E	Nueva Venta
+543177	2021-02-24	14:11:36	7700	0	4300	0	0	B	E	Nueva Venta
+543178	2021-02-24	14:14:19	1150	0	0	0	0	B	E	Nueva Venta
+543179	2021-02-24	14:19:13	1600	0	0	0	0	B	E	Nueva Venta
+543180	2021-02-24	14:19:55	1650	0	0	0	0	B	E	Nueva Venta
+543181	2021-02-24	14:23:11	4000	0	3400	0	0	B	E	Nueva Venta
+543182	2021-02-24	14:27:21	4400	0	0	0	0	B	E	Nueva Venta
+543183	2021-02-24	14:45:34	2600	0	0	0	0	B	E	Nueva Venta
+543184	2021-02-24	14:47:21	4000	0	4000	0	0	B	E	Nueva Venta
+543185	2021-02-24	14:48:53	2450	0	0	0	0	B	E	Nueva Venta
+543186	2021-02-24	14:51:19	0	0	0	0	0	B	E	Nueva Venta
+543187	2021-02-24	14:55:16	2050	0	0	0	0	B	E	Nueva Venta
+543188	2021-02-24	14:57:19	700	0	0	0	0	B	E	Nueva Venta
+543189	2021-02-24	14:59:10	300	0	0	0	0	B	E	Nueva Venta
+543190	2021-02-25	07:41:22	4480	0	0	0	0	B	E	Nueva Venta
+543191	2021-02-25	07:45:05	2100	0	0	0	0	B	E	Nueva Venta
+543192	2021-02-25	07:46:40	6750	0	0	0	0	B	E	Nueva Venta
+543193	2021-02-25	07:49:32	1750	0	0	0	0	B	E	Nueva Venta
+543194	2021-02-25	08:07:17	3700	0	0	0	0	B	E	Nueva Venta
+543195	2021-02-25	08:21:29	2200	0	0	0	0	B	E	Nueva Venta
+543196	2021-02-25	08:21:48	300	0	0	0	0	B	E	Nueva Venta
+543197	2021-02-25	08:22:01	300	0	0	0	0	B	E	Nueva Venta
+543198	2021-02-25	08:22:28	1000	0	0	0	0	B	E	Nueva Venta
+543199	2021-02-25	08:24:18	5100	0	4200	0	0	B	E	Nueva Venta
+543200	2021-02-25	08:26:31	3500	0	0	0	0	B	E	Nueva Venta
+543201	2021-02-25	08:28:43	2250	0	0	0	0	B	E	Nueva Venta
+543202	2021-02-25	08:29:55	2400	0	0	0	0	B	E	Nueva Venta
+543203	2021-02-25	08:34:12	2000	0	0	0	0	B	E	Nueva Venta
+543204	2021-02-25	08:35:35	3650	0	0	0	0	B	E	Nueva Venta
+543205	2021-02-25	08:38:50	4800	0	0	0	0	B	E	Nueva Venta
+543206	2021-02-25	08:41:40	1300	0	0	0	0	B	E	Nueva Venta
+543207	2021-02-25	08:43:36	1800	0	0	0	0	B	E	Nueva Venta
+543208	2021-02-25	08:49:46	0	0	0	0	0	B	E	Nueva Venta
+543209	2021-02-25	08:53:10	2200	0	0	0	0	B	E	Nueva Venta
+543210	2021-02-25	09:00:11	0	0	0	0	0	B	E	Nueva Venta
+543211	2021-02-25	09:01:35	6700	0	0	0	0	B	E	Nueva Venta
+543212	2021-02-25	09:04:04	600	0	0	0	0	B	E	Nueva Venta
+543213	2021-02-25	09:05:31	3500	0	0	0	0	B	E	Nueva Venta
+543214	2021-02-25	09:06:56	4700	0	3400	0	0	B	E	Nueva Venta
+543215	2021-02-25	10:04:35	12800	0	3400	0	0	B	E	Nueva Venta
+543216	2021-02-25	10:08:58	4900	0	0	0	0	B	E	Nueva Venta
+543217	2021-02-25	10:12:02	0	0	0	0	0	B	E	Nueva Venta
+543218	2021-02-25	10:12:46	1800	0	0	0	0	B	E	Nueva Venta
+543219	2021-02-25	10:13:50	5700	0	4400	0	0	B	E	Nueva Venta
+543220	2021-02-25	10:16:19	2100	0	0	0	0	B	E	Nueva Venta
+543221	2021-02-25	10:23:01	7400	0	4200	0	0	B	E	Nueva Venta
+543222	2021-02-25	10:38:26	5600	0	3500	0	0	B	E	Nueva Venta
+543223	2021-02-25	10:48:16	2400	0	0	0	0	B	E	Nueva Venta
+543224	2021-02-25	10:59:07	4000	0	4000	0	0	B	E	Nueva Venta
+543225	2021-02-25	11:08:12	700	0	0	0	0	B	E	Nueva Venta
+543226	2021-02-25	11:12:29	3500	0	0	0	0	B	E	Nueva Venta
+543227	2021-02-25	11:13:13	2200	0	0	0	0	B	E	Nueva Venta
+543228	2021-02-25	11:29:01	1150	0	0	0	0	B	E	Nueva Venta
+543229	2021-02-25	11:36:13	2100	0	0	0	0	B	E	Nueva Venta
+543230	2021-02-25	11:38:01	1800	0	0	0	0	B	E	Nueva Venta
+543231	2021-02-25	11:45:00	4500	0	0	0	0	B	E	Nueva Venta
+543232	2021-02-25	11:45:59	1700	0	0	0	0	B	E	Nueva Venta
+543233	2021-02-25	11:48:28	1600	0	0	0	0	B	E	Nueva Venta
+543234	2021-02-25	11:53:49	3750	0	0	0	0	B	E	Nueva Venta
+543235	2021-02-25	12:26:46	2000	0	0	0	0	B	E	Nueva Venta
+543236	2021-02-25	12:33:49	700	0	0	0	0	B	E	Nueva Venta
+543237	2021-02-25	14:17:41	2600	0	0	0	0	B	E	Nueva Venta
+543238	2021-02-25	14:31:22	2700	0	0	0	0	B	E	Nueva Venta
+543239	2021-02-25	14:35:52	4600	0	0	0	0	B	E	Nueva Venta
+543240	2021-02-25	14:41:19	300	0	0	0	0	B	E	Nueva Venta
+543241	2021-02-25	14:44:37	800	0	0	0	0	B	E	Nueva Venta
+543242	2021-02-25	14:52:37	1750	0	0	0	0	B	E	Nueva Venta
+543243	2021-02-25	14:53:41	800	0	0	0	0	B	E	Nueva Venta
+543244	2021-02-25	14:54:24	2100	0	0	0	0	B	E	Nueva Venta
+543245	2021-02-25	14:56:47	3500	0	0	0	0	B	E	Nueva Venta
+543246	2021-02-25	15:00:07	2620	0	0	0	0	B	E	Nueva Venta
+543247	2021-02-25	15:02:23	1500	0	0	0	0	B	E	Nueva Venta
+543248	2021-02-25	15:08:51	4650	0	0	0	0	B	E	Nueva Venta
+543249	2021-02-25	15:11:35	4500	0	0	0	0	B	E	Nueva Venta
+543250	2021-02-25	15:22:31	4200	0	4200	0	0	B	E	Nueva Venta
+543251	2021-02-25	15:24:35	800	0	0	0	0	B	E	Nueva Venta
+543252	2021-02-25	15:59:21	7500	0	6000	0	0	B	E	Nueva Venta
+543253	2021-02-25	16:03:00	5000	0	4000	0	0	B	E	Nueva Venta
+543254	2021-02-26	07:39:21	3000	0	2500	0	0	B	E	Nueva Venta
+543255	2021-02-26	07:42:08	6100	0	4300	0	0	B	E	Nueva Venta
+543256	2021-02-26	07:45:06	3750	0	0	0	0	B	E	Nueva Venta
+543257	2021-02-26	07:49:15	6000	0	0	0	0	B	E	Nueva Venta
+543258	2021-02-26	07:50:41	3400	0	0	0	0	B	E	Nueva Venta
+543259	2021-02-26	07:54:44	8550	0	0	0	0	B	E	Nueva Venta
+543260	2021-02-26	07:55:55	5100	0	3400	0	0	B	E	Nueva Venta
+543261	2021-02-26	07:56:56	2750	0	0	0	0	B	E	Nueva Venta
+543262	2021-02-26	07:57:37	800	0	0	0	0	B	E	Nueva Venta
+543263	2021-02-26	07:58:00	500	0	0	0	0	B	E	Nueva Venta
+543264	2021-02-26	08:11:01	2000	0	0	0	0	B	E	Nueva Venta
+543265	2021-02-26	08:12:13	1800	0	0	0	0	B	E	Nueva Venta
+543266	2021-02-26	08:16:11	6700	0	4300	0	0	B	E	Nueva Venta
+543267	2021-02-26	08:18:00	1600	0	0	0	0	B	E	Nueva Venta
+543268	2021-02-26	08:30:49	0	0	0	0	0	B	E	Nueva Venta
+543269	2021-02-26	08:33:27	1800	0	0	0	0	B	E	Nueva Venta
+543270	2021-02-26	08:34:22	0	0	0	0	0	B	E	Nueva Venta
+543271	2021-02-26	08:37:38	5700	0	0	0	0	B	E	Nueva Venta
+543272	2021-02-26	08:43:21	1600	0	0	0	0	B	E	Nueva Venta
+543273	2021-02-26	08:47:50	2700	0	0	0	0	B	E	Nueva Venta
+543274	2021-02-26	08:48:40	1200	0	0	0	0	B	E	Nueva Venta
+543275	2021-02-26	08:50:02	1100	0	0	0	0	B	E	Nueva Venta
+543276	2021-02-26	08:55:51	4800	0	0	0	0	B	E	Nueva Venta
+543277	2021-02-26	09:05:03	3500	0	0	0	0	B	E	Nueva Venta
+543278	2021-02-26	09:11:19	3300	0	0	0	0	B	E	Nueva Venta
+543279	2021-02-26	09:15:47	4000	0	0	0	0	B	E	Nueva Venta
+543280	2021-02-26	09:18:06	4100	0	0	0	0	B	E	Nueva Venta
+543281	2021-02-26	09:18:48	4300	0	0	0	0	B	E	Nueva Venta
+543282	2021-02-26	09:21:20	3600	0	0	0	0	B	E	Nueva Venta
+543283	2021-02-26	09:23:53	1300	0	0	0	0	B	E	Nueva Venta
+543284	2021-02-26	09:30:54	2100	0	0	0	0	B	E	Nueva Venta
+543285	2021-02-26	09:32:49	3100	0	0	0	0	B	E	Nueva Venta
+543286	2021-02-26	09:43:18	4100	0	0	0	0	B	E	Nueva Venta
+543287	2021-02-26	09:44:15	1400	0	0	0	0	B	E	Nueva Venta
+543288	2021-02-26	09:47:33	3800	0	0	0	0	B	E	Nueva Venta
+543289	2021-02-26	09:49:34	2700	0	0	0	0	B	E	Nueva Venta
+543290	2021-02-26	09:53:23	4200	0	0	0	0	B	E	Nueva Venta
+543291	2021-02-26	09:54:29	3300	0	0	0	0	B	E	Nueva Venta
+543292	2021-02-26	09:56:37	800	0	0	0	0	B	E	Nueva Venta
+543293	2021-02-26	10:02:07	2000	0	0	0	0	B	E	Nueva Venta
+543294	2021-02-26	10:08:33	0	0	0	0	0	B	E	Nueva Venta
+543295	2021-02-26	10:09:26	1400	0	0	0	0	B	E	Nueva Venta
+543296	2021-02-26	10:10:53	1300	0	0	0	0	B	E	Nueva Venta
+543297	2021-02-26	10:15:32	1300	0	0	0	0	B	E	Nueva Venta
+543298	2021-02-26	10:18:11	600	0	0	0	0	B	E	Nueva Venta
+543299	2021-02-26	10:19:52	1100	0	0	0	0	B	E	Nueva Venta
+543300	2021-02-26	10:23:47	3800	0	3400	0	0	B	E	Nueva Venta
+543301	2021-02-26	10:26:54	2100	0	0	0	0	B	E	Nueva Venta
+543302	2021-02-26	10:36:30	2600	0	1800	0	0	B	E	Nueva Venta
+543303	2021-02-26	11:00:04	1000	0	0	0	0	B	E	Nueva Venta
+543304	2021-02-26	11:12:19	500	0	0	0	0	B	E	Nueva Venta
+543305	2021-02-26	11:18:33	3750	0	0	0	0	B	E	Nueva Venta
+543306	2021-02-26	11:24:06	2600	0	0	0	0	B	E	Nueva Venta
+543307	2021-02-26	11:34:17	4600	0	0	0	0	B	E	Nueva Venta
+543308	2021-02-26	11:35:45	4900	0	0	0	0	B	E	Nueva Venta
+543309	2021-02-26	11:49:17	2800	0	0	0	0	B	E	Nueva Venta
+543310	2021-02-26	11:50:49	1700	0	0	0	0	B	E	Nueva Venta
+543311	2021-02-26	12:04:16	2800	0	0	0	0	B	E	Nueva Venta
+543312	2021-02-26	12:05:54	2600	0	0	0	0	B	E	Nueva Venta
+543313	2021-02-26	12:08:04	3420	0	0	0	0	B	E	Nueva Venta
+543314	2021-02-26	12:16:30	3200	0	0	0	0	B	E	Nueva Venta
+543315	2021-02-26	13:13:47	2250	0	0	0	0	B	E	Nueva Venta
+543316	2021-02-26	13:29:15	13200	0	0	0	0	B	E	Nueva Venta
+543317	2021-02-26	13:43:11	1500	0	0	0	0	B	E	Nueva Venta
+543318	2021-02-26	13:53:16	4900	0	3400	0	0	B	E	Nueva Venta
+543319	2021-02-26	14:08:04	3000	0	3000	0	0	B	E	Nueva Venta
+543320	2021-02-26	14:08:04	0	0	0	0	0	B	E	Nueva Venta
+543321	2021-02-26	14:09:46	2450	0	0	0	0	B	E	Nva. Venta
+543322	2021-02-26	14:10:42	4220	0	0	0	0	B	E	Nueva Venta
+543323	2021-02-26	14:10:42	0	0	0	0	0	B	E	Nueva Venta
+543324	2021-02-26	14:13:51	2450	0	0	0	0	B	E	Nva. Venta
+543325	2021-02-26	14:15:45	3200	0	0	0	0	B	E	Nueva Venta
+543326	2021-02-26	14:17:25	2800	0	0	0	0	B	E	Nueva Venta
+543327	2021-02-26	14:30:21	1000	0	0	0	0	B	E	Nueva Venta
+543328	2021-02-26	14:36:12	1750	0	0	0	0	B	E	Nueva Venta
+543329	2021-02-26	14:45:59	5740	0	0	0	0	B	E	Nueva Venta
+543330	2021-02-26	15:30:08	1750	0	0	0	0	B	E	Nueva Venta
+543331	2021-02-26	15:30:08	0	0	0	0	0	B	E	Nueva Venta
+543332	2021-03-01	07:50:45	7150	0	0	0	0	B	E	Nva. Venta
+543333	2021-03-01	07:51:49	1900	0	0	0	0	B	E	Nueva Venta
+543334	2021-03-01	08:06:50	2000	0	0	0	0	B	E	Nueva Venta
+543335	2021-03-01	08:09:23	3550	0	0	0	0	B	E	Nueva Venta
+543336	2021-03-01	08:12:29	8000	0	4200	0	0	B	E	Nueva Venta
+543337	2021-03-01	08:14:01	1000	0	0	0	0	B	E	Nueva Venta
+543338	2021-03-01	08:15:36	3150	0	0	0	0	B	E	Nueva Venta
+543339	2021-03-01	08:48:00	5600	0	4200	0	0	B	E	Nueva Venta
+543340	2021-03-01	09:02:17	3800	0	0	0	0	B	E	Nueva Venta
+543341	2021-03-01	09:07:02	2900	0	0	0	0	B	E	Nueva Venta
+543342	2021-03-01	09:08:39	0	0	0	0	0	B	E	Nueva Venta
+543343	2021-03-01	09:09:32	3700	0	0	0	0	B	E	Nueva Venta
+543344	2021-03-01	09:12:11	3450	0	0	0	0	B	E	Nueva Venta
+543345	2021-03-01	09:12:38	2750	0	0	0	0	B	E	Nueva Venta
+543346	2021-03-01	09:17:43	2650	0	0	0	0	B	E	Nueva Venta
+543347	2021-03-01	09:19:09	1950	0	0	0	0	B	E	Nueva Venta
+543348	2021-03-01	09:20:27	2600	0	0	0	0	B	E	Nueva Venta
+543349	2021-03-01	09:22:45	1300	0	0	0	0	B	E	Nueva Venta
+543350	2021-03-01	09:23:49	0	0	0	0	0	B	E	Nueva Venta
+543351	2021-03-01	09:24:20	1500	0	0	0	0	B	E	Nueva Venta
+543352	2021-03-01	09:25:00	1600	0	0	0	0	B	E	Nueva Venta
+543353	2021-03-01	09:32:17	5400	0	0	0	0	B	E	Nueva Venta
+543354	2021-03-01	09:32:38	2000	0	0	0	0	B	E	Nueva Venta
+543355	2021-03-01	09:42:45	2900	0	0	0	0	B	E	Nueva Venta
+543356	2021-03-01	09:47:59	3400	0	0	0	0	B	E	Nueva Venta
+543357	2021-03-01	09:47:59	16400	0	10000	0	0	B	E	Nueva Venta
+543358	2021-03-01	10:09:09	2000	0	2000	0	0	B	E	Nva. Venta
+543359	2021-03-01	10:12:57	4600	0	0	0	0	B	E	Nueva Venta
+543360	2021-03-01	10:16:20	1300	0	0	0	0	B	E	Nueva Venta
+543361	2021-03-01	10:20:46	9100	0	9100	0	0	B	E	Nueva Venta
+543362	2021-03-01	10:35:51	5250	0	4500	0	0	B	E	Nueva Venta
+543363	2021-03-01	10:48:33	4400	0	3400	0	0	B	E	Nueva Venta
+543364	2021-03-01	11:01:45	5300	0	0	0	0	B	E	Nueva Venta
+543365	2021-03-01	11:04:04	1300	0	0	0	0	B	E	Nueva Venta
+543366	2021-03-01	11:07:32	1800	0	0	0	0	B	E	Nueva Venta
+543367	2021-03-01	11:41:44	600	0	0	0	0	B	E	Nueva Venta
+543368	2021-03-01	11:53:45	1900	0	0	0	0	B	E	Nueva Venta
+543369	2021-03-01	12:21:27	3400	0	0	0	0	B	E	Nueva Venta
+543370	2021-03-01	12:23:57	6500	0	1300	0	0	B	E	Nueva Venta
+543371	2021-03-01	12:32:52	1100	0	0	0	0	B	E	Nueva Venta
+543372	2021-03-01	12:58:46	1650	0	0	0	0	B	E	Nueva Venta
+543373	2021-03-01	13:08:44	3800	0	0	0	0	B	E	Nueva Venta
+543374	2021-03-01	13:30:07	5300	0	4400	0	0	B	E	Nueva Venta
+543375	2021-03-01	13:55:07	1300	0	0	0	0	B	E	Nueva Venta
+543376	2021-03-01	13:56:25	3400	0	3400	0	0	B	E	Nueva Venta
+543377	2021-03-01	14:18:50	2100	0	0	0	0	B	E	Nueva Venta
+543378	2021-03-01	14:22:12	400	0	0	0	0	B	E	Nueva Venta
+543379	2021-03-01	14:23:39	2200	0	0	0	0	B	E	Nueva Venta
+543380	2021-03-01	14:26:05	1500	0	0	0	0	B	E	Nueva Venta
+543381	2021-03-01	14:33:24	8100	0	4000	0	0	B	E	Nueva Venta
+543382	2021-03-01	14:40:19	900	0	0	0	0	B	E	Nueva Venta
+543383	2021-03-01	14:53:18	1100	0	650	0	0	B	E	Nueva Venta
+543384	2021-03-01	14:58:49	5500	0	0	0	0	B	E	Nueva Venta
+543385	2021-03-01	15:00:06	1250	0	0	0	0	B	E	Nueva Venta
+543386	2021-03-01	15:07:38	2000	0	2000	0	0	B	E	Nueva Venta
+543387	2021-03-01	15:08:27	0	0	0	0	0	B	E	Nueva Venta
+543388	2021-03-01	15:08:53	0	0	0	0	0	B	E	Nueva Venta
+543389	2021-03-01	15:38:07	3000	0	0	0	0	B	E	Nueva Venta
+543390	2021-03-01	16:30:45	3380	0	0	0	0	B	E	Nueva Venta
+543391	2021-03-01	16:39:50	1500	0	0	0	0	B	E	Nueva Venta
+543392	2021-03-01	16:39:50	5050	0	0	0	0	B	E	Nueva Venta
+543393	2021-03-02	07:42:18	3750	0	0	0	0	B	E	Nva. Venta
+543394	2021-03-02	07:43:16	2700	0	0	0	0	B	E	Nueva Venta
+543395	2021-03-02	07:44:23	2800	0	2000	0	0	B	E	Nueva Venta
+543396	2021-03-02	07:58:54	2400	0	0	0	0	B	E	Nueva Venta
+543397	2021-03-02	08:01:37	2600	0	0	0	0	B	E	Nueva Venta
+543398	2021-03-02	08:04:15	2450	0	0	0	0	B	E	Nueva Venta
+543399	2021-03-02	08:12:42	700	0	0	0	0	B	E	Nueva Venta
+543400	2021-03-02	08:14:15	2800	0	0	0	0	B	E	Nueva Venta
+543401	2021-03-02	08:20:48	1300	0	0	0	0	B	E	Nueva Venta
+543402	2021-03-02	08:21:42	2800	0	0	0	0	B	E	Nueva Venta
+543403	2021-03-02	08:24:28	1600	0	0	0	0	B	E	Nueva Venta
+543404	2021-03-02	08:25:42	2250	0	0	0	0	B	E	Nueva Venta
+543405	2021-03-02	08:28:50	3200	0	0	0	0	B	E	Nueva Venta
+543406	2021-03-02	08:34:39	0	0	0	0	0	B	E	Nueva Venta
+543407	2021-03-02	08:35:28	1750	0	0	0	0	B	E	Nueva Venta
+543408	2021-03-02	08:39:57	1900	0	0	0	0	B	E	Nueva Venta
+543409	2021-03-02	08:41:34	2400	0	0	0	0	B	E	Nueva Venta
+543410	2021-03-02	08:45:08	1900	0	0	0	0	B	E	Nueva Venta
+543411	2021-03-02	08:49:30	3400	0	0	0	0	B	E	Nueva Venta
+543412	2021-03-02	08:51:39	2000	0	0	0	0	B	E	Nueva Venta
+543413	2021-03-02	08:52:46	3400	0	0	0	0	B	E	Nueva Venta
+543414	2021-03-02	08:56:37	6450	0	0	0	0	B	E	Nueva Venta
+543415	2021-03-02	08:54:48	2000	0	0	0	0	B	E	Nueva Venta
+543416	2021-03-02	08:54:48	0	0	0	0	0	B	E	Nueva Venta
+543417	2021-03-02	08:59:05	5400	0	0	0	0	B	E	Nueva Venta
+543418	2021-03-02	09:02:40	0	0	0	0	0	B	E	Nueva Venta
+543419	2021-03-02	09:08:45	0	0	0	0	0	B	E	Nueva Venta
+543420	2021-03-02	09:09:40	4400	0	0	0	0	B	E	Nueva Venta
+543421	2021-03-02	09:13:30	2500	0	0	0	0	B	E	Nueva Venta
+543422	2021-03-02	09:13:53	1900	0	0	0	0	B	E	Nueva Venta
+543423	2021-03-02	09:14:56	3100	0	0	0	0	B	E	Nueva Venta
+543424	2021-03-02	09:16:22	1300	0	0	0	0	B	E	Nueva Venta
+543425	2021-03-02	09:21:45	2000	0	0	0	0	B	E	Nueva Venta
+543426	2021-03-02	09:23:45	1700	0	0	0	0	B	E	Nueva Venta
+543427	2021-03-02	09:25:12	3100	0	0	0	0	B	E	Nueva Venta
+543428	2021-03-02	09:27:08	3800	0	0	0	0	B	E	Nueva Venta
+543429	2021-03-02	09:28:49	1850	0	0	0	0	B	E	Nueva Venta
+543430	2021-03-02	09:33:24	1300	0	0	0	0	B	E	Nueva Venta
+543431	2021-03-02	09:37:32	4050	0	0	0	0	B	E	Nueva Venta
+543432	2021-03-02	09:38:22	5000	0	0	0	0	B	E	Nueva Venta
+543433	2021-03-02	09:39:15	1400	0	0	0	0	B	E	Nueva Venta
+543434	2021-03-02	09:41:24	4600	0	0	0	0	B	E	Nueva Venta
+543435	2021-03-02	09:44:08	0	0	0	0	0	B	E	Nueva Venta
+543436	2021-03-02	09:45:26	1450	0	0	0	0	B	E	Nueva Venta
+543437	2021-03-02	09:46:28	1300	0	0	0	0	B	E	Nueva Venta
+543438	2021-03-02	09:47:24	2600	0	0	0	0	B	E	Nueva Venta
+543439	2021-03-02	09:50:22	3400	0	0	0	0	B	E	Nueva Venta
+543440	2021-03-02	09:53:31	3200	0	0	0	0	B	E	Nueva Venta
+543441	2021-03-02	09:54:18	1400	0	0	0	0	B	E	Nueva Venta
+543442	2021-03-02	09:55:34	1650	0	0	0	0	B	E	Nueva Venta
+543443	2021-03-02	09:58:10	3600	0	0	0	0	B	E	Nueva Venta
+543444	2021-03-02	10:00:07	0	0	0	0	0	B	E	Nueva Venta
+543445	2021-03-02	10:11:53	4950	0	0	0	0	B	E	Nueva Venta
+543446	2021-03-02	10:14:05	2700	0	0	0	0	B	E	Nueva Venta
+543447	2021-03-02	10:31:34	1300	0	0	0	0	B	E	Nueva Venta
+543448	2021-03-02	10:56:37	1300	0	0	0	0	B	E	Nueva Venta
+543449	2021-03-02	11:01:51	3100	0	1800	0	0	B	E	Nueva Venta
+543450	2021-03-02	11:09:04	3300	0	0	0	0	B	E	Nueva Venta
+543451	2021-03-02	11:13:51	1000	0	0	0	0	B	E	Nueva Venta
+543452	2021-03-02	11:26:41	350	0	0	0	0	B	E	Nueva Venta
+543453	2021-03-02	11:28:11	1400	0	0	0	0	B	E	Nueva Venta
+543454	2021-03-02	11:30:08	5000	0	3000	0	0	B	E	Nueva Venta
+543455	2021-03-02	11:32:06	7100	0	0	0	0	B	E	Nueva Venta
+543456	2021-03-02	11:37:43	1300	0	0	0	0	B	E	Nueva Venta
+543457	2021-03-02	12:09:06	2000	0	2000	0	0	B	E	Nueva Venta
+543458	2021-03-02	12:10:59	2700	0	0	0	0	B	E	Nueva Venta
+543459	2021-03-02	12:25:02	2700	0	0	0	0	B	E	Nueva Venta
+543460	2021-03-02	13:52:47	3100	0	0	0	0	B	E	Nueva Venta
+543461	2021-03-02	13:53:56	5200	0	0	0	0	B	E	Nueva Venta
+543462	2021-03-02	13:55:13	3100	0	0	0	0	B	E	Nueva Venta
+543463	2021-03-02	14:12:09	1500	0	0	0	0	B	E	Nueva Venta
+543464	2021-03-02	14:20:29	2100	0	0	0	0	B	E	Nueva Venta
+543465	2021-03-02	14:27:09	1700	0	0	0	0	B	E	Nueva Venta
+543466	2021-03-02	14:28:53	2300	0	0	0	0	B	E	Nueva Venta
+543467	2021-03-02	14:43:42	3200	0	0	0	0	B	E	Nueva Venta
+543468	2021-03-02	14:44:47	4100	0	0	0	0	B	E	Nueva Venta
+543469	2021-03-02	14:52:35	2100	0	0	0	0	B	E	Nueva Venta
+543470	2021-03-02	14:55:31	4500	0	0	0	0	B	E	Nueva Venta
+543471	2021-03-02	15:02:00	3250	0	0	0	0	B	E	Nueva Venta
+543472	2021-03-02	15:11:38	1350	0	0	0	0	B	E	Nueva Ventan
+543473	2021-03-02	15:20:05	3200	0	0	0	0	B	E	Nueva Venta
+543474	2021-03-02	15:20:05	9850	0	5400	0	0	B	E	Nueva Venta
+543475	2021-03-03	07:47:02	1900	0	0	0	0	B	E	Nva. Venta
+543476	2021-03-03	07:47:09	0	0	0	0	0	B	E	Nueva Venta
+543477	2021-03-03	07:47:16	2300	0	0	0	0	B	E	Nueva Venta
+543478	2021-03-03	07:49:34	4250	0	0	0	0	B	E	Nueva Venta
+543479	2021-03-03	07:49:45	2000	0	0	0	0	B	E	Nueva Venta
+543480	2021-03-03	07:58:59	9550	0	0	0	0	B	E	Nueva Venta
+543481	2021-03-03	08:01:56	2150	0	0	0	0	B	E	Nueva Venta
+543482	2021-03-03	08:07:02	1800	0	0	0	0	B	E	Nueva Venta
+543483	2021-03-03	08:10:19	4400	0	0	0	0	B	E	Nueva Venta
+543484	2021-03-03	08:17:11	2400	0	0	0	0	B	E	Nueva Venta
+543485	2021-03-03	08:17:48	900	0	0	0	0	B	E	Nueva Venta
+543486	2021-03-03	08:23:54	1700	0	0	0	0	B	E	Nueva Venta
+543487	2021-03-03	08:28:49	2400	0	0	0	0	B	E	Nueva Venta
+543488	2021-03-03	08:30:50	4000	0	0	0	0	B	E	Nueva Venta
+543489	2021-03-03	08:31:43	2200	0	0	0	0	B	E	Nueva Venta
+543490	2021-03-03	08:40:57	1100	0	0	0	0	B	E	Nueva Venta
+543491	2021-03-03	08:41:29	2600	0	0	0	0	B	E	Nueva Venta
+543492	2021-03-03	08:43:25	0	0	0	0	0	B	E	Nueva Venta
+543493	2021-03-03	08:43:53	0	0	0	0	0	B	E	Nueva Venta
+543494	2021-03-03	08:45:16	2750	0	0	0	0	B	E	Nueva Venta
+543495	2021-03-03	08:45:16	0	0	0	0	0	B	E	Nueva Venta
+543496	2021-03-03	08:46:48	1100	0	0	0	0	B	E	Nueva Venta
+543497	2021-03-03	08:48:11	3300	0	0	0	0	B	E	Nueva Venta
+543498	2021-03-03	08:50:48	2300	0	0	0	0	B	E	Nueva Venta
+543499	2021-03-03	08:54:13	3300	0	0	0	0	B	E	Nueva Venta
+543500	2021-03-03	08:57:16	2700	0	0	0	0	B	E	Nueva Venta
+543501	2021-03-03	08:58:04	2900	0	0	0	0	B	E	Nueva Venta
+543502	2021-03-03	08:59:05	3400	0	0	0	0	B	E	Nueva Venta
+543503	2021-03-03	09:01:18	3250	0	0	0	0	B	E	Nueva Venta
+543504	2021-03-03	09:05:19	300	0	0	0	0	B	E	Nueva Venta
+543505	2021-03-03	09:06:42	2000	0	0	0	0	B	E	Nueva Venta
+543506	2021-03-03	09:07:19	4400	0	0	0	0	B	E	Nueva Venta
+543507	2021-03-03	09:07:51	0	0	0	0	0	B	E	Nueva Venta
+543508	2021-03-03	09:08:16	1400	0	0	0	0	B	E	Nueva Venta
+543509	2021-03-03	09:10:31	1700	0	0	0	0	B	E	Nueva Venta
+543510	2021-03-03	09:11:27	2850	0	0	0	0	B	E	Nueva Venta
+543511	2021-03-03	09:13:50	2400	0	0	0	0	B	E	Nueva Venta
+543512	2021-03-03	09:15:49	2600	0	0	0	0	B	E	Nueva Venta
+543513	2021-03-03	09:17:37	5000	0	0	0	0	B	E	Nueva Venta
+543514	2021-03-03	09:18:31	2600	0	0	0	0	B	E	Nueva Venta
+543515	2021-03-03	09:19:05	1900	0	0	0	0	B	E	Nueva Venta
+543516	2021-03-03	09:19:38	1300	0	0	0	0	B	E	Nueva Venta
+543517	2021-03-03	09:22:27	3200	0	0	0	0	B	E	Nueva Venta
+543518	2021-03-03	09:24:22	2750	0	0	0	0	B	E	Nueva Venta
+543519	2021-03-03	09:26:28	2400	0	0	0	0	B	E	Nueva Venta
+543520	2021-03-03	09:29:03	4100	0	0	0	0	B	E	Nueva Venta
+543521	2021-03-03	09:30:09	2750	0	0	0	0	B	E	Nueva Venta
+543522	2021-03-03	09:34:30	3700	0	0	0	0	B	E	Nueva Venta
+543523	2021-03-03	09:36:24	900	0	0	0	0	B	E	Nueva Venta
+543524	2021-03-03	09:39:02	3700	0	0	0	0	B	E	Nueva Venta
+543525	2021-03-03	09:39:57	2100	0	0	0	0	B	E	Nueva Venta
+543526	2021-03-03	09:41:00	2600	0	0	0	0	B	E	Nueva Venta
+543527	2021-03-03	09:42:04	0	0	0	0	0	B	E	Nueva Venta
+543528	2021-03-03	09:42:53	3100	0	2000	0	0	B	E	Nueva Venta
+543529	2021-03-03	09:43:59	1900	0	0	0	0	B	E	Nueva Venta
+543530	2021-03-03	09:44:51	4500	0	0	0	0	B	E	Nueva Venta
+543531	2021-03-03	09:46:10	2700	0	0	0	0	B	E	Nueva Venta
+543532	2021-03-03	09:47:23	0	0	0	0	0	B	E	Nueva Venta
+543533	2021-03-03	09:48:43	2200	0	0	0	0	B	E	Nueva Venta
+543534	2021-03-03	09:49:50	0	0	0	0	0	B	E	Nueva Venta
+543535	2021-03-03	09:50:57	5700	0	0	0	0	B	E	Nueva Venta
+543536	2021-03-03	09:55:07	2400	0	0	0	0	B	E	Nueva Venta
+543537	2021-03-03	09:57:53	4000	0	0	0	0	B	E	Nueva Venta
+543538	2021-03-03	09:58:17	1500	0	0	0	0	B	E	Nueva Venta
+543539	2021-03-03	09:58:28	0	0	0	0	0	B	E	Nueva Venta
+543540	2021-03-03	09:59:49	2500	0	0	0	0	B	E	Nueva Venta
+543541	2021-03-03	10:04:20	5500	0	0	0	0	B	E	Nueva Venta
+543542	2021-03-03	10:08:49	5700	0	0	0	0	B	E	Nueva Venta
+543543	2021-03-03	10:10:40	0	0	0	0	0	B	E	Nueva Venta
+543544	2021-03-03	10:12:42	3100	0	0	0	0	B	E	Nueva Venta
+543545	2021-03-03	10:45:59	8000	0	8000	0	0	B	E	Nueva Venta
+543546	2021-03-03	10:47:28	2200	0	0	0	0	B	E	Nueva Venta
+543547	2021-03-03	10:56:11	0	0	0	0	0	B	E	Nueva Venta
+543548	2021-03-03	10:57:34	700	0	0	0	0	B	E	Nueva Venta
+543549	2021-03-03	11:18:26	3600	0	0	0	0	B	E	Nueva Venta
+543550	2021-03-03	11:22:02	3650	0	0	0	0	B	E	Nueva Venta
+543551	2021-03-03	11:30:03	4400	0	4400	0	0	B	E	Nueva Venta
+543552	2021-03-03	11:30:05	0	0	0	0	0	B	E	Nueva Venta
+543553	2021-03-03	11:31:40	1650	0	0	0	0	B	E	Nueva Venta
+543554	2021-03-03	11:32:46	2400	0	0	0	0	B	E	Nueva Venta
+543555	2021-03-03	11:51:27	1900	0	0	0	0	B	E	Nueva Venta
+543556	2021-03-03	12:25:03	2950	0	0	0	0	B	E	Nueva Venta
+543557	2021-03-03	12:40:11	4100	0	0	0	0	B	E	Nueva Venta
+543558	2021-03-03	12:45:23	2600	0	0	0	0	B	E	Nueva Venta
+543559	2021-03-03	12:50:09	3050	0	0	0	0	B	E	Nueva Venta
+543560	2021-03-03	12:51:34	1950	0	0	0	0	B	E	Nueva Venta
+543561	2021-03-03	13:02:48	700	0	0	0	0	B	E	Nueva Venta
+543562	2021-03-03	13:06:21	2300	0	0	0	0	B	E	Nueva Venta
+543563	2021-03-03	13:06:22	0	0	0	0	0	B	E	Nueva Venta
+543564	2021-03-03	13:38:13	3400	0	3000	0	0	B	E	Nueva Venta
+543565	2021-03-03	13:51:26	6050	0	0	0	0	B	E	Nueva Venta
+543566	2021-03-03	14:18:05	4600	0	0	0	0	B	E	Nueva Venta
+543567	2021-03-03	14:19:10	1850	0	0	0	0	B	E	Nueva Venta
+543568	2021-03-03	14:50:28	3040	0	0	0	0	B	E	Nueva Venta
+543569	2021-03-03	14:58:12	700	0	0	0	0	B	E	Nueva Venta
+543570	2021-03-03	15:00:55	3200	0	0	0	0	B	E	Nueva Venta
+543571	2021-03-03	15:04:55	3300	0	0	0	0	B	E	Nueva Venta
+543572	2021-03-03	15:12:44	4000	0	0	0	0	B	E	Nueva Venta
+543573	2021-03-03	16:04:29	7410	0	0	0	0	B	E	Nueva Venta
+543574	2021-03-03	16:18:30	1100	0	0	0	0	B	E	Nueva Venta
+543575	2021-03-03	16:20:35	6000	0	4000	0	0	B	E	Nueva Venta
+543576	2021-03-03	16:22:51	2400	0	0	0	0	B	E	Nueva Venta
+543577	2021-03-03	16:25:14	4500	0	0	0	0	B	E	Nueva Venta
+543578	2021-03-03	16:29:04	1500	0	0	0	0	B	E	Nueva Venta
+543579	2021-03-04	07:36:11	3400	0	0	0	0	B	E	Nueva Venta
+543580	2021-03-04	07:50:01	2200	0	0	0	0	B	E	Nueva Venta
+543581	2021-03-04	07:50:30	450	0	0	0	0	B	E	Nueva Venta
+543582	2021-03-04	07:53:52	8500	0	0	0	0	B	E	Nueva Venta
+543583	2021-03-04	07:56:37	1100	0	0	0	0	B	E	Nueva Venta
+543584	2021-03-04	08:01:01	2700	0	0	0	0	B	E	Nueva Venta
+543585	2021-03-04	08:01:17	850	0	0	0	0	B	E	Nueva Venta
+543586	2021-03-04	08:02:15	1700	0	0	0	0	B	E	Nueva Venta
+543587	2021-03-04	08:03:48	0	0	0	0	0	B	E	Nueva Venta
+543588	2021-03-04	08:05:23	1900	0	0	0	0	B	E	Nueva Venta
+543589	2021-03-04	08:06:10	3500	0	0	0	0	B	E	Nueva Venta
+543590	2021-03-04	08:07:05	0	0	0	0	0	B	E	Nueva Venta
+543591	2021-03-04	08:07:12	400	0	0	0	0	B	E	Nueva Venta
+543592	2021-03-04	08:14:50	4500	0	0	0	0	B	E	Nueva Venta
+543593	2021-03-04	08:19:22	0	0	0	0	0	B	E	Nueva Venta
+543594	2021-03-04	08:23:49	1400	0	0	0	0	B	E	Nueva Venta
+543595	2021-03-04	08:25:32	0	0	0	0	0	B	E	Nueva Venta
+543596	2021-03-04	08:29:29	2800	0	0	0	0	B	E	Nueva Venta
+543597	2021-03-04	08:32:15	1800	0	1800	0	0	B	E	Nueva Venta
+543598	2021-03-04	08:34:02	2200	0	0	0	0	B	E	Nueva Venta
+543599	2021-03-04	08:35:44	2400	0	0	0	0	B	E	Nueva Venta
+543600	2021-03-04	08:36:17	450	0	0	0	0	B	E	Nueva Venta
+543601	2021-03-04	08:36:58	2200	0	0	0	0	B	E	Nueva Venta
+543602	2021-03-04	08:37:41	1550	0	0	0	0	B	E	Nueva Venta
+543603	2021-03-04	08:38:28	2400	0	0	0	0	B	E	Nueva Venta
+543604	2021-03-04	08:39:44	0	0	0	0	0	B	E	Nueva Venta
+543605	2021-03-04	08:40:16	2700	0	0	0	0	B	E	Nueva Venta
+543606	2021-03-04	08:41:03	2450	0	0	0	0	B	E	Nueva Venta
+543607	2021-03-04	08:42:20	1300	0	0	0	0	B	E	Nueva Venta
+543608	2021-03-04	08:42:50	0	0	0	0	0	B	E	Nueva Venta
+543609	2021-03-04	08:43:44	2700	0	0	0	0	B	E	Nueva Venta
+543610	2021-03-04	08:45:17	1100	0	0	0	0	B	E	Nueva Venta
+543611	2021-03-04	08:46:52	3900	0	0	0	0	B	E	Nueva Venta
+543612	2021-03-04	08:48:09	2200	0	0	0	0	B	E	Nueva Venta
+543613	2021-03-04	08:49:02	1750	0	0	0	0	B	E	Nueva Venta
+543614	2021-03-04	08:50:14	1000	0	0	0	0	B	E	Nueva Venta
+543615	2021-03-04	08:53:05	2700	0	0	0	0	B	E	Nueva Venta
+543616	2021-03-04	08:55:38	3200	0	0	0	0	B	E	Nueva Venta
+543617	2021-03-04	08:57:59	3100	0	0	0	0	B	E	Nueva Venta
+543618	2021-03-04	08:59:48	2300	0	0	0	0	B	E	Nueva Venta
+543619	2021-03-04	09:01:04	3400	0	0	0	0	B	E	Nueva Venta
+543620	2021-03-04	09:02:51	1300	0	0	0	0	B	E	Nueva Venta
+543621	2021-03-04	09:05:21	0	0	0	0	0	B	E	Nueva Venta
+543622	2021-03-04	09:06:33	1000	0	0	0	0	B	E	Nueva Venta
+543623	2021-03-04	09:08:56	7900	0	0	0	0	B	E	Nueva Venta
+543624	2021-03-04	09:10:18	4050	0	0	0	0	B	E	Nueva Venta
+543625	2021-03-04	09:11:31	3500	0	0	0	0	B	E	Nueva Venta
+543626	2021-03-04	09:12:46	3100	0	0	0	0	B	E	Nueva Venta
+543627	2021-03-04	09:14:16	3200	0	0	0	0	B	E	Nueva Venta
+543628	2021-03-04	09:15:14	3900	0	0	0	0	B	E	Nueva Venta
+543629	2021-03-04	09:18:06	1000	0	0	0	0	B	E	Nueva Venta
+543630	2021-03-04	09:28:26	4550	0	0	0	0	B	E	Nueva Venta
+543631	2021-03-04	09:29:16	8200	0	0	0	0	B	E	Nueva Venta
+543632	2021-03-04	09:30:00	2600	0	0	0	0	B	E	Nueva Venta
+543633	2021-03-04	09:30:39	2700	0	0	0	0	B	E	Nueva Venta
+543634	2021-03-04	09:33:12	3300	0	0	0	0	B	E	Nueva Venta
+543635	2021-03-04	09:37:21	1600	0	0	0	0	B	E	Nueva Venta
+543636	2021-03-04	09:37:55	2000	0	0	0	0	B	E	Nueva Venta
+543637	2021-03-04	09:38:48	1300	0	0	0	0	B	E	Nueva Venta
+543638	2021-03-04	09:41:24	1600	0	0	0	0	B	E	Nueva Venta
+543639	2021-03-04	09:39:24	0	0	0	0	0	B	E	Nueva Venta
+543640	2021-03-04	09:45:23	2600	0	0	0	0	B	E	Nueva Venta
+543641	2021-03-04	09:46:44	2700	0	0	0	0	B	E	Nueva Venta
+543642	2021-03-04	09:50:59	3300	0	0	0	0	B	E	Nueva Venta
+543643	2021-03-04	09:53:30	3350	0	0	0	0	B	E	Nueva Venta
+543644	2021-03-04	09:54:36	800	0	0	0	0	B	E	Nueva Venta
+543645	2021-03-04	09:56:38	0	0	0	0	0	B	E	Nueva Venta
+543646	2021-03-04	09:58:34	1200	0	0	0	0	B	E	Nueva Venta
+543647	2021-03-04	09:59:21	5100	0	4000	0	0	B	E	Nueva Venta
+543648	2021-03-04	10:07:36	0	0	0	0	0	B	E	Nueva Venta
+543649	2021-03-04	10:09:43	4700	0	0	0	0	B	E	Nueva Venta
+543650	2021-03-04	10:10:53	2900	0	0	0	0	B	E	Nueva Venta
+543651	2021-03-04	10:12:08	0	0	0	0	0	B	E	Nueva Venta
+543652	2021-03-04	10:12:52	2300	0	0	0	0	B	E	Nueva Venta
+543653	2021-03-04	10:15:21	2150	0	0	0	0	B	E	Nueva Venta
+543654	2021-03-04	10:18:24	4400	0	0	0	0	B	E	Nueva Venta
+543655	2021-03-04	10:19:39	1800	0	0	0	0	B	E	Nueva Venta
+543656	2021-03-04	10:21:00	2300	0	0	0	0	B	E	Nueva Venta
+543657	2021-03-04	10:21:56	7300	0	0	0	0	B	E	Nueva Venta
+543658	2021-03-04	10:22:52	3800	0	0	0	0	B	E	Nueva Venta
+543659	2021-03-04	10:25:54	1500	0	0	0	0	B	E	Nueva Venta
+543660	2021-03-04	10:29:15	2900	0	0	0	0	B	E	Nueva Venta
+543661	2021-03-04	10:38:04	1600	0	0	0	0	B	E	Nueva Venta
+543662	2021-03-04	10:38:39	0	0	0	0	0	B	E	Nueva Venta
+543663	2021-03-04	10:39:50	1800	0	0	0	0	B	E	Nueva Venta
+543664	2021-03-04	10:39:31	0	0	0	0	0	B	E	Nueva Venta
+543665	2021-03-04	10:40:42	2400	0	0	0	0	B	E	Nueva Venta
+543666	2021-03-04	10:40:43	1400	0	0	0	0	B	E	Nueva Venta
+543671	2021-03-04	11:07:16	1300	0	0	0	0	B	E	Nva. Venta
+543672	2021-03-04	11:08:22	1150	0	0	0	0	B	E	Nueva Venta
+543673	2021-03-04	11:25:41	0	0	0	0	0	B	E	Nueva Venta
+543674	2021-03-04	11:27:24	1100	0	0	0	0	B	E	Nueva Venta
+543675	2021-03-04	11:37:41	1000	0	0	0	0	B	E	Nueva Venta
+543676	2021-03-04	11:37:55	1000	0	0	0	0	B	E	Nueva Venta
+543677	2021-03-04	11:59:06	8450	0	4400	0	0	B	E	Nueva Venta
+543678	2021-03-04	12:03:08	5350	0	0	0	0	B	E	Nueva Venta
+543679	2021-03-04	12:17:49	7500	0	6200	0	0	B	E	Nueva Venta
+543680	2021-03-04	12:34:12	2750	0	2000	0	0	B	E	Nueva Venta
+543681	2021-03-04	12:35:14	950	0	0	0	0	B	E	Nueva Venta
+543682	2021-03-04	13:23:16	7750	0	6400	0	0	B	E	Nueva Venta
+543683	2021-03-04	13:55:33	1400	0	0	0	0	B	E	Nueva Venta
+543684	2021-03-04	13:57:14	2400	0	0	0	0	B	E	Nueva Venta
+543685	2021-03-04	14:04:04	5240	0	0	0	0	B	E	Nueva Venta
+543686	2021-03-04	14:08:51	1200	228	0	0	0	B	E	Boleta
+543687	2021-03-04	14:11:15	3400	0	3400	0	0	B	E	Nueva Venta
+543688	2021-03-04	14:12:44	3300	0	0	0	0	B	E	Nueva Venta
+543689	2021-03-04	14:15:43	1650	0	0	0	0	B	E	Nueva Venta
+543690	2021-03-04	14:17:13	1450	0	0	0	0	B	E	Nueva Venta
+543691	2021-03-04	14:21:41	2300	0	0	0	0	B	E	Nueva Venta
+543692	2021-03-04	14:21:58	0	0	0	0	0	B	E	Nueva Venta
+543693	2021-03-04	14:24:56	2500	0	0	0	0	B	E	Nueva Venta
+543694	2021-03-04	14:31:15	6200	0	0	0	0	B	E	Nueva Venta
+543695	2021-03-04	14:34:08	2000	0	0	0	0	B	E	Nueva Venta
+543696	2021-03-04	14:43:10	4050	0	0	0	0	B	E	Nueva Venta
+543697	2021-03-04	14:52:59	350	0	0	0	0	B	E	Nueva Venta
+543698	2021-03-04	14:58:21	1000	0	0	0	0	B	E	Nueva Venta
+543699	2021-03-04	15:06:29	1000	0	0	0	0	B	E	Nueva Venta
+543700	2021-03-04	15:09:15	0	0	0	0	0	B	E	Nueva Venta
+543701	2021-03-04	15:10:14	2000	0	2000	0	0	B	E	Nueva Venta
+543702	2021-03-04	15:14:55	3350	0	0	0	0	B	E	Nueva Venta
+543703	2021-03-04	15:50:50	4000	0	4000	0	0	B	E	Nueva Venta
+543704	2021-03-04	15:53:28	2200	0	0	0	0	B	E	Nueva Venta
+543705	2021-03-05	07:53:01	1800	0	1800	0	0	B	E	Nueva Venta
+543706	2021-03-05	07:54:32	2000	0	2000	0	0	B	E	Nueva Venta
+543707	2021-03-05	07:55:20	1900	0	0	0	0	B	E	Nueva Venta
+543708	2021-03-05	08:01:22	1300	0	0	0	0	B	E	Nueva Venta
+543709	2021-03-05	08:02:31	5900	0	4200	0	0	B	E	Nueva Venta
+543710	2021-03-05	08:05:11	2000	0	0	0	0	B	E	Nueva Venta
+543711	2021-03-05	08:06:52	0	0	0	0	0	B	E	Nueva Venta
+543712	2021-03-05	08:11:07	3400	0	0	0	0	B	E	Nueva Venta
+543713	2021-03-05	08:12:02	0	0	0	0	0	B	E	Nueva Venta
+543714	2021-03-05	08:15:29	9050	0	0	0	0	B	E	Nueva Venta
+543715	2021-03-05	08:19:11	1800	0	1800	0	0	B	E	Nueva Venta
+543716	2021-03-05	08:20:06	4900	0	3400	0	0	B	E	Nueva Venta
+543717	2021-03-05	08:21:04	3800	0	0	0	0	B	E	Nueva Venta
+543718	2021-03-05	08:21:45	2250	0	0	0	0	B	E	Nueva Venta
+543719	2021-03-05	08:22:47	2400	0	0	0	0	B	E	Nueva Venta
+543720	2021-03-05	08:22:11	0	0	0	0	0	B	E	Nueva Venta
+543721	2021-03-05	08:28:38	0	0	0	0	0	B	E	Nueva Venta
+543722	2021-03-05	08:30:21	1900	0	0	0	0	B	E	Nueva Venta
+543723	2021-03-05	08:31:00	1100	0	0	0	0	B	E	Nueva Venta
+543724	2021-03-05	08:32:26	6300	0	4500	0	0	B	E	Nueva Venta
+543725	2021-03-05	08:36:21	2200	0	0	0	0	B	E	Nueva Venta
+543726	2021-03-05	08:37:52	6400	0	4300	0	0	B	E	Nueva Venta
+543727	2021-03-05	08:54:10	2600	0	0	0	0	B	E	Nueva Venta
+543728	2021-03-05	08:54:59	1400	0	0	0	0	B	E	Nueva Venta
+543729	2021-03-05	08:58:28	2000	0	0	0	0	B	E	Nueva Venta
+543730	2021-03-05	09:00:45	2200	0	0	0	0	B	E	Nueva Venta
+543731	2021-03-05	09:01:26	1000	0	0	0	0	B	E	Nueva Venta
+543732	2021-03-05	09:07:37	3100	0	0	0	0	B	E	Nueva Venta
+543733	2021-03-05	09:11:30	2700	0	0	0	0	B	E	Nueva Venta
+543734	2021-03-05	09:14:33	3900	0	0	0	0	B	E	Nueva Venta
+543735	2021-03-05	09:16:52	2300	0	0	0	0	B	E	Nueva Venta
+543736	2021-03-05	09:17:45	5100	0	4000	0	0	B	E	Nueva Venta
+543737	2021-03-05	09:18:25	3100	0	0	0	0	B	E	Nueva Venta
+543738	2021-03-05	09:20:04	2200	0	0	0	0	B	E	Nueva Venta
+543739	2021-03-05	09:22:20	2600	0	0	0	0	B	E	Nueva Venta
+543740	2021-03-05	09:23:49	2000	0	0	0	0	B	E	Nueva Venta
+543741	2021-03-05	09:28:18	1100	0	0	0	0	B	E	Nueva Venta
+543742	2021-03-05	09:29:36	2400	0	0	0	0	B	E	Nueva Venta
+543743	2021-03-05	09:30:59	1100	0	0	0	0	B	E	Nueva Venta
+543744	2021-03-05	09:32:38	2000	0	0	0	0	B	E	Nueva Venta
+543745	2021-03-05	09:37:11	1350	0	0	0	0	B	E	Nueva Venta
+543746	2021-03-05	09:38:14	0	0	0	0	0	B	E	Nueva Venta
+543747	2021-03-05	09:39:31	2000	0	0	0	0	B	E	Nueva Venta
+543748	2021-03-05	09:41:41	500	0	0	0	0	B	E	Nueva Venta
+543749	2021-03-05	09:41:41	0	0	0	0	0	B	E	Nueva Venta
+543750	2021-03-05	09:47:37	2600	0	0	0	0	B	E	Nva. Venta
+543751	2021-03-05	09:48:29	4000	0	0	0	0	B	E	Nueva Venta
+543752	2021-03-05	09:49:25	2700	0	0	0	0	B	E	Nueva Venta
+543753	2021-03-05	09:53:39	6400	0	0	0	0	B	E	Nueva Venta
+543754	2021-03-05	09:54:30	4400	0	0	0	0	B	E	Nueva Venta
+543755	2021-03-05	09:56:55	2700	0	0	0	0	B	E	Nueva Venta
+543756	2021-03-05	09:59:53	3200	0	0	0	0	B	E	Nueva Venta
+543757	2021-03-05	10:03:50	3300	0	0	0	0	B	E	Nueva Venta
+543758	2021-03-05	10:08:13	3050	0	0	0	0	B	E	Nueva Venta
+543759	2021-03-05	10:12:49	1200	0	0	0	0	B	E	Nueva Venta
+543760	2021-03-05	10:13:02	1100	0	0	0	0	B	E	Nueva Venta
+543761	2021-03-05	10:17:17	2050	0	0	0	0	B	E	Nueva Venta
+543762	2021-03-05	10:24:42	1300	0	0	0	0	B	E	Nueva Venta
+543763	2021-03-05	10:25:27	2600	0	0	0	0	B	E	Nueva Venta
+543764	2021-03-05	10:26:00	1100	0	0	0	0	B	E	Nueva Venta
+543765	2021-03-05	10:36:05	1800	0	0	0	0	B	E	Nueva Venta
+543766	2021-03-05	10:36:43	1100	0	0	0	0	B	E	Nueva Venta
+543767	2021-03-05	10:41:41	2800	0	0	0	0	B	E	Nueva Venta
+543768	2021-03-05	10:42:48	5100	0	3400	0	0	B	E	Nueva Venta
+543769	2021-03-05	10:44:11	1850	0	0	0	0	B	E	Nueva Venta
+543770	2021-03-05	10:47:09	4050	0	0	0	0	B	E	Nueva Venta
+543771	2021-03-05	10:48:55	2900	0	0	0	0	B	E	Nueva Venta
+543772	2021-03-05	10:49:24	0	0	0	0	0	B	E	Nueva Venta
+543773	2021-03-05	10:52:56	2600	0	0	0	0	B	E	Nueva Venta
+543774	2021-03-05	11:54:52	2500	0	0	0	0	B	E	Nueva Venta
+543775	2021-03-05	13:01:48	4850	0	3400	0	0	B	E	Nueva Venta
+543776	2021-03-05	13:46:55	3100	0	0	0	0	B	E	Nueva Venta
+543777	2021-03-05	14:02:44	8530	0	0	0	0	B	E	Nueva Venta
+543778	2021-03-05	14:10:02	3400	0	2000	0	0	B	E	Nueva Venta
+543779	2021-03-05	14:23:47	3000	0	0	0	0	B	E	Nueva Venta
+543780	2021-03-05	14:27:02	2850	0	0	0	0	B	E	Nueva Venta
+543781	2021-03-05	14:28:13	3000	0	3000	0	0	B	E	Nueva Venta
+543782	2021-03-05	14:30:46	4400	0	0	0	0	B	E	Nueva Venta
+543783	2021-03-05	14:36:52	2500	0	0	0	0	B	E	Nueva Venta
+543784	2021-03-05	14:37:45	0	0	0	0	0	B	E	Nueva Venta
+543785	2021-03-05	14:42:26	6390	0	0	0	0	B	E	Nueva Venta
+543786	2021-03-05	14:45:36	0	0	0	0	0	B	E	Nueva Venta
+543787	2021-03-05	16:04:25	4400	0	0	0	0	B	E	Nueva Venta
+543788	2021-03-05	16:09:18	7700	0	4200	0	0	B	E	Nueva Venta
+543789	2021-03-05	16:09:19	0	0	0	0	0	B	E	Nueva Venta
+543790	2021-03-08	07:44:30	1900	0	0	0	0	B	E	Nva. Venta
+543791	2021-03-08	07:45:10	2000	0	0	0	0	B	E	Nueva Venta
+543792	2021-03-08	07:45:47	0	0	0	0	0	B	E	Nueva Venta
+543793	2021-03-08	07:48:52	5100	0	0	0	0	B	E	Nueva Venta
+543794	2021-03-08	07:50:34	3450	0	2000	0	0	B	E	Nueva Venta
+543795	2021-03-08	07:51:10	1300	0	0	0	0	B	E	Nueva Venta
+543796	2021-03-08	07:52:44	0	0	0	0	0	B	E	Nueva Venta
+543797	2021-03-08	07:58:40	3000	0	0	0	0	B	E	Nueva Venta
+543798	2021-03-08	08:01:15	2400	0	0	0	0	B	E	Nueva Venta
+543799	2021-03-08	08:02:14	3400	0	0	0	0	B	E	Nueva Venta
+543800	2021-03-08	08:05:35	9100	0	4200	0	0	B	E	Nueva Venta
+543801	2021-03-08	08:11:36	3000	0	3000	0	0	B	E	Nueva Venta
+543802	2021-03-08	08:12:09	800	0	0	0	0	B	E	Nueva Venta
+543803	2021-03-08	08:13:25	2030	0	0	0	0	B	E	Nueva Venta
+543804	2021-03-08	08:19:09	1600	0	0	0	0	B	E	Nueva Venta
+543805	2021-03-08	08:19:45	1600	0	0	0	0	B	E	Nueva Venta
+543806	2021-03-08	08:20:39	2000	0	0	0	0	B	E	Nueva Venta
+543807	2021-03-08	08:24:49	4200	0	4200	0	0	B	E	Nueva Venta
+543808	2021-03-08	08:28:09	0	0	0	0	0	B	E	Nueva Venta
+543809	2021-03-08	08:30:50	3900	0	0	0	0	B	E	Nueva Venta
+543810	2021-03-08	08:33:50	3000	0	0	0	0	B	E	Nueva Venta
+543811	2021-03-08	08:37:37	5600	0	2000	0	0	B	E	Nueva Venta
+543812	2021-03-08	08:43:32	5700	0	0	0	0	B	E	Nueva Venta
+543813	2021-03-08	08:46:33	0	0	0	0	0	B	E	Nueva Venta
+543814	2021-03-08	08:48:02	1800	0	0	0	0	B	E	Nueva Venta
+543815	2021-03-08	08:52:15	2000	0	0	0	0	B	E	Nueva Venta
+543816	2021-03-08	08:54:32	1000	0	0	0	0	B	E	Nueva Venta
+543817	2021-03-08	08:56:31	1150	0	0	0	0	B	E	Nueva Venta
+543818	2021-03-08	09:00:17	5600	0	0	0	0	B	E	Nueva Venta
+543819	2021-03-08	09:01:27	2500	0	0	0	0	B	E	Nueva Venta
+543820	2021-03-08	09:05:16	3300	0	0	0	0	B	E	Nueva Venta
+543821	2021-03-08	09:06:22	1600	0	0	0	0	B	E	Nueva Venta
+543822	2021-03-08	09:13:46	2600	0	0	0	0	B	E	Nueva Venta
+543823	2021-03-08	09:15:58	2350	0	0	0	0	B	E	Nueva Venta
+543824	2021-03-08	09:16:46	1350	0	0	0	0	B	E	Nueva Venta
+543825	2021-03-08	09:19:37	3950	0	0	0	0	B	E	Nueva Venta
+543826	2021-03-08	09:21:41	3100	0	0	0	0	B	E	Nueva Venta
+543827	2021-03-08	09:22:33	0	0	0	0	0	B	E	Nueva Venta
+543828	2021-03-08	09:23:41	2200	0	0	0	0	B	E	Nueva Venta
+543829	2021-03-08	09:27:46	2300	0	0	0	0	B	E	Nueva Venta
+543830	2021-03-08	09:29:09	1100	0	0	0	0	B	E	Nueva Venta
+543831	2021-03-08	09:29:47	0	0	0	0	0	B	E	Nueva Venta
+543832	2021-03-08	09:31:37	1900	0	0	0	0	B	E	Nueva Venta
+543833	2021-03-08	09:44:56	3100	0	0	0	0	B	E	Nueva Venta
+543834	2021-03-08	09:48:42	3400	0	3400	0	0	B	E	Nueva Venta
+543835	2021-03-08	09:49:36	4000	0	3000	0	0	B	E	Nueva Venta
+543836	2021-03-08	09:51:40	4400	0	0	0	0	B	E	Nueva Venta
+543837	2021-03-08	09:52:54	4500	0	0	0	0	B	E	Nueva Venta
+543838	2021-03-08	09:54:18	3150	0	0	0	0	B	E	Nueva Venta
+543839	2021-03-08	09:55:54	8000	0	0	0	0	B	E	Nueva Venta
+543840	2021-03-08	09:57:31	3700	0	0	0	0	B	E	Nueva Venta
+543841	2021-03-08	09:58:16	4100	0	0	0	0	B	E	Nueva Venta
+543842	2021-03-08	10:05:51	1900	0	0	0	0	B	E	Nueva Venta
+543843	2021-03-08	10:08:19	7200	0	0	0	0	B	E	Nueva Venta
+543844	2021-03-08	10:09:50	1850	0	0	0	0	B	E	Nueva Venta
+543845	2021-03-08	10:10:50	1900	0	0	0	0	B	E	Nueva Venta
+543846	2021-03-08	10:11:28	3500	0	0	0	0	B	E	Nueva Venta
+543847	2021-03-08	10:11:28	0	0	0	0	0	B	E	Nueva Venta
+543848	2021-03-08	10:14:47	1450	0	0	0	0	B	E	Nva. Venta
+543849	2021-03-08	10:27:02	3800	0	0	0	0	B	E	Nueva Venta
+543850	2021-03-08	10:36:24	0	0	0	0	0	B	E	Nueva Venta
+543851	2021-03-08	10:39:40	5300	0	0	0	0	B	E	Nueva Venta
+543852	2021-03-08	10:41:54	2350	0	0	0	0	B	E	Nueva Venta
+543853	2021-03-08	10:42:47	0	0	0	0	0	B	E	Nueva Venta
+543854	2021-03-08	10:43:26	1350	0	0	0	0	B	E	Nueva Venta
+543855	2021-03-08	10:45:14	2000	0	0	0	0	B	E	Nueva Venta
+543856	2021-03-08	10:46:56	2000	0	0	0	0	B	E	Nueva Venta
+543857	2021-03-08	10:47:20	4000	0	4000	0	0	B	E	Nueva Venta
+543858	2021-03-08	10:52:00	3600	0	0	0	0	B	E	Nueva Venta
+543859	2021-03-08	10:53:36	4450	0	2000	0	0	B	E	Nueva Venta
+543860	2021-03-08	11:01:39	0	0	0	0	0	B	E	Nueva Venta
+543861	2021-03-08	11:02:48	2900	0	0	0	0	B	E	Nueva Venta
+543862	2021-03-08	11:05:18	3850	0	0	0	0	B	E	Nueva Venta
+543863	2021-03-08	11:12:50	0	0	0	0	0	B	E	Nueva Venta
+543864	2021-03-08	11:18:07	1800	0	1800	0	0	B	E	Nueva Venta
+543865	2021-03-08	11:33:53	3100	0	3100	0	0	B	E	Nueva Venta
+543866	2021-03-08	11:34:36	0	0	0	0	0	B	E	Nueva Venta
+543867	2021-03-08	12:01:55	1000	0	0	0	0	B	E	Nueva Venta
+543868	2021-03-08	12:11:48	1900	0	0	0	0	B	E	Nueva Venta
+543869	2021-03-08	12:22:41	3000	0	3000	0	0	B	E	Nueva Venta
+543870	2021-03-08	12:43:23	1000	0	0	0	0	B	E	Nueva Venta
+543871	2021-03-08	12:53:09	2900	0	0	0	0	B	E	Nueva Venta
+543872	2021-03-08	12:54:22	2400	0	0	0	0	B	E	Nueva Venta
+543873	2021-03-08	12:55:24	5650	0	4000	0	0	B	E	Nueva Venta
+543874	2021-03-08	12:56:47	0	0	0	0	0	B	E	Nueva Venta
+543875	2021-03-08	13:02:57	16500	0	13200	0	0	B	E	Nueva Venta
+543876	2021-03-08	13:07:50	3950	0	0	0	0	B	E	Nueva Venta
+543877	2021-03-08	13:10:30	2200	0	0	0	0	B	E	Nueva Venta
+543878	2021-03-08	13:14:59	3800	0	0	0	0	B	E	Nueva Venta
+543879	2021-03-08	13:17:30	1900	0	0	0	0	B	E	Nueva Venta
+543880	2021-03-08	13:28:23	3500	0	3500	0	0	B	E	Nueva Venta
+543881	2021-03-08	13:36:03	1000	0	0	0	0	B	E	Nueva Venta
+543882	2021-03-08	13:47:58	1000	0	0	0	0	B	E	Nueva Venta
+543883	2021-03-08	13:50:17	1000	0	0	0	0	B	E	Nueva Venta
+543884	2021-03-08	13:58:35	500	0	0	0	0	B	E	Nueva Venta
+543885	2021-03-08	14:00:19	2600	0	0	0	0	B	E	Nueva Venta
+543886	2021-03-08	14:10:04	2000	0	0	0	0	B	E	Nueva Venta
+543887	2021-03-08	14:16:45	2450	0	0	0	0	B	E	Nueva Venta
+543888	2021-03-08	14:22:03	300	0	0	0	0	B	E	Nueva Venta
+543889	2021-03-08	14:23:32	4400	0	4400	0	0	B	E	Nueva Venta
+543890	2021-03-08	14:31:48	0	0	0	0	0	B	E	Nueva Venta
+543891	2021-03-08	14:36:16	7400	0	4400	0	0	B	E	Nueva Venta
+543892	2021-03-08	14:37:39	2500	0	0	0	0	B	E	Nueva Venta
+543893	2021-03-08	14:38:55	5070	0	0	0	0	B	E	Nueva Venta
+543894	2021-03-08	14:39:57	3000	0	0	0	0	B	E	Nueva Venta
+543895	2021-03-08	14:40:08	650	0	0	0	0	B	E	Nueva Venta
+543896	2021-03-08	14:41:43	2900	0	0	0	0	B	E	Nueva Venta
+543897	2021-03-08	14:42:12	2950	0	0	0	0	B	E	Nueva Venta
+543898	2021-03-08	14:42:47	1750	0	0	0	0	B	E	Nueva Venta
+543899	2021-03-08	14:43:19	0	0	0	0	0	B	E	Nueva Venta
+543900	2021-03-08	14:44:28	0	0	0	0	0	B	E	Nueva Venta
+543901	2021-03-08	14:46:19	3990	0	0	0	0	B	E	Nueva Venta
+543902	2021-03-08	14:46:45	0	0	0	0	0	B	E	Nueva Venta
+543903	2021-03-08	14:54:35	5800	0	3400	0	0	B	E	Nueva Venta
+543904	2021-03-08	14:55:25	0	0	0	0	0	B	E	Nueva Venta
+543905	2021-03-08	14:57:58	0	0	0	0	0	B	E	Nueva Venta
+543906	2021-03-08	14:59:02	2200	0	0	0	0	B	E	Nueva Venta
+543907	2021-03-08	15:20:11	4380	0	0	0	0	B	E	Nueva Venta
+543908	2021-03-08	15:21:14	2000	0	0	0	0	B	E	Nueva Venta
+543909	2021-03-08	16:03:04	6150	0	4300	0	0	B	E	Nueva Venta
+543910	2021-03-08	16:08:09	650	0	0	0	0	B	E	Nueva Venta
+543911	2021-03-08	17:11:27	1100	0	0	0	0	B	E	Nueva Venta
+543912	2021-03-08	17:12:59	3000	0	0	0	0	B	E	Nueva Venta
+543913	2021-03-08	17:19:35	900	0	0	0	0	B	E	Nueva Venta
+543914	2021-03-09	07:42:47	2600	0	2600	0	0	B	E	Nueva Venta
+543915	2021-03-09	07:43:41	0	0	0	0	0	B	E	Nueva Venta
+543916	2021-03-09	07:46:43	1950	0	0	0	0	B	E	Nueva Venta
+543917	2021-03-09	07:51:38	6500	0	0	0	0	B	E	Nueva Venta
+543918	2021-03-09	07:54:51	0	0	0	0	0	B	E	Nueva Venta
+543919	2021-03-09	07:58:03	2400	0	0	0	0	B	E	Nueva Venta
+543920	2021-03-09	08:00:11	2550	0	0	0	0	B	E	Nueva Venta
+543921	2021-03-09	08:01:37	900	0	0	0	0	B	E	Nueva Venta
+543922	2021-03-09	08:02:47	1100	0	0	0	0	B	E	Nueva Venta
+543923	2021-03-09	08:07:11	1450	0	0	0	0	B	E	Nueva Venta
+543924	2021-03-09	08:09:53	6400	0	0	0	0	B	E	Nueva Venta
+543925	2021-03-09	08:15:27	5900	0	4200	0	0	B	E	Nueva Venta
+543926	2021-03-09	08:16:37	2600	0	0	0	0	B	E	Nueva Venta
+543927	2021-03-09	08:18:28	2800	0	0	0	0	B	E	Nueva Venta
+543928	2021-03-09	08:21:04	4500	0	3400	0	0	B	E	Nueva Venta
+543929	2021-03-09	08:23:00	2500	0	0	0	0	B	E	Nueva Venta
+543930	2021-03-09	08:27:01	2200	0	0	0	0	B	E	Nueva Venta
+543931	2021-03-09	08:29:00	600	0	0	0	0	B	E	Nueva Venta
+543932	2021-03-09	08:30:44	300	0	0	0	0	B	E	Nueva Venta
+543933	2021-03-09	08:33:14	0	0	0	0	0	B	E	Nueva Venta
+543934	2021-03-09	19:16:47.934402	0	0	0	0	0	B	E	NOW()
+543935	2021-03-09	19:16:47.934402	0	0	0	0	0	B	E	NOW()
+543936	2021-03-09	19:16:47.934402	0	0	0	0	0	B	E	NOW()
+543937	2021-03-09	08:37:42	3100	0	0	0	0	B	E	Nueva Venta
+543938	2021-03-09	08:44:52	5050	0	2600	0	0	B	E	Nueva Venta
+543939	2021-03-09	08:45:26	1300	0	0	0	0	B	E	Nueva Venta
+543940	2021-03-09	08:50:29	5600	0	0	0	0	B	E	Nueva Venta
+543941	2021-03-09	08:51:09	2200	0	0	0	0	B	E	Nueva Venta
+543942	2021-03-09	08:52:14	1100	0	0	0	0	B	E	Nueva Venta
+543943	2021-03-09	09:05:03	3800	0	0	0	0	B	E	Nueva Venta
+543944	2021-03-09	09:06:40	6100	0	0	0	0	B	E	Nueva Venta
+543945	2021-03-09	09:09:42	1400	0	0	0	0	B	E	Nueva Venta
+543946	2021-03-09	09:10:16	1750	0	0	0	0	B	E	Nueva Venta
+543947	2021-03-09	09:11:20	3400	0	0	0	0	B	E	Nueva Venta
+543948	2021-03-09	09:13:30	1750	0	0	0	0	B	E	Nueva Venta
+543949	2021-03-09	09:16:56	1000	0	0	0	0	B	E	Nueva Venta
+543950	2021-03-09	09:23:38	2400	0	0	0	0	B	E	Nueva Venta
+543951	2021-03-09	09:26:20	1400	0	0	0	0	B	E	Nueva Venta
+543952	2021-03-09	09:31:41	3100	0	0	0	0	B	E	Nueva Venta
+543953	2021-03-09	09:33:05	2300	0	0	0	0	B	E	Nueva Venta
+543954	2021-03-09	09:35:57	2200	0	0	0	0	B	E	Nueva Venta
+543955	2021-03-09	09:37:10	2300	0	0	0	0	B	E	Nueva Venta
+543956	2021-03-09	09:38:25	3100	0	0	0	0	B	E	Nueva Venta
+543957	2021-03-09	09:40:28	3000	0	0	0	0	B	E	Nueva Venta
+543958	2021-03-09	09:45:01	0	0	0	0	0	B	E	Nueva Venta
+543959	2021-03-09	09:45:44	2850	0	0	0	0	B	E	Nueva Venta
+543960	2021-03-09	09:47:41	1100	0	0	0	0	B	E	Nueva Venta
+543961	2021-03-09	09:48:21	1350	0	0	0	0	B	E	Nueva Venta
+543962	2021-03-09	09:49:07	2600	0	0	0	0	B	E	Nueva Venta
+543963	2021-03-09	09:51:16	4400	0	0	0	0	B	E	Nueva Venta
+543964	2021-03-09	09:56:10	2100	0	0	0	0	B	E	Nueva Venta
+543965	2021-03-09	10:01:20	3300	0	0	0	0	B	E	Nueva Venta
+543966	2021-03-09	10:02:32	2350	0	0	0	0	B	E	Nueva Venta
+543967	2021-03-09	10:05:23	2900	0	0	0	0	B	E	Nueva Venta
+543968	2021-03-09	10:08:07	1850	0	0	0	0	B	E	Nueva Venta
+543969	2021-03-09	10:10:06	5200	0	0	0	0	B	E	Nueva Venta
+543970	2021-03-09	10:11:17	1800	0	0	0	0	B	E	Nueva Venta
+543971	2021-03-09	10:13:27	4700	0	0	0	0	B	E	Nueva Venta
+543972	2021-03-09	10:14:54	4500	0	4500	0	0	B	E	Nueva Venta
+543973	2021-03-09	10:15:51	0	0	0	0	0	B	E	Nueva Venta
+543974	2021-03-09	10:16:59	1300	0	0	0	0	B	E	Nueva Venta
+543975	2021-03-09	10:25:26	5300	0	0	0	0	B	E	Nueva Venta
+543976	2021-03-09	10:29:05	800	0	0	0	0	B	E	Nueva Venta
+543977	2021-03-09	10:29:44	2100	0	0	0	0	B	E	Nueva Venta
+543978	2021-03-09	10:30:52	8400	0	8400	0	0	B	E	Nueva Venta
+543979	2021-03-09	10:32:23	5200	0	0	0	0	B	E	Nueva Venta
+543980	2021-03-09	10:33:55	1000	0	0	0	0	B	E	Nueva Venta
+543981	2021-03-09	10:35:08	1850	0	0	0	0	B	E	Nueva Venta
+543982	2021-03-09	10:36:57	5900	0	4000	0	0	B	E	Nueva Venta
+543983	2021-03-09	10:38:16	2200	0	0	0	0	B	E	Nueva Venta
+543984	2021-03-09	10:40:04	1550	0	0	0	0	B	E	Nueva Venta
+543985	2021-03-09	10:42:33	350	0	0	0	0	B	E	Nueva Venta
+543986	2021-03-09	10:42:33	0	0	0	0	0	B	E	Nueva Venta
+543987	2021-03-09	10:44:05	2000	0	2000	0	0	B	E	Nva. Venta
+543988	2021-03-09	10:44:39	0	0	0	0	0	B	E	Nueva Venta
+543989	2021-03-09	10:44:39	0	0	0	0	0	B	E	Nueva Venta
+543990	2021-03-09	10:47:34	2100	0	0	0	0	B	E	Nva. Venta
+543991	2021-03-09	10:48:32	0	0	0	0	0	B	E	Nueva Venta
+543992	2021-03-09	10:49:21	4500	0	0	0	0	B	E	Nueva Venta
+543993	2021-03-09	10:50:43	1100	0	0	0	0	B	E	Nueva Venta
+543994	2021-03-09	10:51:56	1000	0	0	0	0	B	E	Nueva Venta
+543995	2021-03-09	11:03:49	0	0	0	0	0	B	E	Nueva Venta
+543996	2021-03-09	11:05:13	2400	0	0	0	0	B	E	Nueva Venta
+543997	2021-03-09	11:05:48	300	0	0	0	0	B	E	Nueva Venta
+543998	2021-03-09	11:07:11	2600	0	0	0	0	B	E	Nueva Venta
+543999	2021-03-09	11:15:09	700	0	0	0	0	B	E	Nueva Venta
+544000	2021-03-09	11:29:49	3150	0	0	0	0	B	E	Nueva Venta
+544001	2021-03-09	11:35:33	1600	0	0	0	0	B	E	Nueva Venta
+544002	2021-03-09	11:44:57	1950	0	0	0	0	B	E	Nueva Venta
+544003	2021-03-09	11:48:46	1100	0	0	0	0	B	E	Nueva Venta
+544004	2021-03-09	11:54:43	1800	0	0	0	0	B	E	Nueva Venta
+544005	2021-03-09	11:56:55	2400	0	0	0	0	B	E	Nueva Venta
+544006	2021-03-09	12:02:41	1100	0	0	0	0	B	E	Nueva Venta
+544007	2021-03-09	12:03:36	1900	0	0	0	0	B	E	Nueva Venta
+544008	2021-03-09	12:27:20	0	0	0	0	0	B	E	Nueva Venta
+544009	2021-03-09	12:31:57	2600	0	0	0	0	B	E	Nueva Venta
+544010	2021-03-09	12:32:36	4400	0	4400	0	0	B	E	Nueva Venta
+544011	2021-03-09	12:48:35	1700	0	0	0	0	B	E	Nueva Venta
+544012	2021-03-09	13:01:20	2000	0	0	0	0	B	E	Nueva Venta
+544013	2021-03-09	13:07:10	5150	0	5150	0	0	B	E	Nueva Venta
+544014	2021-03-09	13:13:35	2300	0	0	0	0	B	E	Nueva Venta
+544015	2021-03-09	13:58:25	4300	0	4300	0	0	B	E	Nueva Venta
+544016	2021-03-09	14:19:45	5600	0	0	0	0	B	E	Nueva Venta
+544017	2021-03-09	14:30:29	1150	0	0	0	0	B	E	Nueva Venta
+544018	2021-03-09	14:31:40	7500	0	4000	0	0	B	E	Nueva Venta
+544019	2021-03-09	14:34:58	2700	0	0	0	0	B	E	Nueva Venta
+544020	2021-03-09	14:35:00	0	0	0	0	0	B	E	Nueva Venta
+544021	2021-03-09	14:45:53	3700	0	0	0	0	B	E	Nueva Venta
+544022	2021-03-09	15:06:48	2000	0	2000	0	0	B	E	Nueva Venta
+544023	2021-03-09	15:10:04	4600	0	3000	0	0	B	E	Nueva Venta
+544024	2021-03-09	15:10:53	980	0	0	0	0	B	E	Nueva Venta
+544025	2021-03-09	15:12:54	1000	0	0	0	0	B	E	Nueva Venta
+544026	2021-03-09	16:44:21	1850	0	0	0	0	B	E	Nueva Venta
+544027	2021-03-09	16:50:40	4950	0	0	0	0	B	E	Nueva Venta
+544028	2021-03-09	16:46:01	1000	0	0	0	0	B	E	Nueva Venta
+544029	2021-03-09	16:46:01	0	0	0	0	0	B	E	Nueva Venta
+544030	2021-03-10	08:10:57	9400	0	8600	0	0	B	E	Nueva Venta
+544031	2021-03-10	08:20:39	2800	0	0	0	0	B	E	Nueva Venta
+544032	2021-03-10	08:25:45	1300	0	0	0	0	B	E	Nueva Venta
+544033	2021-03-10	08:27:17	3300	0	0	0	0	B	E	Nueva Venta
+544034	2021-03-10	08:29:11	1400	0	0	0	0	B	E	Nueva Venta
+544035	2021-03-10	08:30:43	2600	0	0	0	0	B	E	Nueva Venta
+544036	2021-03-10	08:35:09	250	0	0	0	0	B	E	Nueva Venta
+544037	2021-03-10	08:36:30	3150	0	0	0	0	B	E	Nueva Venta
+544038	2021-03-10	08:37:13	2950	0	0	0	0	B	E	Nueva Venta
+544039	2021-03-10	08:40:55	5700	0	0	0	0	B	E	Nueva Venta
+544040	2021-03-10	08:41:52	3300	0	0	0	0	B	E	Nueva Venta
+544041	2021-03-10	08:45:25	1100	0	0	0	0	B	E	Nueva Venta
+544042	2021-03-10	08:47:58	2700	0	0	0	0	B	E	Nueva Venta
+544043	2021-03-10	08:50:12	2700	0	0	0	0	B	E	Nueva Venta
+544044	2021-03-10	08:51:41	3100	0	0	0	0	B	E	Nueva Venta
+544045	2021-03-10	08:54:17	2600	0	0	0	0	B	E	Nueva Venta
+544046	2021-03-10	08:55:52	1800	0	0	0	0	B	E	Nueva Venta
+544047	2021-03-10	08:57:14	3000	0	0	0	0	B	E	Nueva Venta
+544048	2021-03-10	09:02:43	1150	0	0	0	0	B	E	Nueva Venta
+544049	2021-03-10	09:04:49	2600	0	0	0	0	B	E	Nueva Venta
+544050	2021-03-10	09:06:29	2800	0	0	0	0	B	E	Nueva Venta
+544051	2021-03-10	09:07:58	1800	0	0	0	0	B	E	Nueva Venta
+544052	2021-03-10	09:08:24	2600	0	0	0	0	B	E	Nueva Venta
+544053	2021-03-10	09:08:33	0	0	0	0	0	B	E	Nueva Venta
+544054	2021-03-10	09:09:25	2700	0	0	0	0	B	E	Nueva Venta
+544055	2021-03-10	09:10:08	4000	0	0	0	0	B	E	Nueva Venta
+544056	2021-03-10	09:10:50	1500	0	0	0	0	B	E	Nueva Venta
+544057	2021-03-10	09:14:50	0	0	0	0	0	B	E	Nueva Venta
+544058	2021-03-10	09:15:34	1900	0	0	0	0	B	E	Nueva Venta
+544059	2021-03-10	09:16:16	0	0	0	0	0	B	E	Nueva Venta
+544060	2021-03-10	09:17:16	2000	0	0	0	0	B	E	Nueva Venta
+544061	2021-03-10	09:18:06	0	0	0	0	0	B	E	Nueva Venta
+544062	2021-03-10	09:19:31	4500	0	0	0	0	B	E	Nueva Venta
+544063	2021-03-10	09:20:08	3100	0	0	0	0	B	E	Nueva Venta
+544064	2021-03-10	09:21:38	3500	0	0	0	0	B	E	Nueva Venta
+544065	2021-03-10	09:22:01	2400	0	0	0	0	B	E	Nueva Venta
+544066	2021-03-10	09:23:19	3400	0	0	0	0	B	E	Nueva Venta
+544067	2021-03-10	09:24:08	2600	0	0	0	0	B	E	Nueva Venta
+544068	2021-03-10	09:25:21	1100	0	0	0	0	B	E	Nueva Venta
+544069	2021-03-10	09:36:12	5600	0	0	0	0	B	E	Nueva Venta
+544070	2021-03-10	09:37:52	4100	0	0	0	0	B	E	Nueva Venta
+544071	2021-03-10	09:39:41	2300	0	0	0	0	B	E	Nueva Venta
+544072	2021-03-10	09:41:33	1350	0	0	0	0	B	E	Nueva Venta
+544073	2021-03-10	09:44:24	0	0	0	0	0	B	E	Nueva Venta
+544074	2021-03-10	09:46:43	3000	0	0	0	0	B	E	Nueva Venta
+544075	2021-03-10	09:50:03	2000	0	0	0	0	B	E	Nueva Venta
+544076	2021-03-10	09:51:01	7350	0	0	0	0	B	E	Nueva Venta
+544077	2021-03-10	09:51:50	3000	0	0	0	0	B	E	Nueva Venta
+544078	2021-03-10	09:52:56	2950	0	0	0	0	B	E	Nueva Venta
+544079	2021-03-10	09:53:34	1300	0	0	0	0	B	E	Nueva Venta
+544080	2021-03-10	09:58:25	2150	0	0	0	0	B	E	Nueva Venta
+544081	2021-03-10	10:02:49	2150	0	0	0	0	B	E	Nueva Venta
+544082	2021-03-10	10:03:55	1100	0	0	0	0	B	E	Nueva Venta
+544083	2021-03-10	10:04:27	10000	0	8000	0	0	B	E	Nueva Venta
+544084	2021-03-10	10:05:10	1300	0	0	0	0	B	E	Nueva Venta
+544085	2021-03-10	10:12:38	2000	0	0	0	0	B	E	Nueva Venta
+544086	2021-03-10	10:17:28	1500	0	0	0	0	B	E	Nueva Venta
+544087	2021-03-10	10:23:01	300	0	0	0	0	B	E	Nueva Venta
+544088	2021-03-10	10:23:26	0	0	0	0	0	B	E	Nueva Venta
+544089	2021-03-10	10:24:25	3100	0	0	0	0	B	E	Nueva Venta
+544090	2021-03-10	10:27:29	1100	0	0	0	0	B	E	Nueva Venta
+544091	2021-03-10	10:29:06	2400	0	0	0	0	B	E	Nueva Venta
+544092	2021-03-10	10:30:01	2400	0	0	0	0	B	E	Nueva Venta
+544093	2021-03-10	10:32:02	4300	0	0	0	0	B	E	Nueva Venta
+544094	2021-03-10	10:36:14	1000	0	0	0	0	B	E	Nueva Venta
+544095	2021-03-10	10:48:22	4250	0	2000	0	0	B	E	Nueva Venta
+544096	2021-03-10	10:48:44	0	0	0	0	0	B	E	Nueva Venta
+544097	2021-03-10	10:56:43	1000	0	0	0	0	B	E	Nueva Venta
+544098	2021-03-10	11:01:23	2600	0	0	0	0	B	E	Nueva Venta
+544099	2021-03-10	11:02:14	1100	0	0	0	0	B	E	Nueva Venta
+544100	2021-03-10	11:04:43	3200	0	0	0	0	B	E	Nueva Venta
+544101	2021-03-10	11:05:26	2600	0	0	0	0	B	E	Nueva Venta
+544102	2021-03-10	11:09:26	300	0	0	0	0	B	E	Nueva Venta
+544103	2021-03-10	11:22:02	1900	0	0	0	0	B	E	Nueva Venta
+544104	2021-03-10	11:46:38	5100	0	3400	0	0	B	E	Nueva Venta
+544105	2021-03-10	11:54:42	3350	0	0	0	0	B	E	Nueva Venta
+544106	2021-03-10	11:55:59	3000	0	0	0	0	B	E	Nueva Venta
+544107	2021-03-10	12:14:08	2100	0	0	0	0	B	E	Nueva Venta
+544108	2021-03-10	12:37:45	1300	0	0	0	0	B	E	Nueva Venta
+544109	2021-03-10	13:12:44	4000	0	0	0	0	B	E	Nueva Venta
+544110	2021-03-10	13:18:51	750	0	0	0	0	B	E	Nueva Venta
+544111	2021-03-10	13:23:08	600	0	0	0	0	B	E	Nueva Venta
+544112	2021-03-10	13:23:17	400	0	0	0	0	B	E	Nueva Venta
+544113	2021-03-10	13:43:02	2000	0	0	0	0	B	E	Nueva Venta
+544114	2021-03-10	13:43:56	1650	0	0	0	0	B	E	Nueva Venta
+544115	2021-03-10	13:44:33	6400	0	0	0	0	B	E	Nueva Venta
+544116	2021-03-10	13:45:03	2400	0	0	0	0	B	E	Nueva Venta
+544117	2021-03-10	13:46:09	3200	0	0	0	0	B	E	Nueva Venta
+544118	2021-03-10	13:47:49	1600	0	0	0	0	B	E	Nueva Venta
+544119	2021-03-10	13:55:07	3100	0	0	0	0	B	E	Nueva Venta
+544120	2021-03-10	14:02:45	5500	0	0	0	0	B	E	Nueva Venta
+544121	2021-03-10	14:08:34	6150	0	0	0	0	B	E	Nueva Venta
+544122	2021-03-10	14:09:55	0	0	0	0	0	B	E	Nueva Venta
+544123	2021-03-10	14:11:09	5400	0	0	0	0	B	E	Nueva Venta
+544124	2021-03-10	14:14:53	1000	0	0	0	0	B	E	Nueva Venta
+544125	2021-03-10	14:27:43	3700	0	0	0	0	B	E	Nueva Venta
+544126	2021-03-10	14:38:40	2700	0	0	0	0	B	E	Nueva Venta
+544127	2021-03-10	14:41:04	3000	0	3000	0	0	B	E	Nueva Venta
+544128	2021-03-10	14:53:16	1950	0	0	0	0	B	E	Nueva Venta
+544129	2021-03-11	07:44:36	4100	0	0	0	0	B	E	Nueva Venta
+544130	2021-03-11	07:47:17	3050	0	0	0	0	B	E	Nueva Venta
+544131	2021-03-11	07:48:45	1400	0	0	0	0	B	E	Nueva Venta
+544132	2021-03-11	07:51:12	1100	0	0	0	0	B	E	Nueva Venta
+544133	2021-03-11	07:55:28	8800	0	0	0	0	B	E	Nueva Venta
+544134	2021-03-11	07:57:48	4100	0	0	0	0	B	E	Nueva Venta
+544135	2021-03-11	08:12:47	1650	0	0	0	0	B	E	Nueva Venta
+544136	2021-03-11	08:14:20	2050	0	0	0	0	B	E	Nueva Venta
+544137	2021-03-11	08:16:10	400	0	0	0	0	B	E	Nueva Venta
+544138	2021-03-11	08:20:53	5300	0	0	0	0	B	E	Nueva Venta
+544139	2021-03-11	08:22:38	1600	0	0	0	0	B	E	Nueva Venta
+544140	2021-03-11	08:23:30	1200	0	0	0	0	B	E	Nueva Venta
+544141	2021-03-11	08:24:45	0	0	0	0	0	B	E	Nueva Venta
+544142	2021-03-11	08:26:44	2000	0	0	0	0	B	E	Nueva Venta
+544143	2021-03-11	08:35:02	2800	0	0	0	0	B	E	Nueva Venta
+544144	2021-03-11	08:35:59	3350	0	0	0	0	B	E	Nueva Venta
+544145	2021-03-11	08:36:08	0	0	0	0	0	B	E	Nueva Venta
+544146	2021-03-11	08:37:11	5700	0	0	0	0	B	E	Nueva Venta
+544147	2021-03-11	08:38:18	2000	0	0	0	0	B	E	Nueva Venta
+544148	2021-03-11	08:40:09	3050	0	0	0	0	B	E	Nueva Venta
+544149	2021-03-11	08:41:51	0	0	0	0	0	B	E	Nueva Venta
+544150	2021-03-11	08:42:36	5150	0	3400	0	0	B	E	Nueva Venta
+544151	2021-03-11	08:44:26	1400	0	0	0	0	B	E	Nueva Venta
+544152	2021-03-11	08:46:41	4200	0	0	0	0	B	E	Nueva Venta
+544153	2021-03-11	08:48:10	2100	0	0	0	0	B	E	Nueva Venta
+544154	2021-03-11	09:01:10	1500	0	0	0	0	B	E	Nueva Venta
+544155	2021-03-11	09:02:14	2800	0	0	0	0	B	E	Nueva Venta
+544156	2021-03-11	09:02:52	0	0	0	0	0	B	E	Nueva Venta
+544157	2021-03-11	09:05:58	2300	0	0	0	0	B	E	Nueva Venta
+544158	2021-03-11	09:07:05	1750	0	0	0	0	B	E	Nueva Venta
+544159	2021-03-11	09:09:51	0	0	0	0	0	B	E	Nueva Venta
+544160	2021-03-11	09:13:23	500	0	0	0	0	B	E	Nueva Venta
+544161	2021-03-11	09:15:55	2250	0	0	0	0	B	E	Nueva Venta
+544162	2021-03-11	09:17:37	3300	0	0	0	0	B	E	Nueva Venta
+544163	2021-03-11	09:18:34	3400	0	0	0	0	B	E	Nueva Venta
+544164	2021-03-11	09:19:25	1450	0	0	0	0	B	E	Nueva Venta
+544165	2021-03-11	09:20:40	2000	0	0	0	0	B	E	Nueva Venta
+544166	2021-03-11	09:22:07	1950	0	0	0	0	B	E	Nueva Venta
+544167	2021-03-11	09:22:55	1100	0	0	0	0	B	E	Nueva Venta
+544168	2021-03-11	09:25:09	1950	0	0	0	0	B	E	Nueva Venta
+544169	2021-03-11	09:28:45	2300	0	0	0	0	B	E	Nueva Venta
+544170	2021-03-11	09:30:18	6300	0	0	0	0	B	E	Nueva Venta
+544171	2021-03-11	09:32:14	2100	0	0	0	0	B	E	Nueva Venta
+544172	2021-03-11	09:32:48	900	0	0	0	0	B	E	Nueva Venta
+544173	2021-03-11	09:33:32	2800	0	0	0	0	B	E	Nueva Venta
+544174	2021-03-11	09:34:43	2750	0	0	0	0	B	E	Nueva Venta
+544175	2021-03-11	09:35:29	2400	0	0	0	0	B	E	Nueva Venta
+544176	2021-03-11	09:40:27	0	0	0	0	0	B	E	Nueva Venta
+544177	2021-03-11	09:41:12	3200	0	0	0	0	B	E	Nueva Venta
+544178	2021-03-11	09:43:38	2000	0	0	0	0	B	E	Nueva Venta
+544179	2021-03-11	09:44:11	300	0	0	0	0	B	E	Nueva Venta
+544180	2021-03-11	09:44:55	2300	0	0	0	0	B	E	Nueva Venta
+544181	2021-03-11	09:45:32	1800	0	0	0	0	B	E	Nueva Venta
+544182	2021-03-11	09:46:44	0	0	0	0	0	B	E	Nueva Venta
+544183	2021-03-11	09:49:13	3300	0	0	0	0	B	E	Nueva Venta
+544184	2021-03-11	09:52:43	2500	0	0	0	0	B	E	Nueva Venta
+544185	2021-03-11	09:54:23	3300	0	0	0	0	B	E	Nueva Venta
+544186	2021-03-11	09:55:36	0	0	0	0	0	B	E	Nueva Venta
+544187	2021-03-11	09:56:59	7000	0	3500	0	0	B	E	Nueva Venta
+544188	2021-03-11	09:58:02	5700	0	4400	0	0	B	E	Nueva Venta
+544189	2021-03-11	10:06:45	2700	0	0	0	0	B	E	Nueva Venta
+544190	2021-03-11	10:07:41	2450	0	0	0	0	B	E	Nueva Venta
+544191	2021-03-11	10:14:37	1450	0	0	0	0	B	E	Nueva Venta
+544192	2021-03-11	10:15:38	1500	0	0	0	0	B	E	Nueva Venta
+544193	2021-03-11	10:17:31	1550	0	0	0	0	B	E	Nueva Venta
+544194	2021-03-11	10:31:14	2300	0	0	0	0	B	E	Nueva Venta
+544195	2021-03-11	10:32:21	2800	0	0	0	0	B	E	Nueva Venta
+544196	2021-03-11	10:33:12	0	0	0	0	0	B	E	Nueva Venta
+544197	2021-03-11	10:33:49	1350	0	0	0	0	B	E	Nueva Venta
+544198	2021-03-11	10:34:36	2400	0	0	0	0	B	E	Nueva Venta
+544199	2021-03-11	10:36:04	1300	0	0	0	0	B	E	Nueva Venta
+544200	2021-03-11	10:39:56	1350	0	0	0	0	B	E	Nueva Venta
+544201	2021-03-11	10:41:57	1350	0	0	0	0	B	E	Nueva Venta
+544202	2021-03-11	10:52:05	3500	0	0	0	0	B	E	Nueva Venta
+544203	2021-03-11	10:44:49	0	0	0	0	0	B	E	Nueva Venta
+544204	2021-03-11	10:52:57	12600	0	12600	0	0	B	E	Nueva Venta
+544205	2021-03-11	10:58:32	3900	0	3500	0	0	B	E	Nueva Venta
+544206	2021-03-11	11:04:31	450	0	0	0	0	B	E	Nueva Venta
+544207	2021-03-11	11:04:31	0	0	0	0	0	B	E	Nueva Venta
+544208	2021-03-11	11:06:20	500	0	0	0	0	B	E	Nva. Venta
+544209	2021-03-11	11:06:20	0	0	0	0	0	B	E	Nueva Venta
+544210	2021-03-11	11:14:18	0	0	0	0	0	B	E	Nva. Venta
+544211	2021-03-11	11:22:18	0	0	0	0	0	B	E	Nueva Venta
+544212	2021-03-11	11:23:03	850	0	0	0	0	B	E	Nueva Venta
+544213	2021-03-11	11:23:49	800	0	0	0	0	B	E	Nueva Venta
+544214	2021-03-11	11:25:36	2500	0	0	0	0	B	E	Nueva Venta
+544215	2021-03-11	11:43:22	4400	0	4400	0	0	B	E	Nueva Venta
+544216	2021-03-11	11:48:40	2700	0	0	0	0	B	E	Nueva Venta
+544217	2021-03-11	11:51:29	4700	0	4300	0	0	B	E	Nueva Venta
+544218	2021-03-11	12:00:48	10650	0	0	0	0	B	E	Nueva Venta
+544219	2021-03-11	12:07:48	1600	0	0	0	0	B	E	Nueva Venta
+544220	2021-03-11	12:09:25	3700	0	0	0	0	B	E	Nueva Venta
+544221	2021-03-11	13:06:14	1600	0	0	0	0	B	E	Nueva Venta
+544222	2021-03-11	13:12:19	3000	0	3000	0	0	B	E	Nueva Venta
+544223	2021-03-11	13:28:10	1800	0	0	0	0	B	E	Nueva Venta
+544224	2021-03-11	14:10:22	4600	0	0	0	0	B	E	Nueva Venta
+544225	2021-03-11	14:12:08	5100	0	0	0	0	B	E	Nueva Venta
+544226	2021-03-11	14:12:50	0	0	0	0	0	B	E	Nueva Venta
+544227	2021-03-11	14:14:26	0	0	0	0	0	B	E	Nueva Venta
+544228	2021-03-11	14:15:14	1550	0	0	0	0	B	E	Nueva Venta
+544229	2021-03-11	14:16:15	3500	0	0	0	0	B	E	Nueva Venta
+544230	2021-03-11	14:27:00	7400	0	3400	0	0	B	E	Nueva Venta
+544231	2021-03-11	14:31:38	6200	0	0	0	0	B	E	Nueva Venta
+544232	2021-03-11	14:35:22	2900	0	0	0	0	B	E	Nueva Venta
+544233	2021-03-11	14:37:12	3400	0	0	0	0	B	E	Nueva Venta
+544234	2021-03-11	14:46:05	3800	0	0	0	0	B	E	Nueva Venta
+544235	2021-03-11	14:51:53	600	0	0	0	0	B	E	Nueva Venta
+544236	2021-03-11	15:08:10	4200	0	0	0	0	B	E	Nueva Venta
+544237	2021-03-11	15:09:30	2340	0	0	0	0	B	E	Nueva Venta
+544238	2021-03-11	15:11:00	2550	0	0	0	0	B	E	Nueva Venta
+544239	2021-03-11	15:11:35	2000	0	2000	0	0	B	E	Nueva Venta
+544240	2021-03-11	15:13:24	650	0	0	0	0	B	E	Nueva Venta
+544241	2021-03-11	15:14:55	3300	0	0	0	0	B	E	Nueva Venta
+544242	2021-03-11	15:16:44	3900	0	0	0	0	B	E	Nueva Venta
+544243	2021-03-11	15:16:45	0	0	0	0	0	B	E	Nueva Venta
+544244	2021-03-11	15:19:59	0	0	0	0	0	B	E	Nva. Venta
+544245	2021-03-11	16:26:21	3700	0	0	0	0	B	E	Nueva Venta
+544246	2021-03-12	07:49:20	2300	0	0	0	0	B	E	Nueva Venta
+544247	2021-03-12	07:50:35	1350	0	0	0	0	B	E	Nueva Venta
+544248	2021-03-12	07:54:08	1900	0	0	0	0	B	E	Nueva Venta
+544249	2021-03-12	08:03:47	2000	0	2000	0	0	B	E	Nueva Venta
+544250	2021-03-12	08:06:14	5400	0	4200	0	0	B	E	Nueva Venta
+544251	2021-03-12	08:07:36	6100	0	0	0	0	B	E	Nueva Venta
+544252	2021-03-12	08:09:14	4300	0	3400	0	0	B	E	Nueva Venta
+544253	2021-03-12	08:10:43	1300	0	0	0	0	B	E	Nueva Venta
+544254	2021-03-12	08:14:14	2700	0	0	0	0	B	E	Nueva Venta
+544255	2021-03-12	08:15:21	3400	0	0	0	0	B	E	Nueva Venta
+544256	2021-03-12	08:20:09	600	0	0	0	0	B	E	Nueva Venta
+544257	2021-03-12	08:24:41	1500	0	0	0	0	B	E	Nueva Venta
+544258	2021-03-12	08:25:31	4200	0	4200	0	0	B	E	Nueva Venta
+544259	2021-03-12	08:29:00	900	0	0	0	0	B	E	Nueva Venta
+544260	2021-03-12	08:32:03	0	0	0	0	0	B	E	Nueva Venta
+544261	2021-03-12	08:33:20	3250	0	0	0	0	B	E	Nueva Venta
+544262	2021-03-12	08:34:36	2000	0	0	0	0	B	E	Nueva Venta
+544263	2021-03-12	08:38:28	1100	0	0	0	0	B	E	Nueva Venta
+544264	2021-03-12	08:43:10	4950	0	0	0	0	B	E	Nueva Venta
+544265	2021-03-12	08:41:10	2700	0	0	0	0	B	E	Nueva Venta
+544266	2021-03-12	08:41:10	0	0	0	0	0	B	E	Nueva Venta
+544267	2021-03-12	08:43:54	3100	0	0	0	0	B	E	Nueva Venta
+544268	2021-03-12	08:44:43	2300	0	0	0	0	B	E	Nueva Venta
+544269	2021-03-12	08:45:29	0	0	0	0	0	B	E	Nueva Venta
+544270	2021-03-12	08:47:17	0	0	0	0	0	B	E	Nueva Venta
+544271	2021-03-12	08:50:19	5700	0	0	0	0	B	E	Nueva Venta
+544272	2021-03-12	08:51:07	2800	0	0	0	0	B	E	Nueva Venta
+544273	2021-03-12	08:51:21	0	0	0	0	0	B	E	Nueva Venta
+544274	2021-03-12	08:54:49	2200	0	0	0	0	B	E	Nueva Venta
+544275	2021-03-12	08:57:06	5850	0	0	0	0	B	E	Nueva Venta
+544276	2021-03-12	09:05:19	1800	0	0	0	0	B	E	Nueva Venta
+544277	2021-03-12	09:08:08	3350	0	0	0	0	B	E	Nueva Venta
+544278	2021-03-12	09:09:01	1400	0	0	0	0	B	E	Nueva Venta
+544279	2021-03-12	09:09:17	1750	0	0	0	0	B	E	Nueva Venta
+544280	2021-03-12	09:11:03	2100	0	0	0	0	B	E	Nueva Venta
+544281	2021-03-12	09:13:19	2100	0	0	0	0	B	E	Nueva Venta
+544282	2021-03-12	09:15:20	6300	0	0	0	0	B	E	Nueva Venta
+544283	2021-03-12	09:16:13	2300	0	0	0	0	B	E	Nueva Venta
+544284	2021-03-12	09:17:03	6100	0	3000	0	0	B	E	Nueva Venta
+544285	2021-03-12	09:17:57	4000	0	3400	0	0	B	E	Nueva Venta
+544286	2021-03-12	09:18:41	2000	0	0	0	0	B	E	Nueva Venta
+544287	2021-03-12	09:19:10	2200	0	0	0	0	B	E	Nueva Venta
+544288	2021-03-12	09:20:19	1300	0	0	0	0	B	E	Nueva Venta
+544289	2021-03-12	09:21:19	900	0	0	0	0	B	E	Nueva Venta
+544290	2021-03-12	09:22:10	4550	0	4200	0	0	B	E	Nueva Venta
+544291	2021-03-12	09:24:19	0	0	0	0	0	B	E	Nueva Venta
+544292	2021-03-12	09:27:05	0	0	0	0	0	B	E	Nueva Venta
+544293	2021-03-12	09:28:50	3100	0	0	0	0	B	E	Nueva Venta
+544294	2021-03-12	09:30:33	2400	0	0	0	0	B	E	Nueva Venta
+544295	2021-03-12	09:31:14	1900	0	0	0	0	B	E	Nueva Venta
+544296	2021-03-12	09:31:53	2300	0	0	0	0	B	E	Nueva Venta
+544297	2021-03-12	09:32:27	2500	0	0	0	0	B	E	Nueva Venta
+544298	2021-03-12	09:33:09	2100	0	0	0	0	B	E	Nueva Venta
+544299	2021-03-12	09:43:27	1200	0	0	0	0	B	E	Nueva Venta
+544300	2021-03-12	09:44:22	1600	0	0	0	0	B	E	Nueva Venta
+544301	2021-03-12	09:45:11	4000	0	0	0	0	B	E	Nueva Venta
+544302	2021-03-12	09:48:22	1300	0	0	0	0	B	E	Nueva Venta
+544303	2021-03-12	09:49:22	2000	0	0	0	0	B	E	Nueva Venta
+544304	2021-03-12	09:50:10	1900	0	0	0	0	B	E	Nueva Venta
+544305	2021-03-12	09:50:18	0	0	0	0	0	B	E	Nueva Venta
+544306	2021-03-12	09:52:11	2400	0	0	0	0	B	E	Nueva Venta
+544307	2021-03-12	09:53:33	3300	0	0	0	0	B	E	Nueva Venta
+544308	2021-03-12	09:59:06	1600	0	0	0	0	B	E	Nueva Venta
+544309	2021-03-12	10:02:50	1000	0	0	0	0	B	E	Nueva Venta
+544310	2021-03-12	10:04:30	2500	0	0	0	0	B	E	Nueva Venta
+544311	2021-03-12	10:07:46	0	0	0	0	0	B	E	Nueva Venta
+544312	2021-03-12	10:13:07	2000	0	0	0	0	B	E	Nueva Venta
+544313	2021-03-12	10:23:40	0	0	0	0	0	B	E	Nueva Venta
+544314	2021-03-12	10:26:03	3300	0	0	0	0	B	E	Nueva Venta
+544315	2021-03-12	10:29:21	2700	0	0	0	0	B	E	Nueva Venta
+544316	2021-03-12	10:34:58	2400	0	0	0	0	B	E	Nueva Venta
+544317	2021-03-12	10:36:48	3000	0	0	0	0	B	E	Nueva Venta
+544318	2021-03-12	10:40:29	1500	0	0	0	0	B	E	Nueva Venta
+544319	2021-03-12	10:42:18	1100	0	0	0	0	B	E	Nueva Venta
+544320	2021-03-12	10:51:00	18000	0	18000	0	0	B	E	Nueva Venta
+544321	2021-03-12	10:53:20	1550	0	0	0	0	B	E	Nueva Venta
+544322	2021-03-12	10:57:34	0	0	0	0	0	B	E	Nueva Venta
+544323	2021-03-12	11:04:02	10900	0	9000	0	0	B	E	Nueva Venta
+544324	2021-03-12	11:04:58	1300	0	0	0	0	B	E	Nueva Venta
+544325	2021-03-12	11:08:52	1700	0	0	0	0	B	E	Nueva Venta
+544326	2021-03-12	11:10:47	800	0	0	0	0	B	E	Nueva Venta
+544327	2021-03-12	11:12:46	5100	0	0	0	0	B	E	Nueva Venta
+544328	2021-03-12	11:13:55	6300	0	4200	0	0	B	E	Nueva Venta
+544329	2021-03-12	14:30:17	1350	0	0	0	0	B	E	Nueva Venta
+544330	2021-03-12	14:35:10	1400	0	0	0	0	B	E	Nueva Venta
+544331	2021-03-12	14:35:33	700	0	0	0	0	B	E	Nueva Venta
+544332	2021-03-12	14:39:33	2400	0	0	0	0	B	E	Nueva Venta
+544333	2021-03-12	14:42:39	2290	0	0	0	0	B	E	Nueva Venta
+544334	2021-03-12	14:52:18	3350	0	0	0	0	B	E	Nueva Venta
+544335	2021-03-12	14:51:58	0	0	0	0	0	B	E	Nueva Venta
+544336	2021-03-12	15:31:56	3850	0	0	0	0	B	E	Nueva Venta
+544337	2021-03-12	15:38:43	2000	0	0	0	0	B	E	Nueva Venta
+544338	2021-03-12	15:42:02	3800	0	0	0	0	B	E	Nueva Venta
+544339	2021-03-12	15:44:36	2480	0	0	0	0	B	E	Nueva Venta
+544340	2021-03-12	15:51:30	2000	0	2000	0	0	B	E	Nueva Venta
+544341	2021-03-12	15:57:32	1450	0	0	0	0	B	E	Nueva Venta
+544342	2021-03-12	16:18:30	1600	0	0	0	0	B	E	Nueva Venta
+544343	2021-03-12	16:18:31	0	0	0	0	0	B	E	Nueva Venta
+544344	2021-03-15	07:28:08	2500	0	2500	0	0	B	E	Nva. Venta
+544345	2021-03-15	08:17:56	4800	0	0	0	0	B	E	Nueva Venta
+544346	2021-03-15	08:47:31	2150	0	0	0	0	B	E	Nueva Venta
+544347	2021-03-15	08:49:16	3600	0	0	0	0	B	E	Nueva Venta
+544348	2021-03-15	10:04:33	2900	0	0	0	0	B	E	Nueva Venta
+544349	2021-03-15	13:10:59	4000	0	3400	0	0	B	E	Nueva Venta
+544350	2021-03-16	06:52:27	28800	0	28800	0	0	B	E	Nueva Venta
+544351	2021-03-16	06:52:27	8250	0	4300	0	0	B	E	Nueva Venta
+544352	2021-03-17	06:49:34	5300	0	4500	0	0	B	E	Nva. Venta
+544353	2021-03-17	08:35:48	5750	0	4200	0	0	B	E	Nva. Venta
+544354	2021-03-17	08:35:48	1900	0	0	0	0	B	E	Nueva Venta
+544355	2021-03-17	10:52:29	850	0	0	0	0	B	E	Nva. Venta
+544356	2021-03-17	11:11:02	2300	0	0	0	0	B	E	Nueva Venta
+544357	2021-03-17	11:11:40	1500	0	0	0	0	B	E	Nueva Venta
+544358	2021-03-17	12:23:29	2050	0	0	0	0	B	E	Nueva Venta
+544359	2021-03-17	13:22:53	8000	0	0	0	0	B	E	Nueva Venta
+544360	2021-03-17	13:22:53	5800	0	4400	0	0	B	E	Nueva Venta
+544361	2021-03-18	11:14:44	4350	0	0	0	0	B	E	Nva. Venta
+544362	2021-03-18	14:49:55	4400	0	4400	0	0	B	E	Nva. Venta
+544363	2021-03-19	10:17:29	1100	0	0	0	0	B	E	Nueva Venta
+544364	2021-03-19	11:31:28	4400	0	4400	0	0	B	E	Nueva Venta
+544365	2021-03-19	14:10:31	4950	0	0	0	0	B	E	Nueva Venta
+544366	2021-03-19	14:12:13	2450	0	0	0	0	B	E	Nueva Venta
+544367	2021-03-19	14:13:12	0	0	0	0	0	B	E	Nueva Venta
+544368	2021-03-19	14:14:33	6550	0	0	0	0	B	E	Nueva Venta
+544369	2021-03-19	14:15:28	1400	0	0	0	0	B	E	Nueva Venta
+544370	2021-03-19	14:17:40	2400	0	0	0	0	B	E	Nueva Venta
+544371	2021-03-19	14:17:40	0	0	0	0	0	B	E	Nueva Venta
+544372	2021-03-22	07:36:11	2350	0	0	0	0	B	E	Nva. Venta
+544373	2021-03-22	08:43:35	4100	0	0	0	0	B	E	Nueva Venta
+544374	2021-03-22	08:43:36	4500	0	3400	0	0	B	E	Nueva Venta
+544375	2021-03-23	08:15:10	4000	0	4000	0	0	B	E	Nva. Venta
+544376	2021-03-23	13:20:40	3300	0	0	0	0	B	E	Nueva Venta
+544377	2021-03-24	08:23:29	10100	0	8800	0	0	B	E	Nueva Venta
+544378	2021-03-24	13:45:03	9900	0	6900	0	0	B	E	Nueva Venta
+544379	2021-03-24	13:48:31	7250	0	0	0	0	B	E	Nueva Venta
+544380	2021-03-24	13:49:21	600	0	0	0	0	B	E	Nueva Venta
+544381	2021-03-24	13:50:27	1500	0	0	0	0	B	E	Nueva Venta
+544382	2021-03-24	13:50:27	800	0	0	0	0	B	E	Nueva Venta
+544383	2021-03-25	08:18:41	3800	0	0	0	0	B	E	Nva. Venta
+544384	2021-03-25	08:18:41	2450	0	0	0	0	B	E	Nueva Venta
+544385	2021-03-25	09:25:17	0	0	0	0	0	B	E	Nva. Venta
+544386	2021-03-26	07:36:32	3700	0	2600	0	0	B	E	Nva. Venta
+544387	2021-03-26	08:00:21	4850	0	0	0	0	B	E	Nueva Venta
+544388	2021-03-26	09:42:25	8250	0	5000	0	0	B	E	Nueva Venta
+544389	2021-03-26	09:42:56	1000	0	0	0	0	B	E	Nueva Venta
+544390	2021-03-26	10:40:50	6850	0	4500	0	0	B	E	Nueva Venta
+544391	2021-03-26	11:10:54	8200	0	4500	0	0	B	E	Nueva Venta
+544392	2021-03-26	11:10:54	0	0	0	0	0	B	E	Nueva Venta
+544393	2021-03-29	10:17:53	2500	0	2500	0	0	B	E	Nva. Venta
+544394	2021-03-29	10:18:04	800	0	0	0	0	B	E	Nueva Venta
+544395	2021-03-30	09:42:40	650	0	0	0	0	B	E	Nueva Venta
+544396	2021-03-30	14:04:50	4500	0	0	0	0	B	E	Nueva Venta
+544397	2021-03-31	08:16:46	5950	0	0	0	0	B	E	Nueva Venta
+544398	2021-03-31	08:50:24	6550	0	0	0	0	B	E	Nueva Venta
+544399	2021-04-01	11:12:59	9100	0	2500	0	0	B	E	Nueva Venta
+544400	2021-04-01	12:01:42	1950	0	0	0	0	B	E	Nueva Venta
+544401	2021-04-01	14:30:04	9250	0	4400	0	0	B	E	Nueva Venta
+544402	2021-04-01	14:33:12	2700	0	2000	0	0	B	E	Nueva Venta
+544403	2021-04-01	14:33:12	1150	0	0	0	0	B	E	Nueva Venta
+544404	2021-04-05	16:30:14	0	0	0	0	0	B	E	Nva. Venta
+544405	2021-04-06	08:34:10	7750	0	4200	0	0	B	E	Nva. Venta
+544406	2021-04-06	11:00:02	17700	0	4500	0	0	B	E	Nueva Venta
+544407	2021-04-06	11:00:02	0	0	0	0	0	B	E	Nueva Venta
+544408	2021-04-07	09:41:37	1950	0	0	0	0	B	E	Nva. Venta
+544409	2021-04-07	09:41:38	0	0	0	0	0	B	E	Nueva Venta
+544410	2021-04-08	11:12:26	5500	0	5500	0	0	B	E	Nva. Venta
+544411	2021-04-08	11:12:32	0	0	0	0	0	B	E	Nueva Venta
+544412	2021-04-08	12:44:25	7850	0	0	0	0	B	E	Nueva Venta
+544413	2021-04-08	15:43:39	550	0	0	0	0	B	E	Nueva Venta
+544414	2021-04-09	07:58:00	800	0	0	0	0	B	E	Nueva Venta
+544415	2021-04-09	08:00:40	5500	0	4200	0	0	B	E	Nueva Venta
+544416	2021-04-09	08:00:40	1900	0	0	0	0	B	E	Nueva Venta
+544417	2021-04-09	11:18:49	4650	0	0	0	0	B	E	Nva. Venta
+544418	2021-04-09	14:31:42	800	0	0	0	0	B	E	Nueva Venta
+544419	2021-04-09	14:37:46	1650	0	0	0	0	B	E	Nueva Venta
+544420	2021-04-09	14:55:00	2200	0	0	0	0	B	E	Nueva Venta
+544421	2021-04-09	15:02:09	5500	0	0	0	0	B	E	Nueva Venta
+544422	2021-04-09	15:15:16	8350	0	4000	0	0	B	E	Nueva Venta
+544423	2021-04-09	15:16:56	2400	0	0	0	0	B	E	Nueva Venta
+544424	2021-04-09	15:42:13	5200	0	0	0	0	B	E	Nueva Venta
+544425	2021-04-09	16:06:59	2200	0	0	0	0	B	E	Nueva Venta
+544426	2021-04-09	16:20:06	5800	0	0	0	0	B	E	Nueva Venta
+544427	2021-04-09	16:20:06	0	0	0	0	0	B	E	Nueva Venta
+544428	2021-04-09	16:39:29	4450	0	0	0	0	B	E	Nva. Venta
+544429	2021-04-12	16:08:04	3800	0	2600	0	0	B	E	Nva. Venta
+544430	2021-04-12	16:08:11	0	0	0	0	0	B	E	Nueva Venta
+544431	2021-04-12	16:08:11	0	0	0	0	0	B	E	Nueva Venta
+544432	2021-04-13	15:13:22	8350	0	0	0	0	B	E	Nva. Venta
+544433	2021-04-13	15:13:29	0	0	0	0	0	B	E	Nueva Venta
+544434	2021-04-13	15:48:39	4580	0	0	0	0	B	E	Nueva Venta
+544435	2021-04-14	08:06:56	1200	0	0	0	0	B	E	Nueva Venta
+544436	2021-04-14	11:34:40	8550	0	4200	0	0	B	E	Nueva Venta
+544437	2021-04-14	11:42:20	1800	0	1800	0	0	B	E	Nueva Venta
+544438	2021-04-14	11:43:02	850	0	0	0	0	B	E	Nueva Venta
+544439	2021-04-14	11:43:02	0	0	0	0	0	B	E	Nueva Venta
+544440	2021-04-15	09:00:23	1500	0	0	0	0	B	E	Nva. Venta
+544441	2021-04-15	09:00:33	0	0	0	0	0	B	E	Nueva Venta
+544442	2021-04-15	09:01:59	400	0	0	0	0	B	E	Nueva Venta
+544443	2021-04-15	12:21:36	2950	0	0	0	0	B	E	Nueva Venta
+544444	2021-04-15	13:23:40	600	0	0	0	0	B	E	Nueva Venta
+544445	2021-04-15	13:24:22	750	0	0	0	0	B	E	Nueva Venta
+544446	2021-04-15	13:24:23	0	0	0	0	0	B	E	Nueva Venta
+544447	2021-04-20	11:42:36	0	0	0	0	0	B	E	Nva. Venta
+544448	2021-04-21	08:04:22	850	0	0	0	0	B	E	Nva. Venta
+544449	2021-04-21	12:39:19	6200	0	4200	0	0	B	E	Nueva Venta
+544450	2021-04-21	12:45:05	3350	0	0	0	0	B	E	Nueva Venta
+544451	2021-04-21	13:38:54	4000	0	4000	0	0	B	E	Nueva Venta
+544452	2021-04-21	14:23:39	300	0	0	0	0	B	E	Nueva Venta
+544453	2021-04-21	14:38:34	1940	0	0	0	0	B	E	Nueva Venta
+544454	2021-04-21	14:38:34	500	0	0	0	0	B	E	Nueva Venta
+544455	2021-04-22	12:10:47	1800	0	0	0	0	B	E	Nva. Venta
+544456	2021-04-22	12:11:35	6400	0	6400	0	0	B	E	Nueva Venta
+544457	2021-04-22	12:24:40	2500	0	2500	0	0	B	E	Nueva Venta
+544458	2021-04-22	12:24:40	0	0	0	0	0	B	E	Nueva Venta
+544459	2021-04-23	14:41:00	2100	0	0	0	0	B	E	Nva. Venta
+544460	2021-04-23	14:41:07	0	0	0	0	0	B	E	Nueva Venta
+544461	2021-04-23	14:41:07	1800	0	0	0	0	B	E	Nueva Venta
+544462	2021-04-23	16:33:57	0	0	0	0	0	B	E	Nva. Venta
+544463	2021-04-26	08:35:44	6400	0	6400	0	0	B	E	Nva. Venta
+544464	2021-04-26	08:35:45	0	0	0	0	0	B	E	Nueva Venta
+544465	2021-04-26	08:35:51	0	0	0	0	0	B	E	Nueva Venta
+544466	2021-04-26	13:07:05	1850	0	0	0	0	B	E	Nueva Venta
+544467	2021-04-26	13:08:01	800	0	0	0	0	B	E	Nueva Venta
+544468	2021-04-26	13:08:37	1100	0	0	0	0	B	E	Nueva Venta
+544469	2021-04-27	07:36:45	600	0	0	0	0	B	E	Nueva Venta
+544470	2021-04-27	07:36:47	0	0	0	0	0	B	E	Nueva Venta
+544471	2021-04-27	07:43:50	700	0	0	0	0	B	E	Nueva Venta
+544472	2021-04-27	10:15:06	5700	0	0	0	0	B	E	Nueva Venta
+544473	2021-04-27	10:15:06	0	0	0	0	0	B	E	Nueva Venta
+544474	2021-04-28	07:43:26	800	0	0	0	0	B	E	Nva. Venta
+544475	2021-04-28	14:07:21	1400	0	0	0	0	B	E	Nueva Venta
+544476	2021-04-28	14:08:47	4400	0	4400	0	0	B	E	Nueva Venta
+544477	2021-04-28	14:08:51	0	0	0	0	0	B	E	Nueva Venta
+544478	2021-04-28	14:08:51	1690	0	0	0	0	B	E	Nueva Venta
+544479	2021-04-29	07:48:05	1950	0	0	0	0	B	E	Nva. Venta
+544480	2021-04-29	07:48:12	0	0	0	0	0	B	E	Nueva Venta
+544481	2021-04-29	07:48:49	300	0	0	0	0	B	E	Nueva Venta
+544482	2021-04-29	07:48:51	0	0	0	0	0	B	E	Nueva Venta
+544483	2021-04-29	07:49:33	1350	0	0	0	0	B	E	Nueva Venta
+544484	2021-04-29	07:58:32	1150	0	0	0	0	B	E	Nueva Venta
+544485	2021-04-29	08:07:31	700	0	0	0	0	B	E	Nueva Venta
+544486	2021-04-29	08:09:20	4200	0	2000	0	0	B	E	Nueva Venta
+544487	2021-04-29	08:09:54	450	0	0	0	0	B	E	Nueva Venta
+544488	2021-04-29	08:16:53	1300	0	0	0	0	B	E	Nueva Venta
+544489	2021-04-29	12:37:56	600	0	0	0	0	B	E	Nueva Venta
+544490	2021-04-29	12:39:30	1000	0	0	0	0	B	E	Nueva Venta
+544491	2021-04-30	07:42:59	800	0	0	0	0	B	E	Nueva Venta
+544492	2021-04-30	07:42:59	850	0	0	0	0	B	E	Nueva7803473004376 Venta
+544493	2021-04-30	17:32:55	7800	0	0	0	0	B	E	Nva. Venta
+544494	2021-04-30	17:32:56	0	0	0	0	0	B	E	Nueva Venta
+544495	2021-04-30	17:33:02	0	0	0	0	0	B	E	Nueva Venta
+544496	2021-04-30	17:33:02	0	0	0	0	0	B	E	Nueva Venta
+544497	2021-05-03	07:21:34	350	0	0	0	0	B	E	Nva. Venta
+544498	2021-05-05	14:08:03	1650	0	0	0	0	B	E	Nva. Venta
+544499	2021-05-05	14:20:34	2200	0	0	0	0	B	E	Nueva Venta
+544500	2021-05-05	14:25:25	3900	0	0	0	0	B	E	Nueva Venta
+544501	2021-05-05	14:26:45	3080	0	0	0	0	B	E	Nueva Venta
+544502	2021-05-05	14:29:49	600	0	0	0	0	B	E	Nueva Venta
+544503	2021-05-05	17:15:45	7800	0	4000	0	0	B	E	Nueva Venta
+544504	2021-05-05	17:17:58	2000	0	2000	0	0	B	E	Nueva Venta
+544505	2021-05-05	17:24:36	4200	0	4200	0	0	B	E	Nueva Venta
+544506	2021-05-05	17:42:35	6400	0	0	0	0	B	E	Nueva Venta
+544507	2021-05-05	17:42:35	0	0	0	0	0	B	E	Nueva Venta
+544508	2021-05-06	07:43:40	850	0	0	0	0	B	E	Nva. Venta
+544509	2021-05-06	07:43:46	0	0	0	0	0	B	E	Nueva Venta
+544510	2021-05-06	13:24:50	5000	0	0	0	0	B	E	Nueva Venta
+544511	2021-05-06	13:24:52	0	0	0	0	0	B	E	Nueva Venta
+544512	2021-05-06	14:40:24	400	0	0	0	0	B	E	Nueva Venta
+544513	2021-05-06	14:40:24	6500	0	6500	0	0	B	E	Nueva Venta
+544514	2021-05-07	08:06:54	2000	0	2000	0	0	B	E	Nva. Venta
+544515	2021-05-07	08:07:00	0	0	0	0	0	B	E	Nueva Venta
+544516	2021-05-07	08:17:07	2250	0	0	0	0	B	E	Nueva Venta
+544517	2021-05-07	08:18:59	2550	0	0	0	0	B	E	Nueva Venta
+544518	2021-05-07	08:31:23	1200	0	0	0	0	B	E	Nueva Venta
+544519	2021-05-07	12:47:58	9550	0	0	0	0	B	E	Nueva Venta
+544520	2021-05-07	13:42:58	2500	0	2500	0	0	B	E	Nueva Venta
+544521	2021-05-07	13:42:58	0	0	0	0	0	B	E	Nueva Venta
+544522	2021-05-10	07:43:06	4050	0	3200	0	0	B	E	Nva. Venta
+544523	2021-05-10	07:43:12	0	0	0	0	0	B	E	Nueva Venta
+544524	2021-05-10	10:05:49	27650	0	0	0	0	B	E	Nueva Venta
+544525	2021-05-10	11:40:00	3850	0	0	0	0	B	E	Nueva Venta
+544526	2021-05-10	11:40:00	0	0	0	0	0	B	E	Nueva Venta
+544527	2021-05-10	12:25:39	400	0	0	0	0	B	E	Nva. Venta
+544528	2021-05-10	12:33:06	1500	0	0	0	0	B	E	Nueva Venta
+544529	2021-05-10	12:34:29	2900	0	0	0	0	B	E	Nueva Venta
+544530	2021-05-10	13:25:10	4500	0	0	0	0	B	E	Nueva Venta
+544531	2021-05-10	13:25:10	3850	0	0	0	0	B	E	Nueva Venta
+544532	2021-05-10	20:46:54	850	0	0	0	0	B	E	Nva. Venta
+544533	2021-05-10	20:48:02	1100	0	0	0	0	B	E	Nva. Venta
+544534	2021-05-11	13:12:23	5300	0	0	0	0	B	E	Nva. Venta
+544535	2021-05-11	13:21:58	1650	0	0	0	0	B	E	Nueva Venta
+544536	2021-05-11	13:30:12	5950	0	4500	0	0	B	E	Nueva Venta
+544537	2021-05-11	14:05:54	3200	0	0	0	0	B	E	Nueva Venta
+544538	2021-05-11	14:08:53	0	0	0	0	0	B	E	Nueva Venta
+544539	2021-05-11	14:08:54	0	0	0	0	0	B	E	Nueva Venta
+544540	2021-05-11	14:31:03	0	0	0	0	0	B	E	Nva. Venta
+544541	2021-05-11	16:27:34	1000	0	0	0	0	B	E	Nueva Venta
+544542	2021-05-11	16:33:09	1690	0	0	0	0	B	E	Nueva Venta
+544543	2021-05-11	16:33:10	0	0	0	0	0	B	E	Nueva Venta
+544544	2021-05-12	07:34:52	890	0	0	0	0	B	E	Nva. Venta
+544545	2021-05-12	08:15:23	1600	0	0	0	0	B	E	Nva. Venta
+544546	2021-05-12	09:56:33	550	0	0	0	0	B	E	Nueva Venta
+544547	2021-05-12	09:58:59	1850	0	0	0	0	B	E	Nueva Venta
+544548	2021-05-12	10:03:33	1700	0	0	0	0	B	E	Nueva Venta
+544549	2021-05-12	10:05:01	1850	0	0	0	0	B	E	Nueva Venta
+544550	2021-05-12	10:07:14	2000	0	0	0	0	B	E	Nueva Venta
+544551	2021-05-12	10:07:53	400	0	0	0	0	B	E	Nueva Venta
+544552	2021-05-12	10:13:37	7000	0	3500	0	0	B	E	Nueva Venta
+544553	2021-05-12	10:19:38	3000	0	0	0	0	B	E	Nueva Venta
+544554	2021-05-12	10:23:59	4450	0	0	0	0	B	E	Nueva Venta
+544555	2021-05-12	11:06:33	3200	0	0	0	0	B	E	Nueva Venta
+544556	2021-05-12	11:09:39	3650	0	0	0	0	B	E	Nueva Venta
+544557	2021-05-12	11:12:02	5400	0	0	0	0	B	E	Nueva Venta
+544558	2021-05-12	11:20:45	1800	0	0	0	0	B	E	Nueva Venta
+544559	2021-05-12	11:32:01	3400	0	0	0	0	B	E	Nueva Venta
+544560	2021-05-12	11:44:04	2900	0	0	0	0	B	E	Nueva Venta
+544561	2021-05-12	11:45:22	2400	0	0	0	0	B	E	Nueva Venta
+544562	2021-05-12	11:47:10	3500	0	3500	0	0	B	E	Nueva Venta
+544563	2021-05-12	11:52:12	6600	0	0	0	0	B	E	Nueva Venta
+544564	2021-05-12	12:33:04	1400	0	0	0	0	B	E	Nueva Venta
+544565	2021-05-12	12:35:43	6400	0	0	0	0	B	E	Nueva Venta
+544566	2021-05-12	12:54:52	3550	0	0	0	0	B	E	Nueva Venta
+544567	2021-05-12	12:55:44	1000	0	0	0	0	B	E	Nueva Venta
+544568	2021-05-12	13:33:14	12000	0	0	0	0	B	E	Nueva Venta
+544569	2021-05-12	13:47:04	1100	0	0	0	0	B	E	Nueva Venta
+544570	2021-05-12	14:48:47	1500	0	0	0	0	B	E	Nueva Venta
+544571	2021-05-12	15:04:52	16800	0	16800	0	0	B	E	Nueva Venta
+544572	2021-05-12	15:12:20	7200	0	4000	0	0	B	E	Nueva Venta
+544573	2021-05-12	15:15:17	3380	0	0	0	0	B	E	Nueva Venta
+544574	2021-05-12	16:00:02	6900	0	3500	0	0	B	E	Nueva Venta
+544575	2021-05-12	16:01:35	7540	0	4200	0	0	B	E	Nueva Venta
+544576	2021-05-12	16:01:36	0	0	0	0	0	B	E	Nueva Venta
+544577	2021-05-12	20:25:26	2400	0	0	0	0	B	E	Nva. Venta
+544578	2021-05-12	20:31:28	0	0	0	0	0	B	E	Nva. Venta
+544579	2021-05-12	20:56:57	0	0	0	0	0	B	E	Nva. Venta
+544580	2021-05-12	20:57:23	0	0	0	0	0	B	E	Nva. Venta
+544581	2021-05-12	20:58:01	0	0	0	0	0	B	E	Nva. Venta
+544582	2021-05-12	20:58:44	0	0	0	0	0	B	E	Nva. Venta
+544583	2021-05-12	20:59:33	0	0	0	0	0	B	E	Nva. Venta
+544584	2021-05-12	21:00:44	0	0	0	0	0	B	E	Nva. Venta
+544585	2021-05-13	09:44:43	5200	0	0	0	0	B	E	Nva. Venta
+544586	2021-05-14	08:39:37	1650	0	0	0	0	B	E	Nueva Venta
+544587	2021-05-14	08:39:51	1700	0	0	0	0	B	E	Nueva Venta
+544588	2021-05-14	08:50:35	7200	0	4400	0	0	B	E	Nueva Venta
+544589	2021-05-14	09:22:34	7800	0	4400	0	0	B	E	Nueva Venta
+544590	2021-05-14	09:22:39	2000	0	0	0	0	B	E	Nueva Venta
+544591	2021-05-14	12:05:16	7050	0	4200	0	0	B	E	Nueva Venta
+544592	2021-05-14	12:30:56	5700	0	4000	0	0	B	E	Nueva Venta
+544593	2021-05-14	12:30:56	0	0	0	0	0	B	E	Nueva Venta
+544594	2021-05-14	12:38:58	0	0	0	0	0	B	E	Nva. Venta
+544595	2021-05-14	12:42:04	2400	0	0	0	0	B	E	Nueva Venta
+544596	2021-05-14	12:42:46	2300	0	0	0	0	B	E	Nueva Venta
+544597	2021-05-14	12:57:16	1100	0	0	0	0	B	E	Nueva Venta
+544598	2021-05-14	13:00:21	10280	0	0	0	0	B	E	Nueva Venta
+544599	2021-05-14	13:12:17	3600	0	0	0	0	B	E	Nueva Venta
+544600	2021-05-14	14:15:36	500	0	0	0	0	B	E	Nueva Venta
+544601	2021-05-14	14:33:01	1100	0	0	0	0	B	E	Nueva Venta
+544602	2021-05-14	14:38:43	1650	0	0	0	0	B	E	Nueva Venta
+544603	2021-05-14	14:40:00	3600	0	0	0	0	B	E	Nueva Venta
+544604	2021-05-14	14:49:43	3200	0	0	0	0	B	E	Nueva Venta
+544605	2021-05-14	14:51:24	1800	0	0	0	0	B	E	Nueva Venta
+544606	2021-05-14	15:03:31	550	0	0	0	0	B	E	Nueva Venta
+544607	2021-05-14	15:07:48	2200	0	0	0	0	B	E	Nueva Venta
+544608	2021-05-14	15:09:47	6050	0	4200	0	0	B	E	Nueva Venta
+544609	2021-05-14	15:13:35	1690	0	0	0	0	B	E	Nueva Venta
+544610	2021-05-14	15:47:11	650	0	0	0	0	B	E	Nueva Venta
+544611	2021-05-14	17:35:32	2290	0	0	0	0	B	E	Nueva Venta
+544612	2021-05-14	17:36:56	300	0	0	0	0	B	E	Nueva Venta
+544613	2021-05-14	17:37:02	400	0	0	0	0	B	E	Nueva Venta
+544614	2021-05-14	17:37:38	1200	0	0	0	0	B	E	Nueva Venta
+544615	2021-05-14	17:37:38	4200	0	4200	0	0	B	E	Nueva Venta
+544616	2021-05-17	11:45:39	8650	0	8200	0	0	B	E	Nva. Venta
+544617	2021-05-17	11:45:39	0	0	0	0	0	B	E	Nueva Venta
+544618	2021-05-17	11:48:34	2000	0	2000	0	0	B	E	Nueva Venta
+544619	2021-05-17	11:48:35	0	0	0	0	0	B	E	Nueva Venta
+544620	2021-05-17	11:48:36	0	0	0	0	0	B	E	Nueva Venta
+544621	2021-05-18	14:21:33	2800	0	0	0	0	B	E	Nva. Venta
+544622	2021-05-18	14:25:27	7200	0	4000	0	0	B	E	Nueva Venta
+544623	2021-05-18	14:27:25	11550	0	0	0	0	B	E	Nueva Venta
+544624	2021-05-18	14:37:04	1100	0	0	0	0	B	E	Nueva Venta
+544625	2021-05-18	14:41:05	4250	0	0	0	0	B	E	Nueva Venta
+544626	2021-05-18	14:44:10	3500	0	0	0	0	B	E	Nueva Venta
+544627	2021-05-18	15:08:32	16800	0	16800	0	0	B	E	Nueva Venta
+544628	2021-05-18	15:10:34	8250	0	7000	0	0	B	E	Nueva Venta
+544629	2021-05-18	15:36:16	4150	0	3500	0	0	B	E	Nueva Venta
+544630	2021-05-18	15:38:09	2200	0	0	0	0	B	E	Nueva Venta
+544631	2021-05-18	15:39:24	2500	0	0	0	0	B	E	Nueva Venta
+544632	2021-05-18	15:46:17	4200	0	4200	0	0	B	E	Nueva Venta
+544633	2021-05-18	16:00:04	1600	0	0	0	0	B	E	Nueva Venta
+544634	2021-05-18	16:57:02	0	0	0	0	0	B	E	Nueva Venta
+544635	2021-05-18	18:31:18	8080	0	0	0	0	B	E	Nueva Venta
+544636	2021-05-19	07:45:47	700	133	0	0	0	B	E	Nva. Venta
+544637	2021-05-19	07:45:48	450	0	0	0	0	B	E	Boleta
+544638	2021-05-19	14:15:31	1200	0	0	0	0	B	E	Nva. Venta
+544639	2021-05-19	14:15:31	0	0	0	0	0	B	E	Nueva Venta
+544640	2021-05-20	10:10:27	6550	0	4200	0	0	B	E	Nva. Venta
+544641	2021-05-20	14:25:09	6750	0	2000	0	0	B	E	Nueva Venta
+544642	2021-05-20	14:26:04	900	0	0	0	0	B	E	Nueva Venta
+544643	2021-05-20	14:26:32	500	0	0	0	0	B	E	Nueva Venta
+544644	2021-05-20	15:31:25	2000	380	0	0	0	B	E	Boleta
+544645	2021-05-20	15:31:26	3100	0	0	0	0	B	E	Nueva Venta
+544646	2021-05-24	09:20:45	600	0	0	0	0	B	E	Nva. Venta
+544647	2021-05-24	09:20:51	0	0	0	0	0	B	E	Nueva Venta
+544648	2021-05-24	09:22:35	1950	0	0	0	0	B	E	Nueva Venta
+544649	2021-05-24	12:21:07	2700	0	2000	0	0	B	E	Nueva Venta
+544650	2021-05-24	12:28:13	800	0	0	0	0	B	E	Nueva Venta
+544651	2021-05-24	12:28:14	0	0	0	0	0	B	E	Nueva Venta
+544652	2021-05-24	12:28:15	0	0	0	0	0	B	E	Nueva Venta
+544653	2021-05-25	09:36:36	1600	0	0	0	0	B	E	Nva. Venta
+544654	2021-05-25	09:38:14	350	0	0	0	0	B	E	Nueva Venta
+544655	2021-05-25	11:40:12	5750	0	2600	0	0	B	E	Nueva Venta
+544656	2021-05-25	11:41:28	500	0	0	0	0	B	E	Nueva Venta
+544657	2021-05-25	13:06:56	1100	0	0	0	0	B	E	Nueva Venta
+544658	2021-05-25	13:14:07	1700	0	0	0	0	B	E	Nueva Venta
+544659	2021-05-25	13:39:40	7200	0	0	0	0	B	E	Nueva Venta
+544660	2021-05-25	13:41:51	900	0	0	0	0	B	E	Nueva Venta
+544661	2021-05-25	13:53:23	3900	0	0	0	0	B	E	Nueva Venta
+544662	2021-05-25	14:40:27	2900	0	0	0	0	B	E	Nueva Venta
+544663	2021-05-25	15:42:34	800	0	0	0	0	B	E	Nueva Venta
+544664	2021-05-26	16:23:49	16800	0	16800	0	0	B	E	Nueva Venta
+544665	2021-05-27	08:09:26	4250	0	0	0	0	B	E	Nueva Venta
+544666	2021-05-27	08:38:34	3650	0	0	0	0	B	E	Nueva Venta
+544667	2021-05-27	10:16:58	2850	0	0	0	0	B	E	Nueva Venta
+544668	2021-05-27	11:29:09	7200	0	0	0	0	B	E	Nueva Venta
+544669	2021-05-27	12:09:59	4150	0	0	0	0	B	E	Nueva Venta
+544670	2021-05-27	12:09:59	2300	0	0	0	0	B	E	Nueva Venta
+544671	2021-05-28	14:23:11	2850	0	0	0	0	B	E	Nva. Venta
+544672	2021-05-28	14:26:37	1370	0	0	0	0	B	E	Nueva Venta
+544673	2021-05-28	15:11:20	16500	0	12600	0	0	B	E	Nueva Venta
+544674	2021-05-28	15:36:49	800	0	0	0	0	B	E	Nueva Venta
+544675	2021-05-28	15:36:50	3550	0	0	0	0	B	E	Nueva Venta
+544676	2021-05-31	14:40:37	1750	0	0	0	0	B	E	Nva. Venta
+544677	2021-05-31	14:40:44	0	0	0	0	0	B	E	Nueva Venta
+544678	2021-05-31	14:40:44	0	0	0	0	0	B	E	Nueva Venta
+544679	2021-06-01	12:35:44	3100	0	2000	0	0	B	E	Nva. Venta
+544680	2021-06-01	12:35:45	0	0	0	0	0	B	E	Nueva Venta
+544681	2021-06-01	12:36:28	600	0	0	0	0	B	E	Nueva Venta
+544682	2021-06-01	12:38:17	800	0	0	0	0	B	E	Nueva Venta
+544683	2021-06-01	12:38:17	3150	0	0	0	0	B	E	Nueva Venta
+544684	2022-09-05	18:51:06	0	0	0	0	0	B	E	Nva. Venta
+544685	2022-09-21	03:26:00	2850	542	0	5000	5000	B	E	Nueva Venta
+544686	2022-09-21	03:26:00	2850	542	0	5000	5000	B	E	Nueva Venta
+544687	2022-09-21	03:26:00	8550	1625	0	5000	5000	B	E	Nueva Venta
+544688	2022-09-21	03:26:00	2850	542	0	5000	5000	B	E	Nueva Venta
+544689	2022-09-21	03:26:00	5250	998	0	5000	5000	B	E	Nueva Venta
+544690	2022-09-21	03:26:00	2000	380	0	5000	5000	B	E	Nueva Venta
+544691	2022-09-21	03:26:00	1400	266	0	5000	5000	B	E	Nueva Venta
+544692	2022-09-21	03:26:00	1500	285	0	5000	5000	B	E	Nueva Venta
+544693	2022-09-21	03:26:00	900	171	0	5000	5000	B	E	Nueva Venta
+544694	2022-09-21	03:26:00	1900	361	0	5000	5000	B	E	Nueva Venta
+544695	2022-09-21	03:26:00	3160	600	0	5000	5000	B	E	Nueva Venta
+544696	2022-09-21	03:26:00	1620	308	0	5000	5000	B	E	Nueva Venta
+\.
+
+
+--
+-- TOC entry 3341 (class 0 OID 33618)
+-- Dependencies: 215
+-- Data for Name: ventas_detalle; Type: TABLE DATA; Schema: cajaregistradora01web; Owner: fastcom_apps
+--
+
+COPY cajaregistradora01web.ventas_detalle (codigo, venta, cantidad, precio, total, id) FROM stdin;
+7803403002229	537671	1	2350	2350	1
+40000536789	537676	1	850	850	2
+40000536789	537676	1	850	850	3
+7802920009438	537678	1	450	450	4
+7802230086952	537680	1	800	800	5
+7801610591994	537680	1	1000	1000	6
+7801620016111	537682	1	950	950	7
+7801610591994	537682	1	1000	1000	8
+7613035588776	537683	1	600	600	9
+7801620015800	537683	1	700	700	10
+7809595603428	537683	1	850	850	11
+7809595603411	537683	1	850	850	12
+1300	537684	1	1300	1300	13
+3200	537684	1	3200	3200	14
+7613035493650	537686	1	2620	2620	15
+7613035493650	537686	1	2620	2620	16
+1300	537687	1	1300	1300	17
+3	537688	10	1100	11000	18
+7802230070227	537690	1	3850	3850	19
+7802230070227	537690	1	3850	3850	20
+78024410	537690	1	3500	3500	21
+7801620005412	537692	1	1150	1150	22
+7802920009384	537694	1	600	600	23
+7801620015817	537696	1	700	700	24
+1300	537696	1	1300	1300	25
+78020627	537699	1	3900	3900	26
+51	537699	1	1300	1300	27
+7802820441000	537700	1	650	650	28
+70847009511	537700	1	2000	2000	29
+7801620006631	537700	1	1200	1200	30
+7802225584081	537700	1	500	500	31
+40000514251	537700	1	990	990	32
+7801620006631	537701	1	1200	1200	33
+7804646000010	537703	1	1800	1800	34
+7801610000601	537703	1	1000	1000	35
+7801620016012	537704	1	950	950	36
+7801620015817	537704	1	700	700	37
+7613035588776	537705	1	600	600	38
+7801610022122	537707	1	750	750	39
+78024892	537708	1	4300	4300	40
+78024892	537708	1	4300	4300	41
+50173204	537708	1	600	600	42
+42069942	537708	1	650	650	43
+7801610001622	537708	1	1650	1650	44
+7801610005194	537709	1	750	750	45
+7801610001196	537709	1	750	750	46
+7803525000240	537710	1	600	600	47
+7801620003319	537710	1	900	900	48
+7803525000240	537710	1	600	600	49
+7802920008141	537710	1	850	850	50
+78016408	537710	1	2500	2500	51
+7801620006655	537711	1	1200	1200	52
+7804612131274	537711	1	400	400	53
+7613032180096	537713	1	350	350	54
+78006164	537715	1	870	870	55
+7801620001919	537716	1	700	700	56
+1200	537717	1	1200	1200	57
+1800	537718	1	1800	1800	58
+7801620004873	537718	1	900	900	59
+7801620004873	537718	1	900	900	60
+1400	537718	1	1400	1400	61
+1900	537718	1	1900	1900	62
+3	537719	1	1100	1100	63
+7802920005287	537719	1	350	350	64
+7800120164100	537719	1	400	400	65
+7801620011659	537720	1	700	700	66
+2	537720	1	1300	1300	67
+1200	537721	1	1200	1200	68
+1100	537721	1	1100	1100	69
+1100	537723	1	1100	1100	70
+7802230082527	537723	1	1100	1100	71
+7802200270039	537724	1	500	500	72
+7802200270039	537724	1	500	500	73
+1900	537725	1	1900	1900	74
+78019041	537725	1	2000	2000	75
+1100	537726	1	1100	1100	76
+8809276285249	537726	1	1500	1500	77
+1400	537727	1	1400	1400	78
+7802920000855	537727	1	450	450	79
+7802920009438	537727	1	450	450	80
+51	537728	1	1300	1300	81
+78019041	537729	1	2000	2000	82
+7802920009438	537730	1	450	450	83
+1100	537732	1	1100	1100	84
+7802920008127	537732	1	900	900	85
+51	537733	1	1300	1300	86
+1100	537733	1	1100	1100	87
+7801620011611	537734	1	1500	1500	88
+7804646000270	537735	1	1800	1800	89
+1100	537735	1	1100	1100	90
+78013322	537736	1	550	550	91
+450	537736	1	450	450	92
+1200	537736	1	1200	1200	93
+78011748	537737	1	350	350	94
+500	537737	1	500	500	95
+7802225584081	537737	1	500	500	96
+3	537739	1	1100	1100	97
+51	537739	1	1300	1300	98
+7801620002671	537740	1	1100	1100	99
+51	537740	1	1300	1300	100
+1300	537740	1	1300	1300	101
+51	537741	1	1300	1300	102
+3	537741	1	1100	1100	103
+1800	537742	1	1800	1800	104
+650	537742	1	650	650	105
+1200	537743	1	1200	1200	106
+7802920000855	537743	1	450	450	107
+3	537744	1	1100	1100	108
+1400	537745	1	1400	1400	109
+7801620004859	537745	1	900	900	110
+7801620075941	537746	1	1000	1000	111
+7801620004859	537747	1	900	900	112
+450	537747	1	450	450	113
+450	537747	1	450	450	114
+3200	537747	1	3200	3200	115
+7801610000601	537748	1	1000	1000	116
+1300	537748	1	1300	1300	117
+1400	537749	1	1400	1400	118
+1400	537749	1	1400	1400	119
+7802200270039	537749	1	500	500	120
+7802200270039	537749	1	500	500	121
+1200	537751	1	1200	1200	122
+7801620003319	537751	1	900	900	123
+7803525999667	537751	1	600	600	124
+1400	537752	1	1400	1400	125
+1900	537752	1	1900	1900	126
+78019041	537753	1	2000	2000	127
+1300	537754	1	1300	1300	128
+1100	537754	1	1100	1100	129
+7793890254303	537755	1	600	600	130
+51	537756	1	1300	1300	131
+3200	537757	1	3200	3200	132
+51	537757	1	1300	1300	133
+3	537758	1	1100	1100	134
+7613034276490	537758	1	500	500	135
+51	537760	1	1300	1300	136
+3	537760	1	1100	1100	137
+7802820600100	537762	1	700	700	138
+1300	537762	1	1300	1300	139
+7802800556229	537763	1	550	550	140
+78000285	537764	1	4000	4000	141
+78000285	537764	1	4000	4000	142
+1200	537765	1	1200	1200	143
+51	537765	1	1300	1300	144
+1000	537766	1	1200	1200	145
+51	537767	1	1300	1300	146
+1400	537768	1	1400	1400	147
+3200	537769	1	3200	3200	148
+7802920008141	537770	1	850	850	149
+1400	537770	1	1400	1400	150
+51	537771	1	1300	1300	151
+3	537771	1	1100	1100	152
+7802920008127	537772	1	900	900	153
+7801620006082	537773	1	1000	1000	154
+7803525999957	537773	1	500	500	155
+7802820250206	537775	1	350	350	156
+1400	537775	1	1400	1400	157
+7803473543189	537775	1	450	450	158
+7801610000571	537777	1	1000	1000	159
+51	537778	1	1300	1300	160
+51	537778	1	1300	1300	161
+7803525000240	537778	1	600	600	162
+7803525999667	537778	1	600	600	163
+51	537779	1	1300	1300	164
+51	537779	1	1300	1300	165
+3	537779	1	1100	1100	166
+7803525000240	537779	1	600	600	167
+3200	537779	1	3200	3200	168
+3200	537779	1	3200	3200	169
+3000	537779	1	3000	3000	170
+7801620006174	537780	1	990	990	171
+7801620003302	537780	1	1000	1000	172
+1600	537781	1	1600	1600	173
+1500	537781	1	1650	1650	174
+7802832000240	537782	1	700	700	175
+7809595603428	537783	1	950	950	176
+7793890254303	537784	1	600	600	177
+3	537785	1	1100	1100	178
+1400	537785	1	1400	1400	179
+7801620001711	537785	1	1100	1100	180
+7803525999667	537786	1	600	600	181
+1400	537786	1	1400	1400	182
+59080480	537786	1	350	350	183
+1200	537787	1	1200	1200	184
+1100	537787	1	1100	1100	185
+50173204	537787	1	600	600	186
+2000	537787	1	2000	2000	187
+2000	537793	1	2000	2000	188
+1450	537793	1	1450	1450	189
+400	537794	1	400	400	190
+7801610118184	537794	1	750	750	191
+7613032180157	537795	1	300	300	192
+7613032180157	537795	1	300	300	193
+7613032180157	537795	1	300	300	194
+8809041427003	537796	1	600	600	195
+7801610350355	537797	1	750	750	196
+1400	537797	1	1400	1400	197
+400	537797	1	400	400	198
+400	537798	1	400	400	199
+400	537798	1	400	400	200
+59080480	537798	1	350	350	201
+1800	537798	1	1800	1800	202
+78018853	537800	1	1800	1800	203
+9002490221010	537801	1	2100	2100	204
+3	537801	1	1100	1100	205
+78019096	537801	1	3000	3000	206
+78019096	537801	1	3000	3000	207
+78024878	537802	1	4200	4200	208
+7501009222729	537802	1	850	850	209
+7702018880409	537802	1	850	850	210
+7501013101348	537803	1	1450	1450	211
+1400	537803	1	1400	1400	212
+3	537803	1	1100	1100	213
+7802200132696	537803	1	300	300	214
+78016293	537803	1	2500	2500	215
+7891000248768	537805	1	800	800	216
+7802230070012	537805	1	1100	1100	217
+3	537805	1	1100	1100	218
+7891000248768	537806	1	800	800	219
+9002490221010	537807	1	2100	2100	220
+7801620002367	537807	1	800	800	221
+7802230081162	537807	1	850	850	222
+7802920777542	537807	1	1100	1100	223
+7802000013140	537808	1	600	600	224
+7613035588776	537810	1	600	600	225
+3	537813	1	1100	1100	226
+1	537813	1	1200	1200	227
+51	537813	1	1300	1300	228
+51	537813	1	1300	1300	229
+400	537813	1	400	400	230
+51	537816	1	1300	1300	231
+3	537816	1	1100	1100	232
+51	537817	1	1300	1300	233
+78068315	537817	1	350	350	234
+3	537817	1	1100	1100	235
+7801620004873	537817	1	900	900	236
+1300	537818	1	1300	1300	237
+1600	537818	1	1600	1600	238
+7801620006174	537818	1	990	990	239
+78018853	537820	1	1800	1800	240
+7804612131274	537820	1	400	400	241
+1400	537821	1	1400	1400	242
+7801610001196	537821	1	750	750	243
+3	537822	1	1100	1100	244
+3	537822	1	1100	1100	245
+3	537822	1	1100	1100	246
+7801620001711	537822	1	1100	1100	247
+7801620015855	537822	1	1000	1000	248
+3	537823	1	1100	1100	249
+3	537823	1	1100	1100	250
+1300	537824	1	1300	1300	251
+51	537824	1	1300	1300	252
+51	537825	1	1300	1300	253
+7803525999544	537826	1	600	600	254
+7803525999544	537826	1	600	600	255
+51	537826	1	1300	1300	256
+51	537826	1	1300	1300	257
+78023994	537827	1	250	250	258
+51	537827	1	1300	1300	259
+3	537830	1	1100	1100	260
+7802820250268	537830	1	350	350	261
+1200	537832	1	1200	1200	262
+1450	537833	1	1450	1450	263
+2000	537833	1	2000	2000	264
+7802230082503	537834	1	1100	1100	265
+3	537835	1	1100	1100	266
+7802920009438	537835	1	450	450	267
+70847009511	537836	1	2000	2000	268
+7801610350355	537836	1	750	750	269
+78068315	537836	1	350	350	270
+7801620852962	537836	1	1000	1000	271
+70847009559	537837	1	2000	2000	272
+1400	537837	1	1400	1400	273
+7801620001919	537838	1	700	700	274
+7801620006174	537839	1	990	990	275
+1400	537840	1	1400	1400	276
+51	537840	1	1300	1300	277
+2000	537841	1	2000	2000	278
+7801610022726	537841	1	1650	1650	279
+7802920008127	537841	1	900	900	280
+7802920008127	537841	1	900	900	281
+3	537841	1	1100	1100	282
+3	537841	1	1100	1100	283
+78019096	537842	1	3000	3000	284
+7803525000240	537842	1	600	600	285
+7801620852689	537843	1	800	800	286
+9002490238841	537844	1	2500	2500	287
+1600	537845	1	1600	1600	288
+7801620004859	537845	1	900	900	289
+1400	537846	1	1400	1400	290
+1500	537846	1	1650	1650	291
+7801610350355	537846	1	750	750	292
+1200	537846	1	1200	1200	293
+7802920000855	537847	1	450	450	294
+7801610000335	537847	1	500	500	295
+300	537847	1	300	300	296
+7801620006655	537848	1	1200	1200	297
+78006164	537849	1	870	870	298
+7801610022122	537849	1	750	750	299
+7802200270022	537851	1	450	450	300
+7802200270022	537851	1	450	450	301
+7802000010941	537852	1	700	700	302
+7793890254303	537852	1	600	600	303
+742832751988	537853	1	1400	1400	304
+78021020	537854	1	2000	2000	305
+7613034279309	537855	1	350	350	306
+78007673	537855	1	3000	3000	307
+7801620015800	537856	1	700	700	308
+793573241962	537857	1	1400	1400	309
+7613035779037	537858	1	980	980	310
+7613035779037	537858	1	980	980	311
+793573241962	537858	1	1400	1400	312
+7801620006631	537858	1	1200	1200	313
+7802000001505	537858	1	1750	1750	314
+7803525000240	537858	1	600	600	315
+7801620008338	537859	1	1200	1200	316
+7613035779037	537859	1	980	980	317
+7613035493650	537860	1	2620	2620	318
+7802920776163	537861	1	2350	2350	319
+7801620852689	537862	1	800	800	320
+7802000013157	537862	1	1200	1200	321
+7801610000601	537863	1	1000	1000	322
+7802820600209	537863	1	700	700	323
+7613034276490	537863	1	500	500	324
+7613034276490	537863	1	500	500	325
+7801610001622	537864	1	1650	1650	326
+78024878	537865	1	4200	4200	327
+1400	537865	1	1400	1400	328
+51	537866	1	1300	1300	329
+400	537866	1	400	400	330
+1400	537866	1	1400	1400	331
+3	537867	1	1100	1100	332
+51	537867	1	1300	1300	333
+52	537867	1	1900	1900	334
+1000	537867	1	1200	1200	335
+52	537868	1	2000	2000	336
+1	537868	1	1200	1200	337
+3	537868	1	1100	1100	338
+7801620011666	537868	1	700	700	339
+7802230070227	537870	1	3850	3850	340
+7802920008141	537871	1	850	850	341
+7803525999667	537872	1	600	600	342
+7801620007607	537873	1	1500	1500	343
+78030299	537873	1	350	350	344
+1300	537874	1	1300	1300	345
+1500	537874	1	1650	1650	346
+7801620004408	537875	1	800	800	347
+7801620004859	537876	1	900	900	348
+70847009511	537877	1	2000	2000	349
+78018884	537877	1	3400	3400	350
+78018884	537877	1	3400	3400	351
+78018884	537878	1	3400	3400	352
+78007673	537878	1	3000	3000	353
+7801610000601	537878	1	1000	1000	354
+7801610000601	537879	1	1000	1000	355
+7801610000601	537879	1	1000	1000	356
+7804630010001	537879	1	800	800	357
+7804630010001	537879	1	800	800	358
+1400	537880	1	1400	1400	359
+51	537880	1	1300	1300	360
+7802920008127	537881	1	900	900	361
+78018853	537882	1	1800	1800	362
+1400	537883	1	1400	1400	363
+300	537883	1	300	300	364
+300	537883	1	300	300	365
+7802820990102	537885	1	1050	1050	366
+78020627	537886	1	3900	3900	367
+7801620004873	537886	1	900	900	368
+7801620005856	537887	1	900	900	369
+7803473543189	537888	1	450	450	370
+7803473543189	537888	1	450	450	371
+78006164	537889	1	870	870	372
+7802000013140	537890	1	600	600	373
+78000124	537890	1	4000	4000	374
+8410376037685	537891	1	900	900	375
+1900	537891	1	1900	1900	376
+7801610223192	537892	1	750	750	377
+7613035490734	537893	1	2620	2620	378
+7804630010001	537894	1	800	800	379
+7804630010148	537894	1	3250	3250	380
+7802225260657	537895	1	350	350	381
+7801620003302	537896	1	1000	1000	382
+7801620003302	537896	1	1000	1000	383
+7613032589714	537898	1	800	800	384
+7802920008141	537899	1	850	850	385
+7613032180096	537899	1	350	350	386
+7613032186852	537900	1	650	650	387
+7613032180096	537900	1	350	350	388
+7802230081162	537900	1	850	850	389
+7803908003103	537901	1	1000	1000	390
+7801620015800	537901	1	700	700	391
+7801620005856	537902	1	900	900	392
+78029590	537903	1	4000	4000	393
+78029590	537903	1	4000	4000	394
+7802820600100	537904	1	700	700	395
+7801620015800	537905	1	700	700	396
+7801610000601	537905	1	1000	1000	397
+7613036185318	537906	1	1690	1690	398
+78024892	537907	1	4300	4300	399
+78024892	537907	1	4300	4300	400
+50173204	537907	1	600	600	401
+50173204	537907	1	600	600	402
+78024915	537908	1	3500	3500	403
+7801610350355	537910	1	750	750	404
+7801610350355	537910	1	750	750	405
+78019065	537911	1	2000	2000	406
+78007673	537912	1	3000	3000	407
+78025240	537913	1	4300	4300	408
+7801620004873	537913	1	900	900	409
+78007505	537913	1	350	350	410
+7801620852689	537914	1	800	800	411
+7802820990102	537914	1	1050	1050	412
+7801620004859	537915	1	900	900	413
+7801620005856	537916	1	900	900	414
+7801620005856	537916	1	900	900	415
+7802575353047	537916	1	0	0	416
+7802335000204	537916	1	0	0	417
+52	537917	1	2000	2000	418
+1	537917	1	1200	1200	419
+9	537918	1	1300	1300	420
+7806500172116	537919	1	300	300	421
+7801620006853	537920	1	1000	1000	422
+1300	537922	1	1300	1300	423
+7802920000855	537923	1	500	500	424
+7802920000855	537923	1	500	500	425
+7801620015817	537924	1	700	700	426
+7801620006853	537924	1	1000	1000	427
+78018884	537924	1	3400	3400	428
+1600	537926	1	1600	1600	429
+300	537926	1	300	300	430
+300	537926	1	300	300	431
+300	537926	1	300	300	432
+150	537927	1	150	150	433
+150	537927	1	150	150	434
+150	537927	1	150	150	435
+51	537927	1	1300	1300	436
+78024892	537928	1	4300	4300	437
+1300	537928	1	1300	1300	438
+7801610001196	537928	1	750	750	439
+7801610001196	537928	1	750	750	440
+78024717	537929	1	4300	4300	441
+7801610000595	537929	1	1000	1000	442
+9002490214852	537929	1	1700	1700	443
+1400	537929	1	1400	1400	444
+78025240	537930	1	4300	4300	445
+78025240	537930	1	4300	4300	446
+51	537931	1	1300	1300	447
+1100	537932	1	1100	1100	448
+78030299	537934	1	350	350	449
+7802347623842	537934	1	2150	2150	450
+1100	537935	1	1100	1100	451
+7803525999544	537935	1	600	600	452
+52	537936	1	2000	2000	453
+1100	537936	1	1100	1100	454
+7801620853402	537936	1	700	700	455
+78000285	537937	1	4000	4000	456
+1500	537938	1	1650	1650	457
+1300	537938	1	1300	1300	458
+1100	537939	1	1100	1100	459
+7801620852580	537940	1	750	750	460
+51	537940	1	1300	1300	461
+1100	537940	1	1100	1100	462
+1100	537940	1	1100	1100	463
+1100	537942	1	1100	1100	464
+50173204	537942	1	600	600	465
+1400	537943	1	1400	1400	466
+7801620340155	537943	1	800	800	467
+500	537944	1	500	500	468
+1100	537944	1	1100	1100	469
+1300	537946	1	1300	1300	470
+500	537946	1	500	500	471
+7803525999667	537949	1	600	600	472
+7802820250220	537949	1	350	350	473
+7802820250220	537949	1	350	350	474
+1100	537949	1	1100	1100	475
+1900	537950	1	1900	1900	476
+7802920005287	537950	1	350	350	477
+1100	537951	1	1100	1100	478
+7801620002664	537951	1	1100	1100	479
+1300	537952	1	1300	1300	480
+450	537952	1	450	450	481
+800	537953	1	800	800	482
+1100	537953	1	1100	1100	483
+51	537953	1	1300	1300	484
+800	537954	1	800	800	485
+1300	537954	1	1300	1300	486
+1100	537956	1	1100	1100	487
+1100	537956	1	1100	1100	488
+300	537956	1	300	300	489
+300	537959	1	300	300	490
+300	537959	1	300	300	491
+7802920000855	537959	1	500	500	492
+7802920000855	537959	1	500	500	493
+1300	537959	1	1300	1300	494
+1400	537960	1	1400	1400	495
+7802820990102	537960	1	1050	1050	496
+700	537960	1	950	950	497
+1400	537961	1	1400	1400	498
+7801610000571	537961	1	1000	1000	499
+52	537962	1	2000	2000	500
+1300	537962	1	1300	1300	501
+7801620852962	537963	1	1000	1000	502
+7801620852962	537963	1	1000	1000	503
+400	537964	1	400	400	504
+1300	537965	1	1300	1300	505
+1100	537965	1	1100	1100	506
+1100	537965	1	1100	1100	507
+7801610001622	537965	1	1650	1650	508
+7801620015817	537965	1	700	700	509
+1100	537967	1	1100	1100	510
+1300	537967	1	1300	1300	511
+51	537968	1	1300	1300	512
+7613032590369	537968	1	800	800	513
+350	537968	1	400	400	514
+1400	537969	1	1400	1400	515
+1300	537970	1	1300	1300	516
+1100	537970	1	1100	1100	517
+1300	537970	1	1300	1300	518
+300	537970	1	300	300	519
+300	537970	1	300	300	520
+78018884	537971	1	3400	3400	521
+1100	537971	1	1100	1100	522
+1400	537972	1	1400	1400	523
+78011748	537972	1	350	350	524
+7801620011666	537972	1	700	700	525
+78000285	537973	1	4000	4000	526
+78000285	537973	1	4000	4000	527
+1300	537973	1	1300	1300	528
+1100	537974	1	1100	1100	529
+51	537974	1	1300	1300	530
+1100	537975	1	1100	1100	531
+7801620853402	537975	1	700	700	532
+7801610022726	537975	1	1650	1650	533
+78019065	537977	1	2000	2000	534
+700	537977	1	950	950	535
+7793890254303	537977	1	600	600	536
+1300	537978	1	1300	1300	537
+1400	537981	1	1400	1400	538
+1100	537982	1	1100	1100	539
+500	537982	1	500	500	540
+9002490100070	537984	1	1700	1700	541
+78020627	537984	1	3900	3900	542
+1400	537984	1	1400	1400	543
+52	537985	1	2000	2000	544
+1100	537985	1	1100	1100	545
+1400	537986	1	1400	1400	546
+1100	537986	1	1100	1100	547
+52	537988	1	2000	2000	548
+8410376037685	537988	1	900	900	549
+1100	537989	1	1100	1100	550
+1100	537989	1	1100	1100	551
+78022010	537989	1	2600	2600	552
+78020627	537990	1	3900	3900	553
+400	537990	1	400	400	554
+400	537990	1	400	400	555
+1300	537991	1	1300	1300	556
+1100	537991	1	1100	1100	557
+61	537992	1	1000	1000	558
+7802920000855	537993	1	500	500	559
+1400	537994	1	1400	1400	560
+1300	537995	1	1300	1300	561
+7802950002119	537995	1	1850	1850	562
+7613032835811	537995	1	5450	5450	563
+7802800500772	537995	1	1600	1600	564
+1100	537996	1	1100	1100	565
+1100	537996	1	1100	1100	566
+1100	537996	1	1100	1100	567
+1100	537996	1	1100	1100	568
+51	537997	1	1300	1300	569
+500	537997	1	500	500	570
+1400	537997	1	1400	1400	571
+1100	537997	1	1100	1100	572
+52	537998	1	2000	2000	573
+1300	537998	1	1300	1300	574
+78018884	537999	1	3400	3400	575
+2000	538000	1	2000	2000	576
+450	538000	1	450	450	577
+51	538001	1	1300	1300	578
+1600	538001	1	1600	1600	579
+1400	538002	1	1400	1400	580
+1400	538002	1	1400	1400	581
+200	538002	1	250	250	582
+70847009511	538004	1	2000	2000	583
+450	538005	8	450	3600	584
+51	538005	1	1300	1300	585
+613008735432	538008	2	1500	3000	586
+7613032443221	538008	1	350	350	587
+7803525000356	538008	1	450	450	588
+2000	538008	1	2000	2000	589
+51	538009	1	1300	1300	590
+1400	538009	1	1400	1400	591
+51	538010	1	1300	1300	592
+60	538010	1	700	700	593
+7801620006174	538011	1	990	990	594
+1400	538011	1	1400	1400	595
+1300	538012	1	1300	1300	596
+1600	538015	1	1600	1600	597
+7802230975324	538015	1	600	600	598
+400	538015	1	400	400	599
+400	538015	1	400	400	600
+3200	538016	1	3200	3200	601
+1200	538016	1	1200	1200	602
+1800	538019	1	1800	1800	603
+300	538019	1	300	300	604
+1300	538020	1	1300	1300	605
+7807733947472	538020	1	2690	2690	606
+7802000013720	538021	1	600	600	607
+7803525999544	538021	1	600	600	608
+1300	538022	1	1300	1300	609
+1100	538022	1	1100	1100	610
+1800	538023	1	1800	1800	611
+52	538023	1	2000	2000	612
+1200	538024	1	1200	1200	613
+7802575220530	538024	1	400	400	614
+7801610000601	538025	1	1000	1000	615
+7802920008141	538025	1	850	850	616
+78025219	538025	1	3300	3300	617
+7501013101331	538026	1	1450	1450	618
+7802820441123	538026	1	650	650	619
+1900	538027	1	1900	1900	620
+1900	538028	1	1900	1900	621
+78021020	538030	1	2000	2000	622
+800	538030	1	800	800	623
+800	538030	1	800	800	624
+1400	538034	1	1400	1400	625
+7803400000105	538034	1	400	400	626
+7803525999544	538034	1	600	600	627
+1300	538036	1	1300	1300	628
+69	538036	1	600	600	629
+126	538036	1	350	350	630
+78029590	538036	1	4000	4000	631
+7801620006174	538037	1	990	990	632
+2000	538039	1	2000	2000	633
+1600	538039	1	1600	1600	634
+400	538039	1	400	400	635
+400	538039	1	400	400	636
+400	538039	1	400	400	637
+78019065	538040	1	2000	2000	638
+7801620006853	538040	1	1000	1000	639
+3200	538040	1	3200	3200	640
+3000	538040	1	3000	3000	641
+1200	538041	1	1200	1200	642
+800	538041	1	800	800	643
+1200	538044	1	1200	1200	644
+7804630010001	538044	1	800	800	645
+7801620852689	538045	1	800	800	646
+1300	538045	1	1300	1300	647
+1200	538046	5	1200	6000	648
+78019065	538047	1	2000	2000	649
+3200	538048	1	3200	3200	650
+400	538048	1	400	400	651
+400	538048	1	400	400	652
+400	538048	1	400	400	653
+7613036185318	538049	1	1690	1690	654
+78021020	538050	1	2000	2000	655
+1400	538051	1	1400	1400	656
+1400	538052	1	1400	1400	657
+7613034279309	538052	1	350	350	658
+3000	538053	1	3000	3000	659
+7801620005856	538055	1	900	900	660
+7802920000855	538057	1	500	500	661
+7801610001196	538057	1	750	750	662
+3200	538058	1	3200	3200	663
+78020627	538058	1	3900	3900	664
+7802575220479	538059	1	400	400	665
+7802200270015	538059	1	500	500	666
+1300	538059	1	1300	1300	667
+400	538059	1	400	400	668
+3200	538060	1	3200	3200	669
+51	538060	1	1300	1300	670
+1600	538060	1	1600	1600	671
+1300	538060	1	1300	1300	672
+7613035807464	538062	1	1690	1690	673
+7613035807464	538062	1	1690	1690	674
+51	538065	1	1300	1300	675
+7802820600209	538065	1	700	700	676
+1300	538066	1	1300	1300	677
+78016408	538066	1	2500	2500	678
+7804612131274	538066	1	400	400	679
+7802950002119	538068	1	1850	1850	680
+1000	538069	1	1300	1300	681
+1400	538070	1	1400	1400	682
+3200	538072	1	3200	3200	683
+3200	538072	1	3200	3200	684
+78020627	538073	1	3900	3900	685
+78019065	538076	1	2000	2000	686
+7804612131274	538076	1	400	400	687
+690	538077	1	980	980	688
+400	538077	1	400	400	689
+200	538077	1	250	250	690
+200	538077	1	250	250	691
+7802920005195	538078	1	500	500	692
+7803525999544	538078	1	600	600	693
+7613035421592	538079	1	1690	1690	694
+7613035807464	538079	1	1690	1690	695
+7613035807464	538079	1	1690	1690	696
+7613035421592	538079	1	1690	1690	697
+7613035421592	538079	1	1690	1690	698
+78024878	538080	1	4200	4200	699
+78018853	538081	1	1800	1800	700
+1100	538083	1	1100	1100	701
+7801610001936	538083	1	500	500	702
+7802575220530	538084	1	400	400	703
+7802920002323	538085	1	700	700	704
+7802920000855	538086	1	500	500	705
+900	538087	1	900	900	706
+1100	538087	1	1100	1100	707
+1400	538088	1	1400	1400	708
+1400	538088	1	1400	1400	709
+1100	538089	1	1100	1100	710
+1100	538089	1	1100	1100	711
+78020627	538089	1	3900	3900	712
+400	538089	1	400	400	713
+1300	538090	1	1300	1300	714
+78018884	538090	1	3400	3400	715
+9002490100070	538091	1	1700	1700	716
+7802920007182	538091	1	500	500	717
+78018884	538093	1	3400	3400	718
+7802920000855	538094	1	500	500	719
+7802920000855	538094	1	500	500	720
+1400	538094	1	1400	1400	721
+1300	538096	1	1300	1300	722
+1300	538096	1	1300	1300	723
+1300	538096	1	1300	1300	724
+1300	538096	1	1300	1300	725
+15	538096	1	1500	1500	726
+500	538096	1	500	500	727
+450	538096	1	450	450	728
+450	538096	1	450	450	729
+450	538096	1	450	450	730
+450	538096	1	450	450	731
+7801610000335	538096	1	500	500	732
+300	538097	1	300	300	733
+300	538097	1	300	300	734
+69	538097	1	600	600	735
+1200	538097	1	1200	1200	736
+7801620001834	538098	1	700	700	737
+1200	538098	1	1200	1200	738
+7803473003232	538099	1	400	400	739
+7613034279309	538099	1	350	350	740
+1400	538100	1	1400	1400	741
+51	538101	1	1300	1300	742
+1300	538101	1	1300	1300	743
+1300	538103	1	1300	1300	744
+9002490214852	538103	1	1700	1700	745
+7801610000595	538103	1	1000	1000	746
+7801620011666	538105	1	700	700	747
+1800	538105	1	1800	1800	748
+1600	538105	1	1600	1600	749
+9002490100070	538107	1	1700	1700	750
+1100	538107	1	1100	1100	751
+78020627	538107	1	3900	3900	752
+7802820600100	538108	1	700	700	753
+7802820600209	538108	1	700	700	754
+1400	538108	1	1400	1400	755
+1400	538109	1	1400	1400	756
+61	538109	1	1000	1000	757
+400	538109	1	400	400	758
+400	538109	1	400	400	759
+78938533	538110	1	480	480	760
+78938533	538110	1	480	480	761
+50173204	538110	1	600	600	762
+7801610001936	538112	1	500	500	763
+500	538112	1	500	500	764
+126	538112	1	350	350	765
+1300	538113	1	1300	1300	766
+7802920007182	538113	1	500	500	767
+1100	538116	1	1100	1100	768
+1100	538116	1	1100	1100	769
+2000	538116	1	2000	2000	770
+126	538116	1	350	350	771
+51	538117	1	1300	1300	772
+1300	538117	1	1300	1300	773
+1300	538120	1	1300	1300	774
+69	538120	1	600	600	775
+7803473004376	538120	1	600	600	776
+7803473004376	538120	1	600	600	777
+7803473004376	538120	1	600	600	778
+61	538121	1	1000	1000	779
+1400	538121	1	1400	1400	780
+2000	538122	1	2000	2000	781
+7802820441000	538122	1	650	650	782
+1300	538122	1	1300	1300	783
+1400	538123	1	1400	1400	784
+1100	538123	1	1100	1100	785
+7801620852580	538123	1	750	750	786
+7801620852580	538123	1	750	750	787
+1100	538124	1	1100	1100	788
+7802215302053	538125	1	800	800	789
+69	538125	1	600	600	790
+1400	538127	1	1400	1400	791
+1100	538127	1	1100	1100	792
+51	538128	1	1300	1300	793
+1400	538128	1	1400	1400	794
+15	538129	1	1500	1500	795
+15	538130	1	1500	1500	796
+3	538132	1	1100	1100	797
+7801610350355	538132	1	750	750	798
+1300	538133	1	1300	1300	799
+450	538133	1	450	450	800
+1400	538134	1	1400	1400	801
+1400	538134	1	1400	1400	802
+1400	538134	1	1400	1400	803
+7802820600209	538135	1	700	700	804
+500	538136	1	500	500	805
+1300	538136	1	1300	1300	806
+79	538138	1	400	400	807
+52	538139	1	2000	2000	808
+1200	538139	1	1200	1200	809
+400	538139	1	400	400	810
+52	538141	1	2000	2000	811
+7802230086570	538142	1	1000	1000	812
+1100	538142	1	1100	1100	813
+51	538142	1	1300	1300	814
+78000124	538142	1	4000	4000	815
+1200	538143	1	1200	1200	816
+79	538143	1	400	400	817
+79	538143	1	400	400	818
+1300	538145	1	1300	1300	819
+51	538145	1	1300	1300	820
+1300	538145	1	1300	1300	821
+52	538146	1	2000	2000	822
+1300	538146	1	1300	1300	823
+2000	538147	1	2000	2000	824
+2000	538147	1	2000	2000	825
+7501013101348	538147	1	1450	1450	826
+1300	538148	1	1300	1300	827
+1200	538148	1	1200	1200	828
+1400	538150	1	1400	1400	829
+3000	538150	1	3000	3000	830
+78019065	538150	1	2000	2000	831
+1100	538151	1	1100	1100	832
+7801620006082	538151	1	1000	1000	833
+1400	538153	1	1400	1400	834
+61	538153	1	1000	1000	835
+1400	538154	1	1400	1400	836
+1400	538154	1	1400	1400	837
+7801620015800	538154	1	700	700	838
+51	538155	1	1300	1300	839
+7802230081162	538156	1	850	850	840
+1300	538156	1	1300	1300	841
+1100	538157	1	1100	1100	842
+400	538157	1	400	400	843
+500	538157	1	500	500	844
+613008720209	538158	1	1400	1400	845
+450	538159	1	450	450	846
+450	538159	1	450	450	847
+450	538159	1	450	450	848
+450	538159	1	450	450	849
+1300	538160	1	1300	1300	850
+1300	538160	1	1300	1300	851
+7613034279309	538162	1	350	350	852
+500	538162	1	500	500	853
+1100	538162	1	1100	1100	854
+1300	538163	1	1300	1300	855
+7801620008321	538165	1	900	900	856
+3200	538166	1	3200	3200	857
+1600	538167	1	1600	1600	858
+400	538167	1	400	400	859
+400	538167	1	400	400	860
+7802820441000	538167	1	650	650	861
+40000514251	538167	1	990	990	862
+1300	538168	1	1300	1300	863
+1300	538168	1	1300	1300	864
+7801620852580	538169	1	750	750	865
+7801620004057	538170	1	950	950	866
+51	538170	1	1300	1300	867
+1200	538171	1	1200	1200	868
+1400	538172	1	1400	1400	869
+500	538172	1	500	500	870
+7801610000571	538172	1	1000	1000	871
+7801610001936	538172	1	500	500	872
+7801610001622	538174	1	1650	1650	873
+7801620005160	538175	1	1500	1500	874
+2000	538176	1	2000	2000	875
+7801620005160	538176	1	1500	1500	876
+9002490214852	538176	1	1700	1700	877
+50173204	538176	1	600	600	878
+50173204	538176	1	600	600	879
+7804612131274	538177	1	400	400	880
+7801620015855	538178	1	1000	1000	881
+7802820250220	538178	1	350	350	882
+7802820250220	538178	1	350	350	883
+1850	538179	1	1850	1850	884
+1850	538179	1	1850	1850	885
+2000	538179	1	2000	2000	886
+2000	538179	1	2000	2000	887
+3000	538180	1	3000	3000	888
+1300	538180	1	1300	1300	889
+300	538180	1	300	300	890
+78024915	538181	1	3500	3500	891
+2000	538181	1	2000	2000	892
+300	538181	1	300	300	893
+3200	538183	1	3200	3200	894
+3000	538184	1	3000	3000	895
+7802820441123	538184	1	650	650	896
+7801620005856	538185	1	900	900	897
+78023994	538185	1	250	250	898
+3000	538186	1	3000	3000	899
+300	538186	1	300	300	900
+300	538186	1	300	300	901
+800	538186	1	800	800	902
+7501013101430	538188	1	2000	2000	903
+1690	538188	1	1690	1690	904
+1100	538189	1	1100	1100	905
+1100	538189	1	1100	1100	906
+7801620006846	538190	1	700	700	907
+1300	538190	1	1300	1300	908
+7802575220479	538191	1	400	400	909
+7801610001196	538191	1	750	750	910
+7802200270022	538191	1	450	450	911
+8410376037685	538191	1	900	900	912
+1300	538191	1	1300	1300	913
+3000	538193	1	3000	3000	914
+1300	538195	1	1300	1300	915
+300	538195	1	300	300	916
+750	538195	1	750	750	917
+400	538195	1	400	400	918
+3200	538196	1	3200	3200	919
+78020627	538196	1	3900	3900	920
+7801620003302	538197	1	1000	1000	921
+7801610000571	538197	1	1000	1000	922
+78024878	538199	1	4200	4200	923
+7613036185318	538202	1	1690	1690	924
+7613036185318	538202	1	1690	1690	925
+51	538203	1	1300	1300	926
+1600	538203	1	1600	1600	927
+3200	538203	1	3200	3200	928
+300	538204	1	300	300	929
+300	538204	1	300	300	930
+750	538204	1	750	750	931
+69	538204	1	600	600	932
+79	538205	1	400	400	933
+126	538206	1	350	350	934
+126	538206	1	350	350	935
+7802000001505	538206	1	1750	1750	936
+78019041	538207	1	2000	2000	937
+7804612131274	538207	1	400	400	938
+7801620852580	538209	1	750	750	939
+7802820441123	538209	1	650	650	940
+126	538209	1	350	350	941
+78020627	538209	1	3900	3900	942
+613008725853	538211	1	1650	1650	943
+7801610000601	538211	1	1000	1000	944
+7802820441123	538212	1	650	650	945
+7801620852689	538213	1	800	800	946
+70847009511	538214	1	2000	2000	947
+2000	538215	1	2000	2000	948
+15	538215	1	1500	1500	949
+7801620007621	538217	1	1200	1200	950
+7802230975324	538218	1	600	600	951
+7802000001505	538219	1	1750	1750	952
+7801620006624	538219	1	1000	1000	953
+51	538219	1	1300	1300	954
+7801620007027	538220	1	700	700	955
+7802920000084	538220	1	1100	1100	956
+78007673	538222	1	3000	3000	957
+1100	538224	1	1100	1100	958
+3	538224	1	1100	1100	959
+3	538224	1	1100	1100	960
+3	538224	1	1100	1100	961
+7613034276490	538224	1	500	500	962
+7802215302053	538225	1	800	800	963
+7801620005160	538225	1	1500	1500	964
+126	538225	1	350	350	965
+1400	538226	1	1400	1400	966
+1400	538226	1	1400	1400	967
+1100	538226	1	1100	1100	968
+1200	538227	1	1200	1200	969
+69	538227	1	600	600	970
+1200	538228	1	1200	1200	971
+61	538228	1	1000	1000	972
+78018884	538228	1	3400	3400	973
+3	538229	1	1100	1100	974
+7801610001196	538229	1	750	750	975
+51	538230	1	1300	1300	976
+1200	538230	1	1200	1200	977
+7802920000862	538231	1	500	500	978
+3	538231	1	1100	1100	979
+51	538231	1	1300	1300	980
+15	538232	1	1500	1500	981
+7802215511042	538232	1	1000	1000	982
+3	538233	1	1100	1100	983
+400	538233	1	400	400	984
+52	538233	1	2000	2000	985
+1800	538234	1	1800	1800	986
+1800	538234	1	1800	1800	987
+7801620011666	538234	1	700	700	988
+1300	538235	1	1300	1300	989
+51	538235	1	1300	1300	990
+7803247238464	538236	1	2150	2150	991
+7803473003232	538237	1	400	400	992
+7802920007182	538237	1	500	500	993
+7802000013140	538237	1	600	600	994
+7801610000595	538238	1	1000	1000	995
+9002490214852	538238	1	1700	1700	996
+7801620001711	538238	1	1100	1100	997
+78018884	538238	1	3400	3400	998
+7801620853402	538240	1	700	700	999
+7501009222729	538240	1	850	850	1000
+1300	538242	1	1300	1300	1001
+1100	538242	1	1100	1100	1002
+3	538242	1	1100	1100	1003
+3	538242	1	1100	1100	1004
+1400	538243	1	1400	1400	1005
+7802820250220	538244	1	350	350	1006
+7803525999667	538244	1	600	600	1007
+7802920000862	538244	1	500	500	1008
+1	538245	1	1200	1200	1009
+1400	538245	1	1400	1400	1010
+7801620007621	538245	1	1200	1200	1011
+1300	538246	1	1300	1300	1012
+450	538246	1	450	450	1013
+1400	538247	1	1400	1400	1014
+3	538247	1	1100	1100	1015
+8410376037685	538248	1	900	900	1016
+61	538248	1	1000	1000	1017
+15	538249	1	1500	1500	1018
+6780201379627	538249	1	1800	1800	1019
+51	538249	1	1300	1300	1020
+3	538251	1	1100	1100	1021
+79	538252	1	400	400	1022
+79	538252	1	400	400	1023
+79	538252	1	400	400	1024
+400	538252	1	400	400	1025
+7613034868237	538254	1	400	400	1026
+7613034868237	538254	1	400	400	1027
+7802920000930	538254	1	350	350	1028
+1200	538255	1	1200	1200	1029
+7802200132696	538255	1	300	300	1030
+3	538256	1	1100	1100	1031
+400	538256	1	400	400	1032
+400	538256	1	400	400	1033
+7801620011840	538257	1	1100	1100	1034
+7613032590369	538257	1	800	800	1035
+3	538257	1	1100	1100	1036
+7800120171061	538259	1	400	400	1037
+7801620011666	538259	1	700	700	1038
+15	538260	1	1500	1500	1039
+1400	538260	1	1400	1400	1040
+1300	538262	1	1300	1300	1041
+79	538262	1	400	400	1042
+7802920002323	538264	1	700	700	1043
+7801620006853	538266	1	1000	1000	1044
+7801620853402	538266	1	700	700	1045
+7802230086952	538268	1	800	800	1046
+7800120164100	538270	1	400	400	1047
+78021020	538270	1	2000	2000	1048
+51	538271	1	1300	1300	1049
+1	538271	1	1200	1200	1050
+51	538272	1	1300	1300	1051
+3	538272	1	1100	1100	1052
+7801620006174	538273	1	990	990	1053
+7801610000601	538273	1	1000	1000	1054
+1400	538273	1	1400	1400	1055
+1200	538273	1	1200	1200	1056
+7802832000264	538274	1	700	700	1057
+1300	538274	1	1300	1300	1058
+1400	538275	1	1400	1400	1059
+7801620005153	538275	1	1500	1500	1060
+78024915	538275	1	3500	3500	1061
+7801620006174	538276	1	990	990	1062
+1400	538276	1	1400	1400	1063
+500	538277	1	500	500	1064
+3000	538277	1	3000	3000	1065
+1400	538278	1	1400	1400	1066
+1300	538278	1	1300	1300	1067
+51	538278	1	1300	1300	1068
+1800	538279	1	1800	1800	1069
+3200	538279	1	3200	3200	1070
+800	538279	1	800	800	1071
+1400	538279	1	1400	1400	1072
+61	538280	1	1000	1000	1073
+7801620015817	538280	1	700	700	1074
+7802820441000	538283	1	650	650	1075
+7802920009438	538283	1	450	450	1076
+3	538283	1	1100	1100	1077
+3	538284	1	1100	1100	1078
+3	538284	1	1100	1100	1079
+3	538284	1	1100	1100	1080
+300	538284	1	300	300	1081
+7801620005160	538286	1	1500	1500	1082
+1300	538287	1	1300	1300	1083
+1300	538287	1	1300	1300	1084
+7801620852955	538287	1	1000	1000	1085
+7801610350409	538287	1	1650	1650	1086
+3200	538288	1	3200	3200	1087
+3200	538288	1	3200	3200	1088
+78013322	538289	1	550	550	1089
+7801620015800	538289	1	700	700	1090
+7801610000335	538289	1	500	500	1091
+7801610000335	538290	1	500	500	1092
+7801610000335	538290	1	500	500	1093
+7801620001711	538291	1	1100	1100	1094
+7801620852597	538291	1	800	800	1095
+7803403001055	538291	1	750	750	1096
+3	538292	1	1100	1100	1097
+1200	538292	1	1200	1200	1098
+51	538294	1	1300	1300	1099
+450	538294	1	450	450	1100
+1	538294	1	1200	1200	1101
+7807733947472	538295	1	2690	2690	1102
+61	538296	1	1000	1000	1103
+450	538296	1	450	450	1104
+450	538296	1	450	450	1105
+61	538296	1	1000	1000	1106
+850	538297	1	850	850	1107
+1300	538297	1	1300	1300	1108
+1300	538297	1	1300	1300	1109
+7801620005153	538298	1	1500	1500	1110
+3	538298	1	1100	1100	1111
+7802230070227	538298	1	3850	3850	1112
+51	538299	1	1300	1300	1113
+7801620852689	538300	1	800	800	1114
+7613032464042	538300	1	350	350	1115
+7802225584081	538300	1	500	500	1116
+7803400000105	538300	1	400	400	1117
+7802230975324	538300	1	600	600	1118
+3	538300	1	1100	1100	1119
+1300	538301	1	1300	1300	1120
+500	538301	1	500	500	1121
+78021068	538301	1	2300	2300	1122
+78021068	538301	1	2300	2300	1123
+3	538303	1	1100	1100	1124
+2000	538305	1	2000	2000	1125
+7805000301484	538306	1	700	700	1126
+300	538306	1	300	300	1127
+300	538306	1	300	300	1128
+78025219	538309	1	3300	3300	1129
+3000	538309	1	3000	3000	1130
+2000	538309	1	2000	2000	1131
+450	538310	5	450	2250	1132
+3	538313	1	1100	1100	1133
+300	538313	1	300	300	1134
+300	538313	1	300	300	1135
+7801610022122	538313	1	750	750	1136
+7801620852689	538313	1	800	800	1137
+3	538314	1	1100	1100	1138
+51	538314	1	1300	1300	1139
+78000285	538315	1	4000	4000	1140
+7801610001622	538315	1	1650	1650	1141
+1300	538316	1	1300	1300	1142
+1300	538316	1	1300	1300	1143
+7801610000601	538316	1	1000	1000	1144
+1300	538317	1	1300	1300	1145
+1300	538317	1	1300	1300	1146
+1900	538318	1	1900	1900	1147
+400	538319	1	400	400	1148
+400	538319	1	400	400	1149
+3000	538319	1	3000	3000	1150
+1600	538320	1	1600	1600	1151
+800	538320	1	800	800	1152
+9002490214852	538321	1	1700	1700	1153
+3000	538323	1	3000	3000	1154
+7802820600209	538323	1	700	700	1155
+3000	538325	1	3000	3000	1156
+7803400000105	538327	1	400	400	1157
+7801620011673	538328	1	700	700	1158
+7801620015817	538328	1	700	700	1159
+400	538328	1	400	400	1160
+7613034279309	538329	1	350	350	1161
+7804612131274	538329	1	400	400	1162
+7801610350355	538329	1	750	750	1163
+3200	538330	1	3200	3200	1164
+7801610001196	538330	1	750	750	1165
+3200	538331	1	3200	3200	1166
+7802832101329	538331	1	1400	1400	1167
+300	538332	1	300	300	1168
+7801610022122	538332	1	750	750	1169
+7801620016128	538332	1	1000	1000	1170
+1000	538333	1	1300	1300	1171
+1800	538333	1	1800	1800	1172
+1400	538334	1	1400	1400	1173
+1300	538336	1	1300	1300	1174
+750	538336	1	750	750	1175
+1000	538336	1	1300	1300	1176
+51	538337	1	1300	1300	1177
+126	538337	1	350	350	1178
+1800	538338	1	1800	1800	1179
+7801610350355	538338	1	750	750	1180
+7613032443221	538338	1	350	350	1181
+7801620852955	538339	1	1000	1000	1182
+7801610001936	538339	1	500	500	1183
+7803908005947	538339	1	1000	1000	1184
+7804612131274	538339	1	400	400	1185
+2300	538340	1	2300	2300	1186
+7801620015855	538341	1	1000	1000	1187
+300	538342	1	300	300	1188
+7802920004952	538342	1	350	350	1189
+7801610001196	538342	1	750	750	1190
+793573241962	538343	1	1400	1400	1191
+7613035407145	538343	1	1690	1690	1192
+7801610000571	538343	1	1000	1000	1193
+1300	538344	1	1300	1300	1194
+7802575220479	538344	1	400	400	1195
+9002490221010	538344	1	2100	2100	1196
+3000	538345	1	3000	3000	1197
+7801620006853	538345	1	1000	1000	1198
+7803908005787	538346	1	1000	1000	1199
+78018884	538346	1	3400	3400	1200
+7801620852580	538347	1	750	750	1201
+70847021964	538350	1	2000	2000	1202
+70847021964	538350	1	2000	2000	1203
+9002490100070	538350	1	1700	1700	1204
+613008728571	538350	1	1650	1650	1205
+7702133862823	538350	1	400	400	1206
+7702133862823	538350	1	400	400	1207
+1600	538352	1	1600	1600	1208
+1800	538352	1	1800	1800	1209
+3	538354	1	1100	1100	1210
+300	538354	1	300	300	1211
+300	538354	1	300	300	1212
+300	538354	1	300	300	1213
+69	538354	1	600	600	1214
+3	538355	1	1100	1100	1215
+51	538356	1	1300	1300	1216
+3	538356	1	1100	1100	1217
+3	538357	1	1100	1100	1218
+51	538358	1	1300	1300	1219
+52	538359	1	2000	2000	1220
+3	538359	1	1100	1100	1221
+7801620007027	538359	1	700	700	1222
+7801620007027	538359	1	700	700	1223
+450	538359	1	450	450	1224
+450	538359	1	450	450	1225
+450	538359	1	450	450	1226
+450	538359	1	450	450	1227
+3	538360	1	1100	1100	1228
+1400	538361	1	1400	1400	1229
+7802920000862	538362	1	500	500	1230
+3	538362	1	1100	1100	1231
+3	538363	1	1100	1100	1232
+1400	538363	1	1400	1400	1233
+7804643820154	538364	1	1600	1600	1234
+3	538364	1	1100	1100	1235
+400	538364	1	400	400	1236
+5201041002137	538364	1	800	800	1237
+9002490100070	538365	1	1700	1700	1238
+3	538365	1	1100	1100	1239
+3	538366	1	1100	1100	1240
+69	538366	1	600	600	1241
+3	538369	1	1100	1100	1242
+7801610000595	538371	1	1000	1000	1243
+9002490214852	538371	1	1700	1700	1244
+78024717	538371	1	4300	4300	1245
+1600	538373	1	1600	1600	1246
+300	538373	1	300	300	1247
+300	538373	1	300	300	1248
+300	538373	1	300	300	1249
+7801620011666	538373	1	700	700	1250
+78019065	538373	1	2000	2000	1251
+900	538373	1	900	900	1252
+4	538374	1	1000	1000	1253
+1400	538374	1	1400	1400	1254
+78018884	538375	1	3400	3400	1255
+1300	538375	1	1300	1300	1256
+3	538376	1	1100	1100	1257
+500	538376	1	500	500	1258
+3	538376	1	1100	1100	1259
+1400	538377	1	1400	1400	1260
+1400	538377	1	1400	1400	1261
+400	538378	1	400	400	1262
+400	538378	1	400	400	1263
+1400	538378	1	1400	1400	1264
+7801620011840	538379	1	1100	1100	1265
+4	538379	1	1000	1000	1266
+1300	538380	1	1300	1300	1267
+1300	538380	1	1300	1300	1268
+7801620005856	538380	1	900	900	1269
+7801620001711	538380	1	1100	1100	1270
+3	538381	1	1100	1100	1271
+3	538381	1	1100	1100	1272
+4	538381	1	1000	1000	1273
+4	538381	1	1000	1000	1274
+1300	538382	1	1300	1300	1275
+400	538382	1	400	400	1276
+3000	538383	1	3000	3000	1277
+1400	538383	1	1400	1400	1278
+3	538384	1	1100	1100	1279
+69	538384	1	600	600	1280
+7802820250268	538384	1	350	350	1281
+7802820250268	538384	1	350	350	1282
+7801610001936	538385	1	500	500	1283
+7802820020953	538385	1	1000	1000	1284
+450	538386	4	450	1800	1285
+3	538386	1	1100	1100	1286
+1300	538387	1	1300	1300	1287
+400	538387	1	400	400	1288
+1300	538388	1	1300	1300	1289
+3	538388	1	1100	1100	1290
+52	538390	1	2000	2000	1291
+1800	538391	1	1800	1800	1292
+4	538391	1	1000	1000	1293
+800	538391	1	800	800	1294
+800	538391	1	800	800	1295
+4	538391	1	1000	1000	1296
+4	538392	1	1000	1000	1297
+3	538392	1	1100	1100	1298
+1200	538392	1	1200	1200	1299
+1200	538393	1	1200	1200	1300
+4	538394	1	1000	1000	1301
+500	538394	1	500	500	1302
+50173204	538394	1	600	600	1303
+51	538395	1	1300	1300	1304
+3	538396	1	1100	1100	1305
+1400	538396	1	1400	1400	1306
+51	538398	1	1300	1300	1307
+60	538399	1	700	700	1308
+300	538399	1	300	300	1309
+1300	538399	1	1300	1300	1310
+3	538400	1	1100	1100	1311
+1200	538400	1	1200	1200	1312
+79	538400	1	400	400	1313
+1400	538401	1	1400	1400	1314
+7802832101121	538401	1	1400	1400	1315
+3	538402	1	1100	1100	1316
+1200	538402	1	1200	1200	1317
+1400	538403	1	1400	1400	1318
+1400	538403	1	1400	1400	1319
+1300	538403	1	1300	1300	1320
+1300	538403	1	1300	1300	1321
+1400	538404	1	1400	1400	1322
+126	538404	1	350	350	1323
+8410376035407	538405	1	1350	1350	1324
+3000	538405	1	3000	3000	1325
+3	538406	1	1100	1100	1326
+7802920005171	538406	1	500	500	1327
+1300	538408	1	1300	1300	1328
+850	538408	1	850	850	1329
+400	538408	1	400	400	1330
+3	538408	1	1100	1100	1331
+613008756451	538409	1	1500	1500	1332
+2000	538409	1	2000	2000	1333
+78024878	538409	1	4200	4200	1334
+300	538409	1	300	300	1335
+1400	538410	1	1400	1400	1336
+1400	538410	1	1400	1400	1337
+1400	538410	1	1400	1400	1338
+1400	538411	1	1400	1400	1339
+4	538411	1	1000	1000	1340
+51	538412	1	1300	1300	1341
+1400	538412	1	1400	1400	1342
+7802820990102	538412	1	1050	1050	1343
+1300	538414	1	1300	1300	1344
+800	538414	1	800	800	1345
+4	538415	1	1000	1000	1346
+1600	538415	1	1600	1600	1347
+1300	538416	1	1300	1300	1348
+1200	538417	1	1200	1200	1349
+1200	538417	1	1200	1200	1350
+126	538417	1	350	350	1351
+126	538417	1	350	350	1352
+1200	538418	1	1200	1200	1353
+1200	538418	1	1200	1200	1354
+800	538418	1	800	800	1355
+800	538418	1	800	800	1356
+3	538419	1	1100	1100	1357
+1200	538419	1	1200	1200	1358
+1200	538419	1	1200	1200	1359
+4	538420	1	1000	1000	1360
+4	538421	1	1000	1000	1361
+4	538421	1	1000	1000	1362
+7801620853402	538421	1	700	700	1363
+3	538422	1	1100	1100	1364
+500	538422	1	500	500	1365
+126	538422	1	350	350	1366
+1400	538423	1	1400	1400	1367
+1400	538423	1	1400	1400	1368
+400	538423	1	400	400	1369
+400	538423	1	400	400	1370
+400	538423	1	400	400	1371
+1200	538423	1	1200	1200	1372
+60	538423	1	700	700	1373
+60	538423	1	700	700	1374
+60	538423	1	700	700	1375
+1700	538424	1	1700	1700	1376
+4	538424	1	1000	1000	1377
+3	538424	1	1100	1100	1378
+51	538424	1	1300	1300	1379
+3	538424	1	1100	1100	1380
+1800	538425	1	1800	1800	1381
+7802230975324	538425	1	600	600	1382
+7613032443221	538425	1	350	350	1383
+4	538426	1	1000	1000	1384
+3	538426	1	1100	1100	1385
+3	538428	1	1100	1100	1386
+4	538429	1	1000	1000	1387
+7802575220493	538429	1	400	400	1388
+3200	538429	1	3200	3200	1389
+1300	538429	1	1300	1300	1390
+60	538430	1	700	700	1391
+4	538430	1	1000	1000	1392
+4	538431	1	1000	1000	1393
+51	538431	1	1300	1300	1394
+3	538431	1	1100	1100	1395
+1400	538432	1	1400	1400	1396
+4	538432	1	1000	1000	1397
+7501013118117	538432	1	800	800	1398
+1400	538433	1	1400	1400	1399
+7801620011666	538433	1	700	700	1400
+1800	538434	1	1800	1800	1401
+2000	538434	1	2000	2000	1402
+7801620015800	538435	1	700	700	1403
+7800120164100	538435	1	400	400	1404
+1200	538436	1	1200	1200	1405
+500	538436	1	500	500	1406
+3	538439	1	1100	1100	1407
+400	538439	1	400	400	1408
+500	538439	1	500	500	1409
+52	538440	1	2000	2000	1410
+4	538441	1	1000	1000	1411
+4	538441	1	1000	1000	1412
+1400	538441	1	1400	1400	1413
+7803908002090	538441	1	1400	1400	1414
+1300	538442	1	1300	1300	1415
+51	538442	1	1300	1300	1416
+1700	538442	1	1700	1700	1417
+4	538442	1	1000	1000	1418
+52	538443	1	2000	2000	1419
+1300	538443	1	1300	1300	1420
+2000	538443	1	2000	2000	1421
+78012370	538444	1	3000	3000	1422
+2000	538444	1	2000	2000	1423
+7801610001196	538445	1	750	750	1424
+2000	538445	1	2000	2000	1425
+7802920009438	538446	1	450	450	1426
+7802920009438	538446	1	450	450	1427
+7801610000601	538446	1	1000	1000	1428
+7803473004376	538446	1	600	600	1429
+4	538448	1	1000	1000	1430
+800	538448	1	800	800	1431
+500	538448	1	500	500	1432
+7802920005164	538449	1	500	500	1433
+7804643820154	538450	1	1600	1600	1434
+70847035800	538450	1	2000	2000	1435
+78023994	538451	1	250	250	1436
+7801610000601	538452	1	1000	1000	1437
+1400	538452	1	1400	1400	1438
+7802820600100	538452	1	700	700	1439
+7802230975324	538453	1	600	600	1440
+7802225584081	538453	1	500	500	1441
+7801620007027	538454	1	700	700	1442
+7804630010001	538454	1	800	800	1443
+7501013101362	538455	1	1450	1450	1444
+7501013101362	538455	1	1450	1450	1445
+7801620008307	538455	1	900	900	1446
+1400	538457	1	1400	1400	1447
+1400	538457	1	1400	1400	1448
+1800	538458	1	1800	1800	1449
+1800	538458	1	1800	1800	1450
+1800	538458	1	1800	1800	1451
+7801610323236	538458	1	2950	2950	1452
+9002490238841	538460	1	2500	2500	1453
+9002490238841	538460	1	2500	2500	1454
+7801620003326	538460	1	1000	1000	1455
+2000	538461	1	2000	2000	1456
+690	538462	1	980	980	1457
+7801620007027	538463	1	700	700	1458
+1900	538464	1	1900	1900	1459
+1200	538466	1	1200	1200	1460
+7804643820000	538466	1	1600	1600	1461
+1600	538467	1	1600	1600	1462
+1400	538467	1	1400	1400	1463
+3200	538468	1	3200	3200	1464
+3000	538468	1	3000	3000	1465
+3000	538468	1	3000	3000	1466
+800	538468	1	800	800	1467
+78025318	538468	1	4200	4200	1468
+78020627	538469	1	3900	3900	1469
+7801620006624	538469	1	1000	1000	1470
+3200	538470	1	3200	3200	1471
+3000	538471	1	3000	3000	1472
+1400	538471	1	1400	1400	1473
+1400	538471	1	1400	1400	1474
+606110111331	538472	1	1200	1200	1475
+78020627	538473	1	3900	3900	1476
+78021068	538473	1	2300	2300	1477
+613008735418	538474	1	1650	1650	1478
+613008735418	538474	1	1650	1650	1479
+4	538475	1	1000	1000	1480
+1400	538475	1	1400	1400	1481
+1690	538476	1	1690	1690	1482
+1690	538476	1	1690	1690	1483
+3000	538478	1	3000	3000	1484
+800	538478	1	800	800	1485
+1300	538479	1	1300	1300	1486
+7801620852580	538480	1	750	750	1487
+15	538480	1	1500	1500	1488
+7803908005947	538482	1	1000	1000	1489
+7613034279309	538482	1	350	350	1490
+7801620006846	538483	1	750	750	1491
+613008735432	538483	1	1500	1500	1492
+78007673	538484	1	3000	3000	1493
+1600	538485	1	1600	1600	1494
+1600	538485	1	1600	1600	1495
+7801610022122	538487	1	750	750	1496
+7802000002571	538487	1	1250	1250	1497
+690	538488	1	980	980	1498
+4	538489	1	1000	1000	1499
+4	538489	1	1000	1000	1500
+1600	538490	1	1600	1600	1501
+4	538490	1	1000	1000	1502
+7801610001196	538491	1	750	750	1503
+7613032186852	538491	1	650	650	1504
+4	538491	1	1000	1000	1505
+1600	538491	1	1600	1600	1506
+126	538492	1	350	350	1507
+126	538492	1	350	350	1508
+126	538492	1	350	350	1509
+126	538492	1	350	350	1510
+15	538492	1	1500	1500	1511
+15	538493	1	1500	1500	1512
+250	538493	1	250	250	1513
+7613035407176	538494	1	1690	1690	1514
+7801620015817	538495	1	700	700	1515
+7802820441000	538496	1	650	650	1516
+7801620852580	538497	1	750	750	1517
+7801620852580	538497	1	750	750	1518
+7802820021950	538497	1	1000	1000	1519
+7802820021950	538497	1	1000	1000	1520
+1600	538498	1	1600	1600	1521
+1600	538498	1	1600	1600	1522
+51	538498	1	1300	1300	1523
+51	538498	1	1300	1300	1524
+3200	538498	1	3200	3200	1525
+7801610022726	538502	1	1650	1650	1526
+15	538502	1	1500	1500	1527
+7801620003302	538503	1	1000	1000	1528
+7613032180157	538504	1	300	300	1529
+7801620015800	538505	2	700	1400	1530
+4	538505	1	1000	1000	1531
+4	538507	1	1000	1000	1532
+15	538507	1	1500	1500	1533
+7802820441000	538507	1	650	650	1534
+7804612131274	538507	1	400	400	1535
+3	538509	1	1100	1100	1536
+3	538509	1	1100	1100	1537
+3	538509	1	1100	1100	1538
+3	538509	1	1100	1100	1539
+1200	538509	1	1200	1200	1540
+1200	538509	1	1200	1200	1541
+1300	538510	1	1300	1300	1542
+1400	538511	1	1400	1400	1543
+7801620007027	538512	1	700	700	1544
+7801620007027	538512	1	700	700	1545
+52	538512	1	2000	2000	1546
+3	538512	1	1100	1100	1547
+78018884	538513	1	3400	3400	1548
+126	538513	1	350	350	1549
+1400	538514	1	1400	1400	1550
+400	538514	1	400	400	1551
+400	538514	1	400	400	1552
+3	538515	1	1100	1100	1553
+1700	538515	1	1700	1700	1554
+1300	538515	1	1300	1300	1555
+3	538516	1	1100	1100	1556
+850	538516	1	850	850	1557
+1300	538517	1	1300	1300	1558
+51	538518	1	1300	1300	1559
+51	538518	1	1300	1300	1560
+78018884	538518	1	3400	3400	1561
+3	538518	1	1100	1100	1562
+300	538518	1	300	300	1563
+1800	538519	1	1800	1800	1564
+60	538519	1	700	700	1565
+1300	538520	1	1300	1300	1566
+1300	538520	1	1300	1300	1567
+61	538520	1	1000	1000	1568
+450	538520	1	450	450	1569
+1300	538521	1	1300	1300	1570
+1300	538521	1	1300	1300	1571
+51	538521	1	1300	1300	1572
+450	538521	1	450	450	1573
+500	538522	1	500	500	1574
+500	538522	1	500	500	1575
+60	538522	1	700	700	1576
+450	538522	1	450	450	1577
+450	538522	1	450	450	1578
+1400	538522	1	1400	1400	1579
+1200	538522	1	1200	1200	1580
+1500	538522	1	1650	1650	1581
+9002490238841	538522	1	2500	2500	1582
+126	538522	1	350	350	1583
+52	538522	1	2000	2000	1584
+78021020	538523	1	2000	2000	1585
+7801610323236	538524	1	2950	2950	1586
+400	538524	1	400	400	1587
+400	538524	1	400	400	1588
+1200	538525	1	1200	1200	1589
+7802820250268	538525	1	350	350	1590
+7803525999667	538525	1	600	600	1591
+7801610350355	538526	1	750	750	1592
+7802920008158	538526	1	900	900	1593
+7622210757289	538526	1	400	400	1594
+7801620007621	538528	1	1200	1200	1595
+3	538530	1	1100	1100	1596
+51	538531	1	1300	1300	1597
+450	538531	1	450	450	1598
+450	538532	2	450	900	1599
+450	538532	2	450	900	1600
+4	538532	1	1000	1000	1601
+4	538534	1	1000	1000	1602
+51	538534	1	1300	1300	1603
+4	538535	1	1000	1000	1604
+7803908002090	538535	1	1400	1400	1605
+4	538537	1	1000	1000	1606
+2	538537	1	1300	1300	1607
+78024878	538539	1	4200	4200	1608
+3	538540	1	1100	1100	1609
+1200	538540	1	1200	1200	1610
+51	538540	1	1300	1300	1611
+51	538540	1	1300	1300	1612
+51	538540	1	1300	1300	1613
+15	538543	1	1500	1500	1614
+126	538543	1	350	350	1615
+3	538543	1	1100	1100	1616
+60	538543	1	700	700	1617
+15	538543	1	1500	1500	1618
+3	538545	1	1100	1100	1619
+1400	538545	1	1400	1400	1620
+1300	538545	1	1300	1300	1621
+1200	538545	1	1200	1200	1622
+7801620015817	538545	1	700	700	1623
+1200	538546	1	1200	1200	1624
+126	538546	1	350	350	1625
+1200	538547	1	1200	1200	1626
+51	538547	1	1300	1300	1627
+500	538548	1	500	500	1628
+3200	538548	1	3200	3200	1629
+1800	538548	1	1800	1800	1630
+51	538549	1	1300	1300	1631
+1400	538549	1	1400	1400	1632
+1200	538549	1	1200	1200	1633
+3	538550	1	1100	1100	1634
+51	538550	1	1300	1300	1635
+4	538551	1	1000	1000	1636
+1400	538551	1	1400	1400	1637
+1200	538551	1	1200	1200	1638
+800	538551	1	800	800	1639
+7801620006174	538552	1	990	990	1640
+2000	538553	1	2000	2000	1641
+613008735418	538553	1	1650	1650	1642
+60	538553	1	700	700	1643
+78024892	538553	1	4300	4300	1644
+300	538553	1	300	300	1645
+1400	538554	1	1400	1400	1646
+7801620005160	538555	1	1500	1500	1647
+15	538556	1	1500	1500	1648
+7802920007182	538556	1	500	500	1649
+69	538556	1	600	600	1650
+69	538556	1	600	600	1651
+3	538557	1	1100	1100	1652
+3	538557	1	1100	1100	1653
+1400	538558	1	1400	1400	1654
+51	538558	1	1300	1300	1655
+3	538559	1	1100	1100	1656
+3	538559	1	1100	1100	1657
+800	538559	1	800	800	1658
+800	538559	1	800	800	1659
+78016293	538560	1	2500	2500	1660
+7801620852962	538560	1	1000	1000	1661
+450	538561	1	450	450	1662
+1400	538561	1	1400	1400	1663
+7802215512261	538562	1	700	700	1664
+1300	538563	1	1300	1300	1665
+51	538563	1	1300	1300	1666
+1700	538563	1	1700	1700	1667
+800	538563	1	800	800	1668
+7807733947472	538563	1	2690	2690	1669
+1200	538564	1	1200	1200	1670
+450	538564	1	450	450	1671
+800	538564	1	800	800	1672
+78018884	538565	1	3400	3400	1673
+15	538565	1	1500	1500	1674
+300	538565	1	300	300	1675
+400	538567	1	400	400	1676
+500	538567	1	500	500	1677
+15	538567	1	1500	1500	1678
+60	538568	1	700	700	1679
+3	538568	1	1100	1100	1680
+60	538569	1	700	700	1681
+1400	538569	1	1400	1400	1682
+500	538570	1	500	500	1683
+7790040613706	538570	1	450	450	1684
+3	538571	1	1100	1100	1685
+7801620002664	538571	1	1100	1100	1686
+51	538572	1	1300	1300	1687
+1300	538572	1	1300	1300	1688
+1200	538572	1	1200	1200	1689
+1200	538572	1	1200	1200	1690
+126	538572	1	350	350	1691
+7501013101348	538572	1	1450	1450	1692
+1200	538573	1	1200	1200	1693
+1200	538573	1	1200	1200	1694
+126	538573	1	350	350	1695
+7501013101348	538573	1	1450	1450	1696
+52	538576	1	2000	2000	1697
+7803403001055	538576	1	750	750	1698
+78007673	538576	1	3000	3000	1699
+7613032590369	538577	1	800	800	1700
+7802920007182	538577	1	500	500	1701
+7802950072679	538577	1	300	300	1702
+7613032443221	538578	1	350	350	1703
+7802230081162	538578	1	850	850	1704
+1600	538579	1	1600	1600	1705
+690	538579	1	980	980	1706
+7613032443221	538579	1	350	350	1707
+7803403001055	538579	1	750	750	1708
+2000	538580	1	2000	2000	1709
+2000	538580	1	2000	2000	1710
+3	538580	1	1100	1100	1711
+3	538580	1	1100	1100	1712
+1800	538581	1	1800	1800	1713
+2000	538581	1	2000	2000	1714
+7613030264088	538583	1	1500	1500	1715
+1900	538583	1	1900	1900	1716
+700	538584	1	950	950	1717
+1600	538584	1	1600	1600	1718
+69	538584	1	600	600	1719
+69	538584	1	600	600	1720
+7802920423609	538585	1	850	850	1721
+61	538585	1	1000	1000	1722
+4	538586	1	1000	1000	1723
+78934696	538586	1	480	480	1724
+793573241962	538587	1	1400	1400	1725
+78021020	538587	1	2000	2000	1726
+78000124	538587	1	4000	4000	1727
+1500	538587	1	1650	1650	1728
+1500	538587	1	1650	1650	1729
+3000	538588	1	3000	3000	1730
+78024892	538588	1	4300	4300	1731
+50173204	538588	1	600	600	1732
+7801620001834	538589	1	700	700	1733
+1300	538591	1	1300	1300	1734
+78011748	538592	1	350	350	1735
+78011748	538592	1	350	350	1736
+7801610001196	538592	1	800	800	1737
+7802920000930	538592	1	350	350	1738
+3200	538592	1	3200	3200	1739
+1300	538593	1	1300	1300	1740
+78007673	538594	1	3000	3000	1741
+70847009511	538594	1	2000	2000	1742
+40000514251	538594	1	990	990	1743
+3200	538595	1	3200	3200	1744
+7801610001196	538595	1	800	800	1745
+7802230975324	538595	1	600	600	1746
+7801610001196	538595	1	800	800	1747
+7801620006624	538596	1	1000	1000	1748
+7801620852955	538597	1	1000	1000	1749
+7801620015800	538599	1	700	700	1750
+7802820441000	538600	1	650	650	1751
+7803525999667	538600	1	600	600	1752
+7802215502262	538600	1	750	750	1753
+7613032443221	538601	1	350	350	1754
+7802920008158	538601	1	900	900	1755
+7802000014857	538602	1	700	700	1756
+7801620002664	538602	1	1100	1100	1757
+7801620016036	538603	1	1000	1000	1758
+7803908003103	538604	1	1000	1000	1759
+7803908003103	538604	1	1000	1000	1760
+3	538606	1	1100	1100	1761
+7801620008307	538606	1	900	900	1762
+7801620008307	538606	1	900	900	1763
+52	538606	1	2000	2000	1764
+1300	538607	1	1300	1300	1765
+7802920005164	538607	1	500	500	1766
+7801620006082	538607	1	1000	1000	1767
+1	538608	8	1200	9600	1768
+3	538608	1	1100	1100	1769
+3	538609	1	1100	1100	1770
+7801620002961	538609	1	1100	1100	1771
+3	538610	1	1100	1100	1772
+3	538610	1	1100	1100	1773
+3	538610	1	1100	1100	1774
+52	538611	1	2000	2000	1775
+3	538611	1	1100	1100	1776
+78600010	538611	1	480	480	1777
+126	538611	1	350	350	1778
+78024717	538611	1	4300	4300	1779
+7801620015817	538612	1	700	700	1780
+4	538612	1	1000	1000	1781
+4	538612	1	1000	1000	1782
+1400	538613	1	1400	1400	1783
+1400	538613	1	1400	1400	1784
+1400	538613	1	1400	1400	1785
+7801620006853	538614	1	1000	1000	1786
+7802820600209	538614	1	700	700	1787
+1200	538616	1	1200	1200	1788
+7802920202105	538616	1	1250	1250	1789
+1800	538617	1	1800	1800	1790
+1600	538617	1	1600	1600	1791
+60	538617	1	700	700	1792
+7802820600100	538618	1	700	700	1793
+7802800500772	538618	1	1600	1600	1794
+7802820600100	538618	1	700	700	1795
+4	538618	1	1000	1000	1796
+51	538618	1	1300	1300	1797
+3	538619	1	1100	1100	1798
+69	538619	1	600	600	1799
+7801610350355	538620	1	800	800	1800
+3	538621	1	1100	1100	1801
+7803525999667	538621	1	600	600	1802
+200	538622	5	250	1250	1803
+7801620002961	538622	1	1100	1100	1804
+78021020	538623	1	2000	2000	1805
+69	538623	1	600	600	1806
+4	538624	1	1000	1000	1807
+200	538624	4	250	1000	1808
+78025318	538624	1	4200	4200	1809
+400	538626	1	400	400	1810
+3	538626	1	1100	1100	1811
+7802920008141	538626	1	850	850	1812
+3	538629	1	1100	1100	1813
+7801620002367	538629	1	800	800	1814
+1300	538630	1	1300	1300	1815
+7802820441000	538630	1	650	650	1816
+78019065	538630	1	2000	2000	1817
+1200	538631	1	1200	1200	1818
+15	538631	1	1500	1500	1819
+78019041	538631	1	2000	2000	1820
+78019041	538631	1	2000	2000	1821
+300	538631	1	300	300	1822
+7803473003232	538632	1	400	400	1823
+7802000013140	538633	1	600	600	1824
+7802225682107	538634	1	600	600	1825
+60	538634	1	700	700	1826
+3	538635	1	1100	1100	1827
+60	538635	1	700	700	1828
+51	538636	1	1300	1300	1829
+126	538636	1	350	350	1830
+51	538638	1	1300	1300	1831
+3	538638	1	1100	1100	1832
+78019065	538638	1	2000	2000	1833
+51	538639	1	1300	1300	1834
+9002490100070	538640	1	1700	1700	1835
+7802950072679	538640	1	300	300	1836
+3	538641	1	1100	1100	1837
+3	538641	1	1100	1100	1838
+51	538641	1	1300	1300	1839
+51	538641	1	1300	1300	1840
+1200	538642	1	1200	1200	1841
+3	538642	1	1100	1100	1842
+3	538643	1	1100	1100	1843
+69	538643	1	600	600	1844
+126	538643	1	350	350	1845
+126	538643	1	350	350	1846
+78029590	538644	1	4000	4000	1847
+3	538645	1	1100	1100	1848
+7801610022122	538645	1	800	800	1849
+400	538645	1	400	400	1850
+1200	538647	1	1200	1200	1851
+3	538648	1	1100	1100	1852
+500	538648	1	500	500	1853
+1400	538649	1	1400	1400	1854
+51	538650	1	1300	1300	1855
+1400	538651	1	1400	1400	1856
+1400	538651	1	1400	1400	1857
+126	538651	1	350	350	1858
+126	538651	1	350	350	1859
+3	538651	1	1100	1100	1860
+15	538652	1	1500	1500	1861
+7801620002671	538652	1	1100	1100	1862
+3	538652	1	1100	1100	1863
+3	538653	1	1100	1100	1864
+400	538653	1	400	400	1865
+3	538655	1	1100	1100	1866
+2000	538655	1	2000	2000	1867
+7801620006600	538655	1	1000	1000	1868
+4	538656	1	1000	1000	1869
+1300	538656	1	1300	1300	1870
+450	538656	1	450	450	1871
+1800	538657	1	1800	1800	1872
+4	538657	1	1000	1000	1873
+1200	538658	1	1200	1200	1874
+7801620075941	538658	1	1000	1000	1875
+3	538659	1	1100	1100	1876
+3	538660	1	1100	1100	1877
+500	538660	1	500	500	1878
+7803473005359	538660	1	500	500	1879
+3	538661	1	1100	1100	1880
+3	538661	1	1100	1100	1881
+800	538661	1	800	800	1882
+7802200132696	538661	1	300	300	1883
+400	538661	1	400	400	1884
+3	538662	1	1100	1100	1885
+3	538663	1	1100	1100	1886
+3	538663	1	1100	1100	1887
+500	538663	1	500	500	1888
+1200	538664	1	1200	1200	1889
+4	538665	1	1000	1000	1890
+4	538665	1	1000	1000	1891
+7801610022122	538667	1	800	800	1892
+7801610022122	538667	1	800	800	1893
+1	538667	1	1200	1200	1894
+1	538667	1	1200	1200	1895
+3	538670	1	1100	1100	1896
+4	538670	1	1000	1000	1897
+4	538670	1	1000	1000	1898
+15	538671	3	1500	4500	1899
+51	538673	1	1300	1300	1900
+3	538673	1	1100	1100	1901
+51	538674	1	1300	1300	1902
+3	538674	1	1100	1100	1903
+69	538674	1	600	600	1904
+1300	538675	1	1300	1300	1905
+1600	538675	1	1600	1600	1906
+3	538676	1	1100	1100	1907
+51	538676	1	1300	1300	1908
+1400	538677	1	1400	1400	1909
+61	538677	1	1000	1000	1910
+4	538679	1	1000	1000	1911
+1200	538679	1	1200	1200	1912
+613008735418	538680	1	1650	1650	1913
+2000	538680	1	2000	2000	1914
+7801610323236	538681	1	2950	2950	1915
+7801620006631	538681	1	1200	1200	1916
+7801620006631	538681	1	1200	1200	1917
+1200	538682	1	1200	1200	1918
+7801620015800	538682	1	700	700	1919
+4	538683	1	1000	1000	1920
+1400	538683	1	1400	1400	1921
+4	538683	1	1000	1000	1922
+51	538683	1	1300	1300	1923
+51	538683	1	1300	1300	1924
+51	538683	1	1300	1300	1925
+7801620002671	538683	1	1100	1100	1926
+78000124	538684	1	4000	4000	1927
+3	538685	1	1100	1100	1928
+3	538685	1	1100	1100	1929
+60	538686	1	700	700	1930
+450	538686	1	450	450	1931
+450	538686	1	450	450	1932
+500	538686	1	500	500	1933
+3	538687	1	1100	1100	1934
+3	538688	1	1100	1100	1935
+7802820441000	538688	1	650	650	1936
+1300	538689	1	1300	1300	1937
+51	538689	1	1300	1300	1938
+60	538689	1	700	700	1939
+4	538690	1	1000	1000	1940
+4	538690	1	1000	1000	1941
+126	538690	1	350	350	1942
+60	538691	1	700	700	1943
+7613032443221	538691	1	350	350	1944
+1600	538691	1	1600	1600	1945
+4	538692	1	1000	1000	1946
+1200	538692	1	1200	1200	1947
+4	538692	1	1000	1000	1948
+51	538693	1	1300	1300	1949
+4	538693	1	1000	1000	1950
+1400	538694	1	1400	1400	1951
+51	538694	1	1300	1300	1952
+4	538695	1	1000	1000	1953
+1400	538695	1	1400	1400	1954
+4	538695	1	1000	1000	1955
+51	538696	1	1300	1300	1956
+3	538696	1	1100	1100	1957
+61	538696	1	1000	1000	1958
+800	538696	1	800	800	1959
+690	538697	1	980	980	1960
+690	538697	1	980	980	1961
+76406022601	538698	1	800	800	1962
+7802800544318	538698	1	350	350	1963
+450	538698	1	450	450	1964
+450	538698	1	450	450	1965
+7802230086952	538699	1	800	800	1966
+500	538699	1	500	500	1967
+40000422068	538699	1	990	990	1968
+61	538700	1	1000	1000	1969
+15	538700	1	1500	1500	1970
+500	538700	1	500	500	1971
+3	538700	1	1100	1100	1972
+3	538704	1	1100	1100	1973
+800	538704	1	800	800	1974
+1600	538705	1	1600	1600	1975
+7802820441000	538705	1	650	650	1976
+51	538706	1	1300	1300	1977
+1400	538706	1	1400	1400	1978
+1400	538706	1	1400	1400	1979
+7802820600100	538707	1	700	700	1980
+7802920007182	538707	1	500	500	1981
+1400	538708	1	1400	1400	1982
+1400	538708	1	1400	1400	1983
+4	538708	1	1000	1000	1984
+7802820990102	538708	1	1050	1050	1985
+7804630010148	538708	1	3250	3250	1986
+7801620003326	538709	1	1000	1000	1987
+7803525999667	538709	1	600	600	1988
+7802820441123	538709	1	650	650	1989
+51	538710	1	1300	1300	1990
+4	538710	1	1000	1000	1991
+7801620008307	538710	1	900	900	1992
+15	538711	1	1500	1500	1993
+7801610022726	538711	1	1650	1650	1994
+15	538712	1	1500	1500	1995
+15	538712	1	1500	1500	1996
+742832751988	538712	1	1400	1400	1997
+50173204	538712	1	600	600	1998
+50173204	538712	1	600	600	1999
+1800	538712	1	1800	1800	2000
+1400	538712	1	1400	1400	2001
+7803400000105	538713	1	400	400	2002
+500	538713	1	500	500	2003
+1400	538714	1	1400	1400	2004
+800	538714	1	800	800	2005
+7801610350355	538715	1	800	800	2006
+7801610022726	538716	1	1650	1650	2007
+1800	538716	1	1800	1800	2008
+1200	538716	1	1200	1200	2009
+7801620853198	538721	1	2000	2000	2010
+3000	538722	1	3000	3000	2011
+4	538722	1	1000	1000	2012
+450	538723	1	450	450	2013
+450	538723	1	450	450	2014
+450	538723	1	450	450	2015
+3000	538724	1	3000	3000	2016
+1600	538724	1	1600	1600	2017
+1600	538724	1	1600	1600	2018
+800	538724	1	800	800	2019
+800	538724	1	800	800	2020
+7803473003232	538724	1	400	400	2021
+3200	538725	1	3200	3200	2022
+1800	538726	1	1800	1800	2023
+1800	538726	1	1800	1800	2024
+7803473003232	538726	1	400	400	2025
+7803473003232	538726	1	400	400	2026
+7802800556229	538727	1	550	550	2027
+3000	538727	1	3000	3000	2028
+1600	538728	1	1600	1600	2029
+60	538728	1	700	700	2030
+1300	538728	1	1300	1300	2031
+3200	538730	1	3200	3200	2032
+1300	538730	1	1300	1300	2033
+7801610001622	538731	1	1650	1650	2034
+7803473003461	538731	1	700	700	2035
+7501013101348	538732	1	1450	1450	2036
+1850	538732	1	1850	1850	2037
+1400	538733	1	1400	1400	2038
+7613035407145	538735	1	1690	1690	2039
+78019041	538736	1	2000	2000	2040
+1800	538737	1	1800	1800	2041
+7801620008307	538738	1	900	900	2042
+300	538738	1	300	300	2043
+3000	538738	1	3000	3000	2044
+4	538739	1	1000	1000	2045
+800	538739	1	800	800	2046
+400	538739	1	400	400	2047
+300	538739	1	300	300	2048
+1800	538740	1	1800	1800	2049
+4	538740	1	1000	1000	2050
+1400	538741	1	1400	1400	2051
+7801620008307	538741	1	900	900	2052
+400	538741	1	400	400	2053
+3200	538742	1	3200	3200	2054
+1300	538742	1	1300	1300	2055
+800	538742	1	800	800	2056
+3200	538742	1	3200	3200	2057
+4	538743	1	1000	1000	2058
+126	538743	1	350	350	2059
+7802950088823	538743	1	350	350	2060
+7801620002367	538744	1	800	800	2061
+7801620015800	538746	1	700	700	2062
+800	538747	1	800	800	2063
+51	538747	1	1300	1300	2064
+7803400000105	538747	1	400	400	2065
+1400	538748	1	1400	1400	2066
+800	538748	1	800	800	2067
+800	538749	1	800	800	2068
+300	538749	1	300	300	2069
+300	538749	1	300	300	2070
+1400	538750	1	1400	1400	2071
+7801620006174	538750	1	990	990	2072
+78068315	538750	1	350	350	2073
+78934696	538750	1	480	480	2074
+7801620015817	538750	1	700	700	2075
+1800	538751	1	1800	1800	2076
+1800	538751	1	1800	1800	2077
+1800	538751	1	1800	1800	2078
+7802215504655	538752	1	500	500	2079
+69	538752	1	600	600	2080
+800	538754	1	800	800	2081
+7801620015817	538754	1	700	700	2082
+1400	538754	1	1400	1400	2083
+7803473003461	538755	1	700	700	2084
+800	538755	1	800	800	2085
+78006164	538756	1	870	870	2086
+69	538756	1	600	600	2087
+7613032180096	538757	1	350	350	2088
+690	538757	1	980	980	2089
+51	538758	1	1300	1300	2090
+7802950088823	538758	1	350	350	2091
+50173617	538760	1	650	650	2092
+800	538760	1	800	800	2093
+7613034276490	538761	1	500	500	2094
+7801620852689	538761	1	800	800	2095
+78025219	538761	1	3300	3300	2096
+7801610000601	538763	1	1000	1000	2097
+7802820600209	538763	1	700	700	2098
+42123880	538763	1	650	650	2099
+42123880	538763	1	650	650	2100
+4	538763	1	1000	1000	2101
+1400	538764	1	1400	1400	2102
+1300	538764	1	1300	1300	2103
+4	538764	1	1000	1000	2104
+7801620006174	538766	1	990	990	2105
+7801620001704	538766	1	850	850	2106
+7802215512285	538766	1	700	700	2107
+1690	538767	1	1690	1690	2108
+7613035807464	538767	1	1690	1690	2109
+7801620015800	538767	1	700	700	2110
+7802820990102	538768	1	1050	1050	2111
+650	538769	1	650	650	2112
+650	538769	1	650	650	2113
+793573241962	538770	1	1400	1400	2114
+800	538770	1	800	800	2115
+500	538770	1	500	500	2116
+7801620001834	538772	1	700	700	2117
+7802820441000	538772	1	650	650	2118
+78018853	538773	1	1800	1800	2119
+7613032180096	538774	4	350	1400	2120
+7613032180157	538774	6	300	1800	2121
+7801620015800	538775	1	700	700	2122
+800	538777	1	800	800	2123
+7802920002323	538777	1	700	700	2124
+7802920000862	538777	1	500	500	2125
+78000285	538778	1	4000	4000	2126
+7801610001622	538778	1	1650	1650	2127
+4	538779	1	1000	1000	2128
+1400	538779	1	1400	1400	2129
+400	538779	1	400	400	2130
+78024717	538780	1	4300	4300	2131
+78024892	538780	1	4300	4300	2132
+650	538780	1	650	650	2133
+800	538781	1	800	800	2134
+4	538781	1	1000	1000	2135
+800	538781	1	800	800	2136
+7801620001711	538782	1	1100	1100	2137
+7501013101331	538783	1	1450	1450	2138
+7501013101331	538783	1	1450	1450	2139
+7802832101121	538783	2	1400	2800	2140
+78020627	538784	1	3900	3900	2141
+7802820441123	538785	1	650	650	2142
+7801620015817	538786	1	700	700	2143
+78024878	538786	1	4200	4200	2144
+78024878	538786	1	4200	4200	2145
+3	538788	1	1100	1100	2146
+3	538788	1	1100	1100	2147
+7801620852955	538788	1	1000	1000	2148
+1300	538789	1	1300	1300	2149
+800	538789	1	800	800	2150
+800	538789	1	800	800	2151
+60	538789	1	700	700	2152
+60	538789	1	700	700	2153
+1200	538790	1	1200	1200	2154
+3	538791	1	1100	1100	2155
+300	538791	1	300	300	2156
+3	538791	1	1100	1100	2157
+1200	538792	1	1200	1200	2158
+69	538793	1	600	600	2159
+3	538793	1	1100	1100	2160
+51	538794	1	1300	1300	2161
+1400	538794	1	1400	1400	2162
+7801620003302	538795	1	1000	1000	2163
+4	538795	1	1000	1000	2164
+4	538795	1	1000	1000	2165
+7800120171061	538797	1	400	400	2166
+7802920008141	538797	1	850	850	2167
+3	538800	1	1100	1100	2168
+69	538800	1	600	600	2169
+1400	538801	1	1400	1400	2170
+7802920000862	538801	1	500	500	2171
+7802920009438	538801	1	450	450	2172
+4	538802	1	1000	1000	2173
+69	538802	1	600	600	2174
+7804612131274	538803	1	400	400	2175
+51	538804	1	1300	1300	2176
+1300	538804	1	1300	1300	2177
+1700	538804	1	1700	1700	2178
+1700	538804	1	1700	1700	2179
+4	538806	1	1000	1000	2180
+4	538806	1	1000	1000	2181
+450	538806	1	450	450	2182
+450	538806	1	450	450	2183
+3	538808	1	1100	1100	2184
+1200	538808	1	1200	1200	2185
+800	538808	1	800	800	2186
+3	538809	1	1100	1100	2187
+3	538809	1	1100	1100	2188
+60	538809	1	700	700	2189
+3	538809	1	1100	1100	2190
+3	538810	1	1100	1100	2191
+4	538810	1	1000	1000	2192
+1300	538810	1	1300	1300	2193
+3	538811	1	1100	1100	2194
+3	538811	1	1100	1100	2195
+60	538811	1	700	700	2196
+1300	538812	1	1300	1300	2197
+300	538812	1	300	300	2198
+300	538812	1	300	300	2199
+3	538813	1	1100	1100	2200
+800	538813	1	800	800	2201
+7801620015817	538814	1	700	700	2202
+7801620015817	538814	1	700	700	2203
+4	538814	1	1000	1000	2204
+4	538814	1	1000	1000	2205
+78025318	538814	1	4200	4200	2206
+1400	538815	1	1400	1400	2207
+1400	538815	1	1400	1400	2208
+51	538815	1	1300	1300	2209
+51	538816	1	1300	1300	2210
+3	538816	1	1100	1100	2211
+800	538817	1	800	800	2212
+800	538817	1	800	800	2213
+800	538817	1	800	800	2214
+4	538817	1	1000	1000	2215
+1800	538817	1	1800	1800	2216
+1400	538817	1	1400	1400	2217
+1200	538818	1	1200	1200	2218
+126	538818	1	350	350	2219
+126	538818	1	350	350	2220
+69	538818	1	600	600	2221
+3	538818	1	1100	1100	2222
+1200	538818	1	1200	1200	2223
+1400	538819	1	1400	1400	2224
+78020627	538819	1	3900	3900	2225
+3	538819	1	1100	1100	2226
+78007673	538819	1	3000	3000	2227
+800	538821	1	800	800	2228
+51	538821	1	1300	1300	2229
+3	538821	1	1100	1100	2230
+400	538821	1	400	400	2231
+3	538822	1	1100	1100	2232
+4	538822	1	1000	1000	2233
+1200	538823	1	1200	1200	2234
+613008756451	538823	1	1500	1500	2235
+4	538824	1	1000	1000	2236
+1300	538824	1	1300	1300	2237
+450	538824	1	450	450	2238
+3	538825	1	1100	1100	2239
+800	538825	1	800	800	2240
+3	538826	1	1100	1100	2241
+800	538826	1	800	800	2242
+3	538827	1	1100	1100	2243
+1400	538827	1	1400	1400	2244
+52	538828	1	2000	2000	2245
+450	538828	1	450	450	2246
+450	538828	1	450	450	2247
+7802215512285	538829	1	700	700	2248
+3	538830	1	1100	1100	2249
+3	538830	1	1100	1100	2250
+1300	538834	1	1300	1300	2251
+15	538834	1	1500	1500	2252
+3	538835	1	1100	1100	2253
+1300	538836	1	1300	1300	2254
+500	538836	1	500	500	2255
+7802820990102	538836	1	1050	1050	2256
+3	538837	1	1100	1100	2257
+1200	538837	1	1200	1200	2258
+7801610000595	538837	1	1000	1000	2259
+400	538837	1	400	400	2260
+2000	538838	1	2000	2000	2261
+500	538838	1	500	500	2262
+79	538839	1	400	400	2263
+1300	538839	1	1300	1300	2264
+4	538840	1	1000	1000	2265
+7801620011673	538840	1	700	700	2266
+78068308	538840	1	350	350	2267
+1800	538842	1	1800	1800	2268
+7801620006174	538842	1	990	990	2269
+4	538844	1	1000	1000	2270
+7790040613706	538844	1	450	450	2271
+61	538846	1	1000	1000	2272
+4	538846	1	1000	1000	2273
+15	538847	1	1500	1500	2274
+15	538847	1	1500	1500	2275
+1200	538848	1	1200	1200	2276
+15	538848	1	1500	1500	2277
+3	538849	1	1100	1100	2278
+51	538849	1	1300	1300	2279
+2000	538850	1	2000	2000	2280
+126	538850	1	350	350	2281
+2000	538850	1	2000	2000	2282
+2000	538850	1	2000	2000	2283
+78000285	538851	1	4000	4000	2284
+78018853	538853	1	1800	1800	2285
+1200	538854	1	1200	1200	2286
+1600	538854	1	1600	1600	2287
+78024717	538854	1	4300	4300	2288
+300	538854	1	300	300	2289
+3	538855	1	1100	1100	2290
+1300	538855	1	1300	1300	2291
+1850	538856	1	1850	1850	2292
+3200	538856	1	3200	3200	2293
+500	538856	1	500	500	2294
+1400	538856	1	1400	1400	2295
+3200	538856	1	3200	3200	2296
+1850	538857	1	1850	1850	2297
+15	538857	1	1500	1500	2298
+4	538857	1	1000	1000	2299
+3	538858	1	1100	1100	2300
+51	538859	1	1300	1300	2301
+1300	538859	1	1300	1300	2302
+126	538859	1	350	350	2303
+126	538859	1	350	350	2304
+126	538859	1	350	350	2305
+126	538859	1	350	350	2306
+7804643820000	538860	1	1600	1600	2307
+500	538860	1	500	500	2308
+51	538861	1	1300	1300	2309
+4	538861	1	1000	1000	2310
+7802230975324	538861	1	600	600	2311
+7804643820000	538864	1	1600	1600	2312
+7801620015817	538866	1	700	700	2313
+61	538866	1	1000	1000	2314
+3	538867	1	1100	1100	2315
+1200	538867	1	1200	1200	2316
+850	538868	1	850	850	2317
+4	538868	1	1000	1000	2318
+78000285	538868	1	4000	4000	2319
+1400	538869	1	1400	1400	2320
+1300	538869	1	1300	1300	2321
+800	538870	1	800	800	2322
+4	538870	1	1000	1000	2323
+4	538871	1	1000	1000	2324
+7801620001704	538872	1	850	850	2325
+78007505	538872	1	350	350	2326
+1600	538873	1	1600	1600	2327
+3	538873	1	1100	1100	2328
+3	538874	1	1100	1100	2329
+7801620002961	538874	1	1100	1100	2330
+3	538876	1	1100	1100	2331
+500	538876	1	500	500	2332
+400	538876	1	400	400	2333
+51	538877	1	1300	1300	2334
+300	538877	1	300	300	2335
+300	538877	1	300	300	2336
+51	538878	1	1300	1300	2337
+500	538878	1	500	500	2338
+7802575220493	538887	1	400	400	2339
+7802820020953	538889	1	1000	1000	2340
+6780201379627	538890	1	1800	1800	2341
+1400	538891	4	1400	5600	2342
+78021020	538892	1	2000	2000	2343
+78016408	538893	1	2500	2500	2344
+7804612131274	538894	1	400	400	2345
+4	538895	1	1000	1000	2346
+1900	538895	1	1900	1900	2347
+1400	538896	1	1400	1400	2348
+40000536819	538896	1	850	850	2349
+4	538897	1	1000	1000	2350
+4	538897	1	1000	1000	2351
+7793890254303	538897	1	600	600	2352
+7802800556229	538897	1	550	550	2353
+40000422068	538897	1	990	990	2354
+7801610000601	538898	1	1000	1000	2355
+7802820600209	538898	1	700	700	2356
+7801620853402	538898	1	700	700	2357
+7801620002961	538900	1	1100	1100	2358
+3	538900	1	1100	1100	2359
+1300	538901	1	1300	1300	2360
+800	538901	1	800	800	2361
+1300	538902	1	1300	1300	2362
+500	538902	1	500	500	2363
+7802820600100	538903	1	700	700	2364
+500	538904	1	500	500	2365
+1400	538904	1	1400	1400	2366
+1300	538905	1	1300	1300	2367
+3000	538905	1	3000	3000	2368
+800	538905	1	800	800	2369
+3200	538906	1	3200	3200	2370
+3000	538906	1	3000	3000	2371
+60	538906	1	700	700	2372
+3200	538907	1	3200	3200	2373
+1800	538908	1	1800	1800	2374
+1800	538908	1	1800	1800	2375
+1500	538908	1	1650	1650	2376
+400	538908	1	400	400	2377
+400	538908	1	400	400	2378
+3200	538909	1	3200	3200	2379
+7801610000571	538910	1	1000	1000	2380
+51	538910	1	1300	1300	2381
+7801610000601	538911	1	1000	1000	2382
+7802832101121	538911	1	1400	1400	2383
+9002490100070	538911	1	1700	1700	2384
+7613035493650	538911	1	2620	2620	2385
+7801620001704	538913	1	850	850	2386
+7801620015800	538915	1	700	700	2387
+78068315	538915	1	350	350	2388
+300	538916	1	300	300	2389
+3200	538917	1	3200	3200	2390
+3	538918	1	1100	1100	2391
+4	538918	1	1000	1000	2392
+78020627	538919	1	3900	3900	2393
+78006164	538920	1	870	870	2394
+500	538921	1	500	500	2395
+1690	538921	1	1690	1690	2396
+1200	538921	1	1200	1200	2397
+3200	538922	1	3200	3200	2398
+1400	538923	1	1400	1400	2399
+800	538923	1	800	800	2400
+1200	538924	1	1200	1200	2401
+3000	538924	1	3000	3000	2402
+1200	538925	1	1200	1200	2403
+70847021964	538925	1	2000	2000	2404
+7801610001196	538925	1	800	800	2405
+1300	538926	1	1300	1300	2406
+3000	538927	1	3000	3000	2407
+7802820441802	538928	1	1000	1000	2408
+7613035490734	538929	1	2620	2620	2409
+800	538931	1	800	800	2410
+500	538931	1	500	500	2411
+9002490100070	538933	1	1700	1700	2412
+78020627	538933	1	3900	3900	2413
+51	538934	1	1300	1300	2414
+51	538934	1	1300	1300	2415
+1600	538934	1	1600	1600	2416
+1600	538934	1	1600	1600	2417
+3200	538934	1	3200	3200	2418
+1300	538934	1	1300	1300	2419
+7801620002671	538937	1	1100	1100	2420
+1690	538938	1	1690	1690	2421
+7801620005856	538939	1	900	900	2422
+400	538939	1	400	400	2423
+7702018880409	538940	1	850	850	2424
+3000	538941	1	3000	3000	2425
+60	538941	1	700	700	2426
+126	538942	1	350	350	2427
+126	538942	1	350	350	2428
+126	538942	1	350	350	2429
+126	538942	1	350	350	2430
+9002490238841	538943	1	2500	2500	2431
+7801610001936	538943	1	500	500	2432
+7803403001055	538946	1	750	750	2433
+40000422068	538946	1	990	990	2434
+78025240	538948	1	4300	4300	2435
+7801620006082	538950	1	1000	1000	2436
+7801620015800	538950	1	700	700	2437
+78020627	538951	1	3900	3900	2438
+61	538952	1	1000	1000	2439
+61	538953	1	1000	1000	2440
+1690	538955	1	1690	1690	2441
+7613035490734	538955	1	2620	2620	2442
+800	538956	1	800	800	2443
+1600	538956	1	1600	1600	2444
+7801620002664	538957	1	1100	1100	2445
+4	538959	1	1000	1000	2446
+4	538959	1	1000	1000	2447
+1600	538959	1	1600	1600	2448
+4	538959	1	1000	1000	2449
+78024717	538960	1	4300	4300	2450
+7801620004873	538961	1	900	900	2451
+78007673	538961	1	3000	3000	2452
+300	538961	1	300	300	2453
+9002490214852	538962	1	1700	1700	2454
+200	538962	1	250	250	2455
+7802215504655	538963	1	500	500	2456
+7801620853402	538963	1	700	700	2457
+7801620853402	538964	1	700	700	2458
+7801620853402	538964	1	700	700	2459
+7801610350355	538965	1	800	800	2460
+7801610350355	538965	1	800	800	2461
+7802820990102	538965	1	1050	1050	2462
+7802950072679	538966	1	300	300	2463
+613008756451	538967	1	1500	1500	2464
+4	538971	1	1000	1000	2465
+1700	538971	1	1700	1700	2466
+1700	538971	1	1700	1700	2467
+60	538971	1	700	700	2468
+7802000013157	538971	1	1200	1200	2469
+1400	538973	1	1400	1400	2470
+800	538973	1	800	800	2471
+800	538974	1	800	800	2472
+4	538975	1	1000	1000	2473
+7891000248768	538975	1	900	900	2474
+4	538976	1	1000	1000	2475
+7801610002193	538976	1	800	800	2476
+7804630010001	538976	1	800	800	2477
+7802000013683	538976	1	700	700	2478
+7801620004057	538976	1	1000	1000	2479
+1200	538978	1	1200	1200	2480
+1400	538978	1	1400	1400	2481
+3	538979	1	1100	1100	2482
+3	538979	1	1100	1100	2483
+4	538981	1	1000	1000	2484
+60	538981	1	700	700	2485
+3	538981	1	1100	1100	2486
+3	538982	1	1100	1100	2487
+7802920009438	538982	1	450	450	2488
+7802920004952	538982	1	350	350	2489
+7802000013140	538983	1	600	600	2490
+7801620005344	538983	1	800	800	2491
+7802920008141	538984	1	850	850	2492
+7800120171061	538984	1	400	400	2493
+3	538986	1	1100	1100	2494
+69	538986	1	600	600	2495
+3	538987	1	1100	1100	2496
+1850	538989	1	1850	1850	2497
+1300	538989	1	1300	1300	2498
+60	538989	1	700	700	2499
+1400	538989	1	1400	1400	2500
+7802920000930	538990	1	350	350	2501
+7802920000930	538990	1	350	350	2502
+450	538990	1	450	450	2503
+450	538990	1	450	450	2504
+450	538990	1	450	450	2505
+450	538990	1	450	450	2506
+3	538992	1	1100	1100	2507
+1200	538992	1	1200	1200	2508
+800	538992	1	800	800	2509
+850	538992	1	850	850	2510
+52	538994	1	2000	2000	2511
+61	538994	1	1000	1000	2512
+1300	538994	1	1300	1300	2513
+1300	538994	1	1300	1300	2514
+4	538995	1	1000	1000	2515
+3	538995	1	1100	1100	2516
+3	538996	1	1100	1100	2517
+52	538996	1	2000	2000	2518
+3	538997	1	1100	1100	2519
+7801620003319	538997	1	900	900	2520
+1200	538997	1	1200	1200	2521
+3	538999	1	1100	1100	2522
+78024915	538999	1	3500	3500	2523
+126	538999	1	350	350	2524
+300	538999	1	300	300	2525
+400	539000	1	400	400	2526
+7801620004859	539000	1	900	900	2527
+3	539000	1	1100	1100	2528
+1200	539000	1	1200	1200	2529
+51	539001	1	1300	1300	2530
+450	539001	1	450	450	2531
+450	539001	1	450	450	2532
+3	539001	1	1100	1100	2533
+3	539002	1	1100	1100	2534
+3	539002	1	1100	1100	2535
+1300	539003	1	1300	1300	2536
+1300	539003	1	1300	1300	2537
+3	539003	1	1100	1100	2538
+800	539004	1	800	800	2539
+800	539004	1	800	800	2540
+1200	539004	1	1200	1200	2541
+52	539004	1	2000	2000	2542
+450	539004	1	450	450	2543
+450	539004	1	450	450	2544
+450	539004	1	450	450	2545
+4	539005	1	1000	1000	2546
+3	539005	1	1100	1100	2547
+3	539005	1	1100	1100	2548
+400	539005	1	400	400	2549
+3	539006	1	1100	1100	2550
+51	539006	1	1300	1300	2551
+51	539006	1	1300	1300	2552
+3	539007	1	1100	1100	2553
+1400	539007	1	1400	1400	2554
+7622210811233	539008	1	850	850	2555
+78016293	539008	1	2500	2500	2556
+500	539010	1	500	500	2557
+15	539010	1	1500	1500	2558
+15	539010	1	1500	1500	2559
+800	539010	1	800	800	2560
+3	539011	1	1100	1100	2561
+1200	539011	1	1200	1200	2562
+4	539011	1	1000	1000	2563
+7801620002657	539012	1	1100	1100	2564
+50173204	539012	1	600	600	2565
+1200	539012	1	1200	1200	2566
+52	539013	1	2000	2000	2567
+400	539013	1	400	400	2568
+51	539014	1	1300	1300	2569
+3	539014	1	1100	1100	2570
+1850	539015	1	1850	1850	2571
+1400	539015	1	1400	1400	2572
+1300	539015	1	1300	1300	2573
+800	539015	1	800	800	2574
+800	539015	1	800	800	2575
+3	539016	1	1100	1100	2576
+126	539017	1	350	350	2577
+126	539017	1	350	350	2578
+69	539017	1	600	600	2579
+3	539017	1	1100	1100	2580
+1400	539019	1	1400	1400	2581
+1400	539019	1	1400	1400	2582
+51	539019	1	1300	1300	2583
+3	539021	1	1100	1100	2584
+650	539021	1	650	650	2585
+650	539021	1	650	650	2586
+742832751988	539021	1	1400	1400	2587
+7801620002671	539021	1	1100	1100	2588
+1200	539023	1	1200	1200	2589
+7801620001704	539023	1	850	850	2590
+1200	539024	1	1200	1200	2591
+4	539024	1	1000	1000	2592
+500	539024	1	500	500	2593
+1200	539025	1	1200	1200	2594
+1300	539026	1	1300	1300	2595
+52	539026	1	2000	2000	2596
+79	539027	1	400	400	2597
+7802200400078	539028	1	1100	1100	2598
+1300	539029	1	1300	1300	2599
+7801620016005	539029	1	1000	1000	2600
+78018853	539029	1	1800	1800	2601
+300	539029	1	300	300	2602
+1600	539029	1	1600	1600	2603
+7801610001196	539030	1	800	800	2604
+1600	539030	1	1600	1600	2605
+15	539031	1	1500	1500	2606
+15	539031	1	1500	1500	2607
+1300	539033	1	1300	1300	2608
+3	539033	1	1100	1100	2609
+51	539033	1	1300	1300	2610
+4	539034	1	1000	1000	2611
+4	539034	1	1000	1000	2612
+4	539034	1	1000	1000	2613
+51	539034	1	1300	1300	2614
+51	539034	1	1300	1300	2615
+51	539034	1	1300	1300	2616
+4	539036	1	1000	1000	2617
+7801620003319	539036	1	900	900	2618
+3	539036	1	1100	1100	2619
+1300	539037	1	1300	1300	2620
+4	539037	1	1000	1000	2621
+3	539038	1	1100	1100	2622
+3000	539038	1	3000	3000	2623
+3	539040	1	1100	1100	2624
+1600	539041	1	1600	1600	2625
+4	539043	1	1000	1000	2626
+4	539043	1	1000	1000	2627
+15	539044	1	1500	1500	2628
+15	539044	1	1500	1500	2629
+7801610591888	539044	1	1000	1000	2630
+3	539045	1	1100	1100	2631
+1800	539045	1	1800	1800	2632
+7801620016036	539045	1	1000	1000	2633
+7802820600100	539047	1	700	700	2634
+3	539047	1	1100	1100	2635
+4	539048	1	1000	1000	2636
+4	539048	1	1000	1000	2637
+4	539048	1	1000	1000	2638
+1200	539049	1	1200	1200	2639
+51	539049	1	1300	1300	2640
+1300	539049	1	1300	1300	2641
+7801610000601	539049	1	1000	1000	2642
+4	539051	1	1000	1000	2643
+3	539051	1	1100	1100	2644
+1300	539051	1	1300	1300	2645
+4	539051	1	1000	1000	2646
+4	539051	1	1000	1000	2647
+7802000002571	539052	1	1250	1250	2648
+51	539052	1	1300	1300	2649
+4	539054	1	1000	1000	2650
+3	539054	1	1100	1100	2651
+7800120171061	539054	1	400	400	2652
+7800120171061	539054	1	400	400	2653
+3	539055	1	1100	1100	2654
+1200	539056	1	1200	1200	2655
+78025240	539057	1	4300	4300	2656
+1200	539057	1	1200	1200	2657
+60	539058	1	700	700	2658
+4	539058	1	1000	1000	2659
+7613030612339	539059	1	300	300	2660
+7613030612339	539059	1	300	300	2661
+1400	539060	1	1400	1400	2662
+1300	539060	1	1300	1300	2663
+3	539061	1	1100	1100	2664
+52	539061	1	2000	2000	2665
+300	539061	1	300	300	2666
+7802230070012	539062	1	1100	1100	2667
+7802832000240	539062	1	700	700	2668
+51	539064	1	1300	1300	2669
+3	539064	1	1100	1100	2670
+3	539065	1	1100	1100	2671
+300	539065	1	300	300	2672
+850	539065	1	850	850	2673
+1400	539066	1	1400	1400	2674
+7802820441000	539066	1	650	650	2675
+3	539067	1	1100	1100	2676
+78000285	539068	1	4000	4000	2677
+7802820441000	539070	1	650	650	2678
+60	539072	1	700	700	2679
+7802920005171	539072	1	500	500	2680
+1300	539072	1	1300	1300	2681
+300	539072	1	300	300	2682
+4	539073	1	1000	1000	2683
+4	539073	1	1000	1000	2684
+3	539073	1	1100	1100	2685
+51	539074	1	1300	1300	2686
+1600	539074	1	1600	1600	2687
+1300	539075	1	1300	1300	2688
+800	539075	1	800	800	2689
+1700	539075	1	1700	1700	2690
+1700	539075	1	1700	1700	2691
+52	539076	1	2000	2000	2692
+78018853	539076	1	1800	1800	2693
+9002490221010	539076	1	2100	2100	2694
+7802920000862	539077	1	500	500	2695
+7801620015800	539077	1	700	700	2696
+7802000002571	539079	1	1250	1250	2697
+7801620853198	539081	1	2000	2000	2698
+7802230975324	539083	1	600	600	2699
+78020627	539085	1	3900	3900	2700
+1800	539086	1	1800	1800	2701
+1800	539086	1	1800	1800	2702
+7803473003461	539086	1	700	700	2703
+7801620002657	539086	1	1100	1100	2704
+78019096	539088	1	3000	3000	2705
+78019096	539088	1	3000	3000	2706
+800	539089	1	800	800	2707
+7802950072358	539089	1	300	300	2708
+7802950072358	539089	1	300	300	2709
+7802950072358	539089	1	300	300	2710
+3000	539090	1	3000	3000	2711
+4	539091	1	1000	1000	2712
+1600	539092	1	1600	1600	2713
+500	539092	1	500	500	2714
+400	539092	1	400	400	2715
+3200	539093	1	3200	3200	2716
+78020627	539094	1	3900	3900	2717
+3200	539094	1	3200	3200	2718
+800	539094	1	800	800	2719
+800	539095	1	800	800	2720
+3200	539095	1	3200	3200	2721
+3000	539096	1	3000	3000	2722
+800	539096	1	800	800	2723
+800	539097	1	800	800	2724
+1400	539097	1	1400	1400	2725
+7801610350355	539097	1	800	800	2726
+7801610022726	539097	1	1650	1650	2727
+800	539098	1	800	800	2728
+3200	539099	1	3200	3200	2729
+1300	539100	1	1300	1300	2730
+3200	539100	1	3200	3200	2731
+800	539100	1	800	800	2732
+1900	539101	1	1900	1900	2733
+7801610000595	539102	1	1000	1000	2734
+1850	539102	1	1850	1850	2735
+3200	539103	1	3200	3200	2736
+4	539103	1	1000	1000	2737
+800	539104	1	800	800	2738
+400	539104	1	400	400	2739
+300	539104	1	300	300	2740
+1200	539105	1	1200	1200	2741
+4	539105	1	1000	1000	2742
+400	539105	1	400	400	2743
+1200	539106	1	1200	1200	2744
+1850	539106	1	1850	1850	2745
+78024403	539106	1	2600	2600	2746
+3200	539107	1	3200	3200	2747
+3200	539107	1	3200	3200	2748
+7801620001711	539107	1	1100	1100	2749
+7801620002657	539107	1	1100	1100	2750
+7801620006846	539108	1	800	800	2751
+3200	539109	1	3200	3200	2752
+51	539109	1	1300	1300	2753
+1600	539109	1	1600	1600	2754
+800	539109	1	800	800	2755
+7802225584081	539110	1	500	500	2756
+60	539111	1	700	700	2757
+800	539111	1	800	800	2758
+7802800544356	539111	1	350	350	2759
+7613035391369	539112	1	980	980	2760
+7802000005930	539112	1	600	600	2761
+7801620016111	539112	1	950	950	2762
+7803273287320	539112	1	2250	2250	2763
+4	539113	1	1000	1000	2764
+500	539113	1	500	500	2765
+7802000014765	539115	1	700	700	2766
+7801620852689	539116	1	800	800	2767
+1400	539116	1	1400	1400	2768
+78006164	539116	1	870	870	2769
+7613034721051	539117	1	2650	2650	2770
+78019041	539118	1	2000	2000	2771
+78019065	539119	1	2000	2000	2772
+3	539121	1	1100	1100	2773
+3	539121	1	1100	1100	2774
+300	539121	1	300	300	2775
+300	539121	1	300	300	2776
+4	539122	1	1000	1000	2777
+4	539122	1	1000	1000	2778
+4	539122	1	1000	1000	2779
+1200	539124	1	1200	1200	2780
+7802950002119	539124	1	1850	1850	2781
+3	539125	1	1100	1100	2782
+7790040613706	539125	1	450	450	2783
+1	539126	1	1200	1200	2784
+51	539126	1	1300	1300	2785
+3	539126	1	1100	1100	2786
+2000	539127	1	2000	2000	2787
+1300	539127	1	1300	1300	2788
+800	539128	1	800	800	2789
+3	539128	1	1100	1100	2790
+1300	539129	1	1300	1300	2791
+1200	539129	1	1200	1200	2792
+1300	539130	1	1300	1300	2793
+9120033164782	539130	1	1200	1200	2794
+78600010	539130	1	480	480	2795
+78600010	539130	1	480	480	2796
+3	539131	1	1100	1100	2797
+3	539131	1	1100	1100	2798
+1200	539132	1	1200	1200	2799
+52	539133	1	2000	2000	2800
+1200	539134	1	1200	1200	2801
+52	539134	1	2000	2000	2802
+78019041	539136	1	2000	2000	2803
+78024403	539138	1	2600	2600	2804
+78019065	539138	1	2000	2000	2805
+7802920004952	539140	1	350	350	2806
+3	539141	1	1100	1100	2807
+7801620003319	539141	1	900	900	2808
+7802215303401	539141	1	300	300	2809
+7801620002671	539143	1	1100	1100	2810
+4	539143	1	1000	1000	2811
+3	539144	1	1100	1100	2812
+3	539145	1	1100	1100	2813
+52	539145	1	2000	2000	2814
+3	539146	1	1100	1100	2815
+3	539146	1	1100	1100	2816
+800	539146	1	800	800	2817
+850	539146	1	850	850	2818
+3	539147	1	1100	1100	2819
+51	539148	1	1300	1300	2820
+450	539148	1	450	450	2821
+450	539148	1	450	450	2822
+450	539148	1	450	450	2823
+1200	539149	1	1200	1200	2824
+613008720209	539149	1	1400	1400	2825
+78024878	539149	1	4200	4200	2826
+1400	539151	1	1400	1400	2827
+1200	539151	1	1200	1200	2828
+3	539152	1	1100	1100	2829
+2000	539152	1	2000	2000	2830
+51	539153	1	1300	1300	2831
+3	539153	1	1100	1100	2832
+7793890254303	539153	1	600	600	2833
+52	539154	1	2000	2000	2834
+1200	539154	1	1200	1200	2835
+800	539154	1	800	800	2836
+69	539154	1	600	600	2837
+1	539155	1	1200	1200	2838
+4	539155	1	1000	1000	2839
+78010758	539155	1	4300	4300	2840
+500	539156	1	500	500	2841
+3	539156	1	1100	1100	2842
+79	539156	1	400	400	2843
+52	539157	1	2000	2000	2844
+3	539157	1	1100	1100	2845
+7801620003326	539158	1	1000	1000	2846
+1600	539159	1	1600	1600	2847
+1600	539159	1	1600	1600	2848
+51	539159	1	1300	1300	2849
+51	539160	1	1300	1300	2850
+1300	539160	1	1300	1300	2851
+1700	539160	1	1700	1700	2852
+800	539161	1	800	800	2853
+4	539161	1	1000	1000	2854
+1600	539161	1	1600	1600	2855
+52	539162	1	2000	2000	2856
+4	539162	1	1000	1000	2857
+3	539163	1	1100	1100	2858
+3	539164	1	1100	1100	2859
+3	539164	1	1100	1100	2860
+1600	539165	1	1600	1600	2861
+2000	539165	1	2000	2000	2862
+3	539167	1	1100	1100	2863
+3	539167	1	1100	1100	2864
+4	539167	1	1000	1000	2865
+4	539167	1	1000	1000	2866
+7802920002323	539167	1	700	700	2867
+51	539168	1	1300	1300	2868
+51	539168	1	1300	1300	2869
+450	539168	7	450	3150	2870
+4	539169	1	1000	1000	2871
+51	539169	1	1300	1300	2872
+7804612131274	539169	1	400	400	2873
+800	539171	1	800	800	2874
+1200	539171	1	1200	1200	2875
+4	539171	1	1000	1000	2876
+1200	539172	1	1200	1200	2877
+500	539172	1	500	500	2878
+3	539174	1	1100	1100	2879
+51	539174	1	1300	1300	2880
+3	539175	1	1100	1100	2881
+1200	539175	1	1200	1200	2882
+3	539176	1	1100	1100	2883
+52	539176	1	2000	2000	2884
+500	539176	1	500	500	2885
+51	539177	1	1300	1300	2886
+1	539177	1	1200	1200	2887
+7801620005856	539178	1	900	900	2888
+7804630010001	539178	1	800	800	2889
+7613287103529	539178	1	1600	1600	2890
+7801620001704	539180	1	850	850	2891
+1200	539180	1	1200	1200	2892
+800	539181	1	800	800	2893
+1300	539181	1	1300	1300	2894
+78020627	539182	1	3900	3900	2895
+2	539182	1	1300	1300	2896
+7801620011666	539183	1	700	700	2897
+7809595603411	539185	1	950	950	2898
+7613287103529	539186	1	1600	1600	2899
+7802800556229	539188	1	550	550	2900
+690	539189	1	980	980	2901
+78019041	539190	1	2000	2000	2902
+1850	539190	1	1850	1850	2903
+78025219	539190	1	3300	3300	2904
+1200	539192	1	1200	1200	2905
+7802215505300	539192	1	850	850	2906
+4	539194	1	1000	1000	2907
+15	539194	1	1500	1500	2908
+300	539194	1	300	300	2909
+3	539194	1	1100	1100	2910
+78019065	539196	1	2000	2000	2911
+1	539196	1	1200	1200	2912
+1200	539197	1	1200	1200	2913
+500	539197	1	500	500	2914
+1400	539198	1	1400	1400	2915
+15	539198	1	1500	1500	2916
+400	539199	1	400	400	2917
+400	539199	1	400	400	2918
+1	539199	1	1200	1200	2919
+1200	539200	1	1200	1200	2920
+7802800556229	539202	1	550	550	2921
+7590011205158	539202	1	300	300	2922
+3	539203	1	1100	1100	2923
+7802920002323	539203	1	700	700	2924
+7802950002119	539204	1	1850	1850	2925
+60	539205	1	700	700	2926
+51	539206	1	1300	1300	2927
+1300	539206	1	1300	1300	2928
+3	539207	1	1100	1100	2929
+800	539207	1	800	800	2930
+3	539208	1	1100	1100	2931
+78019096	539208	1	3000	3000	2932
+1300	539209	1	1300	1300	2933
+7803473004376	539209	1	600	600	2934
+51	539210	1	1300	1300	2935
+1	539210	1	1200	1200	2936
+3	539211	1	1100	1100	2937
+800	539211	1	800	800	2938
+3	539212	1	1100	1100	2939
+3	539212	1	1100	1100	2940
+500	539212	1	500	500	2941
+7802215512261	539212	1	700	700	2942
+51	539214	1	1300	1300	2943
+1	539214	1	1200	1200	2944
+800	539215	1	800	800	2945
+400	539215	1	400	400	2946
+1	539216	1	1200	1200	2947
+7801620003319	539216	1	900	900	2948
+4	539217	1	1000	1000	2949
+7802215511622	539217	1	300	300	2950
+7802820250220	539217	1	350	350	2951
+1	539218	1	1200	1200	2952
+1	539218	1	1200	1200	2953
+500	539218	1	500	500	2954
+7802920008127	539219	1	900	900	2955
+3	539219	1	1100	1100	2956
+51	539220	1	1300	1300	2957
+78018853	539220	1	1800	1800	2958
+3	539221	1	1100	1100	2959
+7613034868237	539221	1	400	400	2960
+1300	539222	1	1300	1300	2961
+1	539222	1	1200	1200	2962
+800	539222	1	800	800	2963
+3	539223	1	1100	1100	2964
+3	539225	1	1100	1100	2965
+3	539226	1	1100	1100	2966
+3	539226	1	1100	1100	2967
+1300	539226	1	1300	1300	2968
+800	539226	1	800	800	2969
+4	539226	1	1000	1000	2970
+51	539226	1	1300	1300	2971
+7801620015800	539227	1	700	700	2972
+7806500172116	539227	1	300	300	2973
+1300	539228	1	1300	1300	2974
+1300	539228	1	1300	1300	2975
+60	539228	1	700	700	2976
+3	539228	1	1100	1100	2977
+51	539228	1	1300	1300	2978
+3	539228	1	1100	1100	2979
+1300	539229	1	1300	1300	2980
+500	539229	1	500	500	2981
+1400	539230	1	1400	1400	2982
+1400	539230	1	1400	1400	2983
+60	539230	1	700	700	2984
+60	539230	1	700	700	2985
+69	539231	1	600	600	2986
+15	539232	1	1500	1500	2987
+15	539232	1	1500	1500	2988
+15	539232	1	1500	1500	2989
+7801610591888	539233	1	1000	1000	2990
+1400	539233	1	1400	1400	2991
+1400	539233	1	1400	1400	2992
+1400	539233	1	1400	1400	2993
+7702133862823	539233	1	400	400	2994
+1	539234	1	1200	1200	2995
+60	539234	1	700	700	2996
+78018853	539234	1	1800	1800	2997
+300	539234	1	300	300	2998
+15	539235	1	1500	1500	2999
+7801610000571	539235	1	1000	1000	3000
+51	539235	1	1300	1300	3001
+3	539235	1	1100	1100	3002
+450	539236	1	450	450	3003
+450	539236	1	450	450	3004
+450	539236	1	450	450	3005
+3	539238	1	1100	1100	3006
+4	539238	1	1000	1000	3007
+500	539239	1	500	500	3008
+4	539239	1	1000	1000	3009
+3200	539240	1	3200	3200	3010
+4	539240	1	1000	1000	3011
+7802920000954	539240	1	350	350	3012
+4	539243	1	1000	1000	3013
+7802832000240	539243	1	700	700	3014
+3	539244	1	1100	1100	3015
+800	539246	1	800	800	3016
+3	539246	1	1100	1100	3017
+61	539248	1	1000	1000	3018
+1300	539248	1	1300	1300	3019
+800	539248	1	800	800	3020
+3	539249	1	1100	1100	3021
+1	539249	1	1200	1200	3022
+51	539250	1	1300	1300	3023
+4	539250	1	1000	1000	3024
+450	539252	1	450	450	3025
+450	539252	1	450	450	3026
+78020627	539252	1	3900	3900	3027
+3	539253	1	1100	1100	3028
+3	539254	1	1100	1100	3029
+300	539254	1	300	300	3030
+300	539254	1	300	300	3031
+51	539254	1	1300	1300	3032
+51	539254	1	1300	1300	3033
+51	539255	1	1300	1300	3034
+78022201	539256	1	4300	4300	3035
+1300	539256	1	1300	1300	3036
+500	539256	1	500	500	3037
+7802920005164	539256	1	500	500	3038
+60	539257	1	700	700	3039
+60	539257	1	700	700	3040
+51	539257	1	1300	1300	3041
+3	539257	1	1100	1100	3042
+7802230070012	539258	1	1100	1100	3043
+1850	539259	1	1850	1850	3044
+60	539259	1	700	700	3045
+1400	539260	1	1400	1400	3046
+60	539260	1	700	700	3047
+7802950072358	539260	1	300	300	3048
+7802950072358	539260	1	300	300	3049
+1300	539261	1	1300	1300	3050
+1300	539261	1	1300	1300	3051
+4	539261	1	1000	1000	3052
+9002490238841	539262	1	2500	2500	3053
+1	539263	1	1200	1200	3054
+15	539263	1	1500	1500	3055
+15	539263	1	1500	1500	3056
+15	539263	1	1500	1500	3057
+7802820441789	539264	1	1000	1000	3058
+78020627	539265	1	3900	3900	3059
+300	539265	1	300	300	3060
+3000	539265	1	3000	3000	3061
+800	539266	1	800	800	3062
+800	539267	1	800	800	3063
+400	539267	1	400	400	3064
+1700	539269	1	1700	1700	3065
+70847035800	539269	1	2000	2000	3066
+7802000014765	539269	1	700	700	3067
+300	539269	1	300	300	3068
+500	539270	1	500	500	3069
+500	539270	1	500	500	3070
+450	539270	1	450	450	3071
+450	539270	1	450	450	3072
+450	539270	1	450	450	3073
+7801610000335	539271	1	500	500	3074
+1850	539272	1	1850	1850	3075
+500	539272	1	500	500	3076
+7613035807464	539273	1	1690	1690	3077
+7613035807464	539273	1	1690	1690	3078
+7802820600100	539274	1	700	700	3079
+78007673	539274	1	3000	3000	3080
+1000	539276	1	1300	1300	3081
+9002490100070	539278	1	1700	1700	3082
+7801620015817	539278	1	700	700	3083
+7802950072679	539278	1	300	300	3084
+3200	539279	1	3200	3200	3085
+7801610000595	539279	1	1000	1000	3086
+7801610000595	539279	1	1000	1000	3087
+3200	539280	1	3200	3200	3088
+3000	539282	1	3000	3000	3089
+3000	539282	1	3000	3000	3090
+60	539282	1	700	700	3091
+900	539283	1	900	900	3092
+7802230082831	539283	1	1100	1100	3093
+400	539283	1	400	400	3094
+7801620001711	539284	1	1100	1100	3095
+7613035391369	539285	1	980	980	3096
+7613034999115	539285	1	650	650	3097
+1600	539286	1	1600	1600	3098
+15	539286	1	1500	1500	3099
+6101	539287	1	1700	1700	3100
+3000	539288	1	3000	3000	3101
+7802800544356	539288	1	350	350	3102
+7613287103529	539288	1	1600	1600	3103
+7802215505287	539289	1	800	800	3104
+7801620852962	539289	1	1000	1000	3105
+3000	539289	1	3000	3000	3106
+1250	539290	1	1300	1300	3107
+60	539290	1	700	700	3108
+1850	539290	1	1850	1850	3109
+1850	539290	1	1850	1850	3110
+1600	539291	1	1600	1600	3111
+15	539291	1	1500	1500	3112
+7801610000571	539292	1	1000	1000	3113
+1600	539292	1	1600	1600	3114
+3200	539293	1	3200	3200	3115
+3200	539293	1	3200	3200	3116
+78000285	539293	1	4000	4000	3117
+3000	539294	1	3000	3000	3118
+78024878	539294	1	4200	4200	3119
+7613032186852	539295	1	650	650	3120
+7801620015817	539297	1	700	700	3121
+7801620015800	539297	1	700	700	3122
+1850	539298	1	1850	1850	3123
+78021020	539300	1	2000	2000	3124
+78021020	539300	1	2000	2000	3125
+3	539300	1	1100	1100	3126
+800	539300	1	800	800	3127
+3200	539301	1	3200	3200	3128
+800	539301	1	800	800	3129
+7803908001314	539301	1	1000	1000	3130
+7803908001314	539301	1	1000	1000	3131
+7613032180157	539303	1	300	300	3132
+7613035807464	539303	1	1690	1690	3133
+78006140	539303	1	650	650	3134
+7801620016036	539305	1	1000	1000	3135
+7801620004057	539305	1	1000	1000	3136
+7801610001622	539306	1	1650	1650	3137
+3200	539307	1	3200	3200	3138
+51	539307	1	1300	1300	3139
+51	539307	1	1300	1300	3140
+1600	539307	1	1600	1600	3141
+1600	539307	1	1600	1600	3142
+1200	539307	1	1200	1200	3143
+9002490221010	539308	1	2100	2100	3144
+2000	539310	1	2000	2000	3145
+2000	539310	1	2000	2000	3146
+7801610000571	539310	1	1000	1000	3147
+7801610000571	539310	1	1000	1000	3148
+78024915	539312	1	3500	3500	3149
+61	539312	1	1000	1000	3150
+7802950072358	539314	1	300	300	3151
+800	539314	1	800	800	3152
+4	539315	1	1000	1000	3153
+4	539315	1	1000	1000	3154
+3	539315	1	1100	1100	3155
+300	539315	1	300	300	3156
+52	539316	1	2000	2000	3157
+3	539316	1	1100	1100	3158
+78025059	539316	1	3400	3400	3159
+3	539316	1	1100	1100	3160
+1100	539316	1	1100	1100	3161
+3	539317	1	1100	1100	3162
+400	539317	1	400	400	3163
+3	539318	1	1100	1100	3164
+3	539319	1	1100	1100	3165
+500	539319	1	500	500	3166
+78011656	539321	1	3100	3100	3167
+61	539321	1	1000	1000	3168
+60	539322	1	700	700	3169
+3	539322	1	1100	1100	3170
+1	539323	1	1200	1200	3171
+60	539323	1	700	700	3172
+3	539325	1	1100	1100	3173
+7801620005856	539325	1	900	900	3174
+2000	539326	1	2000	2000	3175
+3	539327	1	1100	1100	3176
+7802820990102	539327	1	1050	1050	3177
+7802800556229	539327	1	550	550	3178
+9002490221010	539329	1	2100	2100	3179
+450	539329	1	450	450	3180
+450	539329	1	450	450	3181
+450	539329	1	450	450	3182
+450	539329	1	450	450	3183
+800	539329	1	800	800	3184
+7800120164100	539330	1	400	400	3185
+51	539330	1	1300	1300	3186
+7702133815782	539330	1	400	400	3187
+450	539332	2	450	900	3188
+1200	539332	1	1200	1200	3189
+3	539333	1	1100	1100	3190
+15	539333	1	1500	1500	3191
+51	539334	1	1300	1300	3192
+1	539334	1	1200	1200	3193
+7802215302053	539335	1	800	800	3194
+78024878	539336	1	4200	4200	3195
+51	539337	1	1300	1300	3196
+3	539337	1	1100	1100	3197
+7801620015817	539337	1	700	700	3198
+3	539338	1	1100	1100	3199
+3	539338	1	1100	1100	3200
+800	539339	1	800	800	3201
+3	539339	1	1100	1100	3202
+1	539340	1	1200	1200	3203
+52	539340	1	2000	2000	3204
+7891000248768	539340	1	900	900	3205
+7801620005344	539340	1	900	900	3206
+7809595603428	539341	1	950	950	3207
+78600010	539341	1	480	480	3208
+7801620011666	539341	1	700	700	3209
+7801620855185	539342	1	1000	1000	3210
+613008756451	539343	1	1500	1500	3211
+1300	539344	1	1300	1300	3212
+78019041	539344	1	2000	2000	3213
+800	539345	1	800	800	3214
+15	539345	1	1500	1500	3215
+51	539346	1	1300	1300	3216
+1300	539347	1	1300	1300	3217
+1300	539347	1	1300	1300	3218
+51	539348	1	1300	1300	3219
+4	539349	1	1000	1000	3220
+4	539349	1	1000	1000	3221
+7801610000595	539349	1	1000	1000	3222
+15	539350	1	1500	1500	3223
+7613030612339	539350	1	300	300	3224
+51	539351	1	1300	1300	3225
+1400	539351	1	1400	1400	3226
+1200	539352	1	1200	1200	3227
+4	539352	1	1000	1000	3228
+450	539352	1	450	450	3229
+450	539352	1	450	450	3230
+1250	539352	1	1300	1300	3231
+1700	539353	1	1700	1700	3232
+1700	539353	1	1700	1700	3233
+51	539353	1	1300	1300	3234
+1300	539353	1	1300	1300	3235
+4	539354	1	1000	1000	3236
+4	539354	1	1000	1000	3237
+1100	539354	1	1100	1100	3238
+4	539355	1	1000	1000	3239
+52	539356	1	2000	2000	3240
+1400	539356	1	1400	1400	3241
+7702133862823	539356	1	400	400	3242
+52	539357	1	2000	2000	3243
+1	539357	1	1200	1200	3244
+1	539358	1	1200	1200	3245
+79	539358	1	400	400	3246
+79	539358	1	400	400	3247
+51	539359	1	1300	1300	3248
+4	539359	1	1000	1000	3249
+500	539360	1	500	500	3250
+500	539360	1	500	500	3251
+500	539360	1	500	500	3252
+7702133862823	539360	1	400	400	3253
+7702133862823	539360	1	400	400	3254
+61	539363	1	1000	1000	3255
+1200	539363	1	1200	1200	3256
+51	539364	1	1300	1300	3257
+3	539364	1	1100	1100	3258
+1200	539365	1	1200	1200	3259
+78030299	539365	1	350	350	3260
+1600	539365	1	1600	1600	3261
+3	539366	1	1100	1100	3262
+500	539366	1	500	500	3263
+1200	539366	1	1200	1200	3264
+7802215113567	539366	1	450	450	3265
+3	539367	1	1100	1100	3266
+50173617	539367	1	650	650	3267
+50173617	539367	1	650	650	3268
+70847021964	539367	1	2000	2000	3269
+7802832000264	539368	1	700	700	3270
+3	539368	1	1100	1100	3271
+3	539368	1	1100	1100	3272
+3200	539368	1	3200	3200	3273
+15	539368	1	1500	1500	3274
+3200	539368	1	3200	3200	3275
+15	539368	1	1500	1500	3276
+52	539368	1	2000	2000	3277
+1300	539369	1	1300	1300	3278
+51	539369	1	1300	1300	3279
+1300	539370	1	1300	1300	3280
+1300	539370	1	1300	1300	3281
+500	539370	1	500	500	3282
+500	539370	1	500	500	3283
+6101	539372	1	1700	1700	3284
+1600	539372	1	1600	1600	3285
+1600	539372	1	1600	1600	3286
+1400	539375	1	1400	1400	3287
+800	539375	1	800	800	3288
+650	539376	1	650	650	3289
+126	539376	1	350	350	3290
+7801620004859	539376	1	900	900	3291
+51	539376	1	1300	1300	3292
+3	539377	1	1100	1100	3293
+51	539378	1	1300	1300	3294
+2000	539378	1	2000	2000	3295
+1400	539379	1	1400	1400	3296
+7802215512285	539380	1	700	700	3297
+78021020	539380	1	2000	2000	3298
+52	539382	1	2000	2000	3299
+1800	539382	1	1800	1800	3300
+1200	539383	1	1200	1200	3301
+69	539384	1	600	600	3302
+4	539384	1	1000	1000	3303
+4	539384	1	1000	1000	3304
+69	539384	1	600	600	3305
+1400	539385	1	1400	1400	3306
+2000	539385	1	2000	2000	3307
+7801610000571	539385	1	1000	1000	3308
+78007673	539386	1	3000	3000	3309
+78025332	539387	1	4000	4000	3310
+7801620015817	539387	1	700	700	3311
+1	539388	1	1200	1200	3312
+51	539389	1	1300	1300	3313
+3	539389	1	1100	1100	3314
+78007673	539389	1	3000	3000	3315
+69	539390	1	600	600	3316
+1600	539390	1	1600	1600	3317
+900	539390	1	900	900	3318
+7802215505300	539391	1	850	850	3319
+7800120164100	539391	1	400	400	3320
+60	539392	1	700	700	3321
+78007505	539392	1	350	350	3322
+78007505	539392	1	350	350	3323
+7801620075941	539392	1	1000	1000	3324
+7802215502262	539393	1	750	750	3325
+60	539393	1	700	700	3326
+78021020	539393	1	2000	2000	3327
+15	539394	1	1500	1500	3328
+126	539394	1	350	350	3329
+613008756451	539395	1	1500	1500	3330
+7801610000335	539395	1	500	500	3331
+7801610000595	539395	1	1000	1000	3332
+500	539395	1	500	500	3333
+3000	539396	1	3000	3000	3334
+4	539396	1	1000	1000	3335
+300	539396	1	300	300	3336
+300	539396	1	300	300	3337
+1400	539397	1	1400	1400	3338
+3200	539397	1	3200	3200	3339
+78025332	539398	1	4000	4000	3340
+15	539398	1	1500	1500	3341
+7803908005954	539399	1	1000	1000	3342
+9120033164782	539399	1	1200	1200	3343
+3000	539400	1	3000	3000	3344
+800	539400	1	800	800	3345
+3200	539401	1	3200	3200	3346
+3200	539401	1	3200	3200	3347
+1600	539401	1	1600	1600	3348
+3200	539402	1	3200	3200	3349
+6101	539402	1	1700	1700	3350
+3200	539404	1	3200	3200	3351
+800	539404	1	800	800	3352
+4	539404	1	1000	1000	3353
+800	539405	1	800	800	3354
+1690	539405	1	1690	1690	3355
+7801620001704	539406	1	850	850	3356
+69	539406	1	600	600	3357
+69	539406	1	600	600	3358
+126	539406	1	350	350	3359
+1700	539407	1	1700	1700	3360
+250	539407	1	250	250	3361
+7802832101121	539408	1	1400	1400	3362
+3200	539409	1	3200	3200	3363
+1400	539410	1	1400	1400	3364
+1400	539410	1	1400	1400	3365
+7801620016036	539410	1	1000	1000	3366
+7801620016036	539410	1	1000	1000	3367
+1300	539411	1	1300	1300	3368
+400	539411	1	400	400	3369
+400	539411	1	400	400	3370
+800	539412	1	800	800	3371
+1300	539412	1	1300	1300	3372
+7622210811233	539413	1	850	850	3373
+3200	539414	1	3200	3200	3374
+7501013101430	539414	1	2000	2000	3375
+1690	539415	1	1690	1690	3376
+1690	539415	1	1690	1690	3377
+7613032180157	539415	1	300	300	3378
+1400	539415	1	1400	1400	3379
+3200	539416	1	3200	3200	3380
+400	539416	1	400	400	3381
+400	539416	1	400	400	3382
+500	539416	1	500	500	3383
+2500	539417	1	2500	2500	3384
+78025219	539418	1	3300	3300	3385
+7804643820000	539419	1	1600	1600	3386
+78006140	539420	1	650	650	3387
+78006140	539420	1	650	650	3388
+78021020	539420	1	2000	2000	3389
+70847009511	539420	1	2000	2000	3390
+1000	539420	1	1300	1300	3391
+78024717	539421	1	4300	4300	3392
+1400	539422	1	1400	1400	3393
+800	539422	1	800	800	3394
+69	539422	1	600	600	3395
+78024878	539423	1	4200	4200	3396
+800	539423	1	800	800	3397
+300	539423	1	300	300	3398
+1400	539424	1	1400	1400	3399
+500	539425	1	500	500	3400
+4	539427	1	1000	1000	3401
+4	539427	1	1000	1000	3402
+450	539427	1	450	450	3403
+450	539427	1	450	450	3404
+1	539428	1	1200	1200	3405
+7801610001936	539428	1	500	500	3406
+7802215512261	539428	1	700	700	3407
+1400	539428	1	1400	1400	3408
+1	539429	1	1200	1200	3409
+78024878	539429	1	4200	4200	3410
+4	539430	1	1000	1000	3411
+4	539430	1	1000	1000	3412
+450	539430	4	450	1800	3413
+69	539430	1	600	600	3414
+1200	539431	1	1200	1200	3415
+1	539432	1	1200	1200	3416
+1	539432	1	1200	1200	3417
+78025059	539434	1	3400	3400	3418
+78025059	539434	1	3400	3400	3419
+1300	539435	1	1300	1300	3420
+69	539435	1	600	600	3421
+69	539435	1	600	600	3422
+3	539436	1	1100	1100	3423
+900	539436	1	900	900	3424
+3	539437	1	1100	1100	3425
+69	539437	1	600	600	3426
+9002490221010	539438	1	2100	2100	3427
+400	539438	1	400	400	3428
+400	539438	1	400	400	3429
+450	539438	4	450	1800	3430
+69	539438	1	600	600	3431
+3	539439	1	1100	1100	3432
+3	539439	1	1100	1100	3433
+1	539440	1	1200	1200	3434
+51	539440	1	1300	1300	3435
+1200	539441	1	1200	1200	3436
+7801620001704	539441	1	850	850	3437
+78021020	539441	1	2000	2000	3438
+78021020	539441	1	2000	2000	3439
+51	539442	1	1300	1300	3440
+3	539443	1	1100	1100	3441
+3	539443	1	1100	1100	3442
+400	539443	1	400	400	3443
+400	539443	1	400	400	3444
+1	539444	1	1200	1200	3445
+900	539444	1	900	900	3446
+3	539445	1	1100	1100	3447
+3	539445	1	1100	1100	3448
+3	539445	1	1100	1100	3449
+3	539446	1	1100	1100	3450
+60	539446	1	700	700	3451
+1400	539447	1	1400	1400	3452
+7702133862823	539447	1	400	400	3453
+7802950072679	539447	1	300	300	3454
+7801620011659	539448	1	700	700	3455
+7801620003319	539449	1	900	900	3456
+4	539450	1	1000	1000	3457
+4	539450	1	1000	1000	3458
+7802920202105	539450	1	1250	1250	3459
+4	539451	1	1000	1000	3460
+7802920005171	539451	1	500	500	3461
+1200	539451	1	1200	1200	3462
+1700	539452	1	1700	1700	3463
+1700	539452	1	1700	1700	3464
+51	539452	1	1300	1300	3465
+1300	539452	1	1300	1300	3466
+3	539453	1	1100	1100	3467
+1	539454	1	1200	1200	3468
+52	539454	1	2000	2000	3469
+78018853	539456	1	1800	1800	3470
+3	539457	1	1100	1100	3471
+3	539457	1	1100	1100	3472
+7804612131274	539458	1	400	400	3473
+78019065	539458	1	2000	2000	3474
+3	539459	1	1100	1100	3475
+1400	539459	1	1400	1400	3476
+7802215512261	539460	1	700	700	3477
+3	539460	1	1100	1100	3478
+1200	539461	1	1200	1200	3479
+69	539461	1	600	600	3480
+7802920000084	539461	1	1100	1100	3481
+4	539462	1	1000	1000	3482
+900	539462	1	900	900	3483
+7802920000084	539463	1	1100	1100	3484
+1	539464	1	1200	1200	3485
+3	539464	1	1100	1100	3486
+1200	539464	1	1200	1200	3487
+3	539466	1	1100	1100	3488
+400	539466	1	400	400	3489
+51	539466	1	1300	1300	3490
+51	539466	1	1300	1300	3491
+78021020	539467	1	2000	2000	3492
+1	539468	1	1200	1200	3493
+3	539468	1	1100	1100	3494
+3	539469	1	1100	1100	3495
+51	539469	1	1300	1300	3496
+1400	539470	1	1400	1400	3497
+4	539470	1	1000	1000	3498
+3	539470	1	1100	1100	3499
+78024717	539470	1	4300	4300	3500
+15	539471	1	1500	1500	3501
+7501013118018	539471	1	800	800	3502
+3	539472	1	1100	1100	3503
+1	539473	1	1200	1200	3504
+1	539474	1	1200	1200	3505
+3	539474	1	1100	1100	3506
+1400	539475	1	1400	1400	3507
+78024403	539475	1	2600	2600	3508
+78022010	539475	1	2600	2600	3509
+76406022601	539476	1	800	800	3510
+7802950072358	539476	1	300	300	3511
+7802950072358	539476	1	300	300	3512
+7802200132696	539476	1	300	300	3513
+7802950072679	539476	1	300	300	3514
+51	539477	1	1300	1300	3515
+51	539477	1	1300	1300	3516
+1400	539477	1	1400	1400	3517
+1300	539477	1	1300	1300	3518
+51	539478	1	1300	1300	3519
+1	539478	1	1200	1200	3520
+51	539480	1	1300	1300	3521
+51	539480	1	1300	1300	3522
+1200	539482	1	1200	1200	3523
+2000	539483	1	2000	2000	3524
+7802920008158	539483	1	900	900	3525
+4	539483	1	1000	1000	3526
+51	539485	1	1300	1300	3527
+7801610323236	539486	1	2950	2950	3528
+7501013101447	539488	1	2000	2000	3529
+7801620011666	539488	1	700	700	3530
+9002490238841	539489	1	2500	2500	3531
+78024878	539489	1	4200	4200	3532
+50173617	539489	1	650	650	3533
+15	539490	1	1500	1500	3534
+1200	539490	1	1200	1200	3535
+51	539490	1	1300	1300	3536
+51	539492	1	1300	1300	3537
+78016408	539492	1	2500	2500	3538
+78016408	539492	1	2500	2500	3539
+7804612131274	539492	1	400	400	3540
+2000	539493	1	2000	2000	3541
+2000	539493	1	2000	2000	3542
+7801620003326	539493	1	1000	1000	3543
+7801620001834	539493	1	700	700	3544
+7801620015817	539493	1	700	700	3545
+69	539493	1	600	600	3546
+69	539493	1	600	600	3547
+69	539493	1	600	600	3548
+78022010	539494	1	2600	2600	3549
+78024878	539494	1	4200	4200	3550
+1600	539495	1	1600	1600	3551
+1800	539496	1	1800	1800	3552
+1800	539496	1	1800	1800	3553
+7801620011673	539496	1	700	700	3554
+7801610323236	539497	1	2950	2950	3555
+7891000248768	539499	1	900	900	3556
+7891000248768	539499	1	900	900	3557
+7891000248768	539499	1	900	900	3558
+7891000248768	539499	1	900	900	3559
+7613287103529	539499	1	1600	1600	3560
+7802230086648	539499	1	1000	1000	3561
+3200	539500	1	3200	3200	3562
+7801610000595	539500	1	1000	1000	3563
+1900	539501	1	1900	1900	3564
+1850	539502	1	1850	1850	3565
+52	539502	1	2000	2000	3566
+1300	539503	1	1300	1300	3567
+7803908002090	539503	1	1400	1400	3568
+300	539503	1	300	300	3569
+7801610005194	539505	1	800	800	3570
+7801610005194	539505	1	800	800	3571
+60	539505	1	700	700	3572
+7802000010941	539505	1	700	700	3573
+60	539505	1	700	700	3574
+7801620001704	539507	1	850	850	3575
+78018884	539507	1	3400	3400	3576
+78011656	539508	1	3100	3100	3577
+51	539509	1	1300	1300	3578
+4	539509	1	1000	1000	3579
+1400	539509	1	1400	1400	3580
+7801620005856	539511	1	900	900	3581
+1600	539511	1	1600	1600	3582
+60	539511	1	700	700	3583
+7801610350409	539512	1	1650	1650	3584
+78024403	539512	1	2600	2600	3585
+400	539512	1	400	400	3586
+3200	539513	1	3200	3200	3587
+7801620001704	539513	1	850	850	3588
+3200	539514	1	3200	3200	3589
+1690	539515	1	1690	1690	3590
+1690	539515	1	1690	1690	3591
+400	539516	1	400	400	3592
+15	539516	1	1500	1500	3593
+7803908002090	539516	1	1400	1400	3594
+4	539516	1	1000	1000	3595
+800	539517	1	800	800	3596
+1300	539517	1	1300	1300	3597
+15	539518	1	1500	1500	3598
+500	539520	1	500	500	3599
+400	539520	1	400	400	3600
+126	539520	1	350	350	3601
+126	539520	1	350	350	3602
+3200	539520	1	3200	3200	3603
+3	539522	1	1100	1100	3604
+1400	539522	1	1400	1400	3605
+78018884	539523	1	3400	3400	3606
+1600	539524	1	1600	1600	3607
+800	539524	1	800	800	3608
+3000	539526	1	3000	3000	3609
+3000	539526	1	3000	3000	3610
+900	539526	1	900	900	3611
+3000	539526	1	3000	3000	3612
+51	539528	1	1300	1300	3613
+51	539528	1	1300	1300	3614
+1600	539528	1	1600	1600	3615
+1600	539528	1	1600	1600	3616
+3200	539528	1	3200	3200	3617
+3200	539529	1	3200	3200	3618
+3200	539529	1	3200	3200	3619
+500	539529	1	500	500	3620
+500	539529	1	500	500	3621
+78018884	539530	1	3400	3400	3622
+900	539531	1	900	900	3623
+126	539531	1	350	350	3624
+5201041002137	539532	1	800	800	3625
+7806500172116	539532	1	300	300	3626
+7802832000240	539532	1	700	700	3627
+690	539534	1	980	980	3628
+7613034276490	539534	1	500	500	3629
+7613034276490	539534	1	500	500	3630
+7803908005893	539535	1	1500	1500	3631
+3	539537	1	1100	1100	3632
+4	539537	1	1000	1000	3633
+60	539537	1	700	700	3634
+1400	539538	1	1400	1400	3635
+1200	539538	1	1200	1200	3636
+7801620011659	539538	1	700	700	3637
+15	539540	1	1500	1500	3638
+1300	539540	1	1300	1300	3639
+1300	539541	1	1300	1300	3640
+69	539541	1	600	600	3641
+69	539541	1	600	600	3642
+9002490238841	539542	1	2500	2500	3643
+400	539543	1	400	400	3644
+60	539544	1	700	700	3645
+69	539544	1	600	600	3646
+400	539545	1	400	400	3647
+400	539545	1	400	400	3648
+1	539545	1	1200	1200	3649
+1300	539545	1	1300	1300	3650
+9002490221010	539546	1	2100	2100	3651
+7802920000930	539546	1	350	350	3652
+7802920000930	539546	1	350	350	3653
+450	539546	1	450	450	3654
+450	539546	1	450	450	3655
+450	539546	1	450	450	3656
+450	539546	1	450	450	3657
+69	539546	1	600	600	3658
+51	539547	1	1300	1300	3659
+1300	539547	1	1300	1300	3660
+900	539547	1	900	900	3661
+4	539547	1	1000	1000	3662
+3	539548	1	1100	1100	3663
+900	539548	1	900	900	3664
+51	539549	1	1300	1300	3665
+51	539549	1	1300	1300	3666
+3	539550	1	1100	1100	3667
+9002490221010	539551	1	2100	2100	3668
+3	539551	1	1100	1100	3669
+1	539553	1	1200	1200	3670
+69	539553	1	600	600	3671
+69	539553	1	600	600	3672
+69	539553	1	600	600	3673
+1700	539554	1	1700	1700	3674
+60	539554	1	700	700	3675
+1	539555	1	1200	1200	3676
+15	539555	1	1500	1500	3677
+3	539556	1	1100	1100	3678
+1800	539556	1	1800	1800	3679
+51	539557	1	1300	1300	3680
+1	539557	1	1200	1200	3681
+3	539557	1	1100	1100	3682
+15	539558	1	1500	1500	3683
+15	539558	1	1500	1500	3684
+800	539558	1	800	800	3685
+3	539559	1	1100	1100	3686
+3	539559	1	1100	1100	3687
+4	539559	1	1000	1000	3688
+500	539560	1	500	500	3689
+126	539560	1	350	350	3690
+1400	539561	1	1400	1400	3691
+4	539563	1	1000	1000	3692
+7802215302053	539563	1	800	800	3693
+1400	539564	1	1400	1400	3694
+1400	539564	1	1400	1400	3695
+52	539565	1	2000	2000	3696
+78024878	539565	1	4200	4200	3697
+3	539566	1	1100	1100	3698
+3	539566	1	1100	1100	3699
+900	539566	1	900	900	3700
+1200	539566	1	1200	1200	3701
+3	539567	1	1100	1100	3702
+400	539567	1	400	400	3703
+51	539567	1	1300	1300	3704
+1400	539568	1	1400	1400	3705
+51	539568	1	1300	1300	3706
+78021020	539568	1	2000	2000	3707
+78024403	539569	1	2600	2600	3708
+7802920008127	539570	1	900	900	3709
+3	539570	1	1100	1100	3710
+3	539570	1	1100	1100	3711
+1400	539571	1	1400	1400	3712
+1400	539571	1	1400	1400	3713
+52	539571	1	2000	2000	3714
+3	539571	1	1100	1100	3715
+7801620011659	539572	1	700	700	3716
+7803473004376	539574	1	600	600	3717
+5201041002137	539575	2	800	1600	3718
+7802820441123	539575	1	650	650	3719
+3	539576	1	1100	1100	3720
+69	539576	1	600	600	3721
+3	539578	1	1100	1100	3722
+60	539578	1	700	700	3723
+51	539579	1	1300	1300	3724
+1300	539579	1	1300	1300	3725
+450	539580	1	450	450	3726
+450	539580	1	450	450	3727
+4	539580	1	1000	1000	3728
+8	539580	1	1300	1300	3729
+3	539581	1	1100	1100	3730
+3	539583	1	1100	1100	3731
+3	539583	1	1100	1100	3732
+69	539583	1	600	600	3733
+1300	539584	1	1300	1300	3734
+51	539584	1	1300	1300	3735
+78025219	539585	1	3300	3300	3736
+7801620001704	539585	1	850	850	3737
+7801620006846	539585	1	800	800	3738
+7802230082510	539586	1	1100	1100	3739
+15	539587	1	1500	1500	3740
+7801620001711	539587	1	1100	1100	3741
+3	539590	1	1100	1100	3742
+4	539590	1	1000	1000	3743
+1	539590	1	1200	1200	3744
+3	539590	1	1100	1100	3745
+78007673	539591	1	3000	3000	3746
+78007673	539591	1	3000	3000	3747
+8	539592	1	1300	1300	3748
+900	539592	1	900	900	3749
+3	539593	1	1100	1100	3750
+800	539593	1	800	800	3751
+7613035808133	539593	1	1690	1690	3752
+7613035808133	539593	1	1690	1690	3753
+78007673	539594	1	3000	3000	3754
+52	539596	1	2000	2000	3755
+3	539596	1	1100	1100	3756
+7804643820123	539596	1	1600	1600	3757
+1400	539596	1	1400	1400	3758
+450	539596	4	450	1800	3759
+3	539597	1	1100	1100	3760
+3	539597	1	1100	1100	3761
+7802230082831	539597	1	1100	1100	3762
+60	539598	1	700	700	3763
+60	539598	1	700	700	3764
+3	539598	1	1100	1100	3765
+15	539599	1	1500	1500	3766
+3	539600	1	1100	1100	3767
+60	539600	1	700	700	3768
+7802215511622	539600	1	300	300	3769
+78016293	539600	1	2500	2500	3770
+78021020	539600	1	2000	2000	3771
+1300	539601	1	1300	1300	3772
+4	539601	1	1000	1000	3773
+7801620005344	539603	1	900	900	3774
+7590011205158	539603	1	300	300	3775
+7801620006846	539605	1	800	800	3776
+7802920008141	539606	1	850	850	3777
+78019096	539607	1	3000	3000	3778
+3	539607	1	1100	1100	3779
+7801620001834	539608	1	700	700	3780
+7802820600100	539608	1	700	700	3781
+7802920005171	539608	1	500	500	3782
+3	539610	1	1100	1100	3783
+400	539611	1	400	400	3784
+900	539611	1	900	900	3785
+4	539612	1	1000	1000	3786
+900	539612	1	900	900	3787
+126	539612	1	350	350	3788
+1200	539613	1	1200	1200	3789
+1300	539614	1	1300	1300	3790
+3	539615	1	1100	1100	3791
+7801620075941	539615	1	1000	1000	3792
+3	539616	1	1100	1100	3793
+7802820250220	539616	1	350	350	3794
+7802820250220	539616	1	350	350	3795
+2	539617	1	1300	1300	3796
+51	539621	1	1300	1300	3797
+4	539621	1	1000	1000	3798
+500	539622	1	500	500	3799
+3	539622	1	1100	1100	3800
+3	539623	1	1100	1100	3801
+300	539623	1	300	300	3802
+300	539623	1	300	300	3803
+3	539624	1	1100	1100	3804
+400	539624	1	400	400	3805
+400	539624	1	400	400	3806
+7801610000595	539624	1	1000	1000	3807
+78025332	539624	1	4000	4000	3808
+60	539626	1	700	700	3809
+3	539626	1	1100	1100	3810
+1600	539627	1	1600	1600	3811
+3	539628	1	1100	1100	3812
+60	539628	1	700	700	3813
+7802920106106	539630	1	500	500	3814
+7809595603411	539630	1	950	950	3815
+1300	539631	1	1300	1300	3816
+2	539632	1	1300	1300	3817
+2000	539632	1	2000	2000	3818
+78016408	539633	1	2500	2500	3819
+7801610000571	539633	1	1000	1000	3820
+51	539634	1	1300	1300	3821
+1300	539634	1	1300	1300	3822
+1700	539634	1	1700	1700	3823
+3	539635	1	1100	1100	3824
+7802820441789	539635	1	1000	1000	3825
+7802920008141	539635	1	850	850	3826
+3	539636	1	1100	1100	3827
+51	539637	1	1300	1300	3828
+51	539637	1	1300	1300	3829
+51	539637	1	1300	1300	3830
+4	539637	1	1000	1000	3831
+4	539637	1	1000	1000	3832
+78021020	539638	1	2000	2000	3833
+3	539639	1	1100	1100	3834
+51	539639	1	1300	1300	3835
+1200	539640	1	1200	1200	3836
+500	539640	1	500	500	3837
+3	539641	1	1100	1100	3838
+3	539641	1	1100	1100	3839
+500	539641	1	500	500	3840
+4	539643	1	1000	1000	3841
+7802215511622	539643	1	300	300	3842
+3	539644	1	1100	1100	3843
+3	539644	1	1100	1100	3844
+500	539644	1	500	500	3845
+7802215512278	539645	1	650	650	3846
+1300	539645	1	1300	1300	3847
+500	539645	1	500	500	3848
+4	539646	1	1000	1000	3849
+4	539646	1	1000	1000	3850
+1400	539646	1	1400	1400	3851
+7801620001711	539647	1	1100	1100	3852
+51	539649	1	1300	1300	3853
+7801620006655	539650	1	1200	1200	3854
+900	539651	1	900	900	3855
+900	539651	1	900	900	3856
+7802950072679	539651	1	300	300	3857
+1700	539652	1	1700	1700	3858
+60	539652	1	700	700	3859
+4	539653	1	1000	1000	3860
+800	539653	1	800	800	3861
+3	539654	1	1100	1100	3862
+3	539654	1	1100	1100	3863
+500	539654	1	500	500	3864
+7802230086952	539654	1	800	800	3865
+1500	539655	1	1650	1650	3866
+7802820020953	539656	1	1000	1000	3867
+7801610022122	539656	1	800	800	3868
+70847009511	539658	1	2000	2000	3869
+7801610022726	539658	1	1650	1650	3870
+7801610022122	539659	1	800	800	3871
+2000	539661	1	2000	2000	3872
+78019065	539661	1	2000	2000	3873
+7801620006174	539661	1	990	990	3874
+793573241962	539661	1	1400	1400	3875
+7613034279309	539662	4	350	1400	3876
+78019065	539662	1	2000	2000	3877
+4	539662	1	1000	1000	3878
+1850	539663	1	1850	1850	3879
+1300	539663	1	1300	1300	3880
+7802800500772	539664	1	1600	1600	3881
+78006164	539664	1	870	870	3882
+2000	539665	1	2000	2000	3883
+60	539665	1	700	700	3884
+7802920801254	539666	1	350	350	3885
+7802920801254	539666	1	350	350	3886
+7801620004408	539666	1	800	800	3887
+60	539667	1	700	700	3888
+60	539667	1	700	700	3889
+500	539667	1	500	500	3890
+3200	539668	1	3200	3200	3891
+4	539668	1	1000	1000	3892
+9120033164782	539669	1	1200	1200	3893
+7801620002671	539669	1	1100	1100	3894
+42123880	539669	1	650	650	3895
+42123880	539669	1	650	650	3896
+3000	539669	1	3000	3000	3897
+7802230086952	539669	1	800	800	3898
+3200	539670	1	3200	3200	3899
+4	539670	1	1000	1000	3900
+4	539670	1	1000	1000	3901
+1690	539671	1	1690	1690	3902
+7803908002090	539672	1	1400	1400	3903
+7622300258061	539672	1	250	250	3904
+3200	539674	1	3200	3200	3905
+500	539674	1	500	500	3906
+3200	539675	1	3200	3200	3907
+3200	539675	1	3200	3200	3908
+800	539675	1	800	800	3909
+800	539675	1	800	800	3910
+51	539677	1	1300	1300	3911
+900	539677	1	900	900	3912
+6101	539678	1	1700	1700	3913
+7801620006082	539678	1	1000	1000	3914
+500	539679	1	500	500	3915
+7801610000571	539679	1	1000	1000	3916
+300	539679	1	300	300	3917
+126	539679	1	350	350	3918
+126	539679	1	350	350	3919
+3	539680	1	1100	1100	3920
+7801610000571	539680	1	1000	1000	3921
+78007673	539680	1	3000	3000	3922
+78007673	539680	1	3000	3000	3923
+800	539682	1	800	800	3924
+1300	539682	1	1300	1300	3925
+15	539683	1	1500	1500	3926
+400	539683	1	400	400	3927
+7802800544356	539683	1	350	350	3928
+51	539683	1	1300	1300	3929
+800	539686	1	800	800	3930
+7802950072679	539686	1	300	300	3931
+1400	539687	1	1400	1400	3932
+7801620002664	539689	1	1100	1100	3933
+9002490221010	539690	1	2100	2100	3934
+7801620006082	539691	1	1000	1000	3935
+7802920008172	539691	1	450	450	3936
+1400	539691	1	1400	1400	3937
+3200	539694	1	3200	3200	3938
+800	539694	1	800	800	3939
+1400	539694	1	1400	1400	3940
+300	539694	1	300	300	3941
+6101	539695	1	1700	1700	3942
+1690	539696	1	1690	1690	3943
+1690	539696	1	1690	1690	3944
+3200	539698	1	3200	3200	3945
+1300	539698	1	1300	1300	3946
+51	539698	1	1300	1300	3947
+51	539698	1	1300	1300	3948
+1600	539698	1	1600	1600	3949
+1600	539698	1	1600	1600	3950
+3000	539698	1	3000	3000	3951
+7809595603411	539698	1	950	950	3952
+1400	539701	1	1400	1400	3953
+1400	539701	1	1400	1400	3954
+7613034999115	539701	1	650	650	3955
+7613034999115	539701	1	650	650	3956
+1700	539702	1	1700	1700	3957
+1400	539703	1	1400	1400	3958
+800	539703	1	800	800	3959
+1690	539704	1	1690	1690	3960
+4	539704	1	1000	1000	3961
+4	539707	1	1000	1000	3962
+4	539707	1	1000	1000	3963
+7802800544332	539707	1	350	350	3964
+6780201379627	539708	1	1800	1800	3965
+3	539708	1	1100	1100	3966
+126	539708	1	350	350	3967
+3	539709	1	1100	1100	3968
+51	539710	1	1300	1300	3969
+500	539710	1	500	500	3970
+500	539710	1	500	500	3971
+1850	539711	1	1850	1850	3972
+1850	539711	1	1850	1850	3973
+1	539711	1	1200	1200	3974
+7802920004952	539713	1	400	400	3975
+500	539713	1	500	500	3976
+500	539713	1	500	500	3977
+1	539713	1	1200	1200	3978
+1400	539714	1	1400	1400	3979
+1	539714	1	1200	1200	3980
+1400	539716	1	1400	1400	3981
+1	539716	1	1200	1200	3982
+15	539716	1	1500	1500	3983
+3	539717	1	1100	1100	3984
+1400	539717	1	1400	1400	3985
+1400	539718	1	1400	1400	3986
+78024410	539719	1	3500	3500	3987
+51	539721	1	1300	1300	3988
+300	539721	1	300	300	3989
+60	539722	1	700	700	3990
+60	539722	1	700	700	3991
+3	539722	1	1100	1100	3992
+1	539722	1	1200	1200	3993
+7802215302060	539723	1	800	800	3994
+800	539724	1	800	800	3995
+4	539724	1	1000	1000	3996
+1300	539724	1	1300	1300	3997
+3	539725	1	1100	1100	3998
+69	539725	1	600	600	3999
+51	539726	1	1300	1300	4000
+51	539726	1	1300	1300	4001
+1	539726	1	1200	1200	4002
+1300	539727	1	1300	1300	4003
+300	539727	1	300	300	4004
+3	539728	1	1100	1100	4005
+51	539728	1	1300	1300	4006
+1300	539730	1	1300	1300	4007
+1300	539730	1	1300	1300	4008
+1	539731	1	1200	1200	4009
+900	539731	1	900	900	4010
+500	539731	1	500	500	4011
+15	539732	1	1500	1500	4012
+1400	539733	1	1400	1400	4013
+4	539734	1	1000	1000	4014
+4	539734	1	1000	1000	4015
+1300	539734	1	1300	1300	4016
+1	539736	1	1200	1200	4017
+1	539736	1	1200	1200	4018
+800	539736	1	800	800	4019
+800	539736	1	800	800	4020
+1400	539737	1	1400	1400	4021
+1850	539737	1	1850	1850	4022
+3	539738	1	1100	1100	4023
+900	539738	1	900	900	4024
+1200	539739	1	1200	1200	4025
+51	539740	1	1300	1300	4026
+1	539740	1	1200	1200	4027
+78025318	539741	1	4200	4200	4028
+69	539741	1	600	600	4029
+1200	539742	1	1200	1200	4030
+4	539742	1	1000	1000	4031
+4	539743	1	1000	1000	4032
+4	539743	1	1000	1000	4033
+1	539743	1	1200	1200	4034
+400	539743	1	400	400	4035
+7801610000601	539743	1	1000	1000	4036
+69	539743	1	600	600	4037
+69	539743	1	600	600	4038
+4	539744	1	1000	1000	4039
+51	539744	1	1300	1300	4040
+900	539744	1	900	900	4041
+78016293	539744	1	2500	2500	4042
+3	539745	1	1100	1100	4043
+1	539746	1	1200	1200	4044
+3	539747	1	1100	1100	4045
+3	539747	1	1100	1100	4046
+4	539748	1	1000	1000	4047
+52	539749	1	2000	2000	4048
+1	539749	1	1200	1200	4049
+4	539749	1	1000	1000	4050
+7802920006888	539749	1	400	400	4051
+1	539751	1	1200	1200	4052
+4	539751	1	1000	1000	4053
+1300	539751	1	1300	1300	4054
+4	539751	1	1000	1000	4055
+3	539752	1	1100	1100	4056
+4	539752	1	1000	1000	4057
+7803473004376	539752	1	600	600	4058
+7802920008141	539753	1	900	900	4059
+7800120171061	539753	1	400	400	4060
+7801620004859	539755	1	900	900	4061
+7802920004969	539755	1	400	400	4062
+7501013118018	539756	1	800	800	4063
+78019041	539756	1	2000	2000	4064
+1300	539757	1	1300	1300	4065
+450	539758	1	450	450	4066
+450	539758	1	450	450	4067
+450	539758	1	450	450	4068
+500	539758	1	500	500	4069
+1	539759	1	1200	1200	4070
+1	539759	1	1200	1200	4071
+4	539759	1	1000	1000	4072
+15	539760	1	1500	1500	4073
+4	539760	1	1000	1000	4074
+15	539761	1	1500	1500	4075
+400	539761	1	400	400	4076
+1600	539762	1	1600	1600	4077
+61	539763	1	1000	1000	4078
+900	539763	1	900	900	4079
+450	539763	1	450	450	4080
+3	539764	1	1100	1100	4081
+7802215501968	539765	1	1000	1000	4082
+78014053	539765	1	450	450	4083
+78014053	539765	1	450	450	4084
+78014053	539765	1	450	450	4085
+4	539766	1	1000	1000	4086
+1400	539766	1	1400	1400	4087
+60	539766	1	700	700	4088
+3	539767	1	1100	1100	4089
+1	539767	1	1200	1200	4090
+7801620002961	539767	1	1100	1100	4091
+1	539768	1	1200	1200	4092
+1	539769	1	1200	1200	4093
+79	539769	1	400	400	4094
+800	539769	1	800	800	4095
+1400	539770	1	1400	1400	4096
+4	539771	1	1000	1000	4097
+1300	539771	1	1300	1300	4098
+7802800544356	539772	1	350	350	4099
+78018853	539773	1	1800	1800	4100
+4	539774	1	1000	1000	4101
+4	539774	1	1000	1000	4102
+4	539775	1	1000	1000	4103
+3	539775	1	1100	1100	4104
+3	539776	1	1100	1100	4105
+51	539776	1	1300	1300	4106
+7801620001704	539777	1	850	850	4107
+500	539777	1	500	500	4108
+3	539777	1	1100	1100	4109
+51	539778	1	1300	1300	4110
+2000	539778	1	2000	2000	4111
+4	539780	1	1000	1000	4112
+7802225426381	539780	1	200	200	4113
+7802225426381	539780	1	200	200	4114
+742832751988	539781	1	1400	1400	4115
+2000	539781	1	2000	2000	4116
+126	539781	1	350	350	4117
+2000	539781	1	2000	2000	4118
+2000	539783	1	2000	2000	4119
+500	539783	1	500	500	4120
+7801620011659	539785	1	700	700	4121
+1400	539786	1	1400	1400	4122
+2000	539787	1	2000	2000	4123
+2000	539787	1	2000	2000	4124
+400	539787	1	400	400	4125
+7801620006600	539788	1	1200	1200	4126
+2000	539789	1	2000	2000	4127
+800	539789	1	800	800	4128
+3200	539791	1	3200	3200	4129
+51	539791	1	1300	1300	4130
+1	539791	1	1200	1200	4131
+3000	539794	1	3000	3000	4132
+4	539794	1	1000	1000	4133
+4	539794	1	1000	1000	4134
+78014053	539794	1	450	450	4135
+78014053	539794	1	450	450	4136
+1850	539795	1	1850	1850	4137
+1850	539795	1	1850	1850	4138
+3200	539796	1	3200	3200	4139
+500	539796	1	500	500	4140
+1400	539797	1	1400	1400	4141
+3200	539797	1	3200	3200	4142
+7803908005787	539798	1	1000	1000	4143
+7801610001196	539799	1	800	800	4144
+3200	539800	1	3200	3200	4145
+51	539801	1	1300	1300	4146
+1400	539801	1	1400	1400	4147
+800	539802	1	800	800	4148
+300	539802	1	300	300	4149
+7802215303388	539802	1	250	250	4150
+1300	539803	1	1300	1300	4151
+7801620006174	539804	1	990	990	4152
+78013308	539806	1	450	450	4153
+7802800544356	539806	1	350	350	4154
+7801610001196	539807	1	800	800	4155
+7613035407145	539808	1	1690	1690	4156
+7613035807464	539808	1	1690	1690	4157
+7613035807464	539808	1	1690	1690	4158
+7801620001704	539809	1	850	850	4159
+3200	539810	1	3200	3200	4160
+1850	539810	1	1850	1850	4161
+1850	539810	1	1850	1850	4162
+4	539810	1	1000	1000	4163
+15	539811	1	1500	1500	4164
+78019065	539812	1	2000	2000	4165
+7801620001704	539812	1	850	850	4166
+7801620300203	539814	1	800	800	4167
+7613035421592	539814	1	1690	1690	4168
+6101	539816	1	1700	1700	4169
+3	539816	1	1100	1100	4170
+61	539817	1	1000	1000	4171
+61	539817	1	1000	1000	4172
+1400	539817	1	1400	1400	4173
+1	539817	1	1200	1200	4174
+51	539818	1	1300	1300	4175
+1800	539819	1	1800	1800	4176
+1300	539819	1	1300	1300	4177
+7801620011659	539820	1	700	700	4178
+7802920006895	539821	1	400	400	4179
+70847035800	539821	1	2000	2000	4180
+7501013101447	539822	1	2000	2000	4181
+7801620006600	539823	1	1200	1200	4182
+7802225682107	539823	1	600	600	4183
+7801620004873	539824	1	900	900	4184
+7801620011659	539824	1	700	700	4185
+7802920106106	539824	1	500	500	4186
+7803473003232	539824	1	400	400	4187
+7802215302060	539824	1	800	800	4188
+3	539826	1	1100	1100	4189
+7801620011659	539826	1	700	700	4190
+1	539827	1	1200	1200	4191
+900	539827	1	900	900	4192
+52	539827	1	2000	2000	4193
+450	539827	4	450	1800	4194
+1400	539828	1	1400	1400	4195
+4	539828	1	1000	1000	4196
+500	539828	1	500	500	4197
+3	539829	1	1100	1100	4198
+3	539829	1	1100	1100	4199
+3	539829	1	1100	1100	4200
+7802215502262	539830	1	750	750	4201
+78018884	539831	1	3400	3400	4202
+3	539832	1	1100	1100	4203
+7802215505300	539832	1	850	850	4204
+7801620002657	539833	1	1100	1100	4205
+1400	539833	1	1400	1400	4206
+3	539835	1	1100	1100	4207
+52	539835	1	2000	2000	4208
+1500	539835	1	1650	1650	4209
+1200	539836	1	1200	1200	4210
+900	539836	1	900	900	4211
+7802215301452	539836	1	250	250	4212
+400	539837	1	400	400	4213
+3	539837	1	1100	1100	4214
+4	539837	1	1000	1000	4215
+3	539838	1	1100	1100	4216
+1300	539839	1	1300	1300	4217
+60	539839	1	700	700	4218
+51	539840	1	1300	1300	4219
+500	539841	1	500	500	4220
+3	539841	1	1100	1100	4221
+78021020	539841	1	2000	2000	4222
+7802215302060	539842	1	800	800	4223
+4	539842	1	1000	1000	4224
+51	539842	1	1300	1300	4225
+51	539843	1	1300	1300	4226
+400	539843	1	400	400	4227
+1400	539843	1	1400	1400	4228
+4	539843	1	1000	1000	4229
+1	539844	1	1200	1200	4230
+51	539845	1	1300	1300	4231
+51	539845	1	1300	1300	4232
+3	539845	1	1100	1100	4233
+7801610000571	539846	1	1000	1000	4234
+1	539846	1	1200	1200	4235
+52	539846	1	2000	2000	4236
+52	539847	1	2000	2000	4237
+300	539847	1	300	300	4238
+3	539848	1	1100	1100	4239
+2000	539848	1	2000	2000	4240
+4	539848	1	1000	1000	4241
+1850	539849	1	1850	1850	4242
+7803908002090	539849	1	1400	1400	4243
+1	539850	1	1200	1200	4244
+79	539850	1	400	400	4245
+3	539851	1	1100	1100	4246
+3	539851	1	1100	1100	4247
+3	539852	1	1100	1100	4248
+126	539852	1	350	350	4249
+3	539852	1	1100	1100	4250
+52	539853	1	2000	2000	4251
+300	539853	1	300	300	4252
+300	539853	1	300	300	4253
+4	539855	1	1000	1000	4254
+15	539856	1	1500	1500	4255
+4	539859	1	1000	1000	4256
+900	539859	1	900	900	4257
+1	539859	1	1200	1200	4258
+1400	539859	1	1400	1400	4259
+1300	539860	1	1300	1300	4260
+52	539861	1	2000	2000	4261
+4	539861	1	1000	1000	4262
+3	539862	1	1100	1100	4263
+3	539862	1	1100	1100	4264
+3	539863	1	1100	1100	4265
+4	539863	1	1000	1000	4266
+1850	539863	1	1850	1850	4267
+3	539864	1	1100	1100	4268
+7802215512278	539865	1	650	650	4269
+500	539865	1	500	500	4270
+1	539865	1	1200	1200	4271
+1	539866	1	1200	1200	4272
+2000	539866	1	2000	2000	4273
+7801620002657	539868	1	1100	1100	4274
+1	539868	1	1200	1200	4275
+52	539869	1	2000	2000	4276
+52	539869	1	2000	2000	4277
+7802230082534	539870	1	1100	1100	4278
+3	539870	1	1100	1100	4279
+3	539870	1	1100	1100	4280
+2000	539872	1	2000	2000	4281
+7802920004969	539872	1	400	400	4282
+7801620006082	539872	1	1000	1000	4283
+3	539873	1	1100	1100	4284
+500	539873	1	500	500	4285
+1400	539874	1	1400	1400	4286
+3	539874	1	1100	1100	4287
+1300	539875	1	1300	1300	4288
+7802832000240	539875	1	700	700	4289
+3	539876	1	1100	1100	4290
+800	539876	1	800	800	4291
+4	539877	1	1000	1000	4292
+4	539877	1	1000	1000	4293
+78021020	539877	1	2000	2000	4294
+78021020	539877	1	2000	2000	4295
+1850	539878	1	1850	1850	4296
+1850	539878	1	1850	1850	4297
+1300	539879	1	1300	1300	4298
+1	539879	1	1200	1200	4299
+7802832000264	539879	1	700	700	4300
+3200	539879	1	3200	3200	4301
+3200	539879	1	3200	3200	4302
+15	539879	1	1500	1500	4303
+15	539879	1	1500	1500	4304
+7801620001704	539879	1	850	850	4305
+3	539880	1	1100	1100	4306
+4	539880	1	1000	1000	4307
+3	539881	1	1100	1100	4308
+3	539882	1	1100	1100	4309
+3	539882	1	1100	1100	4310
+400	539882	1	400	400	4311
+500	539883	1	500	500	4312
+7622300258061	539883	1	250	250	4313
+7803908002090	539883	1	1400	1400	4314
+78025332	539883	1	4000	4000	4315
+1300	539884	1	1300	1300	4316
+1300	539884	1	1300	1300	4317
+450	539884	1	450	450	4318
+2000	539884	1	2000	2000	4319
+1300	539885	1	1300	1300	4320
+1300	539885	1	1300	1300	4321
+1300	539885	1	1300	1300	4322
+800	539885	1	800	800	4323
+500	539885	1	500	500	4324
+1400	539886	1	1400	1400	4325
+126	539886	1	350	350	4326
+1300	539887	1	1300	1300	4327
+78030299	539887	1	350	350	4328
+78024410	539887	1	3500	3500	4329
+7801620852689	539888	1	800	800	4330
+7801620330132	539888	1	800	800	4331
+7801620360153	539888	1	800	800	4332
+500	539890	1	500	500	4333
+900	539890	1	900	900	4334
+900	539890	1	900	900	4335
+4	539890	1	1000	1000	4336
+4	539890	1	1000	1000	4337
+4	539890	1	1000	1000	4338
+15	539891	1	1500	1500	4339
+800	539891	1	800	800	4340
+1400	539891	1	1400	1400	4341
+500	539892	1	500	500	4342
+69	539892	1	600	600	4343
+3200	539892	1	3200	3200	4344
+7613034999115	539892	1	650	650	4345
+900	539893	1	900	900	4346
+900	539893	1	900	900	4347
+3200	539893	1	3200	3200	4348
+7801610350355	539894	1	800	800	4349
+7802832000264	539894	1	700	700	4350
+60	539894	1	700	700	4351
+3200	539896	1	3200	3200	4352
+7801620006853	539896	1	1000	1000	4353
+1300	539896	1	1300	1300	4354
+7803908005787	539896	1	1000	1000	4355
+500	539898	1	500	500	4356
+78024403	539898	1	2600	2600	4357
+1400	539899	1	1400	1400	4358
+7801610000601	539899	1	1000	1000	4359
+3200	539900	1	3200	3200	4360
+1600	539902	1	1600	1600	4361
+7801610022122	539902	1	800	800	4362
+2000	539902	1	2000	2000	4363
+7801610022122	539903	1	800	800	4364
+7801610001196	539904	1	800	800	4365
+7801610001196	539904	1	800	800	4366
+7801620852955	539904	1	1000	1000	4367
+2000	539905	1	2000	2000	4368
+800	539905	1	800	800	4369
+9002490221010	539906	1	2100	2100	4370
+3200	539907	1	3200	3200	4371
+300	539908	1	300	300	4372
+800	539908	1	800	800	4373
+500	539908	1	500	500	4374
+4	539908	1	1000	1000	4375
+78021020	539910	1	2000	2000	4376
+78021020	539910	1	2000	2000	4377
+1850	539910	1	1850	1850	4378
+300	539910	1	300	300	4379
+1400	539912	1	1400	1400	4380
+800	539912	1	800	800	4381
+1400	539913	1	1400	1400	4382
+800	539913	1	800	800	4383
+78019041	539913	1	2000	2000	4384
+7801610223192	539915	1	800	800	4385
+7801610223192	539915	1	800	800	4386
+7801610223192	539915	1	800	800	4387
+52	539916	1	2000	2000	4388
+1300	539918	1	1300	1300	4389
+400	539918	1	400	400	4390
+126	539918	1	350	350	4391
+800	539919	1	800	800	4392
+1300	539919	1	1300	1300	4393
+7802000002571	539920	1	1250	1250	4394
+7802000012679	539920	1	2300	2300	4395
+78025318	539921	1	4200	4200	4396
+78025318	539921	1	4200	4200	4397
+7804630010001	539922	1	800	800	4398
+3	539923	1	1100	1100	4399
+51	539923	1	1300	1300	4400
+1400	539924	1	1400	1400	4401
+3	539925	1	1100	1100	4402
+1800	539925	1	1800	1800	4403
+1600	539926	1	1600	1600	4404
+1600	539926	1	1600	1600	4405
+78025059	539927	1	3400	3400	4406
+78025059	539927	1	3400	3400	4407
+3	539928	1	1100	1100	4408
+1300	539928	1	1300	1300	4409
+51	539929	1	1300	1300	4410
+7803473543189	539930	1	450	450	4411
+7590011205158	539930	1	300	300	4412
+7802215113567	539931	1	450	450	4413
+7803525000240	539932	1	600	600	4414
+1	539933	1	1200	1200	4415
+400	539933	1	400	400	4416
+1300	539933	1	1300	1300	4417
+1600	539934	1	1600	1600	4418
+60	539934	1	700	700	4419
+7801620015800	539935	1	700	700	4420
+7802920004952	539935	1	400	400	4421
+69	539935	1	600	600	4422
+9002490221010	539936	1	2100	2100	4423
+1800	539936	1	1800	1800	4424
+7801620852955	539936	1	1000	1000	4425
+3	539936	1	1100	1100	4426
+60	539936	1	700	700	4427
+51	539938	1	1300	1300	4428
+51	539938	1	1300	1300	4429
+1	539938	1	1200	1200	4430
+7801620075941	539940	1	1000	1000	4431
+7801620016012	539940	1	1000	1000	4432
+7613030518426	539940	1	700	700	4433
+52	539941	1	2000	2000	4434
+52	539941	1	2000	2000	4435
+1	539941	1	1200	1200	4436
+1400	539941	1	1400	1400	4437
+1800	539942	1	1800	1800	4438
+400	539942	1	400	400	4439
+7801620002961	539943	1	1100	1100	4440
+1400	539943	1	1400	1400	4441
+450	539943	1	450	450	4442
+7801620011666	539943	1	700	700	4443
+60	539944	1	700	700	4444
+3	539944	1	1100	1100	4445
+3	539945	1	1100	1100	4446
+7801620852962	539946	1	1000	1000	4447
+78016293	539946	1	2500	2500	4448
+1	539947	1	1200	1200	4449
+3	539948	1	1100	1100	4450
+1300	539948	1	1300	1300	4451
+3	539951	1	1100	1100	4452
+60	539951	1	700	700	4453
+3	539952	1	1100	1100	4454
+400	539952	1	400	400	4455
+800	539952	1	800	800	4456
+51	539953	1	1300	1300	4457
+51	539953	1	1300	1300	4458
+3	539954	1	1100	1100	4459
+3	539954	1	1100	1100	4460
+800	539954	1	800	800	4461
+800	539954	1	800	800	4462
+79	539955	1	400	400	4463
+3	539955	1	1100	1100	4464
+3	539955	1	1100	1100	4465
+900	539955	1	900	900	4466
+400	539956	1	400	400	4467
+400	539956	1	400	400	4468
+15	539956	1	1500	1500	4469
+61	539957	1	1000	1000	4470
+1400	539957	1	1400	1400	4471
+1	539958	1	1200	1200	4472
+900	539958	1	900	900	4473
+69	539958	1	600	600	4474
+69	539959	1	600	600	4475
+4	539961	1	1000	1000	4476
+4	539961	1	1000	1000	4477
+51	539962	1	1300	1300	4478
+450	539962	1	450	450	4479
+450	539962	1	450	450	4480
+1	539964	1	1200	1200	4481
+500	539964	1	500	500	4482
+69	539964	1	600	600	4483
+7613030612339	539965	1	300	300	4484
+51	539966	1	1300	1300	4485
+1	539966	1	1200	1200	4486
+15	539968	1	1500	1500	4487
+69	539968	1	600	600	4488
+2000	539969	1	2000	2000	4489
+51	539969	1	1300	1300	4490
+51	539970	1	1300	1300	4491
+1300	539970	1	1300	1300	4492
+1300	539971	1	1300	1300	4493
+4	539971	1	1000	1000	4494
+51	539972	1	1300	1300	4495
+3	539972	1	1100	1100	4496
+1400	539973	1	1400	1400	4497
+1400	539973	1	1400	1400	4498
+51	539973	1	1300	1300	4499
+15	539974	1	1500	1500	4500
+61	539974	1	1000	1000	4501
+7802800544356	539974	1	350	350	4502
+7801620011666	539975	1	700	700	4503
+78018853	539975	1	1800	1800	4504
+78021020	539976	1	2000	2000	4505
+7801620002671	539976	1	1100	1100	4506
+300	539976	1	300	300	4507
+3	539977	1	1100	1100	4508
+3	539977	1	1100	1100	4509
+800	539977	1	800	800	4510
+800	539977	1	800	800	4511
+4	539978	1	1000	1000	4512
+51	539979	1	1300	1300	4513
+51	539979	1	1300	1300	4514
+4	539979	1	1000	1000	4515
+4	539979	1	1000	1000	4516
+450	539980	1	450	450	4517
+450	539980	1	450	450	4518
+4	539980	1	1000	1000	4519
+3	539981	1	1100	1100	4520
+800	539981	1	800	800	4521
+51	539981	1	1300	1300	4522
+4	539982	1	1000	1000	4523
+4	539982	1	1000	1000	4524
+3	539982	1	1100	1100	4525
+7801620006082	539982	1	1000	1000	4526
+7801620011659	539983	1	700	700	4527
+7801620015817	539983	1	700	700	4528
+1300	539984	1	1300	1300	4529
+1300	539984	1	1300	1300	4530
+61	539985	1	1000	1000	4531
+450	539985	1	450	450	4532
+7801620004859	539985	1	900	900	4533
+2000	539986	1	2000	2000	4534
+60	539986	1	700	700	4535
+3	539987	1	1100	1100	4536
+1	539987	1	1200	1200	4537
+3	539988	1	1100	1100	4538
+800	539988	1	800	800	4539
+60	539989	1	700	700	4540
+4	539989	1	1000	1000	4541
+4	539989	1	1000	1000	4542
+69	539989	1	600	600	4543
+7613030612339	539989	1	300	300	4544
+7801620004408	539991	1	800	800	4545
+7801620852962	539991	1	1000	1000	4546
+51	539992	1	1300	1300	4547
+2000	539992	1	2000	2000	4548
+3	539994	1	1100	1100	4549
+3	539994	1	1100	1100	4550
+3	539994	1	1100	1100	4551
+3	539994	1	1100	1100	4552
+1400	539995	1	1400	1400	4553
+7802920005171	539995	1	500	500	4554
+7804630010001	539996	1	800	800	4555
+4	539997	1	1000	1000	4556
+51	539998	1	1300	1300	4557
+7802000002571	539998	1	1250	1250	4558
+60	539999	1	700	700	4559
+1	539999	1	1200	1200	4560
+6101	540000	1	1700	1700	4561
+900	540000	1	900	900	4562
+9002490221010	540001	1	2100	2100	4563
+9002490221010	540001	1	2100	2100	4564
+7801620006846	540003	1	800	800	4565
+793573241962	540003	1	1400	1400	4566
+900	540003	1	900	900	4567
+900	540003	1	900	900	4568
+7802920006871	540004	1	400	400	4569
+60	540004	1	700	700	4570
+78012370	540005	1	3000	3000	4571
+7801620006846	540005	1	800	800	4572
+7801610223192	540005	1	800	800	4573
+1000	540006	1	1300	1300	4574
+7801620016111	540007	1	950	950	4575
+5201041002137	540007	1	800	800	4576
+78018884	540007	1	3400	3400	4577
+7804643820123	540010	1	1600	1600	4578
+7801610000335	540010	1	500	500	4579
+500	540010	1	500	500	4580
+7613035407145	540010	1	1690	1690	4581
+78018884	540011	1	3400	3400	4582
+78018884	540011	1	3400	3400	4583
+50173617	540012	1	650	650	4584
+78019096	540012	1	3000	3000	4585
+78018884	540012	1	3400	3400	4586
+3000	540013	1	3000	3000	4587
+3000	540013	1	3000	3000	4588
+3200	540013	1	3200	3200	4589
+4	540013	1	1000	1000	4590
+3000	540014	1	3000	3000	4591
+1300	540015	1	1300	1300	4592
+7802920005171	540015	1	500	500	4593
+7801610001936	540015	1	500	500	4594
+250	540015	1	250	250	4595
+51	540016	1	1300	1300	4596
+1850	540016	1	1850	1850	4597
+7801620004873	540017	1	900	900	4598
+2000	540018	1	2000	2000	4599
+1300	540019	1	1300	1300	4600
+4	540019	1	1000	1000	4601
+1400	540020	1	1400	1400	4602
+500	540020	1	500	500	4603
+1600	540022	1	1600	1600	4604
+2000	540022	1	2000	2000	4605
+400	540022	1	400	400	4606
+3200	540023	1	3200	3200	4607
+3200	540023	1	3200	3200	4608
+500	540024	1	500	500	4609
+7802920004952	540024	1	400	400	4610
+7613034276490	540024	1	500	500	4611
+1850	540025	1	1850	1850	4612
+800	540028	1	800	800	4613
+900	540029	1	900	900	4614
+1400	540031	1	1400	1400	4615
+900	540031	1	900	900	4616
+900	540031	1	900	900	4617
+60	540031	1	700	700	4618
+7803908005930	540033	1	1500	1500	4619
+1300	540034	1	1300	1300	4620
+78006140	540034	1	650	650	4621
+7801610022122	540034	1	800	800	4622
+1300	540035	1	1300	1300	4623
+4	540035	1	1000	1000	4624
+1300	540036	1	1300	1300	4625
+1850	540039	1	1850	1850	4626
+4	540039	1	1000	1000	4627
+1400	540039	1	1400	1400	4628
+7801620016111	540040	1	950	950	4629
+7801620011666	540040	1	700	700	4630
+7613035807464	540041	1	1690	1690	4631
+78006164	540041	1	870	870	4632
+7613035407145	540041	1	1690	1690	4633
+78006164	540042	1	870	870	4634
+7802000014765	540042	1	700	700	4635
+7613030612339	540042	1	300	300	4636
+7613030612339	540042	1	300	300	4637
+7801610591116	540043	1	1000	1000	4638
+7801610591116	540043	1	1000	1000	4639
+69	540043	1	600	600	4640
+69	540043	1	600	600	4641
+69	540043	1	600	600	4642
+51	540045	1	1300	1300	4643
+79	540046	1	400	400	4644
+4	540047	1	1000	1000	4645
+400	540047	1	400	400	4646
+9120033164782	540047	1	1200	1200	4647
+1	540048	1	1200	1200	4648
+1	540048	1	1200	1200	4649
+60	540048	1	700	700	4650
+4	540048	1	1000	1000	4651
+1850	540049	1	1850	1850	4652
+60	540049	1	700	700	4653
+51	540049	1	1300	1300	4654
+51	540050	1	1300	1300	4655
+500	540050	1	500	500	4656
+500	540050	1	500	500	4657
+900	540050	1	900	900	4658
+51	540051	1	1300	1300	4659
+3	540051	1	1100	1100	4660
+3	540052	1	1100	1100	4661
+500	540052	1	500	500	4662
+1400	540053	1	1400	1400	4663
+3	540053	1	1100	1100	4664
+4	540053	1	1000	1000	4665
+4	540056	1	1000	1000	4666
+4	540056	1	1000	1000	4667
+7801620002671	540056	1	1100	1100	4668
+7801620002671	540056	1	1100	1100	4669
+7802920005164	540057	1	500	500	4670
+7803473003232	540058	1	400	400	4671
+61	540059	1	1000	1000	4672
+500	540059	1	500	500	4673
+300	540059	1	300	300	4674
+78011656	540059	1	3100	3100	4675
+4	540060	1	1000	1000	4676
+400	540060	1	400	400	4677
+7802575220141	540060	1	350	350	4678
+1	540061	1	1200	1200	4679
+500	540061	1	500	500	4680
+51	540061	1	1300	1300	4681
+1300	540062	1	1300	1300	4682
+4	540062	1	1000	1000	4683
+3	540062	1	1100	1100	4684
+2000	540063	1	2000	2000	4685
+500	540063	1	500	500	4686
+51	540064	1	1300	1300	4687
+4	540064	1	1000	1000	4688
+3	540065	1	1100	1100	4689
+793573241962	540065	1	1400	1400	4690
+3	540066	1	1100	1100	4691
+400	540066	1	400	400	4692
+800	540066	1	800	800	4693
+51	540067	1	1300	1300	4694
+2000	540067	1	2000	2000	4695
+1400	540068	1	1400	1400	4696
+51	540068	1	1300	1300	4697
+51	540068	1	1300	1300	4698
+2000	540068	1	2000	2000	4699
+51	540070	1	1300	1300	4700
+1	540070	1	1200	1200	4701
+15	540071	1	1500	1500	4702
+15	540071	1	1500	1500	4703
+15	540071	1	1500	1500	4704
+51	540072	1	1300	1300	4705
+51	540072	1	1300	1300	4706
+3	540072	1	1100	1100	4707
+3	540072	1	1100	1100	4708
+1800	540073	1	1800	1800	4709
+400	540073	1	400	400	4710
+9120033164782	540074	1	1200	1200	4711
+51	540074	1	1300	1300	4712
+450	540075	1	450	450	4713
+2000	540075	1	2000	2000	4714
+51	540075	1	1300	1300	4715
+60	540076	1	700	700	4716
+51	540076	1	1300	1300	4717
+1	540076	1	1200	1200	4718
+3	540077	1	1100	1100	4719
+7501013101430	540077	1	2000	2000	4720
+51	540079	1	1300	1300	4721
+3	540079	1	1100	1100	4722
+800	540079	1	800	800	4723
+1400	540080	1	1400	1400	4724
+60	540080	1	700	700	4725
+1	540081	1	1200	1200	4726
+7613034868237	540082	1	400	400	4727
+7613034868237	540082	1	400	400	4728
+60	540082	1	700	700	4729
+1	540082	1	1200	1200	4730
+60	540083	1	700	700	4731
+4	540083	1	1000	1000	4732
+7613034276490	540083	1	500	500	4733
+15	540084	1	1500	1500	4734
+15	540084	1	1500	1500	4735
+15	540084	1	1500	1500	4736
+51	540085	1	1300	1300	4737
+450	540085	1	450	450	4738
+450	540085	1	450	450	4739
+51	540086	1	1300	1300	4740
+4	540086	1	1000	1000	4741
+51	540087	1	1300	1300	4742
+1	540087	1	1200	1200	4743
+78021020	540087	1	2000	2000	4744
+3	540088	1	1100	1100	4745
+51	540088	1	1300	1300	4746
+3	540089	1	1100	1100	4747
+900	540089	1	900	900	4748
+69	540089	1	600	600	4749
+3	540091	1	1100	1100	4750
+3	540091	1	1100	1100	4751
+15	540092	1	1500	1500	4752
+126	540092	1	350	350	4753
+60	540092	1	700	700	4754
+150	540092	1	150	150	4755
+900	540093	1	900	900	4756
+1300	540093	1	1300	1300	4757
+3	540094	1	1100	1100	4758
+900	540095	1	900	900	4759
+400	540095	1	400	400	4760
+7622300258061	540096	1	250	250	4761
+1	540098	1	1200	1200	4762
+51	540099	1	1300	1300	4763
+3	540099	1	1100	1100	4764
+1	540101	1	1200	1200	4765
+800	540101	1	800	800	4766
+3	540101	1	1100	1100	4767
+7613032443221	540103	1	350	350	4768
+7803473003461	540103	1	700	700	4769
+1500	540104	1	1650	1650	4770
+51	540105	1	1300	1300	4771
+3	540105	1	1100	1100	4772
+1	540108	1	1200	1200	4773
+1	540109	1	1200	1200	4774
+60	540109	1	700	700	4775
+60	540109	1	700	700	4776
+1400	540109	1	1400	1400	4777
+1400	540109	1	1400	1400	4778
+400	540109	1	400	400	4779
+400	540109	1	400	400	4780
+1	540110	1	1200	1200	4781
+1300	540110	1	1300	1300	4782
+7802000012679	540111	1	2300	2300	4783
+51	540111	1	1300	1300	4784
+2000	540112	1	2000	2000	4785
+51	540112	1	1300	1300	4786
+1	540114	1	1200	1200	4787
+400	540114	1	400	400	4788
+78024410	540116	1	3500	3500	4789
+51	540117	1	1300	1300	4790
+1400	540117	1	1400	1400	4791
+1	540118	1	1200	1200	4792
+69	540118	1	600	600	4793
+7802230086952	540118	1	800	800	4794
+1	540119	1	1200	1200	4795
+3	540119	1	1100	1100	4796
+3	540120	1	1100	1100	4797
+1	540120	1	1200	1200	4798
+3	540121	1	1100	1100	4799
+742832751988	540121	1	1400	1400	4800
+4	540123	1	1000	1000	4801
+4	540123	1	1000	1000	4802
+60	540123	1	700	700	4803
+51	540124	1	1300	1300	4804
+1	540124	1	1200	1200	4805
+1300	540125	1	1300	1300	4806
+500	540125	1	500	500	4807
+126	540125	1	350	350	4808
+7802832000240	540126	1	700	700	4809
+51	540127	1	1300	1300	4810
+3	540127	1	1100	1100	4811
+1300	540128	1	1300	1300	4812
+3	540129	1	1100	1100	4813
+3	540129	1	1100	1100	4814
+3	540130	1	1100	1100	4815
+51	540130	1	1300	1300	4816
+51	540131	1	1300	1300	4817
+3	540132	1	1100	1100	4818
+3	540132	1	1100	1100	4819
+60	540132	1	700	700	4820
+7803473004376	540132	1	600	600	4821
+7803473004376	540132	1	600	600	4822
+1	540133	1	1200	1200	4823
+51	540133	1	1300	1300	4824
+1300	540134	1	1300	1300	4825
+1300	540134	1	1300	1300	4826
+7802832000240	540137	1	700	700	4827
+15	540137	1	1500	1500	4828
+1100	540138	1	1100	1100	4829
+7802215301452	540138	1	250	250	4830
+7802215301452	540138	1	250	250	4831
+51	540139	1	1300	1300	4832
+3	540139	1	1100	1100	4833
+3	540139	1	1100	1100	4834
+7801620001704	540140	1	850	850	4835
+3	540140	1	1100	1100	4836
+7802230081162	540140	1	850	850	4837
+4	540141	1	1000	1000	4838
+78025059	540141	1	3400	3400	4839
+7802215113567	540141	1	450	450	4840
+69	540142	1	600	600	4841
+450	540142	1	450	450	4842
+300	540142	1	300	300	4843
+7613032443221	540143	1	350	350	4844
+7801620011666	540143	1	700	700	4845
+78030299	540144	1	350	350	4846
+7801620001704	540145	1	850	850	4847
+78021020	540145	1	2000	2000	4848
+50173617	540146	1	650	650	4849
+50173617	540146	1	650	650	4850
+2000	540146	1	2000	2000	4851
+7803273287320	540146	1	2250	2250	4852
+7803908002090	540147	1	1400	1400	4853
+2000	540147	1	2000	2000	4854
+2000	540148	1	2000	2000	4855
+900	540148	1	900	900	4856
+51	540148	1	1300	1300	4857
+2000	540149	1	2000	2000	4858
+4	540149	1	1000	1000	4859
+51	540149	1	1300	1300	4860
+793573241962	540150	1	1400	1400	4861
+69	540150	1	600	600	4862
+1400	540151	1	1400	1400	4863
+60	540151	1	700	700	4864
+800	540151	1	800	800	4865
+60	540152	1	700	700	4866
+300	540154	1	300	300	4867
+300	540154	1	300	300	4868
+1600	540154	1	1600	1600	4869
+69	540154	1	600	600	4870
+7801620006846	540155	1	800	800	4871
+1400	540156	1	1400	1400	4872
+1600	540156	1	1600	1600	4873
+500	540156	1	500	500	4874
+3200	540157	1	3200	3200	4875
+3200	540157	1	3200	3200	4876
+3200	540158	1	3200	3200	4877
+450	540158	1	450	450	4878
+7801620001711	540158	1	1100	1100	4879
+400	540159	1	400	400	4880
+69	540159	1	600	600	4881
+69	540159	1	600	600	4882
+1300	540160	1	1300	1300	4883
+900	540161	1	900	900	4884
+400	540161	1	400	400	4885
+1850	540161	1	1850	1850	4886
+1850	540162	1	1850	1850	4887
+78019041	540162	1	2000	2000	4888
+7801620002664	540163	1	1100	1100	4889
+4	540163	1	1000	1000	4890
+7803473543189	540164	1	450	450	4891
+7803473543189	540164	1	450	450	4892
+7613034276490	540164	1	500	500	4893
+7802225427210	540164	1	450	450	4894
+1800	540165	1	1800	1800	4895
+500	540166	1	500	500	4896
+1600	540166	1	1600	1600	4897
+300	540168	1	300	300	4898
+500	540168	1	500	500	4899
+400	540168	1	400	400	4900
+250	540168	1	250	250	4901
+7613032443221	540169	1	350	350	4902
+51	540169	1	1300	1300	4903
+78012370	540169	1	3000	3000	4904
+78018853	540169	1	1800	1800	4905
+742832751988	540169	1	1400	1400	4906
+690	540170	1	980	980	4907
+7613032180157	540170	1	300	300	4908
+793573241962	540171	1	1400	1400	4909
+2000	540171	1	2000	2000	4910
+78019065	540171	1	2000	2000	4911
+7802230081162	540173	1	850	850	4912
+3	540173	1	1100	1100	4913
+4	540174	1	1000	1000	4914
+4	540174	1	1000	1000	4915
+400	540174	1	400	400	4916
+60	540174	1	700	700	4917
+1400	540175	1	1400	1400	4918
+4	540175	1	1000	1000	4919
+1	540175	1	1200	1200	4920
+78021020	540175	1	2000	2000	4921
+1600	540176	1	1600	1600	4922
+1600	540176	1	1600	1600	4923
+500	540176	1	500	500	4924
+400	540177	1	400	400	4925
+400	540177	1	400	400	4926
+3	540177	1	1100	1100	4927
+4	540177	1	1000	1000	4928
+4	540178	1	1000	1000	4929
+51	540178	1	1300	1300	4930
+51	540179	1	1300	1300	4931
+4	540179	1	1000	1000	4932
+7802920005164	540180	1	500	500	4933
+7802920004969	540180	1	400	400	4934
+7802920106168	540181	1	500	500	4935
+51	540182	1	1300	1300	4936
+7802215511622	540182	1	300	300	4937
+4	540182	1	1000	1000	4938
+7802215113567	540183	1	450	450	4939
+7803473003232	540183	1	400	400	4940
+78011656	540183	1	3100	3100	4941
+15	540184	1	1500	1500	4942
+3	540184	1	1100	1100	4943
+7801620015817	540184	1	700	700	4944
+51	540185	1	1300	1300	4945
+3	540185	1	1100	1100	4946
+69	540187	1	600	600	4947
+500	540187	1	500	500	4948
+500	540187	1	500	500	4949
+1300	540188	1	1300	1300	4950
+3	540188	1	1100	1100	4951
+51	540188	1	1300	1300	4952
+2000	540190	1	2000	2000	4953
+51	540190	1	1300	1300	4954
+60	540191	1	700	700	4955
+1200	540191	1	1200	1200	4956
+15	540192	1	1500	1500	4957
+51	540192	1	1300	1300	4958
+450	540193	1	450	450	4959
+60	540193	1	700	700	4960
+1	540193	1	1200	1200	4961
+1200	540194	1	1200	1200	4962
+900	540194	1	900	900	4963
+69	540194	1	600	600	4964
+900	540196	1	900	900	4965
+4	540196	1	1000	1000	4966
+1	540197	1	1200	1200	4967
+1100	540197	1	1100	1100	4968
+3	540198	1	1100	1100	4969
+3	540198	1	1100	1100	4970
+51	540199	1	1300	1300	4971
+51	540199	1	1300	1300	4972
+3	540199	1	1100	1100	4973
+3	540199	1	1100	1100	4974
+400	540201	1	400	400	4975
+7802215301452	540201	1	250	250	4976
+7802215301452	540201	1	250	250	4977
+3	540202	1	1100	1100	4978
+3	540202	1	1100	1100	4979
+4	540202	1	1000	1000	4980
+450	540202	1	450	450	4981
+3	540203	1	1100	1100	4982
+4	540203	1	1000	1000	4983
+1	540204	1	1200	1200	4984
+1	540204	1	1200	1200	4985
+450	540205	1	450	450	4986
+450	540205	1	450	450	4987
+450	540205	1	450	450	4988
+450	540205	1	450	450	4989
+4	540205	1	1000	1000	4990
+51	540206	1	1300	1300	4991
+15	540206	1	1500	1500	4992
+78024410	540206	1	3500	3500	4993
+300	540206	1	300	300	4994
+15	540207	1	1500	1500	4995
+51	540207	1	1300	1300	4996
+3	540209	1	1100	1100	4997
+51	540210	1	1300	1300	4998
+4	540210	1	1000	1000	4999
+3	540211	1	1100	1100	5000
+4	540212	1	1000	1000	5001
+500	540213	1	500	500	5002
+500	540213	1	500	500	5003
+4	540213	1	1000	1000	5004
+15	540213	1	1500	1500	5005
+15	540213	1	1500	1500	5006
+15	540213	1	1500	1500	5007
+60	540214	1	700	700	5008
+450	540214	1	450	450	5009
+1300	540214	1	1300	1300	5010
+3	540214	1	1100	1100	5011
+7802200132696	540215	1	300	300	5012
+51	540216	1	1300	1300	5013
+51	540216	1	1300	1300	5014
+1	540216	1	1200	1200	5015
+51	540217	1	1300	1300	5016
+7802000014765	540217	1	700	700	5017
+3	540218	1	1100	1100	5018
+4	540218	1	1000	1000	5019
+78018884	540218	1	3400	3400	5020
+1	540219	1	1200	1200	5021
+15	540219	1	1500	1500	5022
+3	540220	1	1100	1100	5023
+51	540220	1	1300	1300	5024
+3	540221	1	1100	1100	5025
+4	540221	1	1000	1000	5026
+51	540221	1	1300	1300	5027
+3	540222	1	1100	1100	5028
+1300	540222	1	1300	1300	5029
+613008728571	540223	1	1650	1650	5030
+4	540224	1	1000	1000	5031
+3	540224	1	1100	1100	5032
+2000	540226	1	2000	2000	5033
+4	540227	1	1000	1000	5034
+4	540227	1	1000	1000	5035
+1	540227	1	1200	1200	5036
+4	540227	1	1000	1000	5037
+7702133862823	540227	1	400	400	5038
+51	540228	1	1300	1300	5039
+3	540228	1	1100	1100	5040
+51	540229	1	1300	1300	5041
+1	540229	1	1200	1200	5042
+3	540229	1	1100	1100	5043
+3	540229	1	1100	1100	5044
+4	540229	1	1000	1000	5045
+1400	540231	1	1400	1400	5046
+1400	540231	1	1400	1400	5047
+60	540231	1	700	700	5048
+3	540232	1	1100	1100	5049
+3	540232	1	1100	1100	5050
+3	540232	1	1100	1100	5051
+51	540232	1	1300	1300	5052
+51	540232	1	1300	1300	5053
+51	540232	1	1300	1300	5054
+3	540233	1	1100	1100	5055
+2000	540233	1	2000	2000	5056
+3	540234	1	1100	1100	5057
+7802820441000	540235	1	650	650	5058
+9002490100070	540235	1	1700	1700	5059
+4	540235	1	1000	1000	5060
+500	540235	1	500	500	5061
+1400	540236	1	1400	1400	5062
+2000	540239	1	2000	2000	5063
+51	540239	1	1300	1300	5064
+900	540240	1	900	900	5065
+61	540240	1	1000	1000	5066
+450	540240	1	450	450	5067
+3	540241	1	1100	1100	5068
+51	540241	1	1300	1300	5069
+1300	540241	1	1300	1300	5070
+1400	540242	1	1400	1400	5071
+51	540242	1	1300	1300	5072
+7802950072358	540243	1	300	300	5073
+3	540243	1	1100	1100	5074
+500	540243	1	500	500	5075
+69	540244	1	600	600	5076
+60	540244	1	700	700	5077
+79	540244	1	400	400	5078
+61	540245	1	1000	1000	5079
+3	540245	1	1100	1100	5080
+69	540246	1	600	600	5081
+1600	540246	1	1600	1600	5082
+3	540247	1	1100	1100	5083
+4	540247	1	1000	1000	5084
+15	540248	1	1500	1500	5085
+4	540248	1	1000	1000	5086
+500	540249	1	500	500	5087
+3200	540249	1	3200	3200	5088
+1400	540249	1	1400	1400	5089
+7801610001196	540250	1	800	800	5090
+1300	540252	1	1300	1300	5091
+3	540252	1	1100	1100	5092
+60	540252	1	700	700	5093
+742832751988	540253	1	1400	1400	5094
+1300	540254	1	1300	1300	5095
+15	540255	1	1500	1500	5096
+500	540255	1	500	500	5097
+500	540255	1	500	500	5098
+51	540255	1	1300	1300	5099
+7613033458507	540258	1	450	450	5100
+1850	540259	1	1850	1850	5101
+1850	540259	1	1850	1850	5102
+78007673	540259	1	3000	3000	5103
+4	540260	1	1000	1000	5104
+7801610005194	540261	1	800	800	5105
+7613032443221	540261	1	350	350	5106
+7613032443221	540261	1	350	350	5107
+8410376035407	540261	1	1350	1350	5108
+7613035779037	540261	1	980	980	5109
+7613035779037	540261	1	980	980	5110
+9002490214852	540262	1	1700	1700	5111
+7801620016111	540262	1	950	950	5112
+50173822	540262	1	600	600	5113
+50173822	540262	1	600	600	5114
+51	540263	1	1300	1300	5115
+1850	540263	1	1850	1850	5116
+4	540264	1	1000	1000	5117
+1850	540265	1	1850	1850	5118
+7801610000571	540266	1	1000	1000	5119
+7801610000571	540266	1	1000	1000	5120
+7801620852580	540266	1	800	800	5121
+7801620011666	540266	1	700	700	5122
+51	540266	1	1300	1300	5123
+1400	540266	1	1400	1400	5124
+7801620005856	540268	1	900	900	5125
+7802215303388	540268	1	250	250	5126
+15	540269	1	1500	1500	5127
+4	540269	1	1000	1000	5128
+1200	540269	1	1200	1200	5129
+7613035807464	540270	1	1690	1690	5130
+7613035807464	540270	1	1690	1690	5131
+1600	540271	1	1600	1600	5132
+7801620001711	540271	1	1100	1100	5133
+3200	540273	1	3200	3200	5134
+3200	540273	1	3200	3200	5135
+4	540273	1	1000	1000	5136
+450	540273	1	450	450	5137
+800	540273	1	800	800	5138
+7801610000571	540273	1	1000	1000	5139
+800	540275	1	800	800	5140
+7613035588776	540275	1	600	600	5141
+300	540275	1	300	300	5142
+400	540275	1	400	400	5143
+800	540276	1	800	800	5144
+3000	540276	1	3000	3000	5145
+3200	540277	1	3200	3200	5146
+4	540277	1	1000	1000	5147
+3200	540278	1	3200	3200	5148
+3200	540279	1	3200	3200	5149
+1300	540279	1	1300	1300	5150
+4	540279	1	1000	1000	5151
+300	540280	1	300	300	5152
+300	540280	1	300	300	5153
+1300	540280	1	1300	1300	5154
+1300	540280	1	1300	1300	5155
+1400	540281	1	1400	1400	5156
+1300	540281	1	1300	1300	5157
+500	540281	1	500	500	5158
+7613035808133	540283	1	1690	1690	5159
+7613035808133	540283	1	1690	1690	5160
+78006140	540283	1	650	650	5161
+7801610000601	540283	1	1000	1000	5162
+7801610000601	540283	1	1000	1000	5163
+1300	540284	1	1300	1300	5164
+650	540284	1	650	650	5165
+3200	540284	1	3200	3200	5166
+51	540286	1	1300	1300	5167
+15	540286	1	1500	1500	5168
+2000	540287	1	2000	2000	5169
+15	540287	1	1500	1500	5170
+7803525999544	540287	1	600	600	5171
+78020627	540289	1	3900	3900	5172
+3200	540290	1	3200	3200	5173
+51	540290	1	1300	1300	5174
+1600	540290	1	1600	1600	5175
+7613035421592	540291	1	1690	1690	5176
+900	540291	1	900	900	5177
+78018853	540292	1	1800	1800	5178
+4	540293	1	1000	1000	5179
+1850	540295	1	1850	1850	5180
+1850	540295	1	1850	1850	5181
+1850	540295	1	1850	1850	5182
+78018884	540296	1	3400	3400	5183
+7802225260657	540297	1	350	350	5184
+7802225427197	540297	1	450	450	5185
+7613032180096	540298	1	350	350	5186
+690	540298	1	980	980	5187
+9120033164782	540299	1	1200	1200	5188
+78019065	540299	1	2000	2000	5189
+7613035808133	540300	1	1690	1690	5190
+1000	540300	1	1300	1300	5191
+300	540302	1	300	300	5192
+300	540302	1	300	300	5193
+3	540302	1	1100	1100	5194
+1300	540303	1	1300	1300	5195
+1300	540303	1	1300	1300	5196
+6780201329400	540304	1	1800	1800	5197
+3	540304	1	1100	1100	5198
+7613035588776	540304	1	600	600	5199
+78025059	540305	1	3400	3400	5200
+78025059	540305	1	3400	3400	5201
+3	540306	1	1100	1100	5202
+400	540306	1	400	400	5203
+1400	540307	1	1400	1400	5204
+3	540307	1	1100	1100	5205
+7806500172116	540308	1	300	300	5206
+400	540308	1	400	400	5207
+400	540308	1	400	400	5208
+3	540308	1	1100	1100	5209
+7802920006895	540309	1	400	400	5210
+7803525999544	540310	1	600	600	5211
+4	540311	1	1000	1000	5212
+69	540311	1	600	600	5213
+7802215113567	540312	1	450	450	5214
+400	540312	1	400	400	5215
+1850	540313	1	1850	1850	5216
+1300	540313	1	1300	1300	5217
+60	540313	1	700	700	5218
+1300	540313	1	1300	1300	5219
+61	540314	1	1000	1000	5220
+3	540315	1	1100	1100	5221
+60	540315	1	700	700	5222
+61	540316	1	1000	1000	5223
+500	540316	1	500	500	5224
+3	540316	1	1100	1100	5225
+3	540317	1	1100	1100	5226
+4	540317	1	1000	1000	5227
+1	540318	1	1200	1200	5228
+1	540318	1	1200	1200	5229
+300	540319	5	300	1500	5230
+51	540319	1	1300	1300	5231
+3	540320	1	1100	1100	5232
+2000	540320	1	2000	2000	5233
+2000	540320	1	2000	2000	5234
+4	540320	1	1000	1000	5235
+1	540321	1	1200	1200	5236
+1	540322	1	1200	1200	5237
+60	540322	1	700	700	5238
+3	540323	1	1100	1100	5239
+1400	540323	1	1400	1400	5240
+1850	540324	1	1850	1850	5241
+60	540324	1	700	700	5242
+3	540326	1	1100	1100	5243
+7801610000595	540326	1	1000	1000	5244
+3	540327	1	1100	1100	5245
+51	540327	1	1300	1300	5246
+3	540328	1	1100	1100	5247
+900	540328	1	900	900	5248
+78020627	540329	1	3900	3900	5249
+850	540329	1	850	850	5250
+1	540329	1	1200	1200	5251
+3	540330	1	1100	1100	5252
+15	540331	1	1500	1500	5253
+60	540331	1	700	700	5254
+60	540331	1	700	700	5255
+51	540331	1	1300	1300	5256
+1300	540332	1	1300	1300	5257
+1300	540332	1	1300	1300	5258
+1300	540332	1	1300	1300	5259
+1300	540333	1	1300	1300	5260
+60	540333	1	700	700	5261
+4	540334	1	1000	1000	5262
+4	540334	1	1000	1000	5263
+1	540334	1	1200	1200	5264
+60	540334	1	700	700	5265
+500	540334	1	500	500	5266
+3	540334	1	1100	1100	5267
+1300	540335	1	1300	1300	5268
+4	540335	1	1000	1000	5269
+1300	540336	1	1300	1300	5270
+3	540336	1	1100	1100	5271
+3	540336	1	1100	1100	5272
+900	540337	1	900	900	5273
+69	540337	1	600	600	5274
+3	540337	1	1100	1100	5275
+9002490100070	540338	1	1700	1700	5276
+9002490100070	540338	1	1700	1700	5277
+3	540338	1	1100	1100	5278
+15	540339	1	1500	1500	5279
+15	540339	1	1500	1500	5280
+51	540340	1	1300	1300	5281
+400	540340	1	400	400	5282
+400	540340	1	400	400	5283
+400	540340	1	400	400	5284
+60	540341	1	700	700	5285
+1	540342	1	1200	1200	5286
+1	540342	1	1200	1200	5287
+3	540342	1	1100	1100	5288
+9002490214852	540342	1	1700	1700	5289
+7801620005856	540342	1	900	900	5290
+15	540343	1	1500	1500	5291
+4	540343	1	1000	1000	5292
+51	540344	1	1300	1300	5293
+4	540344	1	1000	1000	5294
+3	540345	1	1100	1100	5295
+4	540347	1	1000	1000	5296
+1	540348	1	1200	1200	5297
+1	540349	1	1200	1200	5298
+300	540349	1	300	300	5299
+3	540350	1	1100	1100	5300
+15	540351	1	1500	1500	5301
+4	540351	1	1000	1000	5302
+300	540351	1	300	300	5303
+300	540351	1	300	300	5304
+51	540352	1	1300	1300	5305
+450	540353	4	450	1800	5306
+51	540353	1	1300	1300	5307
+60	540353	1	700	700	5308
+3	540353	1	1100	1100	5309
+51	540354	1	1300	1300	5310
+60	540354	1	700	700	5311
+1850	540355	1	1850	1850	5312
+1700	540355	1	1700	1700	5313
+1700	540355	1	1700	1700	5314
+450	540355	1	450	450	5315
+450	540355	1	450	450	5316
+7802225682107	540356	1	600	600	5317
+150	540360	1	150	150	5318
+150	540360	1	150	150	5319
+60	540360	1	700	700	5320
+1	540360	1	1200	1200	5321
+300	540360	1	300	300	5322
+3	540361	1	1100	1100	5323
+300	540361	1	300	300	5324
+1300	540361	1	1300	1300	5325
+3	540362	1	1100	1100	5326
+60	540362	1	700	700	5327
+1	540363	1	1200	1200	5328
+79	540363	1	400	400	5329
+4	540363	1	1000	1000	5330
+1	540364	1	1200	1200	5331
+900	540364	1	900	900	5332
+5201041002137	540366	1	800	800	5333
+7802832000240	540366	1	700	700	5334
+51	540368	1	1300	1300	5335
+1	540368	1	1200	1200	5336
+900	540368	1	900	900	5337
+51	540369	1	1300	1300	5338
+1400	540369	1	1400	1400	5339
+3	540371	1	1100	1100	5340
+900	540371	1	900	900	5341
+3	540372	1	1100	1100	5342
+60	540372	1	700	700	5343
+60	540372	1	700	700	5344
+78016408	540372	1	2500	2500	5345
+7802920002019	540373	1	350	350	5346
+7802820441000	540374	1	650	650	5347
+60	540376	1	700	700	5348
+300	540376	1	300	300	5349
+300	540376	1	300	300	5350
+300	540376	1	300	300	5351
+3	540376	1	1100	1100	5352
+1300	540376	1	1300	1300	5353
+1	540377	1	1200	1200	5354
+3	540377	1	1100	1100	5355
+3	540378	1	1100	1100	5356
+4	540378	1	1000	1000	5357
+450	540379	6	450	2700	5358
+3	540381	1	1100	1100	5359
+800	540381	1	800	800	5360
+51	540383	1	1300	1300	5361
+3	540383	1	1100	1100	5362
+60	540384	1	700	700	5363
+7802832000264	540385	1	700	700	5364
+78024878	540386	1	4200	4200	5365
+3	540386	1	1100	1100	5366
+800	540386	1	800	800	5367
+500	540386	1	500	500	5368
+300	540386	1	300	300	5369
+51	540388	1	1300	1300	5370
+3	540388	1	1100	1100	5371
+3	540390	1	1100	1100	5372
+51	540390	1	1300	1300	5373
+60	540390	1	700	700	5374
+900	540391	1	900	900	5375
+2000	540391	1	2000	2000	5376
+78024410	540393	1	3500	3500	5377
+78021020	540394	1	2000	2000	5378
+78005624	540394	1	350	350	5379
+1600	540394	1	1600	1600	5380
+78018853	540396	1	1800	1800	5381
+7800120171061	540399	1	400	400	5382
+7800120171061	540399	1	400	400	5383
+9002490100070	540399	1	1700	1700	5384
+9120033164782	540399	1	1200	1200	5385
+7803525000356	540400	1	450	450	5386
+51	540400	1	1300	1300	5387
+78018853	540401	1	1800	1800	5388
+1400	540403	1	1400	1400	5389
+300	540403	1	300	300	5390
+4	540403	1	1000	1000	5391
+78024403	540405	1	2600	2600	5392
+600	540405	1	750	750	5393
+4	540406	1	1000	1000	5394
+400	540406	1	400	400	5395
+69	540406	1	600	600	5396
+3	540407	1	1100	1100	5397
+500	540407	1	500	500	5398
+7803473543189	540408	1	450	450	5399
+7803473543189	540408	1	450	450	5400
+7803473543189	540408	1	450	450	5401
+78007673	540409	1	3000	3000	5402
+3000	540411	1	3000	3000	5403
+69	540411	1	600	600	5404
+2000	540412	1	2000	2000	5405
+7802215302053	540412	1	800	800	5406
+1600	540413	1	1600	1600	5407
+7801610000601	540413	1	1000	1000	5408
+613008728571	540413	1	1650	1650	5409
+78024878	540413	1	4200	4200	5410
+3200	540414	1	3200	3200	5411
+7802820600100	540416	1	700	700	5412
+690	540416	1	980	980	5413
+3000	540417	1	3000	3000	5414
+1600	540417	1	1600	1600	5415
+3200	540419	1	3200	3200	5416
+800	540419	1	800	800	5417
+300	540419	1	300	300	5418
+78016293	540419	1	2500	2500	5419
+300	540420	1	300	300	5420
+126	540420	1	350	350	5421
+126	540420	1	350	350	5422
+500	540420	1	500	500	5423
+800	540420	1	800	800	5424
+800	540421	1	800	800	5425
+3200	540421	1	3200	3200	5426
+15	540422	1	1500	1500	5427
+77961662	540422	1	800	800	5428
+77961662	540422	1	800	800	5429
+1500	540423	1	1650	1650	5430
+1850	540423	1	1850	1850	5431
+78016408	540426	1	2500	2500	5432
+7613034276490	540426	1	500	500	5433
+78022010	540427	1	2600	2600	5434
+7801620003326	540427	1	1000	1000	5435
+400	540427	1	400	400	5436
+4	540428	1	1000	1000	5437
+2000	540428	1	2000	2000	5438
+15	540428	1	1500	1500	5439
+800	540430	1	800	800	5440
+300	540430	1	300	300	5441
+300	540430	1	300	300	5442
+800	540431	1	800	800	5443
+7802800544356	540432	1	350	350	5444
+1300	540432	1	1300	1300	5445
+126	540432	1	350	350	5446
+1400	540433	1	1400	1400	5447
+61	540433	1	1000	1000	5448
+1690	540434	1	1690	1690	5449
+69	540434	1	600	600	5450
+78024878	540435	1	4200	4200	5451
+7622210427076	540435	1	400	400	5452
+1400	540437	1	1400	1400	5453
+1400	540438	1	1400	1400	5454
+1400	540438	1	1400	1400	5455
+800	540438	1	800	800	5456
+800	540438	1	800	800	5457
+3	540440	1	1100	1100	5458
+7802215302053	540440	1	800	800	5459
+1400	540441	1	1400	1400	5460
+7801620003326	540441	1	1000	1000	5461
+3	540442	1	1100	1100	5462
+500	540442	1	500	500	5463
+7801620015817	540443	1	700	700	5464
+7802820600209	540444	1	700	700	5465
+7622210267870	540445	1	400	400	5466
+3	540445	1	1100	1100	5467
+3	540446	1	1100	1100	5468
+3	540446	1	1100	1100	5469
+3	540446	1	1100	1100	5470
+3	540447	1	1100	1100	5471
+7802215303241	540447	1	800	800	5472
+78021020	540448	1	2000	2000	5473
+7802920009384	540449	1	600	600	5474
+7801620015817	540450	1	700	700	5475
+7802920009384	540450	1	600	600	5476
+7801620011659	540451	1	700	700	5477
+7802230082534	540452	1	1100	1100	5478
+51	540452	1	1300	1300	5479
+3	540454	1	1100	1100	5480
+3	540455	1	1100	1100	5481
+3	540455	1	1100	1100	5482
+60	540455	1	700	700	5483
+78600027	540455	1	400	400	5484
+7801620011659	540456	1	700	700	5485
+7801620004859	540457	1	900	900	5486
+7803525999544	540457	1	600	600	5487
+78021020	540458	1	2000	2000	5488
+3	540459	1	1100	1100	5489
+450	540459	1	450	450	5490
+3	540460	1	1100	1100	5491
+3200	540461	1	3200	3200	5492
+3	540462	1	1100	1100	5493
+3	540462	1	1100	1100	5494
+7501013101430	540462	1	2000	2000	5495
+3	540463	1	1100	1100	5496
+900	540463	1	900	900	5497
+51	540465	1	1300	1300	5498
+4	540465	1	1000	1000	5499
+7802215302053	540465	1	800	800	5500
+1	540466	1	1200	1200	5501
+7802920002019	540466	1	350	350	5502
+15	540467	1	1500	1500	5503
+15	540467	1	1500	1500	5504
+15	540467	1	1500	1500	5505
+1800	540468	1	1800	1800	5506
+1	540468	1	1200	1200	5507
+450	540468	1	450	450	5508
+450	540469	1	450	450	5509
+15	540469	1	1500	1500	5510
+3	540470	1	1100	1100	5511
+3	540470	1	1100	1100	5512
+7801610000601	540470	1	1000	1000	5513
+1	540471	1	1200	1200	5514
+7801620008307	540471	1	900	900	5515
+3	540471	1	1100	1100	5516
+15	540472	1	1500	1500	5517
+15	540472	1	1500	1500	5518
+7891991000826	540472	1	900	900	5519
+7891991000826	540472	1	900	900	5520
+7891000248768	540472	1	900	900	5521
+7891000248768	540472	1	900	900	5522
+4	540473	1	1000	1000	5523
+7802920008110	540473	1	900	900	5524
+3	540474	1	1100	1100	5525
+3	540474	1	1100	1100	5526
+15	540475	1	1500	1500	5527
+900	540475	1	900	900	5528
+7613032464042	540476	1	350	350	5529
+500	540476	1	500	500	5530
+1600	540477	1	1600	1600	5531
+4	540477	1	1000	1000	5532
+7802920002019	540478	1	350	350	5533
+4	540478	1	1000	1000	5534
+78016408	540478	1	2500	2500	5535
+1400	540479	1	1400	1400	5536
+3	540480	1	1100	1100	5537
+70847009511	540480	1	2000	2000	5538
+4	540481	1	1000	1000	5539
+1	540481	1	1200	1200	5540
+7801610000601	540481	1	1000	1000	5541
+3	540482	1	1100	1100	5542
+51	540482	1	1300	1300	5543
+51	540483	1	1300	1300	5544
+450	540483	1	450	450	5545
+450	540483	1	450	450	5546
+3	540484	1	1100	1100	5547
+51	540484	1	1300	1300	5548
+78007673	540484	1	3000	3000	5549
+3	540485	1	1100	1100	5550
+1	540485	1	1200	1200	5551
+300	540485	1	300	300	5552
+300	540485	1	300	300	5553
+4	540486	1	1000	1000	5554
+3	540486	1	1100	1100	5555
+900	540487	1	900	900	5556
+61	540487	1	1000	1000	5557
+450	540487	1	450	450	5558
+2000	540488	1	2000	2000	5559
+3	540488	1	1100	1100	5560
+900	540490	1	900	900	5561
+60	540490	1	700	700	5562
+1600	540491	1	1600	1600	5563
+7803525999544	540494	1	600	600	5564
+3	540494	1	1100	1100	5565
+51	540494	1	1300	1300	5566
+15	540496	1	1500	1500	5567
+1400	540496	1	1400	1400	5568
+7802820441000	540498	1	650	650	5569
+7622300758943	540498	1	300	300	5570
+2000	540499	1	2000	2000	5571
+3	540499	1	1100	1100	5572
+51	540499	1	1300	1300	5573
+4	540499	1	1000	1000	5574
+1	540499	1	1200	1200	5575
+1	540499	1	1200	1200	5576
+500	540501	1	500	500	5577
+1400	540501	1	1400	1400	5578
+51	540502	1	1300	1300	5579
+1	540502	1	1200	1200	5580
+742832751988	540502	1	1400	1400	5581
+7802832000240	540503	1	700	700	5582
+3	540503	1	1100	1100	5583
+1300	540506	1	1300	1300	5584
+3	540506	1	1100	1100	5585
+800	540506	1	800	800	5586
+450	540506	1	450	450	5587
+70847033219	540507	1	2000	2000	5588
+7801620004859	540508	1	900	900	5589
+7803525999544	540508	1	600	600	5590
+52	540509	1	2000	2000	5591
+1700	540510	1	1700	1700	5592
+60	540510	1	700	700	5593
+51	540511	1	1300	1300	5594
+1300	540511	1	1300	1300	5595
+9002490100070	540512	1	1700	1700	5596
+7802950072358	540512	1	300	300	5597
+7800120164100	540513	1	400	400	5598
+9002490214852	540513	1	1700	1700	5599
+690	540513	1	980	980	5600
+51	540514	1	1300	1300	5601
+1700	540514	1	1700	1700	5602
+1700	540514	1	1700	1700	5603
+1600	540516	1	1600	1600	5604
+1400	540516	1	1400	1400	5605
+1400	540517	1	1400	1400	5606
+7801610000595	540517	1	1000	1000	5607
+7802820441123	540517	1	650	650	5608
+1400	540517	1	1400	1400	5609
+60	540518	1	700	700	5610
+1300	540518	1	1300	1300	5611
+1600	540519	1	1600	1600	5612
+7801620001711	540519	1	1100	1100	5613
+3000	540520	1	3000	3000	5614
+60	540520	1	700	700	5615
+52	540520	1	2000	2000	5616
+69	540520	1	600	600	5617
+78018853	540521	1	1800	1800	5618
+7802225427210	540524	1	450	450	5619
+300	540525	1	300	300	5620
+400	540525	1	400	400	5621
+600	540525	1	750	750	5622
+7613035588776	540525	1	600	600	5623
+1600	540526	1	1600	1600	5624
+2000	540526	1	2000	2000	5625
+100	540526	1	100	100	5626
+7806500172116	540526	1	300	300	5627
+1300	540527	5	1300	6500	5628
+4	540527	1	1000	1000	5629
+3200	540528	1	3200	3200	5630
+900	540528	1	900	900	5631
+1300	540528	1	1300	1300	5632
+4	540528	1	1000	1000	5633
+7613035407145	540529	1	1690	1690	5634
+7802215505270	540529	1	800	800	5635
+7803908005893	540530	1	1500	1500	5636
+7803908005893	540530	1	1500	1500	5637
+7803908003103	540530	1	1000	1000	5638
+1300	540531	4	1300	5200	5639
+3200	540531	1	3200	3200	5640
+7801610022122	540532	1	800	800	5641
+7801610022122	540532	1	800	800	5642
+1300	540532	1	1300	1300	5643
+7801620001711	540533	1	1100	1100	5644
+69	540533	1	600	600	5645
+78021020	540534	1	2000	2000	5646
+7801620011659	540534	1	700	700	5647
+126	540535	1	350	350	5648
+126	540535	1	350	350	5649
+800	540535	1	800	800	5650
+300	540535	1	300	300	5651
+300	540535	1	300	300	5652
+78025059	540536	1	3400	3400	5653
+3	540537	1	1100	1100	5654
+4	540537	1	1000	1000	5655
+60	540538	1	700	700	5656
+1700	540538	1	1700	1700	5657
+7802820441123	540539	1	650	650	5658
+7801620002664	540539	1	1100	1100	5659
+4	540540	1	1000	1000	5660
+900	540540	1	900	900	5661
+7801610000601	540541	1	1000	1000	5662
+1400	540541	1	1400	1400	5663
+690	540542	1	980	980	5664
+7613032180157	540542	1	300	300	5665
+7613032180157	540542	1	300	300	5666
+1300	540542	1	1300	1300	5667
+1700	540542	1	1700	1700	5668
+500	540542	1	500	500	5669
+7802215505300	540546	1	850	850	5670
+1	540546	1	1200	1200	5671
+78025059	540546	1	3400	3400	5672
+4	540547	1	1000	1000	5673
+4	540547	1	1000	1000	5674
+69	540547	1	600	600	5675
+69	540547	1	600	600	5676
+400	540548	1	400	400	5677
+400	540548	1	400	400	5678
+1300	540548	1	1300	1300	5679
+1300	540548	1	1300	1300	5680
+7802820679502	540549	1	1100	1100	5681
+3	540550	1	1100	1100	5682
+51	540550	1	1300	1300	5683
+1	540550	1	1200	1200	5684
+450	540550	1	450	450	5685
+800	540551	1	800	800	5686
+3	540551	1	1100	1100	5687
+2000	540552	1	2000	2000	5688
+1300	540552	1	1300	1300	5689
+800	540552	1	800	800	5690
+51	540553	1	1300	1300	5691
+60	540554	1	700	700	5692
+51	540554	1	1300	1300	5693
+3	540554	1	1100	1100	5694
+1100	540555	1	1100	1100	5695
+3	540555	1	1100	1100	5696
+4	540555	1	1000	1000	5697
+15	540556	1	1500	1500	5698
+51	540556	1	1300	1300	5699
+4	540557	1	1000	1000	5700
+78024878	540557	1	4200	4200	5701
+300	540557	1	300	300	5702
+3	540558	1	1100	1100	5703
+1	540558	1	1200	1200	5704
+51	540559	1	1300	1300	5705
+3	540559	1	1100	1100	5706
+3	540559	1	1100	1100	5707
+1700	540560	1	1700	1700	5708
+1400	540560	1	1400	1400	5709
+3	540560	1	1100	1100	5710
+3	540560	1	1100	1100	5711
+3	540561	1	1100	1100	5712
+3	540561	1	1100	1100	5713
+3	540561	1	1100	1100	5714
+2000	540562	1	2000	2000	5715
+800	540562	1	800	800	5716
+7806500172116	540564	1	300	300	5717
+1	540564	1	1200	1200	5718
+7801620004859	540565	1	900	900	5719
+7803525000240	540565	1	600	600	5720
+3	540566	1	1100	1100	5721
+3	540566	1	1100	1100	5722
+51	540566	1	1300	1300	5723
+1600	540568	1	1600	1600	5724
+52	540569	1	2000	2000	5725
+1600	540569	1	1600	1600	5726
+51	540570	1	1300	1300	5727
+4	540570	1	1000	1000	5728
+78024878	540570	1	4200	4200	5729
+300	540570	1	300	300	5730
+7802230086952	540570	1	800	800	5731
+15	540572	1	1500	1500	5732
+15	540572	1	1500	1500	5733
+15	540573	1	1500	1500	5734
+1	540573	1	1200	1200	5735
+900	540573	1	900	900	5736
+7804643820123	540574	1	1600	1600	5737
+7801610001196	540574	1	800	800	5738
+52	540575	1	2000	2000	5739
+3	540575	1	1100	1100	5740
+900	540575	1	900	900	5741
+7806500172116	540577	1	300	300	5742
+7613287103529	540577	1	1600	1600	5743
+1400	540578	1	1400	1400	5744
+3	540578	1	1100	1100	5745
+1300	540579	1	1300	1300	5746
+4	540579	1	1000	1000	5747
+7802225584081	540580	1	500	500	5748
+2000	540581	1	2000	2000	5749
+15	540581	1	1500	1500	5750
+3	540583	1	1100	1100	5751
+70847009511	540583	1	2000	2000	5752
+7802920002019	540583	1	350	350	5753
+78016408	540583	1	2500	2500	5754
+7801620015817	540584	1	700	700	5755
+7802800576418	540584	1	300	300	5756
+7891991000826	540585	1	900	900	5757
+7891991000826	540585	1	900	900	5758
+7613030612339	540585	1	300	300	5759
+3	540586	1	1100	1100	5760
+1	540586	1	1200	1200	5761
+7622210811233	540586	1	850	850	5762
+3	540587	1	1100	1100	5763
+3	540588	1	1100	1100	5764
+7801620015817	540589	1	700	700	5765
+7801610481004	540589	1	800	800	5766
+1700	540590	1	1700	1700	5767
+1700	540590	1	1700	1700	5768
+15	540590	1	1500	1500	5769
+51	540590	1	1300	1300	5770
+7802820600209	540591	1	700	700	5771
+7801620001704	540592	1	850	850	5772
+7613035588776	540593	1	600	600	5773
+7801620001704	540593	1	850	850	5774
+78030299	540593	1	350	350	5775
+7806500172116	540594	1	300	300	5776
+7802920008141	540594	1	900	900	5777
+3	540595	1	1100	1100	5778
+500	540597	1	500	500	5779
+4	540597	1	1000	1000	5780
+400	540597	1	400	400	5781
+400	540597	1	400	400	5782
+78007673	540598	1	3000	3000	5783
+4	540598	1	1000	1000	5784
+7801620006600	540598	1	1200	1200	5785
+78019041	540598	1	2000	2000	5786
+78024915	540599	1	3500	3500	5787
+78025059	540599	1	3400	3400	5788
+1400	540600	1	1400	1400	5789
+4	540600	1	1000	1000	5790
+1	540601	1	1200	1200	5791
+800	540601	1	800	800	5792
+1600	540602	1	1600	1600	5793
+1400	540602	1	1400	1400	5794
+1400	540602	1	1400	1400	5795
+1800	540602	1	1800	1800	5796
+300	540604	1	300	300	5797
+800	540604	1	800	800	5798
+400	540604	1	400	400	5799
+126	540604	1	350	350	5800
+126	540604	1	350	350	5801
+1700	540605	1	1700	1700	5802
+3200	540605	1	3200	3200	5803
+1600	540611	1	1600	1600	5804
+300	540611	1	300	300	5805
+300	540611	1	300	300	5806
+3000	540612	1	3000	3000	5807
+4	540612	1	1000	1000	5808
+7801610000601	540612	1	1000	1000	5809
+500	540612	1	500	500	5810
+3200	540615	1	3200	3200	5811
+3000	540616	1	3000	3000	5812
+1300	540616	1	1300	1300	5813
+650	540616	1	650	650	5814
+4	540616	1	1000	1000	5815
+1400	540616	1	1400	1400	5816
+7804643820000	540616	1	1600	1600	5817
+78020627	540617	1	3900	3900	5818
+742832751988	540618	1	1400	1400	5819
+7802820600100	540619	1	700	700	5820
+7801610001196	540620	1	800	800	5821
+78000285	540621	1	4000	4000	5822
+78000285	540621	1	4000	4000	5823
+78000285	540621	1	4000	4000	5824
+4	540621	1	1000	1000	5825
+60	540621	1	700	700	5826
+7801620008307	540622	1	900	900	5827
+7802000014765	540622	1	700	700	5828
+5201041002137	540622	1	800	800	5829
+7802215512278	540623	1	650	650	5830
+51	540624	1	1300	1300	5831
+1600	540624	1	1600	1600	5832
+900	540625	1	900	900	5833
+1690	540625	1	1690	1690	5834
+400	540625	1	400	400	5835
+400	540625	1	400	400	5836
+1600	540626	1	1600	1600	5837
+400	540626	1	400	400	5838
+400	540626	1	400	400	5839
+400	540626	1	400	400	5840
+7613032186852	540627	1	650	650	5841
+1690	540627	1	1690	1690	5842
+1100	540628	1	1100	1100	5843
+60	540628	1	700	700	5844
+69	540628	1	600	600	5845
+69	540628	1	600	600	5846
+52	540629	1	2000	2000	5847
+7801610481011	540629	1	800	800	5848
+7801610481011	540629	1	800	800	5849
+450	540629	1	450	450	5850
+450	540629	1	450	450	5851
+450	540629	1	450	450	5852
+450	540629	1	450	450	5853
+3	540629	1	1100	1100	5854
+69	540629	1	600	600	5855
+69	540629	1	600	600	5856
+7802215505300	540630	1	850	850	5857
+3	540630	1	1100	1100	5858
+52	540631	1	2000	2000	5859
+1400	540631	1	1400	1400	5860
+7802230086952	540631	1	800	800	5861
+1300	540632	1	1300	1300	5862
+51	540632	1	1300	1300	5863
+69	540632	1	600	600	5864
+69	540632	1	600	600	5865
+7804646000010	540632	1	1800	1800	5866
+1300	540633	1	1300	1300	5867
+1300	540633	1	1300	1300	5868
+1	540634	1	1200	1200	5869
+1	540634	1	1200	1200	5870
+1	540635	1	1200	1200	5871
+1700	540635	1	1700	1700	5872
+4	540636	1	1000	1000	5873
+4	540636	1	1000	1000	5874
+450	540636	1	450	450	5875
+450	540636	1	450	450	5876
+450	540636	1	450	450	5877
+450	540636	1	450	450	5878
+2000	540636	1	2000	2000	5879
+500	540636	1	500	500	5880
+3	540637	1	1100	1100	5881
+60	540637	1	700	700	5882
+1300	540637	1	1300	1300	5883
+7802920202105	540641	1	1250	1250	5884
+7801610000601	540641	1	1000	1000	5885
+4	540641	1	1000	1000	5886
+51	540642	1	1300	1300	5887
+4	540642	1	1000	1000	5888
+3	540643	1	1100	1100	5889
+800	540643	1	800	800	5890
+1	540643	1	1200	1200	5891
+2000	540644	1	2000	2000	5892
+1300	540644	1	1300	1300	5893
+1	540645	1	1200	1200	5894
+450	540646	1	450	450	5895
+1	540647	1	1200	1200	5896
+69	540647	1	600	600	5897
+69	540647	1	600	600	5898
+69	540647	1	600	600	5899
+3	540648	1	1100	1100	5900
+3	540648	1	1100	1100	5901
+69	540648	1	600	600	5902
+69	540648	1	600	600	5903
+78018853	540649	1	1800	1800	5904
+3	540649	1	1100	1100	5905
+51	540650	1	1300	1300	5906
+4	540651	1	1000	1000	5907
+69	540651	1	600	600	5908
+1300	540651	1	1300	1300	5909
+1300	540652	1	1300	1300	5910
+3	540652	1	1100	1100	5911
+7801620011659	540652	1	700	700	5912
+51	540653	1	1300	1300	5913
+3	540653	1	1100	1100	5914
+1300	540654	1	1300	1300	5915
+3	540654	1	1100	1100	5916
+1	540655	1	1200	1200	5917
+51	540655	1	1300	1300	5918
+52	540656	1	2000	2000	5919
+4	540657	1	1000	1000	5920
+60	540657	1	700	700	5921
+51	540657	1	1300	1300	5922
+2	540657	1	1300	1300	5923
+7613032589714	540658	1	800	800	5924
+500	540658	1	500	500	5925
+1300	540660	1	1300	1300	5926
+4	540661	1	1000	1000	5927
+61	540662	1	1000	1000	5928
+61	540662	1	1000	1000	5929
+500	540662	1	500	500	5930
+1300	540662	1	1300	1300	5931
+15	540663	1	1500	1500	5932
+52	540663	1	2000	2000	5933
+4	540664	1	1000	1000	5934
+3	540664	1	1100	1100	5935
+400	540664	1	400	400	5936
+1200	540665	1	1200	1200	5937
+7801610350355	540666	1	800	800	5938
+1300	540668	1	1300	1300	5939
+1400	540668	1	1400	1400	5940
+300	540668	1	300	300	5941
+52	540668	1	2000	2000	5942
+52	540668	1	2000	2000	5943
+15	540669	1	1500	1500	5944
+15	540669	1	1500	1500	5945
+15	540669	1	1500	1500	5946
+126	540670	1	350	350	5947
+3	540670	1	1100	1100	5948
+7802820020953	540671	1	1000	1000	5949
+7802920002019	540673	1	350	350	5950
+78016408	540673	1	2500	2500	5951
+7802920008158	540673	1	900	900	5952
+51	540674	1	1300	1300	5953
+51	540674	1	1300	1300	5954
+51	540674	1	1300	1300	5955
+7803525000240	540674	1	600	600	5956
+7803525000240	540674	1	600	600	5957
+7803525000240	540674	1	600	600	5958
+51	540676	1	1300	1300	5959
+250	540676	1	250	250	5960
+51	540677	1	1300	1300	5961
+3	540677	1	1100	1100	5962
+2000	540677	1	2000	2000	5963
+3	540678	1	1100	1100	5964
+7802215512285	540678	1	700	700	5965
+3	540679	1	1100	1100	5966
+15	540680	1	1500	1500	5967
+1300	540680	1	1300	1300	5968
+61	540680	1	1000	1000	5969
+4	540681	1	1000	1000	5970
+3	540681	1	1100	1100	5971
+4	540681	1	1000	1000	5972
+500	540681	1	500	500	5973
+60	540682	1	700	700	5974
+3	540682	1	1100	1100	5975
+51	540683	1	1300	1300	5976
+3	540683	1	1100	1100	5977
+78021020	540684	1	2000	2000	5978
+850	540684	1	850	850	5979
+400	540684	1	400	400	5980
+400	540684	1	400	400	5981
+400	540684	1	400	400	5982
+51	540685	1	1300	1300	5983
+1	540685	1	1200	1200	5984
+1	540686	1	1200	1200	5985
+3	540687	1	1100	1100	5986
+3	540687	1	1100	1100	5987
+78019041	540687	1	2000	2000	5988
+51	540688	1	1300	1300	5989
+2000	540688	1	2000	2000	5990
+61	540689	1	1000	1000	5991
+450	540689	1	450	450	5992
+51	540690	1	1300	1300	5993
+3	540690	1	1100	1100	5994
+9002490100070	540691	1	1700	1700	5995
+9002490100070	540691	1	1700	1700	5996
+15	540692	1	1500	1500	5997
+1300	540692	1	1300	1300	5998
+3	540693	1	1100	1100	5999
+800	540693	1	800	800	6000
+78024878	540693	1	4200	4200	6001
+300	540693	1	300	300	6002
+1500	540694	1	1650	1650	6003
+900	540694	1	900	900	6004
+69	540694	1	600	600	6005
+7801620852955	540695	1	1000	1000	6006
+78019065	540695	1	2000	2000	6007
+7801620006846	540696	1	800	800	6008
+78022010	540697	1	2600	2600	6009
+78022010	540697	1	2600	2600	6010
+1000	540697	1	1300	1300	6011
+3	540700	1	1100	1100	6012
+500	540702	1	500	500	6013
+4	540702	1	1000	1000	6014
+1850	540703	1	1850	1850	6015
+1850	540703	1	1850	1850	6016
+800	540703	1	800	800	6017
+7801610000595	540704	1	1000	1000	6018
+7802000013683	540704	1	700	700	6019
+7801620015800	540706	1	700	700	6020
+7805000301484	540706	1	700	700	6021
+800	540707	1	800	800	6022
+1700	540707	1	1700	1700	6023
+3	540707	1	1100	1100	6024
+650	540707	1	650	650	6025
+650	540707	1	650	650	6026
+7803908001314	540709	1	1000	1000	6027
+7801620015800	540710	1	700	700	6028
+7801610000601	540711	1	1000	1000	6029
+7804646000270	540711	1	1800	1800	6030
+6101	540712	1	1700	1700	6031
+1800	540712	1	1800	1800	6032
+60	540713	1	700	700	6033
+1300	540713	1	1300	1300	6034
+1400	540713	1	1400	1400	6035
+7613032186852	540714	1	650	650	6036
+300	540714	1	300	300	6037
+78024403	540715	1	2600	2600	6038
+690	540715	1	980	980	6039
+800	540716	1	800	800	6040
+7802215512278	540717	1	650	650	6041
+4	540717	1	1000	1000	6042
+3000	540719	1	3000	3000	6043
+300	540719	1	300	300	6044
+300	540719	1	300	300	6045
+4	540719	1	1000	1000	6046
+69	540720	1	600	600	6047
+7801620016012	540720	1	1000	1000	6048
+5201041002137	540720	1	800	800	6049
+78019041	540721	1	2000	2000	6050
+400	540721	1	400	400	6051
+4	540721	1	1000	1000	6052
+300	540721	1	300	300	6053
+690	540721	1	980	980	6054
+9002490100070	540722	1	1700	1700	6055
+7800120164100	540722	1	400	400	6056
+7800120164100	540722	1	400	400	6057
+400	540723	1	400	400	6058
+78020627	540725	1	3900	3900	6059
+5201041002137	540726	1	800	800	6060
+4	540727	1	1000	1000	6061
+150	540727	1	150	150	6062
+7613034276490	540727	2	500	1000	6063
+4	540728	1	1000	1000	6064
+4	540728	1	1000	1000	6065
+7802820441123	540728	1	650	650	6066
+1400	540730	1	1400	1400	6067
+7801620004859	540731	1	900	900	6068
+1	540732	1	1200	1200	6069
+78025059	540732	1	3400	3400	6070
+800	540733	1	800	800	6071
+1300	540734	1	1300	1300	6072
+3	540734	1	1100	1100	6073
+500	540734	1	500	500	6074
+500	540734	1	500	500	6075
+7802920009384	540735	1	600	600	6076
+7801620005856	540736	1	900	900	6077
+7803525999544	540736	1	600	600	6078
+400	540737	1	400	400	6079
+1	540737	1	1200	1200	6080
+1400	540739	1	1400	1400	6081
+900	540739	1	900	900	6082
+3	540739	1	1100	1100	6083
+7801620011666	540740	1	700	700	6084
+78011656	540741	1	3100	3100	6085
+7622210757289	540741	1	400	400	6086
+51	540742	1	1300	1300	6087
+1300	540742	1	1300	1300	6088
+900	540743	1	900	900	6089
+60	540743	1	700	700	6090
+1300	540743	1	1300	1300	6091
+69	540743	1	600	600	6092
+60	540744	1	700	700	6093
+1400	540744	1	1400	1400	6094
+61	540745	1	1000	1000	6095
+3	540745	1	1100	1100	6096
+51	540746	1	1300	1300	6097
+1	540746	1	1200	1200	6098
+7802920000862	540747	1	500	500	6099
+7802920008110	540747	1	900	900	6100
+7801620005856	540748	1	900	900	6101
+7702133815782	540748	1	400	400	6102
+7801620001834	540749	1	700	700	6103
+7801620004859	540750	1	900	900	6104
+7803525000240	540750	1	600	600	6105
+7801610350355	540750	1	800	800	6106
+7801620014513	540751	1	1550	1550	6107
+51	540752	1	1300	1300	6108
+4	540752	1	1000	1000	6109
+800	540752	1	800	800	6110
+4	540753	1	1000	1000	6111
+1	540753	1	1200	1200	6112
+7802200132696	540753	1	300	300	6113
+1	540753	1	1200	1200	6114
+1	540754	1	1200	1200	6115
+3	540755	1	1100	1100	6116
+7613034999115	540756	1	650	650	6117
+900	540756	1	900	900	6118
+400	540756	1	400	400	6119
+1	540758	1	1200	1200	6120
+4	540758	1	1000	1000	6121
+7801620004859	540759	1	900	900	6122
+3	540760	1	1100	1100	6123
+7801620005160	540760	1	1500	1500	6124
+1	540761	1	1200	1200	6125
+4	540762	1	1000	1000	6126
+300	540762	1	300	300	6127
+15	540764	1	1500	1500	6128
+60	540764	1	700	700	6129
+300	540764	1	300	300	6130
+300	540764	1	300	300	6131
+3	540765	1	1100	1100	6132
+51	540767	1	1300	1300	6133
+1	540767	1	1200	1200	6134
+4	540767	1	1000	1000	6135
+7801620001834	540768	1	700	700	6136
+7801620011840	540769	1	1100	1100	6137
+1500	540770	1	1650	1650	6138
+60	540770	1	700	700	6139
+500	540770	1	500	500	6140
+1	540770	1	1200	1200	6141
+3	540770	1	1100	1100	6142
+51	540771	1	1300	1300	6143
+69	540771	1	600	600	6144
+60	540772	1	700	700	6145
+60	540772	1	700	700	6146
+60	540772	1	700	700	6147
+60	540772	1	700	700	6148
+1400	540772	1	1400	1400	6149
+1400	540772	1	1400	1400	6150
+400	540772	1	400	400	6151
+400	540772	1	400	400	6152
+400	540772	1	400	400	6153
+1	540772	1	1200	1200	6154
+300	540772	1	300	300	6155
+500	540772	1	500	500	6156
+51	540773	1	1300	1300	6157
+1300	540773	1	1300	1300	6158
+1700	540773	1	1700	1700	6159
+1700	540773	1	1700	1700	6160
+3	540774	1	1100	1100	6161
+52	540774	1	2000	2000	6162
+51	540776	1	1300	1300	6163
+4	540776	1	1000	1000	6164
+450	540777	1	450	450	6165
+250	540777	1	250	250	6166
+7613035588776	540777	1	600	600	6167
+7702133862823	540777	1	400	400	6168
+1200	540780	1	1200	1200	6169
+400	540780	1	400	400	6170
+900	540780	1	900	900	6171
+78008816	540781	1	3000	3000	6172
+3	540783	1	1100	1100	6173
+3	540783	1	1100	1100	6174
+500	540783	1	500	500	6175
+69	540784	1	600	600	6176
+69	540784	1	600	600	6177
+15	540784	1	1500	1500	6178
+1600	540786	1	1600	1600	6179
+1600	540786	1	1600	1600	6180
+7802215301452	540786	1	250	250	6181
+4	540787	1	1000	1000	6182
+7802215505300	540787	1	850	850	6183
+7613035588776	540787	1	600	600	6184
+7803473543189	540788	1	450	450	6185
+800	540788	1	800	800	6186
+7801620015817	540789	1	700	700	6187
+7801620015817	540789	1	700	700	6188
+1300	540790	1	1300	1300	6189
+69	540790	1	600	600	6190
+78025219	540791	1	3300	3300	6191
+78025219	540791	1	3300	3300	6192
+78025219	540792	1	3300	3300	6193
+7801610000601	540793	3	1000	3000	6194
+7802000014765	540793	1	700	700	6195
+7802000014765	540793	1	700	700	6196
+61	540794	1	1000	1000	6197
+61	540794	1	1000	1000	6198
+78019041	540794	1	2000	2000	6199
+7806500172116	540794	1	300	300	6200
+78018884	540794	1	3400	3400	6201
+400	540794	1	400	400	6202
+7801620004873	540795	1	900	900	6203
+500	540795	1	500	500	6204
+7801620015817	540796	1	700	700	6205
+7801620015817	540796	1	700	700	6206
+2000	540797	1	2000	2000	6207
+1300	540797	1	1300	1300	6208
+78024915	540797	1	3500	3500	6209
+7801610000595	540798	1	1000	1000	6210
+7802820021950	540798	1	1000	1000	6211
+78025332	540799	1	4000	4000	6212
+69	540799	1	600	600	6213
+3200	540800	1	3200	3200	6214
+3200	540800	1	3200	3200	6215
+7801620016012	540801	1	1000	1000	6216
+9002490100070	540801	1	1700	1700	6217
+7801620014513	540801	1	1550	1550	6218
+1600	540803	1	1600	1600	6219
+7801610005194	540803	1	800	800	6220
+1600	540804	1	1600	1600	6221
+70847033219	540804	1	2000	2000	6222
+7622210267870	540804	1	400	400	6223
+7801620006846	540805	1	800	800	6224
+7801620001704	540805	1	850	850	6225
+500	540805	1	500	500	6226
+3000	540806	1	3000	3000	6227
+7801620004859	540806	1	900	900	6228
+7801620290184	540806	1	800	800	6229
+800	540808	1	800	800	6230
+400	540808	1	400	400	6231
+126	540808	1	350	350	6232
+126	540808	1	350	350	6233
+300	540808	1	300	300	6234
+3000	540809	1	3000	3000	6235
+69	540809	1	600	600	6236
+7801610350355	540810	1	800	800	6237
+7613035808133	540810	1	1690	1690	6238
+7803908001314	540812	1	1000	1000	6239
+7803908001314	540812	1	1000	1000	6240
+7613035807464	540812	1	1690	1690	6241
+7802215303241	540812	1	800	800	6242
+900	540813	1	900	900	6243
+69	540813	1	600	600	6244
+7801620006648	540814	1	1200	1200	6245
+78021020	540814	1	2000	2000	6246
+7801610001196	540815	1	800	800	6247
+7613035808133	540815	1	1690	1690	6248
+1600	540816	1	1600	1600	6249
+126	540816	1	350	350	6250
+400	540816	1	400	400	6251
+400	540816	1	400	400	6252
+800	540817	1	800	800	6253
+1300	540817	1	1300	1300	6254
+7806500172116	540818	1	300	300	6255
+800	540818	1	800	800	6256
+3	540818	1	1100	1100	6257
+1600	540819	1	1600	1600	6258
+1400	540819	1	1400	1400	6259
+4	540819	1	1000	1000	6260
+7802230975324	540820	1	600	600	6261
+7802215512261	540821	1	700	700	6262
+400	540822	1	400	400	6263
+400	540822	1	400	400	6264
+7501073427532	540822	1	450	450	6265
+800	540822	1	800	800	6266
+78019065	540822	1	2000	2000	6267
+7803525000240	540823	1	600	600	6268
+7613032443191	540825	1	700	700	6269
+3	540825	1	1100	1100	6270
+1	540826	1	1200	1200	6271
+1	540826	1	1200	1200	6272
+69	540827	1	600	600	6273
+450	540827	1	450	450	6274
+450	540827	1	450	450	6275
+4	540827	1	1000	1000	6276
+7801620002961	540827	1	1100	1100	6277
+7801620002961	540827	1	1100	1100	6278
+7802920008189	540828	1	450	450	6279
+7802920009384	540828	1	600	600	6280
+7802920009384	540828	1	600	600	6281
+2000	540829	1	2000	2000	6282
+7802820600209	540829	1	700	700	6283
+7801620001834	540829	1	700	700	6284
+1300	540830	1	1300	1300	6285
+61	540830	1	1000	1000	6286
+60	540831	1	700	700	6287
+69	540831	1	600	600	6288
+51	540832	1	1300	1300	6289
+3	540832	1	1100	1100	6290
+3	540833	1	1100	1100	6291
+51	540833	1	1300	1300	6292
+7802920005164	540834	1	500	500	6293
+7802920008196	540834	1	0	0	6294
+7802920008196	540835	1	0	0	6295
+7802920005164	540835	1	500	500	6296
+70847009559	540835	1	2000	2000	6297
+7613034276490	540836	1	500	500	6298
+7801620011666	540836	1	700	700	6299
+3	540837	1	1100	1100	6300
+7802920008141	540837	1	900	900	6301
+7802920009391	540837	1	600	600	6302
+7802000013133	540838	1	350	350	6303
+61	540839	1	1000	1000	6304
+1300	540839	1	1300	1300	6305
+3	540840	1	1100	1100	6306
+3	540840	1	1100	1100	6307
+51	540841	1	1300	1300	6308
+1300	540841	1	1300	1300	6309
+7801620004859	540842	1	900	900	6310
+7801610350355	540843	1	800	800	6311
+500	540844	1	500	500	6312
+400	540844	1	400	400	6313
+400	540844	1	400	400	6314
+3	540844	1	1100	1100	6315
+51	540844	1	1300	1300	6316
+1300	540845	1	1300	1300	6317
+7802200132696	540845	1	300	300	6318
+400	540845	1	400	400	6319
+3	540846	1	1100	1100	6320
+3	540846	1	1100	1100	6321
+1400	540846	1	1400	1400	6322
+51	540847	1	1300	1300	6323
+450	540847	1	450	450	6324
+3	540848	1	1100	1100	6325
+1300	540848	1	1300	1300	6326
+126	540848	1	350	350	6327
+3	540849	1	1100	1100	6328
+4	540850	1	1000	1000	6329
+3	540850	1	1100	1100	6330
+15	540851	1	1500	1500	6331
+51	540851	1	1300	1300	6332
+51	540852	1	1300	1300	6333
+3	540852	1	1100	1100	6334
+1300	540853	1	1300	1300	6335
+1300	540854	1	1300	1300	6336
+2000	540855	1	2000	2000	6337
+500	540855	1	500	500	6338
+2000	540856	1	2000	2000	6339
+3	540856	1	1100	1100	6340
+3	540857	1	1100	1100	6341
+60	540857	1	700	700	6342
+4	540858	1	1000	1000	6343
+4	540858	1	1000	1000	6344
+4	540859	1	1000	1000	6345
+6780201329400	540859	1	1800	1800	6346
+1400	540860	1	1400	1400	6347
+3	540860	1	1100	1100	6348
+300	540860	1	300	300	6349
+78025059	540860	1	3400	3400	6350
+450	540860	1	450	450	6351
+79	540861	1	400	400	6352
+4	540861	1	1000	1000	6353
+1300	540861	1	1300	1300	6354
+1400	540862	1	1400	1400	6355
+51	540862	1	1300	1300	6356
+3	540864	1	1100	1100	6357
+69	540864	1	600	600	6358
+1300	540865	1	1300	1300	6359
+3	540865	1	1100	1100	6360
+3	540865	1	1100	1100	6361
+1600	540866	1	1600	1600	6362
+7891991000826	540866	1	900	900	6363
+1300	540867	1	1300	1300	6364
+3	540868	1	1100	1100	6365
+60	540868	1	700	700	6366
+78000285	540868	1	4000	4000	6367
+4	540869	1	1000	1000	6368
+3	540870	1	1100	1100	6369
+51	540871	1	1300	1300	6370
+60	540871	1	700	700	6371
+3	540871	1	1100	1100	6372
+400	540871	1	400	400	6373
+78021020	540872	1	2000	2000	6374
+3	540872	1	1100	1100	6375
+78024915	540873	1	3500	3500	6376
+7802225584081	540873	1	500	500	6377
+40000514251	540873	1	990	990	6378
+7801620001834	540874	1	700	700	6379
+3	540875	1	1100	1100	6380
+1	540875	1	1200	1200	6381
+126	540875	1	350	350	6382
+126	540875	1	350	350	6383
+126	540875	1	350	350	6384
+7801620002961	540875	1	1100	1100	6385
+900	540876	1	900	900	6386
+1	540876	1	1200	1200	6387
+650	540876	1	650	650	6388
+61	540877	1	1000	1000	6389
+3	540877	1	1100	1100	6390
+2000	540879	1	2000	2000	6391
+3	540879	1	1100	1100	6392
+52	540879	1	2000	2000	6393
+1400	540880	1	1400	1400	6394
+51	540880	1	1300	1300	6395
+1700	540880	1	1700	1700	6396
+15	540881	1	1500	1500	6397
+500	540881	1	500	500	6398
+500	540881	1	500	500	6399
+15	540882	1	1500	1500	6400
+7802230975324	540882	1	600	600	6401
+2000	540883	1	2000	2000	6402
+7801610000571	540884	1	1000	1000	6403
+7802820441000	540884	1	650	650	6404
+78000285	540884	1	4000	4000	6405
+78000285	540884	1	4000	4000	6406
+78018853	540884	1	1800	1800	6407
+7891000248768	540886	1	900	900	6408
+3	540888	1	1100	1100	6409
+3	540888	1	1100	1100	6410
+500	540888	1	500	500	6411
+1400	540889	1	1400	1400	6412
+7613030612339	540889	1	300	300	6413
+800	540889	1	800	800	6414
+1300	540890	1	1300	1300	6415
+51	540890	1	1300	1300	6416
+2000	540890	1	2000	2000	6417
+78019065	540891	1	2000	2000	6418
+78025059	540891	1	3400	3400	6419
+7801620005160	540892	1	1500	1500	6420
+7801610000601	540892	1	1000	1000	6421
+3200	540893	1	3200	3200	6422
+4	540893	1	1000	1000	6423
+15	540893	1	1500	1500	6424
+4	540896	1	1000	1000	6425
+3	540896	1	1100	1100	6426
+7801620001704	540897	1	850	850	6427
+78019041	540897	1	2000	2000	6428
+78024410	540899	1	3500	3500	6429
+78024410	540899	1	3500	3500	6430
+70847033219	540899	1	2000	2000	6431
+70847033219	540899	1	2000	2000	6432
+15	540900	1	1500	1500	6433
+7801620015800	540900	1	700	700	6434
+7802820600209	540902	1	700	700	6435
+15	540903	1	1500	1500	6436
+3000	540904	1	3000	3000	6437
+78024878	540907	1	4200	4200	6438
+15	540908	1	1500	1500	6439
+850	540908	1	850	850	6440
+3000	540909	1	3000	3000	6441
+1300	540909	1	1300	1300	6442
+1850	540911	1	1850	1850	6443
+60	540911	1	700	700	6444
+4	540911	1	1000	1000	6445
+1400	540912	1	1400	1400	6446
+1300	540912	1	1300	1300	6447
+900	540912	1	900	900	6448
+1700	540913	1	1700	1700	6449
+1100	540913	1	1100	1100	6450
+1900	540913	1	1900	1900	6451
+1400	540914	1	1400	1400	6452
+7801610000601	540914	1	1000	1000	6453
+1600	540915	1	1600	1600	6454
+800	540915	1	800	800	6455
+800	540916	1	800	800	6456
+1300	540916	1	1300	1300	6457
+400	540917	1	400	400	6458
+1300	540917	1	1300	1300	6459
+126	540917	1	350	350	6460
+78018884	540918	1	3400	3400	6461
+78018884	540918	1	3400	3400	6462
+60	540919	1	700	700	6463
+60	540919	1	700	700	6464
+40000514251	540919	1	990	990	6465
+40000514251	540919	1	990	990	6466
+7804918450031	540920	1	2000	2000	6467
+7613035421592	540921	1	1690	1690	6468
+7613035421592	540921	1	1690	1690	6469
+1400	540922	1	1400	1400	6470
+7806500172116	540924	1	300	300	6471
+7806500172116	540924	1	300	300	6472
+4	540924	1	1000	1000	6473
+3	540925	1	1100	1100	6474
+800	540925	1	800	800	6475
+7800120164100	540926	1	400	400	6476
+7802920006871	540927	1	400	400	6477
+7801620002961	540928	1	1100	1100	6478
+7613035588776	540929	1	600	600	6479
+7801620004859	540930	1	900	900	6480
+7801620011666	540931	1	700	700	6481
+7803525999544	540931	1	600	600	6482
+7802920008158	540932	1	900	900	6483
+7801620075941	540933	1	1000	1000	6484
+7802225683289	540933	1	250	250	6485
+3	540934	1	1100	1100	6486
+500	540934	1	500	500	6487
+69	540935	1	600	600	6488
+500	540935	1	500	500	6489
+1700	540935	1	1700	1700	6490
+450	540935	1	450	450	6491
+450	540935	1	450	450	6492
+450	540935	1	450	450	6493
+450	540935	1	450	450	6494
+3	540936	1	1100	1100	6495
+1300	540936	1	1300	1300	6496
+7803473003461	540936	1	700	700	6497
+3	540937	1	1100	1100	6498
+4	540937	1	1000	1000	6499
+7802820441000	540938	1	650	650	6500
+7803525999643	540938	1	500	500	6501
+9002490214852	540938	1	1700	1700	6502
+7802920009384	540939	1	600	600	6503
+51	540940	1	1300	1300	6504
+51	540940	1	1300	1300	6505
+4	540940	1	1000	1000	6506
+3	540940	1	1100	1100	6507
+3	540940	1	1100	1100	6508
+51	540942	1	1300	1300	6509
+2000	540942	1	2000	2000	6510
+52	540944	1	2000	2000	6511
+15	540944	1	1500	1500	6512
+1	540945	1	1300	1300	6513
+69	540945	1	600	600	6514
+69	540945	1	600	600	6515
+69	540945	1	600	600	6516
+900	540946	1	900	900	6517
+1300	540946	1	1300	1300	6518
+900	540947	1	900	900	6519
+3	540947	1	1100	1100	6520
+1300	540948	1	1300	1300	6521
+60	540948	1	700	700	6522
+3	540948	1	1100	1100	6523
+1300	540949	1	1300	1300	6524
+15	540949	1	1500	1500	6525
+126	540949	1	350	350	6526
+126	540949	1	350	350	6527
+3	540950	1	1100	1100	6528
+3	540950	1	1100	1100	6529
+60	540950	1	700	700	6530
+3	540950	1	1100	1100	6531
+1	540951	1	1300	1300	6532
+900	540951	1	900	900	6533
+69	540951	1	600	600	6534
+3	540952	1	1100	1100	6535
+7801620001711	540952	1	1100	1100	6536
+1	540953	1	1300	1300	6537
+52	540954	1	2000	2000	6538
+1300	540955	1	1300	1300	6539
+900	540955	1	900	900	6540
+4	540955	1	1000	1000	6541
+7801620075941	540956	1	1000	1000	6542
+7802920008110	540957	1	900	900	6543
+7801620011666	540957	1	700	700	6544
+7804643820000	540958	1	1600	1600	6545
+70847009559	540958	1	2000	2000	6546
+78007673	540958	1	3000	3000	6547
+9002490214852	540959	1	1700	1700	6548
+7801620011659	540959	1	700	700	6549
+7613034721051	540959	1	2650	2650	6550
+7801620005856	540960	1	900	900	6551
+1300	540961	1	1300	1300	6552
+15	540961	1	1500	1500	6553
+3	540961	1	1100	1100	6554
+78019041	540961	1	2000	2000	6555
+300	540961	1	300	300	6556
+1600	540963	4	1600	6400	6557
+4	540963	1	1000	1000	6558
+3	540965	1	1100	1100	6559
+126	540965	1	350	350	6560
+78016408	540965	1	2500	2500	6561
+3	540966	1	1100	1100	6562
+2000	540966	1	2000	2000	6563
+69	540966	1	600	600	6564
+1200	540967	1	1200	1200	6565
+1200	540967	1	1200	1200	6566
+800	540967	1	800	800	6567
+52	540969	1	2000	2000	6568
+52	540969	1	2000	2000	6569
+4	540969	1	1000	1000	6570
+1800	540969	1	1800	1800	6571
+51	540970	1	1300	1300	6572
+3	540970	1	1100	1100	6573
+4	540972	1	1000	1000	6574
+4	540972	1	1000	1000	6575
+1	540973	1	1300	1300	6576
+3	540973	1	1100	1100	6577
+3	540973	1	1100	1100	6578
+60	540974	1	700	700	6579
+3	540974	1	1100	1100	6580
+900	540975	1	900	900	6581
+1	540975	1	1300	1300	6582
+3	540976	1	1100	1100	6583
+900	540976	1	900	900	6584
+69	540976	1	600	600	6585
+450	540977	5	450	2250	6586
+5201041002137	540977	1	800	800	6587
+400	540977	1	400	400	6588
+400	540977	1	400	400	6589
+400	540977	1	400	400	6590
+1600	540978	1	1600	1600	6591
+1800	540980	1	1800	1800	6592
+900	540982	1	900	900	6593
+900	540982	1	900	900	6594
+78012370	540983	1	3000	3000	6595
+5201041002137	540983	1	800	800	6596
+7802215505294	540984	1	800	800	6597
+51	540984	1	1300	1300	6598
+51	540984	1	1300	1300	6599
+3	540984	1	1100	1100	6600
+400	540984	1	400	400	6601
+1400	540985	1	1400	1400	6602
+2000	540986	1	2000	2000	6603
+60	540986	1	700	700	6604
+51	540986	1	1300	1300	6605
+4	540987	1	1000	1000	6606
+1	540987	1	1300	1300	6607
+78018884	540987	1	3400	3400	6608
+61	540988	1	1000	1000	6609
+51	540988	1	1300	1300	6610
+3	540989	1	1100	1100	6611
+3	540989	1	1100	1100	6612
+78007673	540989	1	3000	3000	6613
+7801620004859	540990	1	900	900	6614
+7802215511622	540990	1	300	300	6615
+59080480	540990	1	350	350	6616
+59080480	540990	1	350	350	6617
+59080480	540990	1	350	350	6618
+59080480	540990	1	350	350	6619
+59080480	540990	1	350	350	6620
+59080480	540990	1	350	350	6621
+78025332	540991	1	4000	4000	6622
+51	540992	1	1300	1300	6623
+15	540992	1	1500	1500	6624
+1300	540992	1	1300	1300	6625
+1600	540993	1	1600	1600	6626
+800	540993	1	800	800	6627
+69	540993	1	600	600	6628
+69	540993	1	600	600	6629
+69	540993	1	600	600	6630
+69	540993	1	600	600	6631
+7801620006846	540994	1	800	800	6632
+7801620011666	540995	1	700	700	6633
+7801620005160	540995	1	1500	1500	6634
+7802215504655	540996	1	500	500	6635
+78016408	540996	1	2500	2500	6636
+1850	540997	1	1850	1850	6637
+1400	540997	1	1400	1400	6638
+900	540997	1	900	900	6639
+3	540998	1	1100	1100	6640
+900	540998	1	900	900	6641
+60	540998	1	700	700	6642
+3000	540998	1	3000	3000	6643
+800	540999	1	800	800	6644
+400	540999	1	400	400	6645
+126	540999	1	350	350	6646
+126	540999	1	350	350	6647
+300	540999	1	300	300	6648
+1600	541000	1	1600	1600	6649
+60	541000	1	700	700	6650
+78019065	541000	1	2000	2000	6651
+4	541001	1	1000	1000	6652
+1300	541001	1	1300	1300	6653
+78007673	541002	1	3000	3000	6654
+78016408	541003	1	2500	2500	6655
+400	541003	1	400	400	6656
+300	541003	1	300	300	6657
+7801620300203	541004	1	800	800	6658
+7801620005856	541004	1	900	900	6659
+7613032186852	541006	1	650	650	6660
+7613032180157	541006	1	300	300	6661
+900	541006	1	900	900	6662
+7802225584081	541006	1	500	500	6663
+1000	541006	1	1300	1300	6664
+78024878	541007	1	4200	4200	6665
+78024403	541008	1	2600	2600	6666
+60	541008	1	700	700	6667
+3	541010	1	1100	1100	6668
+300	541010	1	300	300	6669
+300	541010	1	300	300	6670
+300	541010	1	300	300	6671
+78025219	541010	1	3300	3300	6672
+3	541011	1	1100	1100	6673
+3	541011	1	1100	1100	6674
+1800	541011	1	1800	1800	6675
+15	541011	1	1500	1500	6676
+3	541012	1	1100	1100	6677
+1300	541012	1	1300	1300	6678
+4	541012	1	1000	1000	6679
+60	541012	1	700	700	6680
+3	541013	1	1100	1100	6681
+300	541013	1	300	300	6682
+1400	541013	1	1400	1400	6683
+52	541014	1	2000	2000	6684
+7803525000240	541015	1	600	600	6685
+3	541017	1	1100	1100	6686
+15	541018	1	1500	1500	6687
+4	541018	1	1000	1000	6688
+52	541018	1	2000	2000	6689
+3	541019	1	1100	1100	6690
+52	541019	1	2000	2000	6691
+60	541020	1	700	700	6692
+2000	541020	1	2000	2000	6693
+7801620011659	541021	1	700	700	6694
+3	541023	1	1100	1100	6695
+3	541023	1	1100	1100	6696
+1300	541024	1	1300	1300	6697
+60	541024	1	700	700	6698
+69	541025	1	600	600	6699
+450	541025	1	450	450	6700
+450	541025	1	450	450	6701
+450	541025	1	450	450	6702
+450	541025	1	450	450	6703
+51	541025	1	1300	1300	6704
+51	541027	1	1300	1300	6705
+4	541028	1	1000	1000	6706
+900	541028	1	900	900	6707
+60	541028	1	700	700	6708
+51	541030	1	1300	1300	6709
+3	541030	1	1100	1100	6710
+3	541030	1	1100	1100	6711
+1	541031	1	1300	1300	6712
+51	541031	1	1300	1300	6713
+7801620852580	541032	1	800	800	6714
+7803473543189	541032	1	450	450	6715
+78939387	541032	1	300	300	6716
+52	541033	1	2000	2000	6717
+15	541033	1	1500	1500	6718
+1800	541034	1	1800	1800	6719
+2000	541035	1	2000	2000	6720
+60	541035	1	700	700	6721
+2000	541037	1	2000	2000	6722
+900	541037	1	900	900	6723
+15	541039	1	1500	1500	6724
+1400	541039	1	1400	1400	6725
+69	541039	1	600	600	6726
+69	541039	1	600	600	6727
+1700	541040	1	1700	1700	6728
+78019065	541040	1	2000	2000	6729
+78019041	541041	1	2000	2000	6730
+15	541041	1	1500	1500	6731
+3	541041	1	1100	1100	6732
+126	541041	1	350	350	6733
+3	541042	1	1100	1100	6734
+300	541042	1	300	300	6735
+4	541042	1	1000	1000	6736
+61	541043	1	1000	1000	6737
+1	541043	1	1300	1300	6738
+3	541044	1	1100	1100	6739
+300	541044	1	300	300	6740
+3	541046	1	1100	1100	6741
+7802230082534	541048	1	1100	1100	6742
+613008756451	541049	1	1500	1500	6743
+2000	541049	1	2000	2000	6744
+1700	541050	1	1700	1700	6745
+3	541050	1	1100	1100	6746
+7802575220141	541051	1	350	350	6747
+60	541052	1	700	700	6748
+69	541052	1	600	600	6749
+1600	541053	1	1600	1600	6750
+60	541054	1	700	700	6751
+4	541054	1	1000	1000	6752
+3	541054	1	1100	1100	6753
+3	541054	1	1100	1100	6754
+300	541054	1	300	300	6755
+3	541055	1	1100	1100	6756
+51	541055	1	1300	1300	6757
+7622210427076	541055	1	400	400	6758
+7802820441000	541056	1	650	650	6759
+7803525999056	541056	1	500	500	6760
+5201041002137	541056	1	800	800	6761
+7802215512285	541056	1	700	700	6762
+51	541057	1	1300	1300	6763
+3	541057	1	1100	1100	6764
+52	541058	1	2000	2000	6765
+1	541058	1	1300	1300	6766
+400	541058	1	400	400	6767
+1	541059	1	1300	1300	6768
+3	541059	1	1100	1100	6769
+1	541060	1	1300	1300	6770
+3	541060	1	1100	1100	6771
+3	541061	1	1100	1100	6772
+126	541061	1	350	350	6773
+78016408	541061	1	2500	2500	6774
+7801620015800	541062	1	700	700	6775
+7801620011659	541063	1	700	700	6776
+9002490214852	541064	1	1700	1700	6777
+7802920008141	541065	1	900	900	6778
+7803473003461	541066	1	700	700	6779
+7803525000240	541066	1	600	600	6780
+7802215512261	541066	1	700	700	6781
+7613032443191	541066	1	700	700	6782
+7802230082831	541066	1	1100	1100	6783
+7801620011604	541067	1	1500	1500	6784
+3	541068	1	1100	1100	6785
+800	541068	1	800	800	6786
+1	541069	1	1300	1300	6787
+78007673	541070	1	3000	3000	6788
+7804643820000	541070	1	1600	1600	6789
+7802920106168	541071	1	500	500	6790
+7801620006624	541072	1	1200	1200	6791
+3	541072	1	1100	1100	6792
+15	541073	1	1500	1500	6793
+900	541073	1	900	900	6794
+15	541074	1	1500	1500	6795
+61	541074	1	1000	1000	6796
+7613030612339	541074	1	300	300	6797
+69	541074	1	600	600	6798
+78021020	541075	1	2000	2000	6799
+15	541075	1	1500	1500	6800
+3	541075	1	1100	1100	6801
+61	541076	1	1000	1000	6802
+7613287103529	541077	1	1600	1600	6803
+1400	541077	1	1400	1400	6804
+7801610000601	541077	1	1000	1000	6805
+250	541077	1	250	250	6806
+15	541078	1	1500	1500	6807
+400	541078	1	400	400	6808
+4	541078	1	1000	1000	6809
+1300	541080	1	1300	1300	6810
+51	541080	1	1300	1300	6811
+15	541080	1	1500	1500	6812
+7801620015817	541080	1	700	700	6813
+61	541081	1	1000	1000	6814
+900	541081	1	900	900	6815
+450	541081	1	450	450	6816
+7802000015137	541082	1	700	700	6817
+7801620014513	541083	1	1550	1550	6818
+78019065	541084	1	2000	2000	6819
+78007673	541085	1	3000	3000	6820
+15	541086	1	1500	1500	6821
+1700	541086	1	1700	1700	6822
+650	541086	1	650	650	6823
+650	541086	1	650	650	6824
+7806500172116	541086	1	300	300	6825
+1000	541086	1	1300	1300	6826
+78007673	541087	1	3000	3000	6827
+4	541087	1	1000	1000	6828
+3	541087	1	1100	1100	6829
+78025059	541087	1	3400	3400	6830
+3000	541088	1	3000	3000	6831
+60	541088	1	700	700	6832
+60	541088	1	700	700	6833
+60	541088	1	700	700	6834
+60	541088	1	700	700	6835
+78024878	541089	1	4200	4200	6836
+613008715625	541090	1	1400	1400	6837
+1600	541090	1	1600	1600	6838
+1400	541091	1	1400	1400	6839
+4	541091	1	1000	1000	6840
+7802832000264	541092	1	700	700	6841
+78018884	541092	1	3400	3400	6842
+78018884	541092	1	3400	3400	6843
+78018884	541092	1	3400	3400	6844
+78018884	541093	1	3400	3400	6845
+7802832000264	541093	1	700	700	6846
+7613035807464	541094	1	1690	1690	6847
+7613032180096	541094	1	350	350	6848
+7613035407145	541094	1	1690	1690	6849
+7801610001196	541095	1	800	800	6850
+78006164	541096	1	870	870	6851
+78006164	541096	1	870	870	6852
+800	541098	1	800	800	6853
+1300	541098	1	1300	1300	6854
+1600	541099	1	1600	1600	6855
+60	541099	1	700	700	6856
+1600	541100	1	1600	1600	6857
+15	541100	1	1500	1500	6858
+1850	541103	1	1850	1850	6859
+7613032180096	541103	1	350	350	6860
+150	541103	1	150	150	6861
+52	541108	1	2000	2000	6862
+15	541109	1	1500	1500	6863
+7802230975324	541109	1	600	600	6864
+7803473004376	541109	1	600	600	6865
+1300	541110	1	1300	1300	6866
+69	541110	1	600	600	6867
+900	541112	1	900	900	6868
+3	541112	1	1100	1100	6869
+78020627	541113	1	3900	3900	6870
+3	541115	1	1100	1100	6871
+3	541115	1	1100	1100	6872
+15	541115	1	1500	1500	6873
+7801620011840	541115	1	1100	1100	6874
+70847009511	541115	1	2000	2000	6875
+7802920009391	541116	1	600	600	6876
+15	541117	1	1500	1500	6877
+5201041002137	541117	1	800	800	6878
+450	541117	1	450	450	6879
+3	541117	1	1100	1100	6880
+3	541118	1	1100	1100	6881
+4	541118	1	1000	1000	6882
+78025059	541118	1	3400	3400	6883
+3	541119	1	1100	1100	6884
+1200	541119	1	1200	1200	6885
+3	541121	1	1100	1100	6886
+613008756451	541121	1	1500	1500	6887
+1	541122	1	1300	1300	6888
+1	541122	1	1300	1300	6889
+1400	541123	1	1400	1400	6890
+400	541123	8	400	3200	6891
+3	541125	1	1100	1100	6892
+2000	541126	1	2000	2000	6893
+69	541126	1	600	600	6894
+3	541127	1	1100	1100	6895
+4	541127	1	1000	1000	6896
+51	541128	1	1300	1300	6897
+450	541128	1	450	450	6898
+450	541128	1	450	450	6899
+4	541129	1	1000	1000	6900
+3	541129	1	1100	1100	6901
+300	541129	1	300	300	6902
+3	541130	1	1100	1100	6903
+3	541130	1	1100	1100	6904
+4	541130	1	1000	1000	6905
+1	541131	1	1300	1300	6906
+1300	541132	1	1300	1300	6907
+900	541132	1	900	900	6908
+7801620005160	541133	1	1500	1500	6909
+15	541134	1	1500	1500	6910
+3	541134	1	1100	1100	6911
+450	541135	1	450	450	6912
+51	541135	1	1300	1300	6913
+15	541135	1	1500	1500	6914
+7801620011666	541136	1	700	700	6915
+3	541137	1	1100	1100	6916
+1100	541137	1	1100	1100	6917
+60	541137	1	700	700	6918
+450	541137	1	450	450	6919
+450	541137	1	450	450	6920
+1	541138	1	1300	1300	6921
+1	541138	1	1300	1300	6922
+1400	541138	1	1400	1400	6923
+3	541139	1	1100	1100	6924
+51	541140	1	1300	1300	6925
+2000	541140	1	2000	2000	6926
+650	541140	1	650	650	6927
+800	541141	1	800	800	6928
+51	541141	1	1300	1300	6929
+4	541141	1	1000	1000	6930
+7801610223192	541142	1	800	800	6931
+7801610223192	541142	1	800	800	6932
+7802920777542	541143	1	1100	1100	6933
+15	541144	1	1500	1500	6934
+1	541144	1	1300	1300	6935
+51	541145	1	1300	1300	6936
+1400	541145	1	1400	1400	6937
+4	541146	1	1000	1000	6938
+78021020	541147	1	2000	2000	6939
+1600	541148	1	1600	1600	6940
+3	541149	1	1100	1100	6941
+51	541149	1	1300	1300	6942
+78018884	541149	1	3400	3400	6943
+7802820021950	541149	1	1000	1000	6944
+1	541150	1	1300	1300	6945
+500	541150	1	500	500	6946
+51	541151	1	1300	1300	6947
+78020627	541151	1	4000	4000	6948
+3	541151	1	1100	1100	6949
+69	541151	1	600	600	6950
+51	541152	1	1300	1300	6951
+1	541152	1	1300	1300	6952
+3	541153	1	1100	1100	6953
+3	541153	1	1100	1100	6954
+1	541153	1	1300	1300	6955
+7613035588776	541154	1	600	600	6956
+78020627	541154	1	4000	4000	6957
+7802920008158	541155	1	900	900	6958
+51	541155	1	1300	1300	6959
+7613030612339	541156	1	300	300	6960
+78005624	541156	1	350	350	6961
+1800	541156	1	1800	1800	6962
+51	541157	1	1300	1300	6963
+51	541157	1	1300	1300	6964
+1400	541158	1	1400	1400	6965
+1400	541158	1	1400	1400	6966
+500	541158	1	500	500	6967
+7801610001622	541159	1	1650	1650	6968
+7802215505294	541159	1	800	800	6969
+51	541160	1	1300	1300	6970
+51	541160	1	1300	1300	6971
+52	541161	1	2000	2000	6972
+3	541162	1	1100	1100	6973
+7801610001936	541162	1	500	500	6974
+690	541162	1	980	980	6975
+690	541163	1	980	980	6976
+78007505	541163	1	350	350	6977
+450	541164	1	450	450	6978
+7802230081162	541164	1	850	850	6979
+7801610000571	541164	1	1000	1000	6980
+51	541164	1	1300	1300	6981
+7806500172116	541164	1	300	300	6982
+7802230082527	541165	1	1100	1100	6983
+78025219	541165	1	3400	3400	6984
+7801620006631	541166	1	1200	1200	6985
+3000	541167	1	3000	3000	6986
+7801620015817	541167	1	700	700	6987
+7801620015817	541167	1	700	700	6988
+7801620015817	541167	1	700	700	6989
+7802215512261	541168	1	700	700	6990
+7613034276490	541168	1	500	500	6991
+1300	541169	1	1300	1300	6992
+7613034276490	541169	1	500	500	6993
+2000	541170	1	2000	2000	6994
+7802215303241	541170	1	800	800	6995
+78024878	541170	1	4400	4400	6996
+1690	541172	1	1690	1690	6997
+2000	541173	1	2000	2000	6998
+69	541173	1	600	600	6999
+1400	541173	1	1400	1400	7000
+7613034276490	541174	1	500	500	7001
+7613035588776	541174	1	600	600	7002
+7801610001196	541175	1	800	800	7003
+7802230975324	541175	1	600	600	7004
+7802920000930	541175	1	350	350	7005
+78011748	541175	1	350	350	7006
+78011748	541175	1	350	350	7007
+7801620016005	541176	1	1000	1000	7008
+7801620016029	541176	1	1000	1000	7009
+7802215512261	541176	1	700	700	7010
+7802215502262	541176	1	750	750	7011
+1600	541177	1	1600	1600	7012
+61	541177	1	1000	1000	7013
+78007239	541177	1	4000	4000	7014
+78025219	541177	1	3400	3400	7015
+7613032180096	541178	1	350	350	7016
+7613032186852	541178	1	650	650	7017
+400	541178	1	400	400	7018
+500	541179	1	500	500	7019
+7801620003302	541179	1	1000	1000	7020
+7613032180157	541179	1	300	300	7021
+3	541180	1	1100	1100	7022
+3	541180	1	1100	1100	7023
+60	541180	1	700	700	7024
+4	541181	1	1000	1000	7025
+3	541181	1	1100	1100	7026
+60	541181	1	700	700	7027
+15	541182	1	1500	1500	7028
+3	541182	1	1100	1100	7029
+60	541183	1	700	700	7030
+400	541183	1	400	400	7031
+1300	541184	1	1300	1300	7032
+78025271	541184	1	4200	4200	7033
+400	541184	1	400	400	7034
+52	541185	1	2000	2000	7035
+900	541185	1	900	900	7036
+1	541185	1	1300	1300	7037
+450	541185	5	450	2250	7038
+78020627	541186	1	4000	4000	7039
+3	541186	1	1100	1100	7040
+1300	541186	1	1300	1300	7041
+3	541187	1	1100	1100	7042
+400	541187	1	400	400	7043
+7802920008172	541188	1	450	450	7044
+7802920008172	541188	1	450	450	7045
+9002490214852	541188	1	1700	1700	7046
+1400	541189	1	1400	1400	7047
+60	541189	1	700	700	7048
+3	541189	1	1100	1100	7049
+1200	541189	1	1200	1200	7050
+69	541190	1	600	600	7051
+450	541190	4	450	1800	7052
+1700	541190	1	1700	1700	7053
+15	541191	4	1500	6000	7054
+51	541192	1	1300	1300	7055
+1	541193	1	1300	1300	7056
+7613034276490	541193	4	500	2000	7057
+1300	541194	1	1300	1300	7058
+3	541194	1	1100	1100	7059
+1	541195	1	1300	1300	7060
+69	541195	1	600	600	7061
+1	541196	1	1300	1300	7062
+69	541197	1	600	600	7063
+69	541197	1	600	600	7064
+3	541198	1	1100	1100	7065
+250	541198	1	250	250	7066
+800	541198	1	800	800	7067
+7801620015800	541199	1	700	700	7068
+1	541200	1	1300	1300	7069
+800	541200	1	800	800	7070
+69	541200	1	600	600	7071
+78025059	541201	1	3400	3400	7072
+51	541202	1	1300	1300	7073
+78016293	541203	1	2500	2500	7074
+1	541204	1	1300	1300	7075
+4	541204	1	1000	1000	7076
+3	541205	1	1100	1100	7077
+6780201329400	541206	1	1800	1800	7078
+4	541206	1	1000	1000	7079
+7801620011666	541207	1	700	700	7080
+7802215511622	541208	1	300	300	7081
+613008756451	541208	1	1500	1500	7082
+1300	541209	1	1300	1300	7083
+126	541209	1	350	350	7084
+60	541210	1	700	700	7085
+3	541211	1	1100	1100	7086
+51	541211	1	1300	1300	7087
+7802225427210	541211	1	450	450	7088
+7801620075941	541213	1	1000	1000	7089
+7802920000954	541213	1	350	350	7090
+3	541214	1	1100	1100	7091
+4	541214	1	1000	1000	7092
+1300	541215	1	1300	1300	7093
+450	541215	1	450	450	7094
+4	541215	1	1000	1000	7095
+7801620015817	541216	1	700	700	7096
+51	541217	1	1300	1300	7097
+3	541217	1	1100	1100	7098
+3	541217	1	1100	1100	7099
+15	541219	1	1500	1500	7100
+69	541219	1	600	600	7101
+7802225683289	541219	1	250	250	7102
+1600	541220	1	1600	1600	7103
+7801620011840	541220	1	1100	1100	7104
+400	541220	5	400	2000	7105
+42069942	541220	1	650	650	7106
+3	541221	1	1100	1100	7107
+1	541221	1	1300	1300	7108
+69	541222	1	600	600	7109
+61	541222	1	1000	1000	7110
+4	541222	1	1000	1000	7111
+7801620001834	541223	1	700	700	7112
+78020627	541224	1	4000	4000	7113
+15	541225	1	1500	1500	7114
+1000	541225	1	1300	1300	7115
+60	541227	1	700	700	7116
+1400	541228	1	1400	1400	7117
+1400	541228	1	1400	1400	7118
+900	541228	1	900	900	7119
+500	541228	1	500	500	7120
+3	541228	1	1100	1100	7121
+3	541228	1	1100	1100	7122
+15	541228	1	1500	1500	7123
+78018853	541228	1	1800	1800	7124
+800	541229	1	800	800	7125
+1600	541229	1	1600	1600	7126
+1600	541229	1	1600	1600	7127
+60	541231	1	700	700	7128
+4	541231	1	1000	1000	7129
+1400	541232	1	1400	1400	7130
+3	541232	1	1100	1100	7131
+7802800576418	541232	1	300	300	7132
+60	541232	1	700	700	7133
+52	541232	1	2000	2000	7134
+4	541232	1	1000	1000	7135
+61	541233	1	1000	1000	7136
+61	541233	1	1000	1000	7137
+1300	541233	1	1300	1300	7138
+1300	541234	1	1300	1300	7139
+60	541234	1	700	700	7140
+78025219	541235	1	3400	3400	7141
+650	541235	1	650	650	7142
+300	541235	1	300	300	7143
+300	541236	1	300	300	7144
+51	541236	1	1300	1300	7145
+4	541236	1	1000	1000	7146
+7802950072679	541237	1	300	300	7147
+78939387	541237	1	300	300	7148
+7802950072358	541237	1	300	300	7149
+7801610350355	541237	1	800	800	7150
+7802832000264	541237	1	700	700	7151
+7801620852955	541238	1	1000	1000	7152
+78600010	541238	1	480	480	7153
+800	541239	1	800	800	7154
+3	541239	1	1100	1100	7155
+300	541239	1	300	300	7156
+300	541239	1	300	300	7157
+7800120164100	541239	1	400	400	7158
+2000	541240	1	2000	2000	7159
+500	541240	1	500	500	7160
+4	541241	1	1000	1000	7161
+200	541241	1	250	250	7162
+60	541241	1	700	700	7163
+3	541242	1	1100	1100	7164
+4	541242	1	1000	1000	7165
+78007673	541244	1	3000	3000	7166
+60	541245	4	700	2800	7167
+4	541245	1	1000	1000	7168
+4	541245	1	1000	1000	7169
+1400	541245	1	1400	1400	7170
+1100	541247	1	1100	1100	7171
+500	541247	1	500	500	7172
+78025332	541248	1	4200	4200	7173
+300	541248	1	300	300	7174
+4	541249	1	1000	1000	7175
+1400	541249	1	1400	1400	7176
+1600	541250	1	1600	1600	7177
+7801610350409	541250	1	1650	1650	7178
+7801610001622	541250	1	1650	1650	7179
+1300	541251	1	1300	1300	7180
+7802215512278	541251	1	650	650	7181
+3000	541252	1	3000	3000	7182
+126	541252	1	350	350	7183
+800	541253	1	800	800	7184
+7803525999544	541253	1	600	600	7185
+7803525999544	541253	1	600	600	7186
+78000124	541254	1	4000	4000	7187
+7801620003326	541255	1	1000	1000	7188
+3200	541255	1	3200	3200	7189
+60	541256	1	700	700	7190
+3000	541258	1	3000	3000	7191
+1300	541258	1	1300	1300	7192
+800	541258	1	800	800	7193
+1400	541259	1	1400	1400	7194
+1400	541259	1	1400	1400	7195
+800	541259	1	800	800	7196
+800	541259	1	800	800	7197
+2000	541260	1	2000	2000	7198
+2000	541260	1	2000	2000	7199
+4	541260	1	1000	1000	7200
+3000	541261	1	3000	3000	7201
+800	541261	1	800	800	7202
+7801620002961	541262	1	1100	1100	7203
+1400	541262	1	1400	1400	7204
+78000124	541263	1	4000	4000	7205
+4	541264	1	1000	1000	7206
+1	541264	1	1300	1300	7207
+3	541265	1	1100	1100	7208
+7801610000571	541265	1	1000	1000	7209
+7801610001196	541266	1	800	800	7210
+7802920000930	541266	1	350	350	7211
+7801620005160	541267	1	1500	1500	7212
+7802230975324	541267	1	600	600	7213
+7802000013683	541268	1	700	700	7214
+7802000013683	541268	1	700	700	7215
+15	541268	1	1500	1500	7216
+3	541268	1	1100	1100	7217
+69	541268	1	600	600	7218
+69	541268	1	600	600	7219
+7801610001196	541269	1	800	800	7220
+1600	541269	1	1600	1600	7221
+2000	541270	1	2000	2000	7222
+300	541270	1	300	300	7223
+1400	541270	1	1400	1400	7224
+300	541270	1	300	300	7225
+7801610001622	541271	1	1650	1650	7226
+78025332	541271	1	4200	4200	7227
+690	541272	1	980	980	7228
+4	541272	1	1000	1000	7229
+4	541272	1	1000	1000	7230
+78024410	541273	1	3500	3500	7231
+7801620852962	541273	1	1000	1000	7232
+4	541274	1	1000	1000	7233
+2000	541274	1	2000	2000	7234
+1300	541275	1	1300	1300	7235
+9002490214852	541276	1	1700	1700	7236
+450	541277	5	450	2250	7237
+60	541277	1	700	700	7238
+52	541277	1	2000	2000	7239
+4	541277	1	1000	1000	7240
+60	541277	1	700	700	7241
+300	541278	1	300	300	7242
+300	541278	1	300	300	7243
+300	541278	1	300	300	7244
+3	541278	1	1100	1100	7245
+3	541279	1	1100	1100	7246
+3	541279	1	1100	1100	7247
+1300	541279	1	1300	1300	7248
+3	541280	1	1100	1100	7249
+7501013101447	541280	1	2000	2000	7250
+400	541280	1	400	400	7251
+400	541280	1	400	400	7252
+3	541282	1	1100	1100	7253
+4	541282	1	1000	1000	7254
+4	541282	1	1000	1000	7255
+78025059	541283	1	3400	3400	7256
+3	541284	1	1100	1100	7257
+1	541285	1	1300	1300	7258
+15	541285	1	1500	1500	7259
+1	541285	1	1300	1300	7260
+7801620852955	541286	1	1000	1000	7261
+7802215303388	541286	1	250	250	7262
+7802215301452	541286	1	250	250	7263
+7802230975324	541286	1	600	600	7264
+61	541287	1	1000	1000	7265
+450	541287	1	450	450	7266
+450	541287	1	450	450	7267
+3	541288	1	1100	1100	7268
+15	541288	1	1500	1500	7269
+15	541289	1	1500	1500	7270
+69	541289	1	600	600	7271
+3	541290	1	1100	1100	7272
+2000	541290	1	2000	2000	7273
+3	541291	1	1100	1100	7274
+800	541291	1	800	800	7275
+15	541291	1	1500	1500	7276
+400	541292	10	400	4000	7277
+300	541293	1	300	300	7278
+300	541293	1	300	300	7279
+60	541293	1	700	700	7280
+1	541296	1	1300	1300	7281
+78018884	541296	1	3400	3400	7282
+1300	541298	1	1300	1300	7283
+1300	541299	1	1300	1300	7284
+69	541299	1	600	600	7285
+15	541300	1	1500	1500	7286
+15	541300	1	1500	1500	7287
+15	541301	1	1500	1500	7288
+500	541301	1	500	500	7289
+1300	541302	1	1300	1300	7290
+3	541302	1	1100	1100	7291
+250	541302	1	250	250	7292
+250	541302	1	250	250	7293
+250	541302	1	250	250	7294
+250	541302	1	250	250	7295
+3	541303	1	1100	1100	7296
+126	541303	1	350	350	7297
+60	541304	1	700	700	7298
+3	541304	1	1100	1100	7299
+7802920000954	541305	1	350	350	7300
+7801620003302	541305	1	1000	1000	7301
+78021020	541306	1	2000	2000	7302
+51	541307	1	1300	1300	7303
+1	541307	1	1300	1300	7304
+3	541308	1	1100	1100	7305
+7801620002671	541308	1	1100	1100	7306
+51	541308	1	1300	1300	7307
+7801620002961	541308	1	1100	1100	7308
+52	541309	1	2000	2000	7309
+15	541310	1	1500	1500	7310
+1400	541310	1	1400	1400	7311
+1400	541311	1	1400	1400	7312
+70847009511	541311	1	2000	2000	7313
+4	541312	1	1000	1000	7314
+7613032443221	541312	1	350	350	7315
+51	541312	1	1300	1300	7316
+3	541313	1	1100	1100	7317
+1400	541313	1	1400	1400	7318
+4	541314	1	1000	1000	7319
+300	541314	1	300	300	7320
+800	541314	1	800	800	7321
+78019065	541314	1	2000	2000	7322
+51	541315	1	1300	1300	7323
+51	541315	1	1300	1300	7324
+60	541315	1	700	700	7325
+4	541315	1	1000	1000	7326
+300	541315	1	300	300	7327
+7802215303388	541315	1	250	250	7328
+7802215303388	541315	1	250	250	7329
+3	541316	1	1100	1100	7330
+4	541316	1	1000	1000	7331
+7501009222729	541316	1	850	850	7332
+51	541317	1	1300	1300	7333
+69	541317	1	600	600	7334
+79	541317	1	400	400	7335
+2000	541318	1	2000	2000	7336
+300	541318	1	300	300	7337
+60	541318	1	700	700	7338
+150	541318	1	150	150	7339
+3	541319	1	1100	1100	7340
+4	541319	1	1000	1000	7341
+3	541320	1	1100	1100	7342
+4	541320	1	1000	1000	7343
+3	541322	1	1100	1100	7344
+1400	541323	1	1400	1400	7345
+450	541323	1	450	450	7346
+4	541323	1	1000	1000	7347
+3	541324	1	1100	1100	7348
+4	541324	1	1000	1000	7349
+1	541325	1	1300	1300	7350
+60	541325	1	700	700	7351
+15	541326	1	1500	1500	7352
+400	541326	1	400	400	7353
+400	541326	1	400	400	7354
+400	541326	1	400	400	7355
+52	541327	1	2000	2000	7356
+52	541327	1	2000	2000	7357
+1400	541327	1	1400	1400	7358
+1400	541327	1	1400	1400	7359
+15	541327	1	1500	1500	7360
+51	541328	1	1300	1300	7361
+3	541328	1	1100	1100	7362
+51	541329	1	1300	1300	7363
+15	541329	1	1500	1500	7364
+4	541330	1	1000	1000	7365
+1400	541330	1	1400	1400	7366
+4	541330	1	1000	1000	7367
+7802920002019	541331	1	350	350	7368
+7802820441000	541332	1	650	650	7369
+7801620006655	541333	1	1200	1200	7370
+7801620005153	541333	1	1500	1500	7371
+40000514251	541333	1	990	990	7372
+1	541334	1	1300	1300	7373
+1400	541335	1	1400	1400	7374
+3	541335	1	1100	1100	7375
+900	541335	1	900	900	7376
+3	541336	1	1100	1100	7377
+126	541336	1	350	350	7378
+51	541337	1	1300	1300	7379
+60	541337	1	700	700	7380
+7802230081162	541337	1	850	850	7381
+2000	541338	1	2000	2000	7382
+60	541339	1	700	700	7383
+69	541339	1	600	600	7384
+1800	541339	1	1800	1800	7385
+51	541340	1	1300	1300	7386
+51	541340	1	1300	1300	7387
+60	541340	1	700	700	7388
+78007673	541340	1	3000	3000	7389
+3	541341	1	1100	1100	7390
+4	541342	1	1000	1000	7391
+4	541342	1	1000	1000	7392
+500	541342	1	500	500	7393
+1600	541342	1	1600	1600	7394
+1400	541342	1	1400	1400	7395
+1	541343	1	1300	1300	7396
+3	541343	1	1100	1100	7397
+1300	541344	1	1300	1300	7398
+7622210811233	541344	1	850	850	7399
+3200	541344	1	3200	3200	7400
+1850	541346	1	1850	1850	7401
+800	541347	1	800	800	7402
+800	541347	1	800	800	7403
+1300	541347	1	1300	1300	7404
+1300	541347	1	1300	1300	7405
+40000514251	541347	1	990	990	7406
+3	541348	1	1100	1100	7407
+1	541348	1	1300	1300	7408
+613008728571	541349	1	1650	1650	7409
+7801620852689	541350	1	800	800	7410
+7613032589714	541351	1	800	800	7411
+7613287103529	541352	1	1600	1600	7412
+1700	541353	1	1700	1700	7413
+15	541353	1	1500	1500	7414
+40000514251	541353	1	990	990	7415
+650	541353	1	650	650	7416
+650	541353	1	650	650	7417
+3200	541354	1	3200	3200	7418
+4	541354	1	1000	1000	7419
+4	541354	1	1000	1000	7420
+400	541355	1	400	400	7421
+60	541355	1	700	700	7422
+1600	541356	1	1600	1600	7423
+4	541356	1	1000	1000	7424
+7801610001196	541357	1	800	800	7425
+400	541357	1	400	400	7426
+3000	541358	1	3000	3000	7427
+300	541358	1	300	300	7428
+300	541358	1	300	300	7429
+800	541358	1	800	800	7430
+78024403	541360	1	2600	2600	7431
+300	541361	1	300	300	7432
+800	541361	1	800	800	7433
+1300	541362	1	1300	1300	7434
+126	541362	1	350	350	7435
+400	541362	1	400	400	7436
+1300	541363	1	1300	1300	7437
+800	541363	1	800	800	7438
+78016293	541363	1	2500	2500	7439
+60	541365	1	700	700	7440
+7802200132696	541366	1	300	300	7441
+800	541366	1	800	800	7442
+7613035807464	541367	1	1690	1690	7443
+7613035807464	541367	1	1690	1690	7444
+1600	541368	1	1600	1600	7445
+1600	541368	1	1600	1600	7446
+1400	541368	1	1400	1400	7447
+3000	541369	1	3000	3000	7448
+300	541369	1	300	300	7449
+1690	541370	1	1690	1690	7450
+1690	541370	1	1690	1690	7451
+3	541371	1	1100	1100	7452
+60	541371	1	700	700	7453
+61	541372	1	1000	1000	7454
+61	541372	1	1000	1000	7455
+3	541372	1	1100	1100	7456
+7801620001834	541373	1	700	700	7457
+7801620001834	541373	1	700	700	7458
+3	541374	1	1100	1100	7459
+500	541374	1	500	500	7460
+500	541374	1	500	500	7461
+78020627	541374	1	4000	4000	7462
+7801620011666	541375	1	700	700	7463
+3	541375	1	1100	1100	7464
+7802920801254	541376	1	350	350	7465
+7802920000855	541376	1	500	500	7466
+1	541377	1	1300	1300	7467
+3	541377	1	1100	1100	7468
+7804646000102	541378	1	1200	1200	7469
+78011656	541378	1	3100	3100	7470
+7802920777542	541379	1	1100	1100	7471
+3	541379	1	1100	1100	7472
+3	541380	1	1100	1100	7473
+3	541380	1	1100	1100	7474
+15	541381	1	1500	1500	7475
+15	541381	1	1500	1500	7476
+15	541381	1	1500	1500	7477
+3	541382	1	1100	1100	7478
+3	541382	1	1100	1100	7479
+61	541382	1	1000	1000	7480
+51	541383	1	1300	1300	7481
+3	541383	1	1100	1100	7482
+51	541384	1	1300	1300	7483
+450	541384	1	450	450	7484
+450	541384	1	450	450	7485
+3	541385	1	1100	1100	7486
+69	541385	1	600	600	7487
+1300	541386	1	1300	1300	7488
+1	541386	1	1300	1300	7489
+60	541387	1	700	700	7490
+3	541387	1	1100	1100	7491
+3	541388	1	1100	1100	7492
+4	541388	1	1000	1000	7493
+3	541389	1	1100	1100	7494
+1	541389	1	1300	1300	7495
+7801620003326	541389	1	1000	1000	7496
+4	541391	1	1000	1000	7497
+1300	541391	1	1300	1300	7498
+250	541391	1	250	250	7499
+1	541392	1	1300	1300	7500
+2000	541393	1	2000	2000	7501
+1800	541393	1	1800	1800	7502
+60	541393	1	700	700	7503
+69	541393	1	600	600	7504
+3	541394	1	1100	1100	7505
+126	541394	1	350	350	7506
+1	541396	1	1300	1300	7507
+4	541396	1	1000	1000	7508
+3	541397	1	1100	1100	7509
+51	541397	1	1300	1300	7510
+15	541398	1	1500	1500	7511
+400	541398	1	400	400	7512
+51	541399	1	1300	1300	7513
+4	541399	1	1000	1000	7514
+79	541399	1	400	400	7515
+7802215501968	541400	1	1000	1000	7516
+7802920777542	541400	1	1100	1100	7517
+1400	541401	1	1400	1400	7518
+7801620002671	541401	1	1100	1100	7519
+7613034721051	541402	1	2650	2650	7520
+78024878	541403	1	4400	4400	7521
+78007673	541403	1	3000	3000	7522
+300	541403	1	300	300	7523
+300	541403	1	300	300	7524
+74	541404	1	1000	1000	7525
+3	541405	1	1100	1100	7526
+78021068	541406	1	2500	2500	7527
+78021068	541406	1	2500	2500	7528
+61	541406	1	1000	1000	7529
+4	541407	1	1000	1000	7530
+4	541407	1	1000	1000	7531
+1300	541408	1	1300	1300	7532
+52	541408	1	2000	2000	7533
+51	541409	1	1300	1300	7534
+1400	541409	1	1400	1400	7535
+1	541410	1	1300	1300	7536
+3	541410	1	1100	1100	7537
+1300	541410	1	1300	1300	7538
+7800120164100	541411	1	400	400	7539
+7800120164100	541411	1	400	400	7540
+7800120164100	541411	1	400	400	7541
+7801620002671	541411	1	1100	1100	7542
+3	541412	1	1100	1100	7543
+69	541412	1	600	600	7544
+2000	541412	1	2000	2000	7545
+15	541413	1	1500	1500	7546
+15	541413	1	1500	1500	7547
+15	541415	1	1500	1500	7548
+3	541415	1	1100	1100	7549
+1400	541416	1	1400	1400	7550
+800	541416	1	800	800	7551
+1700	541416	1	1700	1700	7552
+78022010	541419	1	2600	2600	7553
+79	541420	1	400	400	7554
+3	541420	1	1100	1100	7555
+52	541421	1	2000	2000	7556
+1	541421	1	1300	1300	7557
+7801610350355	541422	1	800	800	7558
+7801610350355	541422	1	800	800	7559
+7801620003302	541422	1	1000	1000	7560
+1	541422	1	1300	1300	7561
+300	541422	1	300	300	7562
+300	541422	1	300	300	7563
+2000	541423	1	2000	2000	7564
+2000	541423	1	2000	2000	7565
+15	541423	1	1500	1500	7566
+15	541424	1	1500	1500	7567
+4	541424	1	1000	1000	7568
+4	541424	1	1000	1000	7569
+1	541425	1	1300	1300	7570
+500	541425	1	500	500	7571
+1	541426	1	1300	1300	7572
+1	541426	1	1300	1300	7573
+7801505231912	541428	1	1200	1200	7574
+7803473003461	541428	1	700	700	7575
+7802800576456	541428	1	0	0	7576
+4	541429	1	1000	1000	7577
+7801620003302	541429	1	1000	1000	7578
+78939387	541430	1	300	300	7579
+400	541431	10	400	4000	7580
+7802230975324	541432	1	600	600	7581
+7802230975324	541432	1	600	600	7582
+7802820600209	541433	1	700	700	7583
+7801610350409	541433	1	1650	1650	7584
+7613032180096	541434	1	350	350	7585
+78007673	541435	1	3000	3000	7586
+4	541435	1	1000	1000	7587
+2000	541437	1	2000	2000	7588
+2000	541437	1	2000	2000	7589
+60	541437	1	700	700	7590
+400	541437	1	400	400	7591
+2000	541438	1	2000	2000	7592
+7801620015800	541438	1	700	700	7593
+7801620003326	541438	1	1000	1000	7594
+400	541438	1	400	400	7595
+800	541439	1	800	800	7596
+800	541439	1	800	800	7597
+800	541440	1	800	800	7598
+300	541440	1	300	300	7599
+400	541440	1	400	400	7600
+1300	541441	1	1300	1300	7601
+3200	541441	1	3200	3200	7602
+7613035421592	541442	1	1690	1690	7603
+7613035421592	541442	1	1690	1690	7604
+3200	541443	1	3200	3200	7605
+7801610350409	541443	1	1650	1650	7606
+78021020	541444	1	2000	2000	7607
+500	541444	2	500	1000	7608
+500	541444	1	500	500	7609
+78939387	541444	1	300	300	7610
+3200	541445	1	3200	3200	7611
+690	541445	1	980	980	7612
+500	541445	1	500	500	7613
+78016293	541445	1	2500	2500	7614
+3	541446	1	1100	1100	7615
+60	541446	1	700	700	7616
+60	541446	1	700	700	7617
+60	541446	1	700	700	7618
+400	541446	1	400	400	7619
+400	541446	1	400	400	7620
+400	541446	1	400	400	7621
+400	541446	1	400	400	7622
+250	541446	1	250	250	7623
+250	541446	1	250	250	7624
+300	541446	1	300	300	7625
+300	541446	1	300	300	7626
+1400	541446	1	1400	1400	7627
+1400	541446	1	1400	1400	7628
+2000	541447	1	2000	2000	7629
+2000	541447	1	2000	2000	7630
+500	541448	1	500	500	7631
+1600	541449	1	1600	1600	7632
+1600	541449	1	1600	1600	7633
+15	541450	1	1500	1500	7634
+1300	541450	1	1300	1300	7635
+1400	541451	5	1400	7000	7636
+1600	541451	1	1600	1600	7637
+1600	541451	1	1600	1600	7638
+7802920801254	541452	1	350	350	7639
+7802920801254	541452	1	350	350	7640
+126	541452	1	350	350	7641
+126	541452	1	350	350	7642
+7802230082831	541452	1	1100	1100	7643
+7802000014765	541452	1	700	700	7644
+7802000014765	541452	1	700	700	7645
+7802000014765	541452	1	700	700	7646
+300	541454	1	300	300	7647
+300	541454	1	300	300	7648
+3000	541454	1	3000	3000	7649
+15	541454	1	1500	1500	7650
+15	541455	1	1500	1500	7651
+15	541455	1	1500	1500	7652
+15	541455	1	1500	1500	7653
+4	541455	1	1000	1000	7654
+7613035391369	541455	1	980	980	7655
+7801620015800	541456	1	700	700	7656
+1300	541457	1	1300	1300	7657
+1300	541458	1	1300	1300	7658
+1300	541458	1	1300	1300	7659
+1600	541459	1	1600	1600	7660
+300	541459	1	300	300	7661
+1690	541459	1	1690	1690	7662
+7804646000102	541461	1	1200	1200	7663
+40000514251	541461	1	990	990	7664
+69	541461	1	600	600	7665
+2000	541462	1	2000	2000	7666
+7801620001711	541462	1	1100	1100	7667
+1200	541463	1	1200	1200	7668
+7613035807464	541464	1	1690	1690	7669
+4	541464	1	1000	1000	7670
+61	541465	1	1000	1000	7671
+61	541465	1	1000	1000	7672
+78024915	541465	1	3500	3500	7673
+78018884	541466	1	3400	3400	7674
+7803525999643	541466	1	500	500	7675
+500	541467	1	500	500	7676
+613008719296	541468	1	1650	1650	7677
+7802800556229	541468	1	550	550	7678
+78025332	541469	1	4200	4200	7679
+3	541471	1	1100	1100	7680
+3	541471	1	1100	1100	7681
+4	541471	1	1000	1000	7682
+3	541473	1	1100	1100	7683
+300	541473	1	300	300	7684
+300	541473	1	300	300	7685
+7802820441123	541474	1	650	650	7686
+7801610001196	541475	1	800	800	7687
+60	541477	1	700	700	7688
+60	541477	1	700	700	7689
+7801620005153	541477	1	1500	1500	7690
+3	541477	1	1100	1100	7691
+52	541477	1	2000	2000	7692
+450	541477	1	450	450	7693
+450	541477	1	450	450	7694
+450	541477	1	450	450	7695
+450	541477	1	450	450	7696
+450	541477	1	450	450	7697
+4	541477	1	1000	1000	7698
+4	541478	1	1000	1000	7699
+60	541478	1	700	700	7700
+1300	541479	1	1300	1300	7701
+500	541479	1	500	500	7702
+500	541479	1	500	500	7703
+69	541479	1	600	600	7704
+78025271	541479	1	4200	4200	7705
+15	541480	1	1500	1500	7706
+15	541480	1	1500	1500	7707
+800	541480	1	800	800	7708
+800	541480	1	800	800	7709
+3	541481	1	1100	1100	7710
+15	541481	1	1500	1500	7711
+69	541482	1	600	600	7712
+3	541482	1	1100	1100	7713
+400	541482	1	400	400	7714
+1	541483	1	1300	1300	7715
+78024878	541483	1	4400	4400	7716
+50173822	541483	1	600	600	7717
+1300	541484	1	1300	1300	7718
+51	541484	1	1300	1300	7719
+78025332	541485	1	4200	4200	7720
+15	541486	1	1500	1500	7721
+15	541486	1	1500	1500	7722
+15	541486	1	1500	1500	7723
+15	541486	1	1500	1500	7724
+1	541486	1	1300	1300	7725
+15	541487	1	1500	1500	7726
+69	541487	1	600	600	7727
+3	541488	1	1100	1100	7728
+15	541489	1	1500	1500	7729
+3	541489	1	1100	1100	7730
+1700	541490	1	1700	1700	7731
+7801620005191	541490	1	1300	1300	7732
+3	541492	1	1100	1100	7733
+1	541492	1	1300	1300	7734
+500	541492	1	500	500	7735
+900	541493	1	900	900	7736
+1300	541494	1	1300	1300	7737
+15	541494	1	1500	1500	7738
+69	541494	1	600	600	7739
+2000	541495	1	2000	2000	7740
+60	541495	1	700	700	7741
+60	541495	1	700	700	7742
+60	541495	1	700	700	7743
+60	541495	1	700	700	7744
+1400	541495	1	1400	1400	7745
+1	541496	1	1300	1300	7746
+1	541496	1	1300	1300	7747
+1300	541496	1	1300	1300	7748
+15	541497	1	1500	1500	7749
+3	541498	1	1100	1100	7750
+69	541498	1	600	600	7751
+3	541499	1	1100	1100	7752
+3	541500	1	1100	1100	7753
+1400	541501	1	1400	1400	7754
+3	541501	1	1100	1100	7755
+3	541502	1	1100	1100	7756
+3	541503	1	1100	1100	7757
+51	541503	1	1300	1300	7758
+800	541504	1	800	800	7759
+3	541504	1	1100	1100	7760
+61	541505	1	1000	1000	7761
+61	541505	1	1000	1000	7762
+3	541505	1	1100	1100	7763
+3	541506	1	1100	1100	7764
+60	541506	1	700	700	7765
+1	541507	1	1300	1300	7766
+51	541508	1	1300	1300	7767
+3	541508	1	1100	1100	7768
+51	541509	1	1300	1300	7769
+3	541509	1	1100	1100	7770
+3	541509	1	1100	1100	7771
+7802230975324	541509	1	600	600	7772
+7803525999056	541510	1	500	500	7773
+1	541511	1	1300	1300	7774
+1300	541512	1	1300	1300	7775
+51	541512	1	1300	1300	7776
+2000	541513	1	2000	2000	7777
+650	541513	1	650	650	7778
+1400	541514	1	1400	1400	7779
+51	541515	1	1300	1300	7780
+1400	541515	1	1400	1400	7781
+3	541516	1	1100	1100	7782
+450	541516	1	450	450	7783
+3	541517	1	1100	1100	7784
+1800	541518	1	1800	1800	7785
+3	541519	1	1100	1100	7786
+51	541519	1	1300	1300	7787
+3	541520	1	1100	1100	7788
+1	541520	1	1300	1300	7789
+1	541521	1	1300	1300	7790
+51	541522	1	1300	1300	7791
+1	541522	1	1300	1300	7792
+78021068	541522	1	2500	2500	7793
+78021020	541522	1	2000	2000	7794
+78019041	541522	1	2000	2000	7795
+126	541522	1	350	350	7796
+300	541522	1	300	300	7797
+1400	541523	1	1400	1400	7798
+300	541523	1	300	300	7799
+3	541524	1	1100	1100	7800
+78939387	541524	10	300	3000	7801
+7802920008172	541524	1	450	450	7802
+1	541525	1	1300	1300	7803
+60	541525	1	700	700	7804
+51	541526	1	1300	1300	7805
+51	541527	1	1300	1300	7806
+51	541527	1	1300	1300	7807
+60	541527	1	700	700	7808
+500	541527	1	500	500	7809
+60	541528	1	700	700	7810
+900	541528	1	900	900	7811
+1400	541528	1	1400	1400	7812
+3	541528	1	1100	1100	7813
+1400	541528	1	1400	1400	7814
+51	541529	1	1300	1300	7815
+69	541529	1	600	600	7816
+400	541529	1	400	400	7817
+78020627	541529	1	4000	4000	7818
+15	541530	1	1500	1500	7819
+7801620001704	541530	1	850	850	7820
+1	541532	1	1300	1300	7821
+3	541532	1	1100	1100	7822
+7802230082503	541533	1	1100	1100	7823
+51	541534	1	1300	1300	7824
+1	541534	1	1300	1300	7825
+2000	541535	1	2000	2000	7826
+500	541535	1	500	500	7827
+7801620011659	541536	1	700	700	7828
+1300	541537	1	1300	1300	7829
+51	541537	1	1300	1300	7830
+61	541537	1	1000	1000	7831
+3	541537	1	1100	1100	7832
+51	541538	1	1300	1300	7833
+2000	541538	1	2000	2000	7834
+4	541538	1	1000	1000	7835
+78019065	541540	1	2000	2000	7836
+300	541540	1	300	300	7837
+300	541540	1	300	300	7838
+1400	541541	1	1400	1400	7839
+1400	541541	1	1400	1400	7840
+1400	541541	1	1400	1400	7841
+800	541541	1	800	800	7842
+2000	541542	1	2000	2000	7843
+60	541542	1	700	700	7844
+69	541542	1	600	600	7845
+1900	541544	1	1900	1900	7846
+78006140	541544	4	650	2600	7847
+300	541545	1	300	300	7848
+300	541545	1	300	300	7849
+7801610350355	541545	3	800	2400	7850
+3	541547	1	1100	1100	7851
+300	541547	1	300	300	7852
+300	541547	1	300	300	7853
+800	541547	1	800	800	7854
+7613035391369	541549	1	980	980	7855
+2000	541549	1	2000	2000	7856
+7801610350355	541549	1	800	800	7857
+7801620003326	541550	1	1000	1000	7858
+7801620015800	541550	1	700	700	7859
+400	541550	1	400	400	7860
+400	541550	1	400	400	7861
+2000	541551	1	2000	2000	7862
+4	541551	1	1000	1000	7863
+3000	541552	1	3000	3000	7864
+1400	541553	1	1400	1400	7865
+1400	541553	1	1400	1400	7866
+60	541553	1	700	700	7867
+1600	541554	1	1600	1600	7868
+900	541554	1	900	900	7869
+800	541556	1	800	800	7870
+300	541556	1	300	300	7871
+500	541556	1	500	500	7872
+500	541556	1	500	500	7873
+78018884	541557	1	3400	3400	7874
+7891000248768	541557	1	900	900	7875
+7801620005184	541558	1	1500	1500	7876
+7803473003232	541558	1	400	400	7877
+50173822	541558	1	600	600	7878
+7801620015800	541559	1	700	700	7879
+7801620015800	541559	1	700	700	7880
+400	541559	1	400	400	7881
+1300	541560	1	1300	1300	7882
+690	541560	1	980	980	7883
+1300	541562	1	1300	1300	7884
+1300	541562	1	1300	1300	7885
+7613032186852	541563	1	650	650	7886
+7801620015800	541563	1	700	700	7887
+7501073427532	541564	1	450	450	7888
+7501073427532	541564	1	450	450	7889
+1300	541566	1	1300	1300	7890
+7805000301484	541567	1	700	700	7891
+1300	541568	1	1300	1300	7892
+78018853	541569	1	1800	1800	7893
+1400	541570	1	1400	1400	7894
+60	541570	1	700	700	7895
+69	541572	1	600	600	7896
+500	541573	1	500	500	7897
+1200	541573	1	1200	1200	7898
+1600	541573	1	1600	1600	7899
+126	541573	1	350	350	7900
+61	541574	1	1000	1000	7901
+1690	541575	1	1690	1690	7902
+1690	541575	1	1690	1690	7903
+1300	541577	1	1300	1300	7904
+800	541577	1	800	800	7905
+7802000012679	541578	1	2300	2300	7906
+15	541578	1	1500	1500	7907
+4	541578	1	1000	1000	7908
+7802215512261	541579	1	700	700	7909
+1400	541580	1	1400	1400	7910
+500	541580	1	500	500	7911
+78025059	541582	1	3400	3400	7912
+60	541582	1	700	700	7913
+7613035407145	541585	1	1690	1690	7914
+7613035407145	541585	1	1690	1690	7915
+7613035407145	541585	1	1690	1690	7916
+7613032180157	541585	1	300	300	7917
+7613032180157	541585	1	300	300	7918
+4	541585	1	1000	1000	7919
+7801620001711	541586	1	1100	1100	7920
+800	541587	1	800	800	7921
+1200	541587	1	1200	1200	7922
+1690	541588	1	1690	1690	7923
+1690	541588	1	1690	1690	7924
+1	541589	1	1300	1300	7925
+4	541589	1	1000	1000	7926
+7501013118018	541589	1	800	800	7927
+1600	541590	1	1600	1600	7928
+400	541590	1	400	400	7929
+4	541590	1	1000	1000	7930
+78025059	541591	1	3400	3400	7931
+800	541592	1	800	800	7932
+69	541592	1	600	600	7933
+69	541592	1	600	600	7934
+2000	541592	1	2000	2000	7935
+2000	541592	1	2000	2000	7936
+3000	541592	1	3000	3000	7937
+2000	541593	1	2000	2000	7938
+1400	541593	1	1400	1400	7939
+7613034721051	541594	1	2650	2650	7940
+7802230070227	541594	1	3850	3850	7941
+7613034276490	541595	1	500	500	7942
+78021020	541596	1	2000	2000	7943
+7802215512285	541597	1	700	700	7944
+78023994	541597	1	250	250	7945
+7803525999667	541598	1	600	600	7946
+7802215505300	541598	1	850	850	7947
+78025271	541598	1	4200	4200	7948
+7801620016029	541599	1	1000	1000	7949
+78020627	541599	1	4000	4000	7950
+7802215505300	541600	1	850	850	7951
+7801620005191	541601	1	1300	1300	7952
+3	541602	1	1100	1100	7953
+78024915	541602	1	3500	3500	7954
+900	541603	1	900	900	7955
+51	541603	1	1300	1300	7956
+3	541603	1	1100	1100	7957
+78018853	541604	1	1800	1800	7958
+51	541607	1	1300	1300	7959
+78020627	541608	1	4000	4000	7960
+69	541608	1	600	600	7961
+1300	541609	1	1300	1300	7962
+3	541609	1	1100	1100	7963
+1300	541610	1	1300	1300	7964
+300	541610	1	300	300	7965
+300	541610	1	300	300	7966
+3	541611	1	1100	1100	7967
+15	541612	1	1500	1500	7968
+69	541612	1	600	600	7969
+60	541613	1	700	700	7970
+1300	541613	1	1300	1300	7971
+3	541613	1	1100	1100	7972
+3	541614	1	1100	1100	7973
+500	541614	1	500	500	7974
+1	541615	1	1300	1300	7975
+3	541615	1	1100	1100	7976
+15	541615	1	1500	1500	7977
+1300	541616	1	1300	1300	7978
+52	541616	1	2000	2000	7979
+7804646000102	541616	1	1200	1200	7980
+500	541616	1	500	500	7981
+1	541616	1	1300	1300	7982
+3	541616	1	1100	1100	7983
+1	541617	1	1300	1300	7984
+61	541617	1	1000	1000	7985
+52	541618	1	2000	2000	7986
+52	541618	1	2000	2000	7987
+1400	541618	1	1400	1400	7988
+1800	541618	1	1800	1800	7989
+52	541620	1	2000	2000	7990
+900	541620	1	900	900	7991
+500	541620	1	500	500	7992
+7801620002961	541621	1	1100	1100	7993
+1400	541621	1	1400	1400	7994
+7802920005164	541622	1	500	500	7995
+5201041002137	541624	1	800	800	7996
+7802230975324	541625	1	600	600	7997
+7801620005153	541625	1	1500	1500	7998
+1000	541626	1	1300	1300	7999
+79	541627	1	400	400	8000
+4	541627	1	1000	1000	8001
+126	541627	1	350	350	8002
+3	541630	1	1100	1100	8003
+300	541630	1	300	300	8004
+4	541630	1	1000	1000	8005
+450	541631	4	450	1800	8006
+3	541631	1	1100	1100	8007
+1	541632	1	1300	1300	8008
+2000	541633	1	2000	2000	8009
+52	541634	1	2000	2000	8010
+1800	541634	1	1800	1800	8011
+1800	541634	1	1800	1800	8012
+3	541635	1	1100	1100	8013
+3	541635	1	1100	1100	8014
+1	541636	1	1300	1300	8015
+51	541636	1	1300	1300	8016
+3	541637	1	1100	1100	8017
+3	541638	1	1100	1100	8018
+4	541638	1	1000	1000	8019
+3	541639	1	1100	1100	8020
+3	541639	1	1100	1100	8021
+2000	541639	1	2000	2000	8022
+3	541641	1	1100	1100	8023
+51	541642	1	1300	1300	8024
+1	541642	1	1300	1300	8025
+69	541642	1	600	600	8026
+69	541642	1	600	600	8027
+2000	541643	1	2000	2000	8028
+78025059	541643	1	3400	3400	8029
+1300	541644	1	1300	1300	8030
+3	541644	1	1100	1100	8031
+3	541645	1	1100	1100	8032
+60	541645	1	700	700	8033
+1300	541645	1	1300	1300	8034
+1300	541645	1	1300	1300	8035
+79	541645	1	400	400	8036
+1	541646	1	1300	1300	8037
+51	541646	1	1300	1300	8038
+3	541646	1	1100	1100	8039
+500	541646	1	500	500	8040
+900	541647	1	900	900	8041
+900	541647	1	900	900	8042
+1300	541647	1	1300	1300	8043
+3	541647	1	1100	1100	8044
+3	541647	1	1100	1100	8045
+900	541648	1	900	900	8046
+450	541648	1	450	450	8047
+450	541648	1	450	450	8048
+7803525000240	541650	1	600	600	8049
+7802820021950	541650	1	1000	1000	8050
+59080480	541651	1	350	350	8051
+7801620001919	541651	1	700	700	8052
+3	541652	1	1100	1100	8053
+1300	541652	1	1300	1300	8054
+3	541653	1	1100	1100	8055
+1400	541653	1	1400	1400	8056
+1	541654	1	1300	1300	8057
+1	541654	1	1300	1300	8058
+1600	541655	1	1600	1600	8059
+69	541655	1	600	600	8060
+7803473543189	541656	1	550	550	8061
+7802920007182	541657	1	500	500	8062
+7801620002961	541658	1	1100	1100	8063
+51	541659	1	1300	1300	8064
+1800	541659	1	1800	1800	8065
+51	541660	1	1300	1300	8066
+2000	541660	1	2000	2000	8067
+61	541662	1	1000	1000	8068
+3	541662	1	1100	1100	8069
+61	541663	1	1000	1000	8070
+500	541663	1	500	500	8071
+3	541664	1	1100	1100	8072
+3	541664	1	1100	1100	8073
+51	541664	1	1300	1300	8074
+69	541664	1	600	600	8075
+3	541665	1	1100	1100	8076
+78025059	541665	1	3400	3400	8077
+15	541666	1	1500	1500	8078
+4	541666	1	1000	1000	8079
+1400	541667	1	1400	1400	8080
+1600	541667	1	1600	1600	8081
+4	541668	1	1000	1000	8082
+4	541668	1	1000	1000	8083
+4	541668	1	1000	1000	8084
+7802920009407	541671	1	600	600	8085
+7501013118018	541672	1	800	800	8086
+7801620015817	541672	1	700	700	8087
+3000	541673	1	3000	3000	8088
+60	541673	1	700	700	8089
+60	541673	1	700	700	8090
+60	541673	1	700	700	8091
+2000	541674	1	2000	2000	8092
+1300	541674	1	1300	1300	8093
+800	541674	1	800	800	8094
+1600	541675	1	1600	1600	8095
+1400	541675	1	1400	1400	8096
+800	541676	1	800	800	8097
+500	541676	1	500	500	8098
+300	541676	1	300	300	8099
+1800	541677	1	1800	1800	8100
+1300	541677	1	1300	1300	8101
+1400	541678	1	1400	1400	8102
+1300	541679	1	1300	1300	8103
+4	541679	1	1000	1000	8104
+1	541680	1	1300	1300	8105
+900	541680	1	900	900	8106
+78019041	541680	1	2000	2000	8107
+78007673	541680	1	3000	3000	8108
+7613032443191	541682	1	700	700	8109
+3	541682	1	1100	1100	8110
+51	541683	1	1300	1300	8111
+1	541683	1	1300	1300	8112
+52	541684	1	2000	2000	8113
+1	541684	1	1300	1300	8114
+450	541684	1	450	450	8115
+450	541684	1	450	450	8116
+450	541684	1	450	450	8117
+450	541684	1	450	450	8118
+450	541684	1	450	450	8119
+900	541684	1	900	900	8120
+900	541684	1	900	900	8121
+7802200132696	541684	1	300	300	8122
+4	541685	1	1000	1000	8123
+3	541685	1	1100	1100	8124
+3	541685	1	1100	1100	8125
+60	541685	1	700	700	8126
+4	541686	1	1000	1000	8127
+1300	541687	1	1300	1300	8128
+78025059	541687	1	3400	3400	8129
+1300	541688	1	1300	1300	8130
+7802920008172	541688	1	450	450	8131
+7802920008172	541688	1	450	450	8132
+7802920001005	541688	1	350	350	8133
+7802920001005	541688	1	350	350	8134
+7803525999667	541688	1	600	600	8135
+7613032443191	541688	1	700	700	8136
+78024878	541689	1	4400	4400	8137
+200	541690	1	250	250	8138
+78018853	541690	1	1800	1800	8139
+200	541690	1	250	250	8140
+1300	541691	1	1300	1300	8141
+3	541692	1	1100	1100	8142
+69	541692	1	600	600	8143
+7801620011659	541693	1	700	700	8144
+7622210427076	541693	1	400	400	8145
+3	541694	1	1100	1100	8146
+900	541694	1	900	900	8147
+1300	541695	1	1300	1300	8148
+51	541695	1	1300	1300	8149
+3	541695	1	1100	1100	8150
+3	541696	1	1100	1100	8151
+1	541696	1	1300	1300	8152
+900	541696	1	900	900	8153
+60	541696	1	700	700	8154
+1800	541698	1	1800	1800	8155
+900	541698	1	900	900	8156
+3	541700	1	1100	1100	8157
+1	541700	1	1300	1300	8158
+7801610000595	541702	1	1000	1000	8159
+400	541702	1	400	400	8160
+3	541702	1	1100	1100	8161
+4	541703	1	1000	1000	8162
+900	541703	1	900	900	8163
+15	541704	1	1500	1500	8164
+3	541704	1	1100	1100	8165
+3	541704	1	1100	1100	8166
+3	541704	1	1100	1100	8167
+3	541704	1	1100	1100	8168
+60	541704	1	700	700	8169
+60	541705	1	700	700	8170
+3	541705	1	1100	1100	8171
+15	541705	1	1500	1500	8172
+450	541706	1	450	450	8173
+450	541706	1	450	450	8174
+450	541706	1	450	450	8175
+3	541707	1	1100	1100	8176
+7803473003232	541707	1	400	400	8177
+60	541708	1	700	700	8178
+78024878	541708	1	4400	4400	8179
+126	541708	1	350	350	8180
+126	541708	1	350	350	8181
+15	541709	1	1500	1500	8182
+51	541709	1	1300	1300	8183
+7793890254297	541709	1	600	600	8184
+1500	541709	1	1650	1650	8185
+60	541710	1	700	700	8186
+3	541710	1	1100	1100	8187
+3	541712	1	1100	1100	8188
+300	541712	1	300	300	8189
+800	541714	1	800	800	8190
+3	541714	1	1100	1100	8191
+1	541716	1	1300	1300	8192
+500	541716	1	500	500	8193
+51	541717	1	1300	1300	8194
+3	541717	1	1100	1100	8195
+51	541718	1	1300	1300	8196
+4	541718	1	1000	1000	8197
+3	541718	1	1100	1100	8198
+51	541719	1	1300	1300	8199
+3	541719	1	1100	1100	8200
+650	541720	1	650	650	8201
+51	541721	1	1300	1300	8202
+51	541721	1	1300	1300	8203
+7613034276490	541721	1	500	500	8204
+51	541722	1	1300	1300	8205
+450	541722	1	450	450	8206
+450	541722	1	450	450	8207
+15	541723	1	1500	1500	8208
+3	541723	1	1100	1100	8209
+3	541724	1	1100	1100	8210
+1400	541724	1	1400	1400	8211
+300	541724	1	300	300	8212
+61	541725	1	1000	1000	8213
+900	541726	1	900	900	8214
+1300	541726	1	1300	1300	8215
+60	541726	1	700	700	8216
+500	541726	1	500	500	8217
+51	541727	1	1300	1300	8218
+500	541727	1	500	500	8219
+500	541727	1	500	500	8220
+51	541729	1	1300	1300	8221
+3	541729	1	1100	1100	8222
+400	541729	1	400	400	8223
+51	541731	1	1300	1300	8224
+4	541731	1	1000	1000	8225
+51	541731	1	1300	1300	8226
+69	541731	1	600	600	8227
+78021020	541731	1	2000	2000	8228
+78007673	541732	1	3000	3000	8229
+4	541732	1	1000	1000	8230
+1400	541733	1	1400	1400	8231
+40000514251	541734	1	990	990	8232
+51	541736	1	1300	1300	8233
+3	541736	1	1100	1100	8234
+78024915	541736	1	3500	3500	8235
+1000	541736	1	1300	1300	8236
+69	541737	1	600	600	8237
+3	541737	1	1100	1100	8238
+51	541737	1	1300	1300	8239
+7801610223192	541738	1	800	800	8240
+7803525999964	541738	1	500	500	8241
+7793890254297	541738	1	600	600	8242
+400	541738	1	400	400	8243
+650	541738	1	650	650	8244
+69	541739	1	600	600	8245
+60	541739	1	700	700	8246
+2000	541739	1	2000	2000	8247
+7802950072679	541740	1	300	300	8248
+7802950072679	541740	1	300	300	8249
+7802950072679	541740	1	300	300	8250
+7802950072679	541740	1	300	300	8251
+300	541740	1	300	300	8252
+400	541740	5	400	2000	8253
+78939387	541740	1	300	300	8254
+78939387	541740	1	300	300	8255
+78939387	541740	1	300	300	8256
+78939387	541740	1	300	300	8257
+500	541740	1	500	500	8258
+60	541740	1	700	700	8259
+2000	541740	1	2000	2000	8260
+78020627	541741	1	4000	4000	8261
+3200	541741	1	3200	3200	8262
+4	541741	1	1000	1000	8263
+2000	541742	1	2000	2000	8264
+1300	541744	1	1300	1300	8265
+1300	541744	1	1300	1300	8266
+1400	541745	1	1400	1400	8267
+800	541745	1	800	800	8268
+78007673	541746	1	3000	3000	8269
+7891000248768	541746	1	900	900	8270
+7613034276490	541746	1	500	500	8271
+7802230082503	541746	1	1100	1100	8272
+1300	541747	1	1300	1300	8273
+2000	541747	1	2000	2000	8274
+800	541747	1	800	800	8275
+1400	541749	1	1400	1400	8276
+126	541749	1	350	350	8277
+15	541750	1	1500	1500	8278
+69	541750	1	600	600	8279
+400	541750	1	400	400	8280
+400	541750	1	400	400	8281
+400	541750	1	400	400	8282
+400	541750	1	400	400	8283
+1300	541751	1	1300	1300	8284
+3200	541751	1	3200	3200	8285
+1300	541752	1	1300	1300	8286
+800	541752	1	800	800	8287
+3200	541753	1	3200	3200	8288
+800	541753	1	800	800	8289
+78024915	541753	1	3500	3500	8290
+1600	541755	1	1600	1600	8291
+7802920005195	541755	1	500	500	8292
+1900	541756	1	1900	1900	8293
+1900	541756	1	1900	1900	8294
+78024410	541757	1	3500	3500	8295
+7801620004859	541758	1	900	900	8296
+7891991000826	541758	1	1100	1100	8297
+3200	541759	1	3200	3200	8298
+800	541759	1	800	800	8299
+1600	541760	1	1600	1600	8300
+4	541760	1	1000	1000	8301
+7803908000829	541761	1	1000	1000	8302
+7801610350409	541761	1	1650	1650	8303
+3000	541762	1	3000	3000	8304
+78021020	541763	1	2000	2000	8305
+800	541764	1	800	800	8306
+1300	541764	1	1300	1300	8307
+7801620011659	541765	1	700	700	8308
+7803473004376	541765	1	600	600	8309
+1850	541767	1	1850	1850	8310
+78018853	541769	1	1800	1800	8311
+1400	541770	1	1400	1400	8312
+7801620011659	541770	1	700	700	8313
+1000	541771	1	1300	1300	8314
+1300	541772	1	1300	1300	8315
+500	541772	1	500	500	8316
+2000	541773	1	2000	2000	8317
+7802950072358	541773	1	300	300	8318
+800	541773	1	800	800	8319
+7802230975324	541775	1	600	600	8320
+7801620002961	541777	1	1100	1100	8321
+7801620002961	541777	1	1100	1100	8322
+3	541777	1	1100	1100	8323
+3	541777	1	1100	1100	8324
+7803473003232	541779	1	400	400	8325
+51	541780	1	1300	1300	8326
+15	541780	1	1500	1500	8327
+7801620015817	541781	1	700	700	8328
+7802920009407	541781	1	600	600	8329
+7801620001919	541781	1	700	700	8330
+3	541782	1	1100	1100	8331
+1	541782	1	1300	1300	8332
+52	541783	1	2000	2000	8333
+51	541784	1	1300	1300	8334
+3	541784	1	1100	1100	8335
+3	541784	1	1100	1100	8336
+1300	541785	1	1300	1300	8337
+61	541785	1	1000	1000	8338
+1	541787	1	1300	1300	8339
+51	541787	1	1300	1300	8340
+60	541787	1	700	700	8341
+1400	541788	1	1400	1400	8342
+69	541788	1	600	600	8343
+60	541788	1	700	700	8344
+3	541789	1	1100	1100	8345
+3	541789	1	1100	1100	8346
+60	541790	1	700	700	8347
+3	541790	1	1100	1100	8348
+800	541790	1	800	800	8349
+51	541790	1	1300	1300	8350
+3	541790	1	1100	1100	8351
+1400	541791	1	1400	1400	8352
+4	541791	1	1000	1000	8353
+1	541792	1	1300	1300	8354
+1	541793	1	1300	1300	8355
+51	541793	1	1300	1300	8356
+51	541793	1	1300	1300	8357
+1300	541794	1	1300	1300	8358
+500	541794	1	500	500	8359
+52	541795	1	2000	2000	8360
+500	541795	1	500	500	8361
+500	541795	1	500	500	8362
+400	541795	1	400	400	8363
+2000	541797	1	2000	2000	8364
+60	541799	1	700	700	8365
+3	541800	1	1100	1100	8366
+78021020	541801	1	2000	2000	8367
+1400	541802	1	1400	1400	8368
+1300	541802	1	1300	1300	8369
+3	541802	1	1100	1100	8370
+4	541802	1	1000	1000	8371
+4	541803	1	1000	1000	8372
+3	541803	1	1100	1100	8373
+4	541804	1	1000	1000	8374
+3	541805	1	1100	1100	8375
+4	541805	1	1000	1000	8376
+400	541805	1	400	400	8377
+1300	541806	1	1300	1300	8378
+4	541806	1	1000	1000	8379
+450	541806	1	450	450	8380
+650	541806	1	650	650	8381
+1000	541806	1	1300	1300	8382
+3	541807	1	1100	1100	8383
+3	541807	1	1100	1100	8384
+52	541807	1	2000	2000	8385
+3	541808	1	1100	1100	8386
+15	541808	1	1500	1500	8387
+51	541808	1	1300	1300	8388
+51	541809	1	1300	1300	8389
+7802000012679	541809	1	2300	2300	8390
+3	541810	1	1100	1100	8391
+7803473543189	541810	1	550	550	8392
+3	541811	1	1100	1100	8393
+7802920004969	541811	1	400	400	8394
+7802920004969	541811	1	400	400	8395
+51	541812	1	1300	1300	8396
+1400	541812	1	1400	1400	8397
+3	541813	1	1100	1100	8398
+51	541813	1	1300	1300	8399
+3	541814	1	1100	1100	8400
+3	541815	1	1100	1100	8401
+51	541815	1	1300	1300	8402
+500	541817	1	500	500	8403
+800	541817	1	800	800	8404
+1400	541819	1	1400	1400	8405
+1400	541819	1	1400	1400	8406
+52	541819	1	2000	2000	8407
+51	541820	1	1300	1300	8408
+3	541820	1	1100	1100	8409
+3	541821	1	1100	1100	8410
+500	541821	1	500	500	8411
+4	541824	1	1000	1000	8412
+500	541824	1	500	500	8413
+3	541824	1	1100	1100	8414
+650	541824	1	650	650	8415
+650	541824	1	650	650	8416
+51	541825	1	1300	1300	8417
+2000	541826	1	2000	2000	8418
+3	541826	1	1100	1100	8419
+300	541826	1	300	300	8420
+79	541827	1	400	400	8421
+2000	541827	1	2000	2000	8422
+126	541827	1	350	350	8423
+51	541828	1	1300	1300	8424
+3	541828	1	1100	1100	8425
+300	541828	1	300	300	8426
+51	541829	1	1300	1300	8427
+3	541830	1	1100	1100	8428
+51	541830	1	1300	1300	8429
+51	541831	1	1300	1300	8430
+3	541831	1	1100	1100	8431
+51	541832	1	1300	1300	8432
+4	541832	1	1000	1000	8433
+78007673	541832	1	3000	3000	8434
+1	541833	1	1300	1300	8435
+60	541833	1	700	700	8436
+500	541833	1	500	500	8437
+51	541834	1	1300	1300	8438
+3	541834	1	1100	1100	8439
+3	541834	1	1100	1100	8440
+3	541834	1	1100	1100	8441
+15	541835	1	1500	1500	8442
+78021068	541835	1	2500	2500	8443
+78021068	541835	1	2500	2500	8444
+3	541835	1	1100	1100	8445
+4	541836	1	1000	1000	8446
+500	541836	1	500	500	8447
+60	541836	1	700	700	8448
+1400	541837	1	1400	1400	8449
+78019065	541837	1	2000	2000	8450
+7802225584081	541838	1	500	500	8451
+7613034721051	541838	1	2650	2650	8452
+7613287103529	541838	1	1600	1600	8453
+7802230070227	541838	1	3850	3850	8454
+7801620016111	541839	1	950	950	8455
+7801620003326	541840	1	1000	1000	8456
+7891000248768	541840	1	900	900	8457
+61	541841	1	1000	1000	8458
+500	541841	1	500	500	8459
+78024878	541841	1	4400	4400	8460
+500	541841	1	500	500	8461
+1	541842	1	1300	1300	8462
+7802820020953	541843	1	1000	1000	8463
+7801620011611	541843	1	1500	1500	8464
+2000	541844	1	2000	2000	8465
+400	541844	1	400	400	8466
+300	541844	1	300	300	8467
+300	541844	1	300	300	8468
+4	541844	1	1000	1000	8469
+78024878	541845	1	4400	4400	8470
+78007673	541846	1	3000	3000	8471
+1400	541847	1	1400	1400	8472
+1300	541847	1	1300	1300	8473
+78022010	541847	1	2600	2600	8474
+3200	541848	1	3200	3200	8475
+800	541848	1	800	800	8476
+300	541848	1	300	300	8477
+69	541849	1	600	600	8478
+60	541849	1	700	700	8479
+300	541849	1	300	300	8480
+7613032180157	541851	1	300	300	8481
+60	541856	1	700	700	8482
+400	541856	1	400	400	8483
+126	541856	1	350	350	8484
+69	541856	1	600	600	8485
+7801620001704	541858	1	850	850	8486
+500	541859	1	500	500	8487
+1	541859	1	1300	1300	8488
+3	541861	1	1100	1100	8489
+1300	541861	1	1300	1300	8490
+4	541861	1	1000	1000	8491
+800	541862	1	800	800	8492
+1300	541862	1	1300	1300	8493
+78016293	541863	1	2500	2500	8494
+1690	541864	1	1690	1690	8495
+1690	541864	1	1690	1690	8496
+4	541864	1	1000	1000	8497
+3200	541864	1	3200	3200	8498
+4	541866	1	1000	1000	8499
+1300	541866	1	1300	1300	8500
+78020627	541866	1	4000	4000	8501
+78018853	541867	1	1800	1800	8502
+2000	541868	1	2000	2000	8503
+4	541868	1	1000	1000	8504
+78022201	541869	1	4500	4500	8505
+7804612131274	541870	1	400	400	8506
+7804612131274	541870	1	400	400	8507
+7802230082831	541871	1	1100	1100	8508
+7891991000826	541871	1	1100	1100	8509
+7613032186852	541872	1	650	650	8510
+7803473004376	541872	1	600	600	8511
+7801620004873	541872	1	900	900	8512
+1300	541873	1	1300	1300	8513
+800	541873	1	800	800	8514
+2200	541874	1	2200	2200	8515
+800	541874	1	800	800	8516
+400	541874	1	400	400	8517
+300	541874	1	300	300	8518
+7801610001622	541875	1	1650	1650	8519
+7801620001841	541875	1	1500	1500	8520
+1690	541875	1	1690	1690	8521
+1690	541875	1	1690	1690	8522
+400	541875	1	400	400	8523
+900	541877	1	900	900	8524
+400	541877	1	400	400	8525
+4	541879	1	1000	1000	8526
+1500	541880	1	1650	1650	8527
+1500	541880	1	1650	1650	8528
+7802820021950	541881	1	1000	1000	8529
+500	541881	1	500	500	8530
+300	541885	1	300	300	8531
+300	541885	1	300	300	8532
+300	541885	1	300	300	8533
+3	541885	1	1100	1100	8534
+3	541886	1	1100	1100	8535
+3	541886	1	1100	1100	8536
+60	541886	1	700	700	8537
+1300	541887	1	1300	1300	8538
+1300	541887	1	1300	1300	8539
+3	541887	1	1100	1100	8540
+3	541887	1	1100	1100	8541
+3	541887	1	1100	1100	8542
+300	541887	1	300	300	8543
+7613032443191	541888	1	700	700	8544
+7803525999667	541888	1	600	600	8545
+78025271	541888	1	4200	4200	8546
+7801620001919	541889	1	700	700	8547
+7802920009407	541890	1	600	600	8548
+7801620008307	541891	1	900	900	8549
+7802920008141	541892	1	900	900	8550
+7802230082527	541893	1	1100	1100	8551
+7801620011659	541894	1	700	700	8552
+7803525999964	541895	1	500	500	8553
+7801620004859	541896	1	900	900	8554
+7804646000102	541897	1	1200	1200	8555
+1300	541898	1	1300	1300	8556
+51	541898	1	1300	1300	8557
+7802920008189	541900	1	450	450	8558
+7801620011659	541901	1	700	700	8559
+7801620015800	541902	1	700	700	8560
+7613035588776	541902	1	600	600	8561
+7802920008158	541902	1	900	900	8562
+1300	541904	1	1300	1300	8563
+1	541904	1	1300	1300	8564
+7801610000595	541905	1	1000	1000	8565
+7802920008189	541905	1	450	450	8566
+78025332	541905	1	4200	4200	8567
+7801610350355	541906	1	800	800	8568
+3	541907	1	1100	1100	8569
+3	541907	1	1100	1100	8570
+15	541908	1	1500	1500	8571
+15	541908	1	1500	1500	8572
+51	541911	1	1300	1300	8573
+1	541911	1	1300	1300	8574
+51	541912	1	1300	1300	8575
+61	541912	1	1000	1000	8576
+200	541912	1	250	250	8577
+3	541912	1	1100	1100	8578
+300	541912	1	300	300	8579
+300	541912	1	300	300	8580
+300	541912	1	300	300	8581
+400	541913	1	400	400	8582
+60	541913	1	700	700	8583
+1300	541913	1	1300	1300	8584
+1400	541913	1	1400	1400	8585
+3	541914	1	1100	1100	8586
+2000	541914	1	2000	2000	8587
+51	541914	1	1300	1300	8588
+4	541917	1	1000	1000	8589
+1400	541917	1	1400	1400	8590
+300	541917	1	300	300	8591
+300	541917	1	300	300	8592
+1300	541918	1	1300	1300	8593
+900	541918	1	900	900	8594
+3	541918	1	1100	1100	8595
+500	541919	10	500	5000	8596
+300	541920	1	300	300	8597
+300	541920	1	300	300	8598
+300	541920	1	300	300	8599
+800	541920	1	800	800	8600
+3	541920	1	1100	1100	8601
+3	541922	1	1100	1100	8602
+1	541923	1	1300	1300	8603
+3	541924	1	1100	1100	8604
+15	541925	1	1500	1500	8605
+15	541925	1	1500	1500	8606
+60	541925	1	700	700	8607
+3	541926	1	1100	1100	8608
+4	541926	1	1000	1000	8609
+1400	541927	1	1400	1400	8610
+1400	541927	1	1400	1400	8611
+1	541928	1	1300	1300	8612
+1	541928	1	1300	1300	8613
+126	541928	1	350	350	8614
+60	541929	1	700	700	8615
+3	541930	1	1100	1100	8616
+7802920007182	541930	1	500	500	8617
+1400	541931	1	1400	1400	8618
+7801620002961	541931	1	1100	1100	8619
+7613034276490	541931	1	500	500	8620
+7802820021950	541932	1	1000	1000	8621
+78007673	541932	1	3000	3000	8622
+7802920007182	541933	1	500	500	8623
+7802230086952	541933	1	800	800	8624
+7803525000240	541933	1	600	600	8625
+3	541934	1	1100	1100	8626
+1100	541934	1	1100	1100	8627
+3	541935	1	1100	1100	8628
+60	541935	1	700	700	8629
+500	541935	1	500	500	8630
+78022201	541935	1	4500	4500	8631
+1400	541936	1	1400	1400	8632
+51	541936	1	1300	1300	8633
+2000	541937	1	2000	2000	8634
+4	541937	1	1000	1000	8635
+2000	541938	1	2000	2000	8636
+4	541938	1	1000	1000	8637
+500	541938	1	500	500	8638
+51	541939	1	1300	1300	8639
+2000	541939	1	2000	2000	8640
+4	541939	1	1000	1000	8641
+1300	541940	1	1300	1300	8642
+800	541940	1	800	800	8643
+900	541940	1	900	900	8644
+400	541941	1	400	400	8645
+2000	541941	1	2000	2000	8646
+1300	541941	1	1300	1300	8647
+51	541944	1	1300	1300	8648
+61	541944	1	1000	1000	8649
+500	541944	1	500	500	8650
+900	541945	1	900	900	8651
+1600	541945	1	1600	1600	8652
+15	541946	1	1500	1500	8653
+900	541946	1	900	900	8654
+500	541946	1	500	500	8655
+1850	541948	1	1850	1850	8656
+690	541949	4	980	3920	8657
+7801620004859	541949	1	900	900	8658
+7801610350355	541950	1	800	800	8659
+7802950002119	541954	1	1850	1850	8660
+7802225427210	541954	1	450	450	8661
+60	541957	1	700	700	8662
+60	541957	1	700	700	8663
+60	541957	1	700	700	8664
+60	541957	1	700	700	8665
+1400	541957	1	1400	1400	8666
+1400	541957	1	1400	1400	8667
+300	541957	1	300	300	8668
+300	541957	1	300	300	8669
+400	541957	1	400	400	8670
+15	541957	1	1500	1500	8671
+500	541957	1	500	500	8672
+500	541957	1	500	500	8673
+400	541957	1	400	400	8674
+400	541957	1	400	400	8675
+3200	541958	4	3200	12800	8676
+1600	541959	1	1600	1600	8677
+60	541959	1	700	700	8678
+78016293	541959	1	2500	2500	8679
+7802920423609	541960	1	850	850	8680
+7805000301484	541960	1	700	700	8681
+1600	541961	1	1600	1600	8682
+1300	541961	1	1300	1300	8683
+15	541962	1	1500	1500	8684
+1690	541962	1	1690	1690	8685
+1300	541963	1	1300	1300	8686
+300	541963	1	300	300	8687
+60	541963	1	700	700	8688
+69	541963	1	600	600	8689
+7802000012679	541964	1	2300	2300	8690
+800	541964	1	800	800	8691
+900	541965	1	900	900	8692
+500	541965	1	500	500	8693
+60	541966	1	700	700	8694
+800	541967	1	800	800	8695
+1300	541967	1	1300	1300	8696
+78020627	541968	1	4000	4000	8697
+800	541969	1	800	800	8698
+650	541969	1	650	650	8699
+1900	541970	1	1900	1900	8700
+1690	541971	1	1690	1690	8701
+400	541971	1	400	400	8702
+1300	541972	1	1300	1300	8703
+1300	541972	1	1300	1300	8704
+60	541972	1	700	700	8705
+1690	541973	1	1690	1690	8706
+690	541973	1	980	980	8707
+1600	541974	1	1600	1600	8708
+7801610001622	541974	1	1650	1650	8709
+59080480	541975	1	350	350	8710
+7803908005787	541976	1	1000	1000	8711
+3	541978	1	1100	1100	8712
+300	541978	1	300	300	8713
+900	541979	1	900	900	8714
+900	541979	1	900	900	8715
+52	541979	1	2000	2000	8716
+450	541979	5	450	2250	8717
+3	541979	1	1100	1100	8718
+3	541980	1	1100	1100	8719
+1300	541980	1	1300	1300	8720
+1300	541980	1	1300	1300	8721
+51	541981	1	1300	1300	8722
+3	541981	1	1100	1100	8723
+7803525999667	541982	1	600	600	8724
+1400	541982	1	1400	1400	8725
+60	541984	1	700	700	8726
+1	541984	1	1300	1300	8727
+1	541984	1	1300	1300	8728
+3	541984	1	1100	1100	8729
+1300	541986	1	1300	1300	8730
+69	541986	1	600	600	8731
+78025059	541987	1	3400	3400	8732
+7803473003232	541987	1	400	400	8733
+7801620008307	541988	1	900	900	8734
+7802950072679	541989	1	300	300	8735
+7801620011659	541990	1	700	700	8736
+7801620004859	541991	1	900	900	8737
+7802920007182	541991	1	500	500	8738
+1300	541993	1	1300	1300	8739
+3	541993	1	1100	1100	8740
+1	541994	1	1300	1300	8741
+300	541994	1	300	300	8742
+300	541994	1	300	300	8743
+3	541995	1	1100	1100	8744
+4	541995	1	1000	1000	8745
+1	541996	1	1300	1300	8746
+3	541997	1	1100	1100	8747
+60	541998	1	700	700	8748
+3	541998	1	1100	1100	8749
+78019065	541998	1	2000	2000	8750
+3	541999	1	1100	1100	8751
+4	541999	1	1000	1000	8752
+1300	542000	1	1300	1300	8753
+69	542000	1	600	600	8754
+4	542000	1	1000	1000	8755
+15	542000	1	1500	1500	8756
+4	542002	1	1000	1000	8757
+1	542002	1	1300	1300	8758
+1300	542002	1	1300	1300	8759
+1800	542003	1	1800	1800	8760
+900	542003	1	900	900	8761
+1	542004	1	1300	1300	8762
+61	542004	1	1000	1000	8763
+800	542004	1	800	800	8764
+1400	542004	1	1400	1400	8765
+450	542005	1	450	450	8766
+450	542005	1	450	450	8767
+450	542005	1	450	450	8768
+450	542005	1	450	450	8769
+500	542006	1	500	500	8770
+51	542006	1	1300	1300	8771
+1400	542007	1	1400	1400	8772
+60	542007	1	700	700	8773
+52	542008	1	2000	2000	8774
+1300	542011	1	1300	1300	8775
+1	542011	1	1300	1300	8776
+3	542011	1	1100	1100	8777
+1300	542012	1	1300	1300	8778
+300	542012	1	300	300	8779
+300	542012	1	300	300	8780
+78024878	542013	1	4400	4400	8781
+78018853	542014	1	1800	1800	8782
+3	542014	1	1100	1100	8783
+2000	542014	1	2000	2000	8784
+3	542015	1	1100	1100	8785
+3	542015	1	1100	1100	8786
+60	542015	1	700	700	8787
+15	542016	1	1500	1500	8788
+15	542016	1	1500	1500	8789
+7803473003461	542016	1	750	750	8790
+78025332	542017	1	4200	4200	8791
+51	542017	1	1300	1300	8792
+1	542018	1	1300	1300	8793
+1	542018	1	1300	1300	8794
+3	542019	1	1100	1100	8795
+60	542019	1	700	700	8796
+61	542019	1	1000	1000	8797
+51	542020	1	1300	1300	8798
+1	542020	1	1300	1300	8799
+78024878	542020	1	4400	4400	8800
+51	542021	1	1300	1300	8801
+2000	542021	1	2000	2000	8802
+450	542021	1	450	450	8803
+3	542022	1	1100	1100	8804
+52	542022	1	2000	2000	8805
+61	542022	1	1000	1000	8806
+1	542023	1	1300	1300	8807
+3	542023	1	1100	1100	8808
+126	542023	1	350	350	8809
+3	542024	1	1100	1100	8810
+4	542024	1	1000	1000	8811
+60	542025	1	700	700	8812
+1	542025	1	1300	1300	8813
+51	542026	1	1300	1300	8814
+4	542026	1	1000	1000	8815
+3	542026	1	1100	1100	8816
+500	542026	1	500	500	8817
+9002490221010	542027	1	2100	2100	8818
+7801620011659	542027	1	700	700	8819
+4	542028	1	1000	1000	8820
+2000	542028	1	2000	2000	8821
+1800	542029	1	1800	1800	8822
+52	542031	1	2000	2000	8823
+800	542032	1	800	800	8824
+800	542032	1	800	800	8825
+3	542032	1	1100	1100	8826
+15	542033	1	1500	1500	8827
+1300	542033	1	1300	1300	8828
+78018884	542033	1	3400	3400	8829
+7801620005184	542034	1	1500	1500	8830
+7613034721051	542034	1	2650	2650	8831
+7802920005164	542035	1	500	500	8832
+1	542036	1	1300	1300	8833
+3	542037	1	1100	1100	8834
+3	542037	1	1100	1100	8835
+300	542037	1	300	300	8836
+300	542037	1	300	300	8837
+7613034999115	542037	1	650	650	8838
+15	542038	1	1500	1500	8839
+15	542038	1	1500	1500	8840
+4	542038	1	1000	1000	8841
+3200	542038	1	3200	3200	8842
+3200	542038	1	3200	3200	8843
+1400	542039	1	1400	1400	8844
+2000	542039	1	2000	2000	8845
+69	542039	1	600	600	8846
+1900	542040	1	1900	1900	8847
+800	542040	1	800	800	8848
+1400	542041	1	1400	1400	8849
+1300	542041	1	1300	1300	8850
+1850	542042	1	1850	1850	8851
+7801610000601	542044	1	1000	1000	8852
+7801620015800	542044	1	700	700	8853
+7613034999115	542044	1	650	650	8854
+1690	542044	1	1690	1690	8855
+900	542046	1	900	900	8856
+2200	542046	1	2200	2200	8857
+2000	542048	1	2000	2000	8858
+2000	542048	1	2000	2000	8859
+900	542048	1	900	900	8860
+800	542048	1	800	800	8861
+69	542049	1	600	600	8862
+7613032180096	542049	1	350	350	8863
+690	542049	1	980	980	8864
+1300	542051	1	1300	1300	8865
+800	542051	1	800	800	8866
+500	542052	1	500	500	8867
+500	542052	1	500	500	8868
+1400	542052	1	1400	1400	8869
+1600	542052	1	1600	1600	8870
+1300	542054	1	1300	1300	8871
+1600	542054	1	1600	1600	8872
+900	542055	1	900	900	8873
+1690	542055	1	1690	1690	8874
+400	542055	1	400	400	8875
+400	542055	1	400	400	8876
+400	542055	1	400	400	8877
+400	542055	1	400	400	8878
+1200	542056	1	1200	1200	8879
+900	542056	1	900	900	8880
+4	542056	1	1000	1000	8881
+7891000248768	542058	1	900	900	8882
+3	542058	1	1100	1100	8883
+300	542058	1	300	300	8884
+300	542058	1	300	300	8885
+300	542058	1	300	300	8886
+3	542059	1	1100	1100	8887
+3	542060	1	1100	1100	8888
+800	542060	1	800	800	8889
+800	542062	1	800	800	8890
+1200	542062	1	1200	1200	8891
+1200	542062	1	1200	1200	8892
+60	542062	1	700	700	8893
+60	542062	1	700	700	8894
+15	542062	1	1500	1500	8895
+4	542062	1	1000	1000	8896
+78025271	542063	1	4200	4200	8897
+1300	542063	1	1300	1300	8898
+69	542063	1	600	600	8899
+7702133862823	542063	1	400	400	8900
+7801620008307	542064	1	900	900	8901
+78018853	542065	1	1800	1800	8902
+69	542065	1	600	600	8903
+69	542066	1	600	600	8904
+1400	542066	1	1400	1400	8905
+500	542066	1	500	500	8906
+60	542066	1	700	700	8907
+60	542067	1	700	700	8908
+1	542067	1	1300	1300	8909
+7802920009391	542068	1	600	600	8910
+1300	542068	1	1300	1300	8911
+1400	542069	1	1400	1400	8912
+60	542069	1	700	700	8913
+650	542072	1	650	650	8914
+650	542072	1	650	650	8915
+60	542072	1	700	700	8916
+4	542072	1	1000	1000	8917
+15	542072	1	1500	1500	8918
+3	542074	1	1100	1100	8919
+4	542074	1	1000	1000	8920
+900	542076	1	900	900	8921
+15	542076	1	1500	1500	8922
+2000	542077	1	2000	2000	8923
+400	542077	1	400	400	8924
+2000	542078	1	2000	2000	8925
+450	542078	1	450	450	8926
+3	542079	1	1100	1100	8927
+3	542079	1	1100	1100	8928
+52	542081	1	2000	2000	8929
+3	542081	1	1100	1100	8930
+3	542082	1	1100	1100	8931
+2000	542083	1	2000	2000	8932
+60	542083	1	700	700	8933
+900	542085	1	900	900	8934
+3	542085	1	1100	1100	8935
+3	542086	1	1100	1100	8936
+3	542086	1	1100	1100	8937
+52	542086	1	2000	2000	8938
+500	542086	1	500	500	8939
+800	542087	1	800	800	8940
+60	542087	1	700	700	8941
+60	542087	1	700	700	8942
+1	542089	1	1300	1300	8943
+51	542089	1	1300	1300	8944
+3	542090	1	1100	1100	8945
+60	542090	1	700	700	8946
+52	542092	1	2000	2000	8947
+3	542092	1	1100	1100	8948
+78024915	542092	1	3500	3500	8949
+52	542093	1	2000	2000	8950
+3	542093	1	1100	1100	8951
+1	542094	1	1300	1300	8952
+69	542094	1	600	600	8953
+300	542095	1	300	300	8954
+300	542095	1	300	300	8955
+1	542095	1	1300	1300	8956
+52	542095	1	2000	2000	8957
+3	542097	1	1100	1100	8958
+900	542097	1	900	900	8959
+69	542097	1	600	600	8960
+3	542098	1	1100	1100	8961
+52	542098	1	2000	2000	8962
+3	542099	1	1100	1100	8963
+3	542100	1	1100	1100	8964
+500	542100	1	500	500	8965
+300	542100	1	300	300	8966
+2000	542101	1	2000	2000	8967
+800	542101	1	800	800	8968
+3	542101	1	1100	1100	8969
+78018853	542101	1	1800	1800	8970
+1000	542101	1	1300	1300	8971
+2000	542103	1	2000	2000	8972
+3	542103	1	1100	1100	8973
+3	542104	1	1100	1100	8974
+1400	542104	1	1400	1400	8975
+51	542105	1	1300	1300	8976
+51	542106	1	1300	1300	8977
+3	542108	1	1100	1100	8978
+3	542109	1	1100	1100	8979
+3	542109	1	1100	1100	8980
+15	542110	1	1500	1500	8981
+15	542110	1	1500	1500	8982
+69	542110	1	600	600	8983
+7613287103529	542110	1	1600	1600	8984
+3	542111	1	1100	1100	8985
+15	542111	1	1500	1500	8986
+3	542111	1	1100	1100	8987
+3	542112	1	1100	1100	8988
+51	542113	1	1300	1300	8989
+1	542113	1	1300	1300	8990
+7801620004873	542114	1	900	900	8991
+7801620004859	542114	1	900	900	8992
+1400	542114	1	1400	1400	8993
+1300	542114	1	1300	1300	8994
+3	542115	1	1100	1100	8995
+51	542115	1	1300	1300	8996
+1	542116	1	1300	1300	8997
+3	542116	1	1100	1100	8998
+500	542116	1	500	500	8999
+3	542117	1	1100	1100	9000
+3	542117	1	1100	1100	9001
+500	542117	1	500	500	9002
+52	542118	1	2000	2000	9003
+15	542118	1	1500	1500	9004
+7803473543189	542118	1	550	550	9005
+3	542119	1	1100	1100	9006
+51	542119	1	1300	1300	9007
+51	542120	1	1300	1300	9008
+7802000013720	542121	1	600	600	9009
+51	542122	1	1300	1300	9010
+4	542122	1	1000	1000	9011
+51	542124	1	1300	1300	9012
+1400	542124	1	1400	1400	9013
+4	542124	1	1000	1000	9014
+51	542128	1	1300	1300	9015
+1300	542128	1	1300	1300	9016
+500	542129	1	500	500	9017
+300	542129	1	300	300	9018
+300	542129	1	300	300	9019
+51	542131	1	1300	1300	9020
+1300	542133	1	1300	1300	9021
+51	542134	1	1300	1300	9022
+69	542134	1	600	600	9023
+3	542135	1	1100	1100	9024
+60	542135	1	700	700	9025
+7801610000601	542136	1	1000	1000	9026
+2000	542136	1	2000	2000	9027
+2000	542136	1	2000	2000	9028
+1200	542137	1	1200	1200	9029
+1400	542137	1	1400	1400	9030
+1100	542138	1	1100	1100	9031
+1	542138	1	1300	1300	9032
+7802820600100	542138	1	700	700	9033
+78022201	542138	1	4500	4500	9034
+7801620006655	542139	1	1200	1200	9035
+7801620005184	542139	1	1500	1500	9036
+50173822	542139	1	600	600	9037
+50173822	542139	1	600	600	9038
+5201041002137	542139	1	800	800	9039
+7702018880409	542139	1	850	850	9040
+7613035407176	542140	1	1690	1690	9041
+7613035407176	542140	1	1690	1690	9042
+78019065	542141	1	2000	2000	9043
+78018884	542142	1	3400	3400	9044
+1690	542142	1	1690	1690	9045
+300	542142	1	300	300	9046
+800	542144	1	800	800	9047
+7803473543189	542144	1	550	550	9048
+850	542145	1	850	850	9049
+4	542147	1	1000	1000	9050
+1200	542148	1	1200	1200	9051
+1690	542148	1	1690	1690	9052
+690	542149	1	980	980	9053
+690	542149	1	980	980	9054
+690	542149	1	980	980	9055
+7802215505294	542151	1	800	800	9056
+1000	542152	1	1300	1300	9057
+7801610000571	542153	1	1000	1000	9058
+7803473003461	542154	1	750	750	9059
+7802200400108	542157	1	1100	1100	9060
+7622210757289	542158	1	400	400	9061
+7801620003326	542159	1	1000	1000	9062
+7801620006655	542161	1	1200	1200	9063
+7802820600209	542162	1	700	700	9064
+7802920005164	542163	1	500	500	9065
+7801620001834	542165	1	700	700	9066
+78018884	542165	1	3400	3400	9067
+7801610000601	542166	1	1000	1000	9068
+78018884	542170	1	3400	3400	9069
+1	542171	1	1300	1300	9070
+3	542172	1	1100	1100	9071
+3	542173	1	1100	1100	9072
+7801620075941	542173	1	1000	1000	9073
+3	542176	1	1100	1100	9074
+70847009511	542176	1	2000	2000	9075
+3	542177	1	1100	1100	9076
+78019041	542178	1	2000	2000	9077
+3	542179	1	1100	1100	9078
+3	542179	1	1100	1100	9079
+7802920008158	542180	1	900	900	9080
+7801620003326	542181	1	1000	1000	9081
+3	542181	1	1100	1100	9082
+3	542181	1	1100	1100	9083
+7622210757289	542181	1	400	400	9084
+7802200132696	542181	1	300	300	9085
+7802920007182	542182	1	500	500	9086
+7801620075941	542183	1	1000	1000	9087
+1	542183	1	1300	1300	9088
+7801620006655	542184	1	1200	1200	9089
+3	542185	1	1100	1100	9090
+1	542186	1	1300	1300	9091
+7793890254297	542186	1	600	600	9092
+7803525999667	542187	1	600	600	9093
+1400	542187	1	1400	1400	9094
+7802215505294	542190	1	800	800	9095
+1	542191	1	1300	1300	9096
+3	542191	1	1100	1100	9097
+7801620005184	542192	1	1500	1500	9098
+7802215511622	542192	1	300	300	9099
+7801610000601	542193	1	1000	1000	9100
+78019065	542194	1	2000	2000	9101
+3	542195	1	1100	1100	9102
+3	542196	1	1100	1100	9103
+70847021964	542196	1	2000	2000	9104
+1	542197	1	1300	1300	9105
+7802230086952	542198	1	800	800	9106
+7802230086952	542198	1	800	800	9107
+7802920007182	542199	1	500	500	9108
+3	542199	1	1100	1100	9109
+7801620015800	542200	1	700	700	9110
+7801610000601	542201	1	1000	1000	9111
+7801610001936	542202	1	500	500	9112
+78005624	542202	1	350	350	9113
+1	542203	1	1300	1300	9114
+1	542203	1	1300	1300	9115
+7803525999667	542205	1	600	600	9116
+1	542206	1	1300	1300	9117
+7801620004859	542206	1	900	900	9118
+78024410	542207	1	3500	3500	9119
+1	542207	1	1300	1300	9120
+7801620005184	542210	1	1500	1500	9121
+78025059	542211	1	3400	3400	9122
+7801620005191	542213	1	1300	1300	9123
+78018853	542214	1	1800	1800	9124
+3	542215	1	1100	1100	9125
+1	542216	1	1300	1300	9126
+1	542216	1	1300	1300	9127
+7801620002961	542216	1	1100	1100	9128
+2000	542217	1	2000	2000	9129
+2000	542217	1	2000	2000	9130
+1400	542217	1	1400	1400	9131
+78022201	542217	1	4500	4500	9132
+400	542217	1	400	400	9133
+4	542218	1	1000	1000	9134
+3000	542218	1	3000	3000	9135
+2000	542218	1	2000	2000	9136
+61	542219	1	1000	1000	9137
+61	542219	1	1000	1000	9138
+69	542219	1	600	600	9139
+78020627	542219	1	4000	4000	9140
+1300	542220	1	1300	1300	9141
+1300	542221	1	1300	1300	9142
+7613035807464	542221	1	1690	1690	9143
+78006164	542221	1	870	870	9144
+2000	542222	1	2000	2000	9145
+1300	542222	1	1300	1300	9146
+7801620015817	542223	1	700	700	9147
+613008719296	542224	1	1650	1650	9148
+613008719296	542224	1	1650	1650	9149
+7613035588776	542225	1	600	600	9150
+7891000248768	542226	1	900	900	9151
+7891000248768	542226	1	900	900	9152
+7613035588776	542226	1	600	600	9153
+7613035588776	542226	1	600	600	9154
+4	542227	1	1000	1000	9155
+4	542227	1	1000	1000	9156
+3200	542227	1	3200	3200	9157
+2000	542229	1	2000	2000	9158
+2000	542229	1	2000	2000	9159
+60	542229	1	700	700	9160
+7803473543189	542230	1	550	550	9161
+1300	542231	1	1300	1300	9162
+1300	542231	1	1300	1300	9163
+300	542236	1	300	300	9164
+400	542236	1	400	400	9165
+500	542236	1	500	500	9166
+300	542236	1	300	300	9167
+300	542236	1	300	300	9168
+126	542236	1	350	350	9169
+1600	542237	1	1600	1600	9170
+500	542237	1	500	500	9171
+1690	542239	1	1690	1690	9172
+690	542239	1	980	980	9173
+1300	542239	1	1300	1300	9174
+78018853	542240	1	1800	1800	9175
+2300	542240	1	2300	2300	9176
+7613035779037	542242	1	980	980	9177
+900	542243	1	900	900	9178
+1300	542243	1	1300	1300	9179
+78016293	542243	1	2500	2500	9180
+3	542244	1	1100	1100	9181
+1	542244	1	1300	1300	9182
+78006164	542245	1	870	870	9183
+78006164	542245	1	870	870	9184
+78006164	542245	1	870	870	9185
+69	542246	1	600	600	9186
+69	542246	1	600	600	9187
+69	542246	1	600	600	9188
+69	542246	1	600	600	9189
+400	542246	1	400	400	9190
+1690	542248	1	1690	1690	9191
+1690	542248	1	1690	1690	9192
+2000	542249	1	2000	2000	9193
+1300	542249	1	1300	1300	9194
+7802230070227	542249	1	3850	3850	9195
+1100	542249	1	1100	1100	9196
+69	542249	1	600	600	9197
+3	542250	1	1100	1100	9198
+3	542250	1	1100	1100	9199
+69	542251	1	600	600	9200
+69	542251	1	600	600	9201
+78016293	542252	1	2500	2500	9202
+78021068	542253	1	2500	2500	9203
+7802920000954	542254	5	350	1750	9204
+78006140	542255	1	650	650	9205
+78006027	542255	1	650	650	9206
+1300	542258	1	1300	1300	9207
+9	542258	1	1300	1300	9208
+78025059	542258	1	3400	3400	9209
+1	542259	1	1300	1300	9210
+79	542259	1	400	400	9211
+79	542259	1	400	400	9212
+3	542261	1	1100	1100	9213
+800	542261	1	800	800	9214
+69	542261	1	600	600	9215
+78000285	542263	1	4000	4000	9216
+78000285	542263	1	4000	4000	9217
+15	542265	1	1500	1500	9218
+500	542265	1	500	500	9219
+1	542266	1	1300	1300	9220
+3	542266	1	1100	1100	9221
+7802920008172	542267	1	450	450	9222
+78025219	542269	1	3400	3400	9223
+3	542269	1	1100	1100	9224
+7802215505300	542269	1	850	850	9225
+400	542269	1	400	400	9226
+900	542270	1	900	900	9227
+500	542270	1	500	500	9228
+7802820441000	542271	1	650	650	9229
+7802820441000	542271	1	650	650	9230
+15	542271	1	1500	1500	9231
+3	542272	1	1100	1100	9232
+3	542274	1	1100	1100	9233
+4	542274	1	1000	1000	9234
+51	542275	1	1300	1300	9235
+3	542275	1	1100	1100	9236
+69	542275	1	600	600	9237
+3	542276	1	1100	1100	9238
+4	542276	1	1000	1000	9239
+1	542277	1	1300	1300	9240
+4	542277	1	1000	1000	9241
+51	542278	1	1300	1300	9242
+4	542278	1	1000	1000	9243
+1	542278	1	1300	1300	9244
+1400	542279	1	1400	1400	9245
+4	542279	1	1000	1000	9246
+300	542279	1	300	300	9247
+3	542280	1	1100	1100	9248
+3	542286	1	1100	1100	9249
+613008715625	542286	1	1400	1400	9250
+15	542287	1	1500	1500	9251
+3	542288	1	1100	1100	9252
+51	542288	1	1300	1300	9253
+1	542289	1	1300	1300	9254
+1	542289	1	1300	1300	9255
+1	542289	1	1300	1300	9256
+51	542290	1	1300	1300	9257
+51	542290	1	1300	1300	9258
+126	542290	1	350	350	9259
+126	542290	1	350	350	9260
+126	542290	1	350	350	9261
+3	542290	1	1100	1100	9262
+3	542291	1	1100	1100	9263
+7803473003461	542291	1	750	750	9264
+800	542292	1	800	800	9265
+69	542292	1	600	600	9266
+79	542292	1	400	400	9267
+79	542292	1	400	400	9268
+1	542292	1	1300	1300	9269
+7803473003232	542293	1	400	400	9270
+7803473003232	542293	1	400	400	9271
+4	542293	1	1000	1000	9272
+51	542294	1	1300	1300	9273
+450	542294	1	450	450	9274
+450	542294	1	450	450	9275
+4	542295	1	1000	1000	9276
+1300	542295	1	1300	1300	9277
+52	542296	1	2000	2000	9278
+1	542296	1	1300	1300	9279
+1	542296	1	1300	1300	9280
+3	542297	1	1100	1100	9281
+1300	542297	1	1300	1300	9282
+613008719296	542298	1	1650	1650	9283
+7802920008141	542298	1	900	900	9284
+52	542299	1	2000	2000	9285
+300	542299	1	300	300	9286
+300	542299	1	300	300	9287
+15	542300	1	1500	1500	9288
+3	542300	1	1100	1100	9289
+3	542301	1	1100	1100	9290
+78024878	542302	1	4400	4400	9291
+500	542302	1	500	500	9292
+51	542304	1	1300	1300	9293
+7803473003232	542304	1	400	400	9294
+15	542305	1	1500	1500	9295
+4	542306	1	1000	1000	9296
+1	542308	1	1300	1300	9297
+1	542308	1	1300	1300	9298
+60	542308	1	700	700	9299
+450	542309	1	450	450	9300
+4	542309	1	1000	1000	9301
+7801620011840	542309	1	1100	1100	9302
+450	542310	1	450	450	9303
+450	542310	1	450	450	9304
+450	542310	1	450	450	9305
+450	542310	1	450	450	9306
+1100	542311	1	1100	1100	9307
+2000	542312	1	2000	2000	9308
+2000	542312	1	2000	2000	9309
+60	542312	1	700	700	9310
+60	542312	1	700	700	9311
+900	542313	1	900	900	9312
+4	542313	1	1000	1000	9313
+4	542313	1	1000	1000	9314
+15	542313	1	1500	1500	9315
+1800	542313	1	1800	1800	9316
+3	542314	1	1100	1100	9317
+4	542314	1	1000	1000	9318
+1300	542315	1	1300	1300	9319
+15	542315	1	1500	1500	9320
+690	542315	1	980	980	9321
+4	542316	1	1000	1000	9322
+1800	542316	1	1800	1800	9323
+4	542316	1	1000	1000	9324
+1700	542316	1	1700	1700	9325
+1300	542317	1	1300	1300	9326
+69	542317	1	600	600	9327
+1300	542318	1	1300	1300	9328
+60	542318	1	700	700	9329
+7803473003232	542318	1	400	400	9330
+78025318	542319	1	4200	4200	9331
+800	542320	1	800	800	9332
+1700	542321	1	1700	1700	9333
+1300	542321	1	1300	1300	9334
+650	542321	1	650	650	9335
+650	542321	1	650	650	9336
+7613035588776	542322	1	600	600	9337
+7613035588776	542322	1	600	600	9338
+3000	542324	1	3000	3000	9339
+7802215302060	542324	1	800	800	9340
+78018884	542325	1	3400	3400	9341
+1690	542326	1	1690	1690	9342
+1690	542326	1	1690	1690	9343
+1300	542327	1	1300	1300	9344
+500	542327	1	500	500	9345
+450	542328	1	450	450	9346
+450	542328	1	450	450	9347
+450	542328	1	450	450	9348
+78020627	542329	1	4000	4000	9349
+3200	542329	1	3200	3200	9350
+500	542329	1	500	500	9351
+300	542330	1	300	300	9352
+800	542330	1	800	800	9353
+400	542330	1	400	400	9354
+400	542330	1	400	400	9355
+7801620016036	542331	1	1000	1000	9356
+69	542332	1	600	600	9357
+4	542332	1	1000	1000	9358
+7613032186852	542333	1	650	650	9359
+7613032180096	542333	1	350	350	9360
+9002490221010	542334	1	2100	2100	9361
+15	542335	1	1500	1500	9362
+500	542335	1	500	500	9363
+3	542337	1	1100	1100	9364
+1	542338	1	1300	1300	9365
+7802920008141	542341	1	900	900	9366
+7801620001834	542341	1	700	700	9367
+3	542341	1	1100	1100	9368
+78007673	542341	1	3000	3000	9369
+7801620015817	542342	1	700	700	9370
+7803473003232	542342	1	400	400	9371
+3	542343	1	1100	1100	9372
+3	542343	1	1100	1100	9373
+3	542343	1	1100	1100	9374
+78018853	542344	1	1800	1800	9375
+7802920006871	542345	1	400	400	9376
+1	542345	1	1300	1300	9377
+78025332	542346	1	4200	4200	9378
+3	542347	1	1100	1100	9379
+1	542347	1	1300	1300	9380
+1	542348	1	1300	1300	9381
+3	542348	1	1100	1100	9382
+1	542348	1	1300	1300	9383
+1	542348	1	1300	1300	9384
+3	542348	1	1100	1100	9385
+3	542349	1	1100	1100	9386
+1	542349	1	1300	1300	9387
+1	542349	1	1300	1300	9388
+1	542349	1	1300	1300	9389
+3	542350	1	1100	1100	9390
+3	542350	1	1100	1100	9391
+7891991000826	542350	1	1100	1100	9392
+3	542350	1	1100	1100	9393
+3	542351	1	1100	1100	9394
+7802920000930	542351	1	350	350	9395
+7802820441123	542352	1	650	650	9396
+78025219	542353	1	3400	3400	9397
+78016293	542354	1	2500	2500	9398
+7803473003461	542355	1	750	750	9399
+1	542356	1	1300	1300	9400
+3	542356	1	1100	1100	9401
+3	542358	1	1100	1100	9402
+7801610000601	542358	1	1000	1000	9403
+1	542358	1	1300	1300	9404
+1	542359	1	1300	1300	9405
+3	542359	1	1100	1100	9406
+1	542360	1	1300	1300	9407
+3	542360	1	1100	1100	9408
+7801610000571	542361	1	1000	1000	9409
+7801610000571	542361	1	1000	1000	9410
+3	542363	1	1100	1100	9411
+70847009511	542363	1	2000	2000	9412
+7801620075941	542364	1	1000	1000	9413
+3	542365	1	1100	1100	9414
+300	542365	1	300	300	9415
+7802920008141	542366	1	900	900	9416
+3	542367	1	1100	1100	9417
+7802920008158	542367	1	900	900	9418
+1	542368	1	1300	1300	9419
+1	542369	1	1300	1300	9420
+3	542369	1	1100	1100	9421
+3	542370	1	1100	1100	9422
+3	542371	1	1100	1100	9423
+7801620016029	542371	1	1000	1000	9424
+3	542372	1	1100	1100	9425
+3	542372	1	1100	1100	9426
+7802920008141	542372	1	900	900	9427
+3	542373	1	1100	1100	9428
+7802230086952	542373	1	800	800	9429
+7801620075941	542376	1	1000	1000	9430
+1	542376	1	1300	1300	9431
+7801620015817	542377	1	700	700	9432
+3	542378	1	1100	1100	9433
+1	542379	1	1300	1300	9434
+1	542379	1	1300	1300	9435
+1	542379	1	1300	1300	9436
+7613034721051	542379	1	2650	2650	9437
+3	542379	1	1100	1100	9438
+7802920005164	542380	1	500	500	9439
+7801620852962	542380	1	1000	1000	9440
+5201041002137	542380	1	800	800	9441
+1	542382	1	1300	1300	9442
+1	542382	1	1300	1300	9443
+1	542383	1	1300	1300	9444
+7801610000601	542384	1	1000	1000	9445
+1	542385	1	1300	1300	9446
+7801620852962	542386	1	1000	1000	9447
+1	542388	1	1300	1300	9448
+78000285	542389	1	4000	4000	9449
+7801620015817	542389	1	700	700	9450
+7801610000571	542389	1	1000	1000	9451
+7802820600209	542390	1	700	700	9452
+7622210811233	542391	1	850	850	9453
+7613287103529	542392	1	1600	1600	9454
+7801610000601	542393	1	1000	1000	9455
+3	542394	1	1100	1100	9456
+78020627	542395	1	4000	4000	9457
+7801620005856	542396	1	900	900	9458
+7613035588776	542397	1	600	600	9459
+7613287103529	542397	1	1600	1600	9460
+78025219	542398	1	3400	3400	9461
+7801620075941	542399	1	1000	1000	9462
+9002490100070	542399	1	1700	1700	9463
+7802000015137	542399	1	700	700	9464
+7802000015137	542399	1	700	700	9465
+9002490100070	542400	1	1700	1700	9466
+9002490100070	542400	1	1700	1700	9467
+7801620001711	542401	1	1100	1100	9468
+7801620001711	542401	1	1100	1100	9469
+7801610000601	542402	1	1000	1000	9470
+7803908003103	542403	1	1000	1000	9471
+7801620005191	542404	1	1300	1300	9472
+7801620005184	542404	1	1500	1500	9473
+7801620001919	542405	1	700	700	9474
+7801620002961	542406	1	1100	1100	9475
+7802200132696	542408	1	300	300	9476
+7801620360153	542408	1	800	800	9477
+7801620004873	542409	1	900	900	9478
+7803908005787	542410	1	1000	1000	9479
+7801620001841	542411	1	1500	1500	9480
+7801610001196	542412	1	800	800	9481
+7802920000930	542412	1	350	350	9482
+78018853	542413	1	1800	1800	9483
+9002490214852	542414	1	1700	1700	9484
+7802920008172	542414	1	450	450	9485
+78020627	542415	1	4000	4000	9486
+7613034276490	542416	1	500	500	9487
+7802920008172	542417	1	450	450	9488
+7802920008172	542417	1	450	450	9489
+7802920008172	542417	1	450	450	9490
+1	542418	1	1300	1300	9491
+7802920000992	542418	1	350	350	9492
+7801620001711	542419	1	1100	1100	9493
+7801610000601	542421	1	1000	1000	9494
+7802215511622	542421	1	300	300	9495
+1	542422	1	1300	1300	9496
+7801610001196	542422	1	800	800	9497
+7801610000571	542425	1	1000	1000	9498
+78019065	542426	1	2000	2000	9499
+7802820020953	542427	1	1000	1000	9500
+7801610001936	542428	1	500	500	9501
+9002490214852	542432	1	1700	1700	9502
+7801620001919	542434	1	700	700	9503
+3	542434	1	1100	1100	9504
+51	542435	1	1300	1300	9505
+51	542435	1	1300	1300	9506
+51	542435	1	1300	1300	9507
+51	542435	1	1300	1300	9508
+3	542435	1	1100	1100	9509
+51	542436	1	1300	1300	9510
+1	542438	1	1300	1300	9511
+7801620002367	542438	1	800	800	9512
+7802920004952	542441	1	400	400	9513
+9002490214852	542442	1	1700	1700	9514
+9002490214852	542442	1	1700	1700	9515
+7802920009391	542442	1	600	600	9516
+7802920009391	542442	1	600	600	9517
+7590011205158	542443	1	300	300	9518
+7802920759135	542443	1	500	500	9519
+61	542444	1	1000	1000	9520
+51	542445	1	1300	1300	9521
+3	542445	1	1100	1100	9522
+7802800576449	542446	1	300	300	9523
+1	542447	1	1300	1300	9524
+7801620003326	542448	1	1000	1000	9525
+51	542449	1	1300	1300	9526
+3	542449	1	1100	1100	9527
+51	542450	1	1300	1300	9528
+3	542450	1	1100	1100	9529
+7802820441123	542451	1	650	650	9530
+70847009511	542452	1	2000	2000	9531
+3	542452	1	1100	1100	9532
+11	542453	1	1100	1100	9533
+1	542454	1	1300	1300	9534
+1	542454	1	1300	1300	9535
+51	542455	1	1300	1300	9536
+51	542456	1	1300	1300	9537
+3	542456	1	1100	1100	9538
+78023994	542457	1	250	250	9539
+78023994	542457	1	250	250	9540
+3	542457	1	1100	1100	9541
+78020627	542458	1	4000	4000	9542
+1	542460	1	1300	1300	9543
+7801610000601	542460	1	1000	1000	9544
+51	542460	1	1300	1300	9545
+3	542461	1	1100	1100	9546
+7801620075941	542461	1	1000	1000	9547
+51	542462	1	1300	1300	9548
+51	542463	1	1300	1300	9549
+51	542463	1	1300	1300	9550
+1	542464	1	1300	1300	9551
+7802920008158	542464	1	900	900	9552
+3	542465	1	1100	1100	9553
+51	542465	1	1300	1300	9554
+51	542466	1	1300	1300	9555
+51	542466	1	1300	1300	9556
+7802820441000	542467	1	650	650	9557
+7802820441123	542467	1	650	650	9558
+3	542468	1	1100	1100	9559
+3	542468	1	1100	1100	9560
+1	542469	1	1300	1300	9561
+51	542469	1	1300	1300	9562
+51	542470	1	1300	1300	9563
+78024410	542470	1	3500	3500	9564
+1	542471	1	1300	1300	9565
+7803480000750	542471	1	500	500	9566
+3	542472	1	1100	1100	9567
+7802230086952	542472	1	800	800	9568
+78019041	542473	1	2000	2000	9569
+1	542474	1	1300	1300	9570
+1	542475	1	1300	1300	9571
+3	542475	1	1100	1100	9572
+1	542476	1	1300	1300	9573
+1	542476	1	1300	1300	9574
+1	542477	1	1300	1300	9575
+78019065	542477	1	2000	2000	9576
+1	542478	1	1300	1300	9577
+7802920000930	542478	1	350	350	9578
+51	542478	1	1300	1300	9579
+3	542481	1	1100	1100	9580
+3	542481	1	1100	1100	9581
+3	542481	1	1100	1100	9582
+51	542482	1	1300	1300	9583
+1	542483	1	1300	1300	9584
+7801610000571	542483	1	1000	1000	9585
+51	542485	1	1300	1300	9586
+3	542485	1	1100	1100	9587
+3	542485	1	1100	1100	9588
+9002490100070	542486	1	1700	1700	9589
+7802575220196	542486	1	350	350	9590
+61	542486	1	1000	1000	9591
+7801620004859	542487	1	900	900	9592
+7802820441123	542488	1	700	700	9593
+7802000013133	542488	1	350	350	9594
+78020627	542489	1	4000	4000	9595
+7801620852955	542490	1	1000	1000	9596
+7803525999667	542490	1	600	600	9597
+7801610001196	542491	1	800	800	9598
+7802920004969	542491	1	400	400	9599
+7613035407176	542492	1	1690	1690	9600
+7613035407176	542492	1	1690	1690	9601
+7801610000335	542494	1	500	500	9602
+78016293	542495	1	2500	2500	9603
+78020627	542496	1	4000	4000	9604
+7802920008158	542496	1	900	900	9605
+3	542496	1	1100	1100	9606
+78018853	542496	1	1800	1800	9607
+78008816	542497	1	3000	3000	9608
+7801620853426	542498	1	700	700	9609
+7802920008141	542499	1	900	900	9610
+450	542500	1	450	450	9611
+450	542500	1	450	450	9612
+450	542500	1	450	450	9613
+450	542500	1	450	450	9614
+7801620004873	542500	1	900	900	9615
+7801620004873	542500	1	900	900	9616
+52	542501	1	2000	2000	9617
+450	542502	5	450	2250	9618
+52	542502	1	2000	2000	9619
+7613034721051	542502	1	2650	2650	9620
+7613287103529	542502	1	1600	1600	9621
+51	542502	1	1300	1300	9622
+51	542502	1	1300	1300	9623
+78000124	542503	1	4000	4000	9624
+78018884	542503	1	3400	3400	9625
+7803473003232	542503	1	400	400	9626
+7801620075941	542504	1	1000	1000	9627
+7801620340155	542505	1	800	800	9628
+7801620852689	542505	1	800	800	9629
+7801610022122	542506	1	800	800	9630
+7802230070227	542506	1	3850	3850	9631
+7805000301484	542506	1	700	700	9632
+7801610350409	542506	1	1650	1650	9633
+70847009511	542507	1	2000	2000	9634
+7801620005856	542507	1	900	900	9635
+78025332	542507	1	4200	4200	9636
+78025059	542507	1	3400	3400	9637
+78025318	542508	1	4200	4200	9638
+78025318	542508	1	4200	4200	9639
+9002490221010	542508	1	2100	2100	9640
+7802230086952	542509	1	800	800	9641
+3	542509	1	1100	1100	9642
+3	542510	1	1100	1100	9643
+3	542510	1	1100	1100	9644
+7802920008141	542510	1	900	900	9645
+7802920008141	542510	1	900	900	9646
+3	542511	1	1100	1100	9647
+3	542511	1	1100	1100	9648
+3	542511	1	1100	1100	9649
+7801610000571	542511	1	1000	1000	9650
+7801620004859	542513	1	900	900	9651
+7801620004859	542513	1	900	900	9652
+1	542513	1	1300	1300	9653
+450	542513	5	450	2250	9654
+7802920759135	542513	1	500	500	9655
+7802920759135	542513	1	500	500	9656
+3	542514	1	1100	1100	9657
+7802920777542	542514	1	1100	1100	9658
+1	542515	1	1300	1300	9659
+78019065	542516	1	2000	2000	9660
+3	542517	1	1100	1100	9661
+7801620853426	542518	1	700	700	9662
+1	542518	1	1300	1300	9663
+1	542518	1	1300	1300	9664
+1	542519	1	1300	1300	9665
+7801620006853	542519	1	1000	1000	9666
+7622210427106	542519	1	400	400	9667
+7622210427106	542519	1	400	400	9668
+7622210427106	542519	1	400	400	9669
+7802920005164	542520	1	500	500	9670
+3	542520	1	1100	1100	9671
+7802920008110	542521	1	900	900	9672
+3	542521	1	1100	1100	9673
+7801620011611	542522	1	1500	1500	9674
+3	542522	1	1100	1100	9675
+3	542523	1	1100	1100	9676
+51	542523	1	1300	1300	9677
+7801620011659	542524	1	700	700	9678
+1	542525	1	1300	1300	9679
+7802820600209	542525	1	700	700	9680
+3	542526	1	1100	1100	9681
+3	542526	1	1100	1100	9682
+3	542527	1	1100	1100	9683
+7801620005184	542527	1	1500	1500	9684
+3	542528	1	1100	1100	9685
+3	542528	1	1100	1100	9686
+7801610350355	542528	1	800	800	9687
+7801610350355	542528	1	800	800	9688
+52	542529	1	2000	2000	9689
+51	542531	1	1300	1300	9690
+3	542531	1	1100	1100	9691
+3	542532	1	1100	1100	9692
+3	542532	1	1100	1100	9693
+7801610000601	542533	1	1000	1000	9694
+42069942	542533	1	650	650	9695
+52	542534	1	2000	2000	9696
+1	542534	1	1300	1300	9697
+7801620015817	542535	1	700	700	9698
+7803480000750	542535	1	500	500	9699
+7590011205158	542535	1	300	300	9700
+3	542536	1	1100	1100	9701
+3	542537	1	1100	1100	9702
+51	542537	1	1300	1300	9703
+7802215511622	542539	1	300	300	9704
+7802215302053	542539	1	800	800	9705
+1600	542540	3	1600	4800	9706
+1	542542	1	1300	1300	9707
+7802920008158	542543	1	900	900	9708
+7622210427076	542544	1	400	400	9709
+1	542544	1	1300	1300	9710
+7802920008196	542545	1	0	0	9711
+7801620004859	542546	1	900	900	9712
+450	542546	1	450	450	9713
+51	542546	1	1300	1300	9714
+1	542547	1	1300	1300	9715
+3	542547	1	1100	1100	9716
+7802215301452	542547	1	250	250	9717
+7802215301452	542547	1	250	250	9718
+450	542547	1	450	450	9719
+70847009511	542548	1	2000	2000	9720
+3	542548	1	1100	1100	9721
+78018884	542548	1	3400	3400	9722
+7801620015800	542550	1	700	700	9723
+51	542551	1	1300	1300	9724
+3	542551	1	1100	1100	9725
+7802920008202	542552	1	700	700	9726
+7802215501968	542553	1	1000	1000	9727
+7801620016029	542554	1	1000	1000	9728
+7802920106168	542555	1	500	500	9729
+51	542556	1	1300	1300	9730
+7802000014765	542556	1	700	700	9731
+300	542557	1	300	300	9732
+7801620853426	542557	1	700	700	9733
+61	542558	1	1000	1000	9734
+3	542558	1	1100	1100	9735
+1	542558	1	1300	1300	9736
+61	542559	1	1000	1000	9737
+3	542559	1	1100	1100	9738
+1	542559	1	1300	1300	9739
+7802920008127	542559	1	900	900	9740
+7802920008127	542560	1	900	900	9741
+1400	542562	1	1400	1400	9742
+1400	542562	1	1400	1400	9743
+1	542563	1	1300	1300	9744
+3	542564	1	1100	1100	9745
+7803480000750	542564	1	500	500	9746
+7801620004859	542565	1	900	900	9747
+7802950002119	542566	1	1850	1850	9748
+7803525999971	542567	1	500	500	9749
+51	542567	1	1300	1300	9750
+7801620006631	542568	1	1200	1200	9751
+3	542569	1	1100	1100	9752
+1400	542569	1	1400	1400	9753
+3	542570	1	1100	1100	9754
+3	542571	1	1100	1100	9755
+78025059	542572	1	3400	3400	9756
+7801620016111	542573	1	950	950	9757
+7801620015800	542573	1	700	700	9758
+1	542573	1	1300	1300	9759
+7622210427076	542574	1	400	400	9760
+3	542575	1	1100	1100	9761
+1400	542576	1	1400	1400	9762
+51	542576	1	1300	1300	9763
+52	542577	1	2000	2000	9764
+1400	542577	1	1400	1400	9765
+450	542578	1	450	450	9766
+78023994	542578	1	250	250	9767
+78023994	542578	1	250	250	9768
+78023994	542578	1	250	250	9769
+78023994	542578	1	250	250	9770
+1	542579	1	1300	1300	9771
+3	542579	1	1100	1100	9772
+7801610000601	542579	1	1000	1000	9773
+7801610001936	542579	1	500	500	9774
+61	542579	1	1000	1000	9775
+61	542580	1	1000	1000	9776
+7613034276490	542580	1	500	500	9777
+78024878	542581	1	4400	4400	9778
+51	542582	1	1300	1300	9779
+3	542583	1	1100	1100	9780
+78021020	542583	1	2000	2000	9781
+78021020	542583	1	2000	2000	9782
+7802215505294	542584	1	800	800	9783
+7802215505294	542584	1	800	800	9784
+7802215505294	542584	1	800	800	9785
+7801610350409	542584	1	1650	1650	9786
+7801610350409	542584	1	1650	1650	9787
+78020627	542585	1	4000	4000	9788
+7802920009384	542587	1	600	600	9789
+7802215502262	542587	1	750	750	9790
+51	542588	1	1300	1300	9791
+7801620340155	542588	1	800	800	9792
+61	542589	1	1000	1000	9793
+78019041	542590	1	2000	2000	9794
+77961662	542590	1	800	800	9795
+7802820600209	542591	1	700	700	9796
+7801620004873	542591	1	900	900	9797
+7801620011659	542591	1	700	700	9798
+7802920005195	542592	1	500	500	9799
+7801610000571	542593	1	1000	1000	9800
+7702133862823	542593	1	400	400	9801
+78007673	542594	1	3000	3000	9802
+7803480000767	542595	1	500	500	9803
+61	542595	1	1000	1000	9804
+7801620011659	542596	1	700	700	9805
+7613034276490	542596	1	500	500	9806
+7802920002323	542597	1	700	700	9807
+7801620006853	542597	1	1000	1000	9808
+78007673	542598	1	3000	3000	9809
+7802820600100	542599	1	700	700	9810
+7801620004859	542600	1	900	900	9811
+3200	542601	1	3200	3200	9812
+7801610350355	542601	1	800	800	9813
+7801610350355	542601	1	800	800	9814
+7801610001196	542602	1	800	800	9815
+450	542602	1	450	450	9816
+300	542602	1	300	300	9817
+7801610001196	542604	1	800	800	9818
+7801610000571	542605	1	1000	1000	9819
+7801610000571	542605	1	1000	1000	9820
+7801610000571	542605	1	1000	1000	9821
+7613035808133	542606	1	1690	1690	9822
+78006164	542606	1	870	870	9823
+7801620075941	542608	1	1000	1000	9824
+300	542609	1	300	300	9825
+7801610022122	542609	1	800	800	9826
+7802000014765	542609	1	700	700	9827
+7801610001196	542611	1	800	800	9828
+1	542611	1	1300	1300	9829
+78006164	542612	1	870	870	9830
+1	542613	1	1300	1300	9831
+7801620015817	542613	1	700	700	9832
+9002490221010	542614	1	2100	2100	9833
+78018853	542615	1	1800	1800	9834
+7802820600209	542616	1	700	700	9835
+7802820600209	542616	1	700	700	9836
+7802230081162	542616	1	850	850	9837
+78019065	542616	1	2000	2000	9838
+7801610001622	542616	1	1650	1650	9839
+7801610323236	542617	1	2950	2950	9840
+450	542618	5	450	2250	9841
+1800	542618	1	1800	1800	9842
+7801620002367	542619	1	800	800	9843
+7801610000571	542619	1	1000	1000	9844
+3	542619	1	1100	1100	9845
+3	542620	1	1100	1100	9846
+7802920008158	542620	1	900	900	9847
+7802920106168	542621	1	500	500	9848
+1	542621	1	1300	1300	9849
+7802920106168	542622	1	500	500	9850
+3	542624	1	1100	1100	9851
+7801620853426	542624	1	700	700	9852
+3	542625	1	1100	1100	9853
+7802920008202	542625	1	700	700	9854
+1800	542626	1	1800	1800	9855
+3	542626	1	1100	1100	9856
+1	542627	1	1300	1300	9857
+1	542627	1	1300	1300	9858
+7801620852689	542628	1	800	800	9859
+61	542629	1	1000	1000	9860
+51	542630	1	1300	1300	9861
+7802820441123	542631	1	700	700	9862
+1	542632	1	1300	1300	9863
+3	542633	1	1100	1100	9864
+3	542633	1	1100	1100	9865
+3	542634	1	1100	1100	9866
+3	542635	1	1100	1100	9867
+7801620075941	542635	1	1000	1000	9868
+1400	542636	1	1400	1400	9869
+1	542636	1	1300	1300	9870
+3	542637	1	1100	1100	9871
+52	542637	1	2000	2000	9872
+3	542638	1	1100	1100	9873
+300	542638	1	300	300	9874
+3	542639	1	1100	1100	9875
+70847009511	542639	1	2000	2000	9876
+1	542640	1	1300	1300	9877
+300	542641	1	300	300	9878
+3	542641	1	1100	1100	9879
+3	542642	1	1100	1100	9880
+1400	542644	1	1400	1400	9881
+1400	542644	1	1400	1400	9882
+1400	542645	1	1400	1400	9883
+1400	542645	1	1400	1400	9884
+3000	542645	1	3000	3000	9885
+61	542645	1	1000	1000	9886
+61	542645	1	1000	1000	9887
+51	542645	1	1300	1300	9888
+61	542646	1	1000	1000	9889
+1	542646	1	1300	1300	9890
+450	542647	1	450	450	9891
+450	542647	1	450	450	9892
+7802920106168	542647	1	500	500	9893
+7801620852689	542648	1	800	800	9894
+1	542648	1	1300	1300	9895
+450	542648	1	450	450	9896
+1	542649	1	1300	1300	9897
+7801620852689	542649	1	800	800	9898
+3	542650	1	1100	1100	9899
+613008715625	542650	1	1400	1400	9900
+7801620004873	542651	1	900	900	9901
+7802920106168	542651	1	500	500	9902
+1	542651	1	1300	1300	9903
+7802920008127	542652	1	900	900	9904
+3	542653	1	1100	1100	9905
+7802920008202	542653	1	700	700	9906
+51	542654	1	1300	1300	9907
+1400	542655	1	1400	1400	9908
+51	542655	1	1300	1300	9909
+1	542657	1	1300	1300	9910
+1	542657	1	1300	1300	9911
+7802920005195	542657	1	500	500	9912
+51	542658	1	1300	1300	9913
+1400	542658	1	1400	1400	9914
+1400	542659	1	1400	1400	9915
+450	542659	1	450	450	9916
+51	542660	1	1300	1300	9917
+7803403001055	542660	1	750	750	9918
+3	542661	1	1100	1100	9919
+1400	542661	1	1400	1400	9920
+1200	542661	1	1200	1200	9921
+51	542662	1	1300	1300	9922
+3	542662	1	1100	1100	9923
+7802230070227	542663	1	3850	3850	9924
+450	542664	12	450	5400	9925
+7801620015817	542664	1	700	700	9926
+7802820600100	542665	1	700	700	9927
+61	542666	1	1000	1000	9928
+1500	542667	1	1650	1650	9929
+1	542668	1	1300	1300	9930
+7801620001919	542669	1	700	700	9931
+7801610000601	542670	1	1000	1000	9932
+3	542670	1	1100	1100	9933
+3	542671	1	1100	1100	9934
+51	542671	1	1300	1300	9935
+7802820250268	542672	1	350	350	9936
+3	542672	1	1100	1100	9937
+1	542673	1	1300	1300	9938
+51	542673	1	1300	1300	9939
+78021020	542674	1	2000	2000	9940
+7622210427106	542674	1	400	400	9941
+1400	542675	1	1400	1400	9942
+7801610000595	542675	1	1000	1000	9943
+7802920009407	542677	1	600	600	9944
+7803403001055	542677	1	750	750	9945
+7802920002712	542678	1	700	700	9946
+78020627	542678	1	4000	4000	9947
+78025059	542678	1	3400	3400	9948
+7801620853426	542679	1	700	700	9949
+52	542680	1	2000	2000	9950
+1400	542681	1	1400	1400	9951
+7801620016029	542681	1	1000	1000	9952
+7802215113567	542682	1	450	450	9953
+450	542683	1	450	450	9954
+7801620015800	542683	1	700	700	9955
+7802200270022	542683	1	450	450	9956
+7802225584081	542684	1	500	500	9957
+7802200132696	542684	1	300	300	9958
+7801620001919	542687	1	700	700	9959
+7501013118032	542687	1	800	800	9960
+78018884	542688	1	3400	3400	9961
+78007673	542688	1	3000	3000	9962
+7801620001711	542689	1	1100	1100	9963
+7802920009407	542690	1	600	600	9964
+1400	542690	1	1400	1400	9965
+7804643820000	542691	1	1600	1600	9966
+300	542692	1	300	300	9967
+450	542692	1	450	450	9968
+7801610118184	542693	1	800	800	9969
+7802920423609	542694	1	850	850	9970
+59080480	542694	1	350	350	9971
+59080480	542694	1	350	350	9972
+61	542695	1	1000	1000	9973
+3	542695	1	1100	1100	9974
+3200	542696	1	3200	3200	9975
+1	542698	1	1300	1300	9976
+1400	542700	1	1400	1400	9977
+7801620004873	542700	1	900	900	9978
+7801620360153	542701	1	800	800	9979
+1	542702	1	1300	1300	9980
+200	542702	1	250	250	9981
+7702133862823	542703	1	400	400	9982
+78939387	542704	1	300	300	9983
+7801610000335	542705	1	500	500	9984
+7801610000335	542705	1	500	500	9985
+3200	542705	1	3200	3200	9986
+3200	542705	1	3200	3200	9987
+3200	542706	1	3200	3200	9988
+1200	542706	1	1200	1200	9989
+400	542706	1	400	400	9990
+3000	542706	1	3000	3000	9991
+78018884	542707	1	3400	3400	9992
+78018884	542707	1	3400	3400	9993
+78019065	542708	1	2000	2000	9994
+78016293	542708	1	2500	2500	9995
+78024892	542708	1	4300	4300	9996
+7802215505270	542709	1	800	800	9997
+3	542709	1	1100	1100	9998
+51	542710	1	1300	1300	9999
+3	542711	1	1100	1100	10000
+7802920777542	542711	1	1100	1100	10001
+7802215501968	542712	1	1000	1000	10002
+7802215511042	542712	1	1000	1000	10003
+3	542713	1	1100	1100	10004
+7801620011659	542713	1	700	700	10005
+7802820441123	542714	1	700	700	10006
+1400	542714	1	1400	1400	10007
+3	542715	1	1100	1100	10008
+7802920000947	542715	1	350	350	10009
+52	542716	1	2000	2000	10010
+1400	542716	1	1400	1400	10011
+7622210427076	542716	1	400	400	10012
+51	542717	1	1300	1300	10013
+3	542717	1	1100	1100	10014
+7801620003326	542718	1	1000	1000	10015
+7801620005856	542719	1	900	900	10016
+1400	542719	1	1400	1400	10017
+7801620011659	542720	1	700	700	10018
+7802920008127	542720	1	900	900	10019
+70847009511	542722	1	2000	2000	10020
+300	542723	1	300	300	10021
+3	542724	1	1100	1100	10022
+1400	542724	1	1400	1400	10023
+7802215301452	542724	1	250	250	10024
+7802215301452	542724	1	250	250	10025
+51	542724	1	1300	1300	10026
+50173204	542725	1	600	600	10027
+1400	542726	1	1400	1400	10028
+1400	542726	1	1400	1400	10029
+61	542727	1	1000	1000	10030
+1400	542727	1	1400	1400	10031
+1400	542728	1	1400	1400	10032
+7801620016029	542728	1	1000	1000	10033
+7802800556229	542728	1	550	550	10034
+7802800556229	542728	1	550	550	10035
+7801620001919	542729	1	700	700	10036
+7801620001919	542729	1	700	700	10037
+51	542730	1	1300	1300	10038
+3	542730	1	1100	1100	10039
+3200	542731	1	3200	3200	10040
+3	542731	1	1100	1100	10041
+7802200270022	542731	1	450	450	10042
+2200	542732	1	2200	2200	10043
+7801610000601	542732	1	1000	1000	10044
+7802920008110	542733	1	900	900	10045
+7802920008110	542733	1	900	900	10046
+7802215501968	542734	1	1000	1000	10047
+7702133862809	542735	1	400	400	10048
+7702133862809	542735	1	400	400	10049
+7802820600209	542735	1	700	700	10050
+52	542735	1	2000	2000	10051
+1	542736	1	1300	1300	10052
+300	542736	1	300	300	10053
+7802215502262	542737	1	750	750	10054
+7802230975324	542737	1	600	600	10055
+7802215505270	542738	1	800	800	10056
+52	542739	1	2000	2000	10057
+3	542739	1	1100	1100	10058
+1	542740	1	1300	1300	10059
+7802230070227	542740	1	3850	3850	10060
+1400	542741	1	1400	1400	10061
+7802920008141	542741	1	900	900	10062
+52	542742	1	2000	2000	10063
+78020627	542743	1	4000	4000	10064
+1400	542743	1	1400	1400	10065
+300	542744	1	300	300	10066
+2600	542744	1	2600	2600	10067
+1200	542744	1	1200	1200	10068
+7501013118018	542745	1	800	800	10069
+7801620015817	542746	1	700	700	10070
+7801620015817	542746	1	700	700	10071
+7801620002961	542747	1	1100	1100	10072
+78019041	542747	1	2000	2000	10073
+3200	542749	1	3200	3200	10074
+78019065	542750	1	2000	2000	10075
+9002490100070	542750	1	1700	1700	10076
+1	542751	1	1300	1300	10077
+7613035588776	542751	1	600	600	10078
+7802820441123	542752	1	700	700	10079
+78024892	542752	1	4300	4300	10080
+7802215303388	542752	1	250	250	10081
+7802215303388	542752	1	250	250	10082
+1900	542753	1	1900	1900	10083
+7801620340155	542753	1	800	800	10084
+7803480000767	542753	1	500	500	10085
+7802920009384	542755	1	600	600	10086
+7802215303401	542755	1	300	300	10087
+7802215303401	542755	1	300	300	10088
+7801610350409	542756	1	1650	1650	10089
+78007673	542757	1	3000	3000	10090
+7801620006853	542758	1	1000	1000	10091
+3200	542758	1	3200	3200	10092
+7801610350355	542759	1	800	800	10093
+7801610350355	542759	1	800	800	10094
+78024717	542760	1	4300	4300	10095
+78024717	542760	1	4300	4300	10096
+70847009511	542761	1	2000	2000	10097
+70847009511	542761	1	2000	2000	10098
+52	542762	1	2000	2000	10099
+52	542762	1	2000	2000	10100
+7802950072679	542762	1	300	300	10101
+400	542762	1	400	400	10102
+7803473003232	542763	1	400	400	10103
+7613035588776	542764	1	600	600	10104
+1400	542765	1	1400	1400	10105
+7803473003232	542765	1	400	400	10106
+7801620300203	542765	1	800	800	10107
+7613034276490	542765	1	500	500	10108
+40000514251	542765	1	990	990	10109
+1400	542766	1	1400	1400	10110
+1400	542766	1	1400	1400	10111
+7801610000601	542766	1	1000	1000	10112
+300	542767	1	300	300	10113
+7613035588776	542767	1	600	600	10114
+7801610001196	542767	1	800	800	10115
+7802820600209	542768	1	700	700	10116
+78020627	542769	1	4000	4000	10117
+3200	542769	1	3200	3200	10118
+3200	542772	1	3200	3200	10119
+7801610001196	542772	1	800	800	10120
+7801610001196	542772	1	800	800	10121
+7802230975324	542773	1	600	600	10122
+7613034999115	542773	1	650	650	10123
+7801620011659	542774	1	700	700	10124
+7802820441000	542774	1	700	700	10125
+7804630010001	542775	1	800	800	10126
+7800120171061	542775	1	400	400	10127
+78007673	542776	1	3000	3000	10128
+3	542777	1	1100	1100	10129
+3	542778	1	1100	1100	10130
+52	542778	1	2000	2000	10131
+450	542778	5	450	2250	10132
+7804643820000	542778	1	1600	1600	10133
+7801620004873	542778	1	900	900	10134
+7801620006853	542779	1	1000	1000	10135
+7802820441123	542779	1	700	700	10136
+3	542780	1	1100	1100	10137
+7801620011659	542781	1	700	700	10138
+7803480000767	542781	1	500	500	10139
+1	542781	1	1300	1300	10140
+1400	542782	1	1400	1400	10141
+7803403001055	542782	1	750	750	10142
+7803403001055	542782	1	750	750	10143
+7613034721051	542783	1	2650	2650	10144
+7802230070227	542783	1	3850	3850	10145
+61	542784	1	1000	1000	10146
+2000	542786	1	2000	2000	10147
+1	542787	1	1300	1300	10148
+52	542787	1	2000	2000	10149
+52	542788	1	2000	2000	10150
+3	542788	1	1100	1100	10151
+1400	542789	1	1400	1400	10152
+7803525999667	542789	1	600	600	10153
+1400	542789	1	1400	1400	10154
+1400	542790	5	1400	7000	10155
+51	542791	1	1300	1300	10156
+3	542791	1	1100	1100	10157
+3	542791	1	1100	1100	10158
+51	542793	1	1300	1300	10159
+3	542793	1	1100	1100	10160
+3200	542794	1	3200	3200	10161
+7891000248768	542794	1	900	900	10162
+7891000248768	542794	1	900	900	10163
+450	542794	1	450	450	10164
+7891991000826	542794	1	1100	1100	10165
+7891991000826	542794	1	1100	1100	10166
+1	542795	1	1300	1300	10167
+7801620340155	542797	1	800	800	10168
+1	542797	1	1300	1300	10169
+7802920008127	542798	1	900	900	10170
+1	542798	1	1300	1300	10171
+300	542800	1	300	300	10172
+3	542800	1	1100	1100	10173
+3	542801	1	1100	1100	10174
+300	542801	1	300	300	10175
+300	542801	1	300	300	10176
+1400	542802	1	1400	1400	10177
+3	542803	1	1100	1100	10178
+70847009511	542803	1	2000	2000	10179
+1400	542804	1	1400	1400	10180
+1400	542804	1	1400	1400	10181
+300	542804	1	300	300	10182
+7801620001834	542804	1	700	700	10183
+7801620001834	542804	1	700	700	10184
+7802920008172	542806	1	450	450	10185
+7801620853426	542806	1	700	700	10186
+7801620015800	542806	1	700	700	10187
+1400	542806	1	1400	1400	10188
+1	542807	1	1300	1300	10189
+70847021964	542807	1	2000	2000	10190
+1	542808	1	1300	1300	10191
+7803525000356	542808	1	450	450	10192
+3	542809	1	1100	1100	10193
+3200	542810	1	3200	3200	10194
+7802200270015	542810	1	500	500	10195
+3	542811	1	1100	1100	10196
+3	542811	1	1100	1100	10197
+51	542813	1	1300	1300	10198
+3	542813	1	1100	1100	10199
+51	542813	1	1300	1300	10200
+1	542813	1	1300	1300	10201
+1	542814	1	1300	1300	10202
+3	542815	1	1100	1100	10203
+1	542815	1	1300	1300	10204
+7802832101121	542816	1	1400	1400	10205
+1400	542816	1	1400	1400	10206
+7613032203122	542817	1	1850	1850	10207
+7802820600209	542818	1	700	700	10208
+7802920759135	542818	1	500	500	10209
+3	542820	1	1100	1100	10210
+7801620006853	542820	1	1000	1000	10211
+61	542821	1	1000	1000	10212
+61	542821	1	1000	1000	10213
+78025059	542822	1	3400	3400	10214
+7803480000767	542823	1	500	500	10215
+7802200270022	542824	1	450	450	10216
+7801620015817	542824	1	700	700	10217
+7801620011659	542824	1	700	700	10218
+7801620011659	542825	1	700	700	10219
+1400	542825	1	1400	1400	10220
+9002490100070	542825	1	1700	1700	10221
+1400	542825	1	1400	1400	10222
+51	542826	1	1300	1300	10223
+1	542826	1	1300	1300	10224
+7802920005195	542827	1	500	500	10225
+1300	542827	1	1300	1300	10226
+3	542827	1	1100	1100	10227
+3	542827	1	1100	1100	10228
+3	542827	1	1100	1100	10229
+1	542828	1	1300	1300	10230
+52	542828	1	2000	2000	10231
+1	542829	1	1300	1300	10232
+3	542829	1	1100	1100	10233
+500	542829	1	500	500	10234
+51	542829	1	1300	1300	10235
+61	542830	1	1000	1000	10236
+3	542830	1	1100	1100	10237
+3	542831	1	1100	1100	10238
+7801620015817	542832	1	700	700	10239
+7801620015817	542832	1	700	700	10240
+52	542832	1	2000	2000	10241
+1900	542833	1	1900	1900	10242
+7801620001834	542834	1	700	700	10243
+7803525999544	542834	1	600	600	10244
+7801610000595	542835	1	1000	1000	10245
+1	542836	1	1300	1300	10246
+7613035588776	542836	1	600	600	10247
+78022201	542836	1	4500	4500	10248
+7000	542837	1	1400	1400	10249
+7000	542837	1	1400	1400	10250
+1400	542837	1	1400	1400	10251
+7801610000595	542838	1	1000	1000	10252
+2000	542839	1	2000	2000	10253
+1300	542839	1	1300	1300	10254
+7803473004376	542839	1	600	600	10255
+7801620016111	542840	1	950	950	10256
+40000536819	542840	1	850	850	10257
+7802832101121	542841	1	1400	1400	10258
+7613035588776	542843	1	600	600	10259
+1400	542844	1	1400	1400	10260
+300	542845	1	300	300	10261
+450	542845	1	450	450	10262
+7801610001196	542845	1	800	800	10263
+7613035588776	542845	1	600	600	10264
+7801620003326	542846	1	1000	1000	10265
+7801620006853	542846	1	1000	1000	10266
+600	542848	1	750	750	10267
+300	542849	1	300	300	10268
+300	542849	1	300	300	10269
+7803908005787	542849	1	1000	1000	10270
+59080480	542849	1	350	350	10271
+59080480	542850	1	350	350	10272
+59080480	542850	1	350	350	10273
+9002490221010	542851	1	2100	2100	10274
+7801610001936	542851	1	500	500	10275
+7804643820154	542853	1	1600	1600	10276
+7801620005856	542853	1	900	900	10277
+450	542853	5	450	2250	10278
+52	542853	1	2000	2000	10279
+1	542853	1	1300	1300	10280
+7803525000240	542853	1	600	600	10281
+7803403001055	542853	1	750	750	10282
+7803525999667	542855	1	600	600	10283
+7801620011659	542856	1	700	700	10284
+1400	542857	1	1400	1400	10285
+1400	542857	1	1400	1400	10286
+1400	542858	1	1400	1400	10287
+78018853	542859	1	1800	1800	10288
+78025318	542860	1	4200	4200	10289
+78025318	542860	1	4200	4200	10290
+78025318	542860	1	4200	4200	10291
+7802000013720	542861	4	600	2400	10292
+7802000005930	542861	1	600	600	10293
+7802000005930	542861	1	600	600	10294
+7802920106168	542862	1	500	500	10295
+51	542863	1	1300	1300	10296
+78018853	542863	1	1800	1800	10297
+78018853	542864	1	1800	1800	10298
+3	542865	1	1100	1100	10299
+1200	542865	1	1200	1200	10300
+3	542866	1	1100	1100	10301
+3	542867	1	1100	1100	10302
+51	542867	1	1300	1300	10303
+1400	542868	1	1400	1400	10304
+7803525999667	542868	1	600	600	10305
+7802920106168	542869	1	500	500	10306
+1	542869	1	1300	1300	10307
+1	542870	1	1300	1300	10308
+1800	542870	1	1800	1800	10309
+7802920008141	542871	1	900	900	10310
+1	542871	1	1300	1300	10311
+1	542872	1	1300	1300	10312
+450	542872	1	450	450	10313
+7802200270022	542872	1	450	450	10314
+7802230081162	542872	1	850	850	10315
+3	542873	1	1100	1100	10316
+78000285	542873	1	4000	4000	10317
+7802820441802	542874	1	1000	1000	10318
+3	542875	1	1100	1100	10319
+7801610350355	542875	1	800	800	10320
+59080480	542875	1	350	350	10321
+3	542876	1	1100	1100	10322
+1400	542876	1	1400	1400	10323
+3	542877	1	1100	1100	10324
+9002490221010	542877	1	2100	2100	10325
+3	542878	1	1100	1100	10326
+7801620001834	542878	1	700	700	10327
+3	542879	1	1100	1100	10328
+70847021964	542879	1	2000	2000	10329
+3	542880	1	1100	1100	10330
+7802920008158	542880	1	900	900	10331
+78020627	542880	1	4000	4000	10332
+51	542881	1	1300	1300	10333
+7803525000240	542881	1	600	600	10334
+52	542882	1	2000	2000	10335
+300	542883	1	300	300	10336
+78016293	542883	1	2500	2500	10337
+1	542884	1	1300	1300	10338
+51	542884	1	1300	1300	10339
+51	542884	1	1300	1300	10340
+3	542885	1	1100	1100	10341
+51	542885	1	1300	1300	10342
+7803525000240	542885	1	600	600	10343
+78019041	542886	1	2000	2000	10344
+7804612131274	542886	1	400	400	10345
+1	542888	1	1300	1300	10346
+7803525000356	542888	1	450	450	10347
+3	542889	1	1100	1100	10348
+78019041	542889	1	2000	2000	10349
+1400	542890	1	1400	1400	10350
+51	542890	1	1300	1300	10351
+1	542891	1	1300	1300	10352
+3	542892	1	1100	1100	10353
+3	542892	1	1100	1100	10354
+7802215303401	542892	1	300	300	10355
+3	542893	1	1100	1100	10356
+1	542893	1	1300	1300	10357
+7801610001936	542893	1	500	500	10358
+3	542894	1	1100	1100	10359
+5201041002137	542895	1	800	800	10360
+1400	542896	1	1400	1400	10361
+70847009559	542896	1	2000	2000	10362
+3	542897	1	1100	1100	10363
+78000285	542897	1	4000	4000	10364
+52	542898	1	2000	2000	10365
+51	542899	1	1300	1300	10366
+1	542900	1	1300	1300	10367
+61	542900	1	1000	1000	10368
+7802820441000	542901	1	700	700	10369
+7793890254297	542901	1	600	600	10370
+7802820441000	542901	1	700	700	10371
+1000	542902	1	1300	1300	10372
+51	542903	1	1300	1300	10373
+3	542903	1	1100	1100	10374
+51	542904	1	1300	1300	10375
+7622210427076	542905	1	400	400	10376
+3	542906	1	1100	1100	10377
+7801620853426	542906	1	700	700	10378
+7802920008110	542907	1	900	900	10379
+7802920008110	542907	1	900	900	10380
+7613034276490	542907	1	500	500	10381
+7802920002712	542908	1	700	700	10382
+78021020	542910	1	2000	2000	10383
+7622210427106	542910	1	400	400	10384
+3	542910	1	1100	1100	10385
+78007673	542910	1	3000	3000	10386
+7801620006853	542911	1	1000	1000	10387
+450	542912	4	450	1800	10388
+7802200270015	542912	1	500	500	10389
+7802820700282	542914	1	350	350	10390
+51	542915	1	1300	1300	10391
+7803403001055	542915	1	750	750	10392
+7802800556229	542915	1	550	550	10393
+78000285	542915	1	4000	4000	10394
+78000285	542915	1	4000	4000	10395
+1000	542915	1	1300	1300	10396
+7802920106168	542916	1	500	500	10397
+7803403001055	542916	1	750	750	10398
+7803525999544	542916	1	600	600	10399
+7802820600100	542918	1	700	700	10400
+7802820600209	542918	1	700	700	10401
+613008728571	542921	1	1650	1650	10402
+78007673	542922	1	3000	3000	10403
+51	542923	1	1300	1300	10404
+7802000014765	542923	1	700	700	10405
+7801610118184	542924	1	800	800	10406
+7803525999544	542924	1	600	600	10407
+1900	542924	1	1900	1900	10408
+1900	542925	1	1900	1900	10409
+7804643820154	542926	1	1600	1600	10410
+1400	542927	1	1400	1400	10411
+7803473003232	542927	1	400	400	10412
+1400	542927	1	1400	1400	10413
+7801620016036	542928	1	1000	1000	10414
+7802000014765	542929	1	700	700	10415
+1000	542929	1	1300	1300	10416
+78025219	542930	1	3400	3400	10417
+78025219	542930	1	3400	3400	10418
+7501013118056	542931	1	800	800	10419
+7801620001834	542932	1	700	700	10420
+7803525999667	542932	1	600	600	10421
+7613035807464	542933	1	1690	1690	10422
+613008756451	542933	1	1500	1500	10423
+7801620011635	542934	1	1500	1500	10424
+7801620005191	542935	1	1300	1300	10425
+7801620005160	542936	1	1500	1500	10426
+3	542937	1	1100	1100	10427
+42123880	542937	1	650	650	10428
+3	542938	1	1100	1100	10429
+3	542938	1	1100	1100	10430
+3	542938	1	1100	1100	10431
+7802820250220	542938	1	350	350	10432
+7613035490734	542938	1	2620	2620	10433
+7801620006853	542939	1	1000	1000	10434
+1400	542940	1	1400	1400	10435
+7802920009407	542940	1	600	600	10436
+3	542942	1	1100	1100	10437
+7802920008127	542942	1	900	900	10438
+78021020	542942	1	2000	2000	10439
+1	542943	1	1300	1300	10440
+1	542943	1	1300	1300	10441
+3	542944	1	1100	1100	10442
+7802920777542	542944	1	1100	1100	10443
+1	542945	1	1300	1300	10444
+7613032443221	542945	1	350	350	10445
+3	542946	1	1100	1100	10446
+7801620008307	542946	1	900	900	10447
+1	542947	1	1300	1300	10448
+7801610350355	542947	1	800	800	10449
+3	542948	1	1100	1100	10450
+42069942	542948	1	650	650	10451
+78024878	542949	1	4400	4400	10452
+50173617	542949	1	650	650	10453
+7804612131274	542949	1	400	400	10454
+1400	542951	1	1400	1400	10455
+51	542951	1	1300	1300	10456
+51	542951	1	1300	1300	10457
+3	542952	1	1100	1100	10458
+7802920106168	542952	1	500	500	10459
+450	542953	1	450	450	10460
+450	542953	1	450	450	10461
+51	542953	1	1300	1300	10462
+7622210427106	542953	1	400	400	10463
+1400	542954	1	1400	1400	10464
+9002490214852	542954	1	1700	1700	10465
+1300	542956	1	1300	1300	10466
+300	542956	1	300	300	10467
+61	542957	1	1000	1000	10468
+450	542958	1	450	450	10469
+450	542958	1	450	450	10470
+450	542958	1	450	450	10471
+7802920106168	542958	1	500	500	10472
+7802920002712	542958	1	700	700	10473
+1	542959	1	1300	1300	10474
+1800	542959	1	1800	1800	10475
+51	542960	1	1300	1300	10476
+1	542960	1	1300	1300	10477
+6971549920156	542961	1	1500	1500	10478
+7803525999667	542961	1	600	600	10479
+1400	542961	1	1400	1400	10480
+51	542961	1	1300	1300	10481
+1	542962	1	1300	1300	10482
+7801620008307	542962	1	900	900	10483
+3	542964	1	1100	1100	10484
+51	542965	1	1300	1300	10485
+1300	542965	1	1300	1300	10486
+9002490214852	542965	1	1700	1700	10487
+3	542966	1	1100	1100	10488
+7802820700282	542966	1	400	400	10489
+3	542967	1	1100	1100	10490
+8809228440467	542967	1	1500	1500	10491
+7803525000356	542967	1	450	450	10492
+51	542968	1	1300	1300	10493
+3	542968	1	1100	1100	10494
+51	542969	1	1300	1300	10495
+1	542969	1	1300	1300	10496
+3	542969	1	1100	1100	10497
+51	542970	1	1300	1300	10498
+3	542970	1	1100	1100	10499
+450	542971	1	450	450	10500
+450	542971	1	450	450	10501
+7790040613706	542971	1	450	450	10502
+51	542973	1	1300	1300	10503
+3	542973	1	1100	1100	10504
+1400	542973	1	1400	1400	10505
+3	542974	1	1100	1100	10506
+7802215303401	542974	1	300	300	10507
+7501013101331	542975	1	1450	1450	10508
+3200	542975	1	3200	3200	10509
+7801620005412	542976	1	1150	1150	10510
+51	542977	1	1300	1300	10511
+78007673	542977	1	3000	3000	10512
+1400	542977	1	1400	1400	10513
+1	542978	1	1300	1300	10514
+3	542978	1	1100	1100	10515
+1	542979	1	1300	1300	10516
+7801620015817	542979	1	700	700	10517
+7802920106168	542980	1	500	500	10518
+51	542980	1	1300	1300	10519
+3	542980	1	1100	1100	10520
+51	542981	1	1300	1300	10521
+1	542981	1	1300	1300	10522
+51	542982	1	1300	1300	10523
+7802920009384	542984	1	600	600	10524
+7803525000356	542984	1	450	450	10525
+7801620002367	542985	1	900	900	10526
+7802920008110	542986	1	900	900	10527
+51	542987	1	1300	1300	10528
+7802820600100	542988	1	700	700	10529
+7803525000240	542988	1	600	600	10530
+7802230975324	542990	1	600	600	10531
+7802920008141	542991	1	900	900	10532
+7802820441789	542991	1	1000	1000	10533
+7613035588776	542991	1	600	600	10534
+7613034276490	542991	1	500	500	10535
+51	542994	1	1300	1300	10536
+51	542994	1	1300	1300	10537
+7801620001711	542994	1	1100	1100	10538
+7801620005856	542994	1	900	900	10539
+7802000014857	542994	1	700	700	10540
+7802200270015	542994	1	500	500	10541
+1	542994	1	1300	1300	10542
+1	542994	1	1300	1300	10543
+7802200270015	542995	1	500	500	10544
+7802200270022	542997	1	500	500	10545
+7802920801858	542998	1	300	300	10546
+7801620003326	542998	1	1000	1000	10547
+1	542998	1	1300	1300	10548
+78007673	543000	1	3000	3000	10549
+1900	543001	1	1900	1900	10550
+7801620001919	543001	1	700	700	10551
+7802820441000	543002	1	700	700	10552
+7801610350355	543004	1	800	800	10553
+7790040613607	543004	1	450	450	10554
+7803525999964	543004	1	500	500	10555
+7802215505294	543005	1	800	800	10556
+7802215504655	543005	1	500	500	10557
+1	543006	1	1300	1300	10558
+7801610001196	543006	1	800	800	10559
+3000	543007	1	3000	3000	10560
+7802820700091	543007	1	400	400	10561
+3200	543008	1	3200	3200	10562
+7801610350409	543008	1	1650	1650	10563
+7793890254297	543009	1	600	600	10564
+7793890254297	543009	1	600	600	10565
+7793890254297	543009	1	600	600	10566
+7501013101362	543010	1	1450	1450	10567
+7801620015817	543010	1	700	700	10568
+7793890254297	543010	1	600	600	10569
+7793890254297	543010	1	600	600	10570
+300	543011	1	300	300	10571
+450	543011	1	450	450	10572
+7801610001196	543011	1	800	800	10573
+40000536789	543012	1	850	850	10574
+7801620852962	543013	1	1000	1000	10575
+3	543013	1	1100	1100	10576
+3	543013	1	1100	1100	10577
+7802920008127	543014	1	900	900	10578
+7802820441123	543015	1	700	700	10579
+7801620006853	543015	1	1000	1000	10580
+3	543016	1	1100	1100	10581
+7622210267870	543016	1	400	400	10582
+3	543017	1	1100	1100	10583
+7801610000601	543017	1	1000	1000	10584
+613008728571	543019	1	1650	1650	10585
+3	543019	1	1100	1100	10586
+7802920106168	543020	1	500	500	10587
+3	543021	1	1100	1100	10588
+1400	543021	1	1400	1400	10589
+7802920009407	543021	1	600	600	10590
+3	543022	1	1100	1100	10591
+7802215511615	543024	1	300	300	10592
+7802920106168	543025	1	500	500	10593
+51	543026	1	1300	1300	10594
+1	543026	1	1300	1300	10595
+1	543026	1	1300	1300	10596
+1	543028	1	1300	1300	10597
+7801620008307	543028	1	900	900	10598
+3	543029	1	1100	1100	10599
+61	543029	1	1000	1000	10600
+300	543029	1	300	300	10601
+7802215502262	543030	1	750	750	10602
+1	543031	1	1300	1300	10603
+1	543031	1	1300	1300	10604
+61	543032	1	1000	1000	10605
+78025332	543033	1	4200	4200	10606
+7804612131274	543033	1	400	400	10607
+1800	543034	1	1800	1800	10608
+300	543034	1	300	300	10609
+300	543034	1	300	300	10610
+9002490221010	543036	1	2100	2100	10611
+3	543036	1	1100	1100	10612
+51	543037	1	1300	1300	10613
+1	543037	1	1300	1300	10614
+1	543038	1	1300	1300	10615
+613008715625	543038	1	1400	1400	10616
+51	543039	1	1300	1300	10617
+1400	543040	1	1400	1400	10618
+51	543040	1	1300	1300	10619
+9002490214852	543040	1	1700	1700	10620
+7803403001055	543041	1	750	750	10621
+3	543042	1	1100	1100	10622
+3	543042	1	1100	1100	10623
+7801610350355	543042	1	800	800	10624
+7801610350355	543042	1	800	800	10625
+51	543043	1	1300	1300	10626
+3	543043	1	1100	1100	10627
+7622210427106	543043	1	400	400	10628
+51	543045	1	1300	1300	10629
+3	543045	1	1100	1100	10630
+70847009559	543046	1	2000	2000	10631
+7803525999957	543046	1	500	500	10632
+7803525999957	543046	1	500	500	10633
+51	543046	1	1300	1300	10634
+51	543046	1	1300	1300	10635
+1500	543047	1	1650	1650	10636
+3	543048	1	1100	1100	10637
+51	543050	1	1300	1300	10638
+51	543050	1	1300	1300	10639
+9002490100070	543050	1	1700	1700	10640
+7801610323236	543050	1	2950	2950	10641
+7802920106168	543051	1	500	500	10642
+7801620005856	543052	1	900	900	10643
+7802820250220	543052	1	350	350	10644
+7801610000571	543053	1	1000	1000	10645
+1	543054	1	1300	1300	10646
+1	543054	1	1300	1300	10647
+1	543054	1	1300	1300	10648
+7801620853426	543055	1	700	700	10649
+3	543055	1	1100	1100	10650
+3	543056	1	1100	1100	10651
+78021020	543058	1	2000	2000	10652
+3	543059	1	1100	1100	10653
+3	543059	1	1100	1100	10654
+1	543059	1	1300	1300	10655
+7801610001196	543059	1	800	800	10656
+7801620005856	543060	1	900	900	10657
+7801610000571	543061	1	1000	1000	10658
+7801620001841	543062	1	1500	1500	10659
+7801610000601	543062	1	1000	1000	10660
+51	543063	1	1300	1300	10661
+7803525999544	543063	1	600	600	10662
+51	543064	1	1300	1300	10663
+3	543064	1	1100	1100	10664
+3	543065	1	1100	1100	10665
+51	543065	1	1300	1300	10666
+7801620001834	543066	1	700	700	10667
+7802920008110	543067	1	900	900	10668
+70847021964	543067	1	2000	2000	10669
+7802225682107	543068	1	600	600	10670
+1	543068	1	1300	1300	10671
+450	543070	9	450	4050	10672
+51	543070	1	1300	1300	10673
+78018853	543071	1	1800	1800	10674
+7802820250220	543073	1	350	350	10675
+51	543074	1	1300	1300	10676
+7802225427197	543075	1	450	450	10677
+7802225427197	543075	1	450	450	10678
+3000	543076	1	3000	3000	10679
+300	543076	1	300	300	10680
+300	543076	1	300	300	10681
+7801620008321	543076	1	900	900	10682
+8809228440405	543077	1	1500	1500	10683
+7801620015800	543080	1	700	700	10684
+7802920005287	543080	1	350	350	10685
+7801620005412	543081	1	1150	1150	10686
+1300	543081	1	1300	1300	10687
+7501013118063	543081	1	850	850	10688
+1900	543082	1	1900	1900	10689
+7801610118184	543082	1	800	800	10690
+7802215303241	543083	1	800	800	10691
+7702133862823	543084	1	400	400	10692
+3000	543087	1	3000	3000	10693
+7801620001704	543088	1	850	850	10694
+78020627	543089	1	4000	4000	10695
+300	543090	1	300	300	10696
+450	543090	1	450	450	10697
+7801610001196	543090	1	800	800	10698
+78025295	543091	1	4400	4400	10699
+7801620006853	543091	1	1000	1000	10700
+8809228440481	543092	1	1500	1500	10701
+7501013101355	543093	1	1450	1450	10702
+78024878	543095	1	4400	4400	10703
+1400	543096	1	1400	1400	10704
+7501013118056	543096	1	850	850	10705
+7803480000767	543096	1	500	500	10706
+1	543097	1	1300	1300	10707
+7801610001196	543097	1	800	800	10708
+7802000014765	543098	1	700	700	10709
+7801620015800	543098	1	700	700	10710
+7802820700091	543099	1	400	400	10711
+7802200270015	543099	1	500	500	10712
+3200	543100	1	3200	3200	10713
+7613035407176	543101	1	1690	1690	10714
+7801620000738	543101	1	1500	1500	10715
+78007673	543102	1	3000	3000	10716
+3	543104	1	1100	1100	10717
+7802215505270	543104	1	800	800	10718
+7802230082527	543104	1	1100	1100	10719
+78021020	543105	1	2000	2000	10720
+7803525999964	543106	1	500	500	10721
+3	543106	1	1100	1100	10722
+7803473543189	543107	1	550	550	10723
+78025059	543107	1	3400	3400	10724
+51	543108	1	1300	1300	10725
+3	543108	1	1100	1100	10726
+3	543109	1	1100	1100	10727
+350	543109	1	400	400	10728
+78020627	543110	1	4000	4000	10729
+7801620852955	543110	1	1000	1000	10730
+1400	543112	1	1400	1400	10731
+7802920777542	543112	1	1100	1100	10732
+3	543113	1	1100	1100	10733
+3	543113	1	1100	1100	10734
+3	543113	1	1100	1100	10735
+1	543115	1	1300	1300	10736
+7702133815782	543115	1	400	400	10737
+1	543116	1	1300	1300	10738
+7801620003326	543116	1	1000	1000	10739
+78019041	543117	1	2000	2000	10740
+1	543117	1	1300	1300	10741
+1	543117	1	1300	1300	10742
+1200	543117	1	1200	1200	10743
+1200	543117	1	1200	1200	10744
+78019041	543117	1	2000	2000	10745
+3200	543118	1	3200	3200	10746
+450	543118	1	450	450	10747
+450	543118	1	450	450	10748
+3	543119	1	1100	1100	10749
+7802920008127	543119	1	900	900	10750
+7801620002671	543120	1	1100	1100	10751
+1	543121	1	1300	1300	10752
+1200	543121	1	1200	1200	10753
+1	543122	1	1300	1300	10754
+7801620008307	543122	1	900	900	10755
+7803525999933	543124	1	500	500	10756
+7803525999933	543124	1	500	500	10757
+7803525999667	543124	1	600	600	10758
+7803525999667	543124	1	600	600	10759
+7803525999667	543124	1	600	600	10760
+7803480000767	543124	1	500	500	10761
+3	543125	1	1100	1100	10762
+1	543125	1	1300	1300	10763
+2	543126	1	1300	1300	10764
+2	543126	1	1300	1300	10765
+1	543127	1	1300	1300	10766
+7802820700282	543127	1	400	400	10767
+51	543128	1	1300	1300	10768
+3	543128	1	1100	1100	10769
+51	543129	1	1300	1300	10770
+7501013118056	543129	1	850	850	10771
+1600	543130	3	1600	4800	10772
+1	543131	1	1300	1300	10773
+613008735012	543132	1	1600	1600	10774
+1	543132	1	1300	1300	10775
+400	543132	1	400	400	10776
+3200	543133	1	3200	3200	10777
+1	543133	1	1300	1300	10778
+450	543135	1	450	450	10779
+3	543135	1	1100	1100	10780
+78018884	543136	1	3400	3400	10781
+400	543136	1	400	400	10782
+450	543136	1	450	450	10783
+3	543137	1	1100	1100	10784
+7801620016111	543137	1	950	950	10785
+51	543137	1	1300	1300	10786
+1400	543138	1	1400	1400	10787
+450	543138	1	450	450	10788
+1200	543139	1	1200	1200	10789
+450	543139	1	450	450	10790
+7802200270022	543139	1	500	500	10791
+7802920008141	543139	1	900	900	10792
+3	543140	1	1100	1100	10793
+3	543140	1	1100	1100	10794
+1	543140	1	1300	1300	10795
+7801610001196	543140	1	800	800	10796
+450	543141	1	450	450	10797
+450	543141	1	450	450	10798
+7801620015817	543141	1	700	700	10799
+1400	543141	1	1400	1400	10800
+1200	543142	1	1200	1200	10801
+7801610000601	543142	1	1000	1000	10802
+1	543144	1	1300	1300	10803
+78021068	543144	1	2500	2500	10804
+78005624	543145	1	350	350	10805
+51	543146	1	1300	1300	10806
+7801610277829	543148	1	800	800	10807
+1400	543149	1	1400	1400	10808
+7501013118032	543149	1	850	850	10809
+78025295	543149	1	4400	4400	10810
+7802920008110	543150	1	900	900	10811
+3	543151	1	1100	1100	10812
+7801620001834	543151	1	700	700	10813
+78025219	543152	1	3400	3400	10814
+3	543152	1	1100	1100	10815
+3	543152	1	1100	1100	10816
+7801610118184	543153	1	800	800	10817
+3	543154	1	1100	1100	10818
+3	543154	1	1100	1100	10819
+7801620011611	543155	1	1500	1500	10820
+70847021964	543155	1	2000	2000	10821
+1	543156	1	1300	1300	10822
+7801620003326	543156	1	1000	1000	10823
+51	543157	1	1300	1300	10824
+1300	543157	1	1300	1300	10825
+9002490214852	543157	1	1700	1700	10826
+1400	543158	3	1400	4200	10827
+1	543159	1	1300	1300	10828
+7802920106168	543160	1	500	500	10829
+7803525999544	543160	1	600	600	10830
+7803480000767	543160	1	500	500	10831
+7801620853426	543161	1	700	700	10832
+7801620015800	543161	1	700	700	10833
+450	543161	1	450	450	10834
+1	543162	1	1300	1300	10835
+7802230975324	543162	1	600	600	10836
+3200	543162	1	3200	3200	10837
+1	543163	1	1300	1300	10838
+7802575220127	543163	1	400	400	10839
+7802820441000	543164	1	700	700	10840
+7802820441000	543164	1	700	700	10841
+7801610005934	543164	1	500	500	10842
+300	543164	1	300	300	10843
+78024717	543165	1	4300	4300	10844
+78018884	543166	1	3400	3400	10845
+7806500172116	543167	1	300	300	10846
+7802230083951	543168	1	650	650	10847
+7613030518426	543168	1	700	700	10848
+7613034721051	543169	1	2650	2650	10849
+1400	543169	1	1400	1400	10850
+7802832000035	543170	1	1400	1400	10851
+7802832101121	543170	1	1400	1400	10852
+7802832101329	543170	1	1400	1400	10853
+1400	543171	1	1400	1400	10854
+7801620011659	543171	1	700	700	10855
+400	543171	1	400	400	10856
+7790040613607	543172	1	450	450	10857
+7802950072358	543173	1	300	300	10858
+3200	543174	1	3200	3200	10859
+3200	543174	1	3200	3200	10860
+7801610118184	543174	1	800	800	10861
+7801610350355	543174	1	800	800	10862
+78020627	543175	1	4000	4000	10863
+70847009511	543176	1	2000	2000	10864
+7806500172116	543176	1	300	300	10865
+3000	543177	1	3000	3000	10866
+78024717	543177	1	4300	4300	10867
+400	543177	1	400	400	10868
+7802920002712	543178	1	700	700	10869
+7802225427210	543178	1	450	450	10870
+300	543179	1	300	300	10871
+7801610001196	543179	1	800	800	10872
+7613034276490	543179	1	500	500	10873
+7801610350409	543180	1	1650	1650	10874
+78018884	543181	1	3400	3400	10875
+50173204	543181	1	600	600	10876
+1400	543182	1	1400	1400	10877
+3000	543182	1	3000	3000	10878
+7801620015817	543183	1	700	700	10879
+7802215303401	543183	1	300	300	10880
+1600	543183	1	1600	1600	10881
+78000285	543184	1	4000	4000	10882
+1	543185	1	1300	1300	10883
+7801620005412	543185	1	1150	1150	10884
+7802215512285	543187	1	700	700	10885
+7802215113567	543187	1	450	450	10886
+7801620005856	543187	1	900	900	10887
+7801620001919	543188	1	700	700	10888
+7613032180157	543189	1	300	300	10889
+7801620004859	543190	1	900	900	10890
+7801620004859	543190	1	900	900	10891
+7613035808133	543190	1	1690	1690	10892
+1	543191	1	1300	1300	10893
+51	543192	1	1300	1300	10894
+1400	543192	1	1400	1400	10895
+450	543192	5	450	2250	10896
+3	543193	1	1100	1100	10897
+7802230083951	543193	1	650	650	10898
+3	543194	1	1100	1100	10899
+51	543194	1	1300	1300	10900
+51	543194	1	1300	1300	10901
+7802920009407	543195	1	600	600	10902
+7802920801858	543196	1	300	300	10903
+7802920801858	543197	1	300	300	10904
+7803525999957	543198	1	500	500	10905
+7803525999957	543198	1	500	500	10906
+7802920008141	543199	1	900	900	10907
+78025332	543199	1	4200	4200	10908
+1	543200	1	1300	1300	10909
+7801620006631	543200	1	1200	1200	10910
+7803473543189	543200	1	550	550	10911
+7790040613706	543200	1	450	450	10912
+7801610000601	543201	1	1000	1000	10913
+7801610000601	543201	1	1000	1000	10914
+200	543201	1	250	250	10915
+3	543202	1	1100	1100	10916
+51	543202	1	1300	1300	10917
+1	543203	1	1300	1300	10918
+7801620011659	543203	1	700	700	10919
+51	543204	1	1300	1300	10920
+1	543204	1	1300	1300	10921
+7802215512278	543204	1	650	650	10922
+7804612131274	543204	1	400	400	10923
+1600	543205	3	1600	4800	10924
+51	543206	1	1300	1300	10925
+1	543207	1	1300	1300	10926
+7802920106168	543207	1	500	500	10927
+1	543209	1	1300	1300	10928
+1400	543211	1	1400	1400	10929
+7802920009407	543212	1	600	600	10930
+1300	543213	1	1300	1300	10931
+450	543213	1	450	450	10932
+450	543213	1	450	450	10933
+7801620004873	543213	1	900	900	10934
+7622210427076	543213	1	400	400	10935
+1	543214	1	1300	1300	10936
+78025059	543214	1	3400	3400	10937
+1	543215	1	1300	1300	10938
+3200	543215	1	3200	3200	10939
+7802832101121	543215	1	1400	1400	10940
+7802832101121	543215	1	1400	1400	10941
+9002490221010	543215	1	2100	2100	10942
+78025059	543215	1	3400	3400	10943
+3	543216	1	1100	1100	10944
+70847021964	543216	1	2000	2000	10945
+78939387	543216	6	300	1800	10946
+3	543218	1	1100	1100	10947
+7801620853426	543218	1	700	700	10948
+51	543219	1	1300	1300	10949
+78025295	543219	1	4400	4400	10950
+7802920008127	543220	1	900	900	10951
+1200	543220	1	1200	1200	10952
+3	543221	1	1100	1100	10953
+51	543221	1	1300	1300	10954
+400	543221	1	400	400	10955
+400	543221	1	400	400	10956
+78029590	543221	1	4200	4200	10957
+78024915	543222	1	3500	3500	10958
+450	543222	1	450	450	10959
+450	543222	1	450	450	10960
+1200	543222	1	1200	1200	10961
+51	543223	1	1300	1300	10962
+3	543223	1	1100	1100	10963
+78020627	543224	1	4000	4000	10964
+7801620853426	543225	1	700	700	10965
+7803525999544	543226	1	600	600	10966
+1800	543226	1	1800	1800	10967
+3	543226	1	1100	1100	10968
+7802920106168	543227	1	500	500	10969
+7803525000240	543227	1	600	600	10970
+7803525999544	543227	1	600	600	10971
+7803480000750	543227	1	500	500	10972
+450	543228	1	450	450	10973
+1	543229	1	1300	1300	10974
+7801620300203	543229	1	800	800	10975
+3	543230	1	1100	1100	10976
+7801620853426	543230	1	700	700	10977
+3200	543231	1	3200	3200	10978
+51	543231	1	1300	1300	10979
+9002490100070	543232	1	1700	1700	10980
+61	543233	1	1000	1000	10981
+7803525000240	543233	1	600	600	10982
+7802920008158	543234	1	900	900	10983
+1400	543234	1	1400	1400	10984
+7802820250268	543234	1	350	350	10985
+7802820250268	543234	1	350	350	10986
+7803473003461	543234	1	750	750	10987
+61	543235	1	1000	1000	10988
+61	543235	1	1000	1000	10989
+7802000013683	543236	1	700	700	10990
+7801620852689	543237	1	800	800	10991
+7803480000767	543237	1	500	500	10992
+1	543237	1	1300	1300	10993
+1	543238	1	1300	1300	10994
+1400	543238	1	1400	1400	10995
+300	543239	1	300	300	10996
+300	543239	1	300	300	10997
+3000	543239	1	3000	3000	10998
+7806500172116	543240	1	300	300	10999
+7801620360153	543241	1	800	800	11000
+500	543242	1	500	500	11001
+500	543242	1	500	500	11002
+450	543242	1	450	450	11003
+300	543242	1	300	300	11004
+7802215505287	543243	1	800	800	11005
+1	543244	1	1300	1300	11006
+7801610002193	543244	1	800	800	11007
+3000	543245	1	3000	3000	11008
+7802200270015	543245	1	500	500	11009
+7613035490734	543246	1	2620	2620	11010
+7802000014765	543247	1	700	700	11011
+7801610022122	543247	1	800	800	11012
+3200	543248	1	3200	3200	11013
+7501013101355	543248	1	1450	1450	11014
+350	543249	1	400	400	11015
+1400	543249	1	1400	1400	11016
+78025332	543250	1	4200	4200	11017
+7804612131274	543251	1	400	400	11018
+7804612131274	543251	1	400	400	11019
+7801620011635	543252	1	1500	1500	11020
+78007673	543252	1	3000	3000	11021
+78007673	543252	1	3000	3000	11022
+78020627	543253	1	4000	4000	11023
+7801610000571	543253	1	1000	1000	11024
+78023994	543254	1	250	250	11025
+78023994	543254	1	250	250	11026
+78016293	543254	1	2500	2500	11027
+7802215512285	543255	1	700	700	11028
+78024892	543255	1	4300	4300	11029
+3	543255	1	1100	1100	11030
+51	543256	1	1300	1300	11031
+450	543256	1	450	450	11032
+450	543256	1	450	450	11033
+450	543256	1	450	450	11034
+7801620016036	543257	1	1000	1000	11035
+7803525999650	543257	1	500	500	11036
+7801620006877	543257	1	2000	2000	11037
+7801620006853	543258	1	1000	1000	11038
+7802820600100	543258	1	700	700	11039
+7802820600100	543258	1	700	700	11040
+7801620004859	543259	1	900	900	11041
+7801620004859	543259	1	900	900	11042
+7801610000601	543259	1	1000	1000	11043
+52	543259	1	2000	2000	11044
+450	543259	5	450	2250	11045
+78025059	543260	1	3400	3400	11046
+9002490100070	543260	1	1700	1700	11047
+7801610175095	543261	1	1650	1650	11048
+7802200400085	543261	1	1100	1100	11049
+7801610022122	543262	1	800	800	11050
+7803525999957	543263	1	500	500	11051
+3	543264	1	1100	1100	11052
+7802920008127	543264	1	900	900	11053
+7801620853426	543265	1	700	700	11054
+3	543265	1	1100	1100	11055
+51	543266	1	1300	1300	11056
+3	543266	1	1100	1100	11057
+78024717	543266	1	4300	4300	11058
+7803525999957	543267	1	500	500	11059
+7803473004376	543267	1	600	600	11060
+7803525999933	543267	1	500	500	11061
+3	543269	1	1100	1100	11062
+7801620011659	543269	1	700	700	11063
+7802230082534	543272	1	1100	1100	11064
+7802920007182	543272	1	500	500	11065
+51	543273	1	1300	1300	11066
+1400	543273	1	1400	1400	11067
+33	543274	1	1200	1200	11068
+3	543275	1	1100	1100	11069
+51	543276	1	1300	1300	11070
+3	543276	1	1100	1100	11071
+51	543276	1	1300	1300	11072
+3	543276	1	1100	1100	11073
+52	543277	1	2000	2000	11074
+3	543277	1	1100	1100	11075
+7622210427106	543277	1	400	400	11076
+7802920007182	543278	1	500	500	11077
+7801620004859	543278	1	900	900	11078
+51	543279	1	1300	1300	11079
+9002490100070	543279	1	1700	1700	11080
+7801610000595	543280	1	1000	1000	11081
+3	543280	1	1100	1100	11082
+3	543280	1	1100	1100	11083
+450	543280	1	450	450	11084
+450	543280	1	450	450	11085
+3200	543281	1	3200	3200	11086
+3	543281	1	1100	1100	11087
+51	543283	1	1300	1300	11088
+7802920008127	543284	1	900	900	11089
+1200	543284	1	1200	1200	11090
+3	543285	1	1100	1100	11091
+70847009511	543285	1	2000	2000	11092
+51	543286	1	1300	1300	11093
+51	543286	1	1300	1300	11094
+7802950072679	543287	1	300	300	11095
+3	543287	1	1100	1100	11096
+3	543288	1	1100	1100	11097
+1400	543288	1	1400	1400	11098
+51	543288	1	1300	1300	11099
+7802920008141	543289	1	900	900	11100
+7802200270022	543289	1	500	500	11101
+1300	543289	1	1300	1300	11102
+1	543290	1	1300	1300	11103
+3	543290	1	1100	1100	11104
+7801610001936	543290	1	500	500	11105
+1	543290	1	1300	1300	11106
+51	543291	1	1300	1300	11107
+7801620015817	543291	1	700	700	11108
+1	543291	1	1300	1300	11109
+7802215505287	543292	1	800	800	11110
+3	543293	1	1100	1100	11111
+7802920008141	543293	1	900	900	11112
+1400	543295	1	1400	1400	11113
+51	543296	1	1300	1300	11114
+1	543297	1	1300	1300	11115
+7802920009391	543298	1	600	600	11116
+3	543299	1	1100	1100	11117
+78025059	543300	1	3400	3400	11118
+7804612131274	543300	1	400	400	11119
+7801620016005	543301	1	1000	1000	11120
+3	543301	1	1100	1100	11121
+78018853	543302	1	1800	1800	11122
+400	543302	1	400	400	11123
+400	543302	1	400	400	11124
+7802920106168	543303	1	500	500	11125
+7803480000767	543303	1	500	500	11126
+7802200270022	543304	1	500	500	11127
+51	543305	1	1300	1300	11128
+7802230082831	543305	1	1100	1100	11129
+7802230081162	543305	1	850	850	11130
+7802920007182	543305	1	500	500	11131
+7802920002323	543306	1	700	700	11132
+7501013101362	543306	1	1450	1450	11133
+7802215113567	543306	1	450	450	11134
+1	543307	1	1300	1300	11135
+1	543307	1	1300	1300	11136
+1400	543308	1	1400	1400	11137
+1400	543308	1	1400	1400	11138
+1400	543308	1	1400	1400	11139
+7801610277829	543309	1	800	800	11140
+3	543309	1	1100	1100	11141
+7891000248768	543309	1	900	900	11142
+51	543310	1	1300	1300	11143
+400	543310	1	400	400	11144
+1	543311	1	1300	1300	11145
+8809228440467	543311	1	1500	1500	11146
+51	543312	1	1300	1300	11147
+51	543312	1	1300	1300	11148
+7613035493650	543313	1	2620	2620	11149
+7622210427106	543313	1	400	400	11150
+7804612131274	543313	1	400	400	11151
+7801610277829	543314	1	800	800	11152
+1400	543314	1	1400	1400	11153
+7801620005153	543315	1	1500	1500	11154
+7613034276490	543315	1	500	500	11155
+7802215303388	543315	1	250	250	11156
+7501013101393	543316	1	1450	1450	11157
+7801620005412	543316	1	1150	1150	11158
+7804643820154	543316	1	1600	1600	11159
+8809228440467	543316	1	1500	1500	11160
+2500	543316	3	2500	7500	11161
+7802920009384	543317	1	600	600	11162
+7802920009384	543317	1	600	600	11163
+7802215303401	543317	1	300	300	11164
+78018884	543318	1	3400	3400	11165
+78007673	543319	1	3000	3000	11166
+4791014009313	543321	1	2450	2450	11167
+7801610000595	543322	1	1000	1000	11168
+7803525999667	543322	1	600	600	11169
+7613035490734	543322	1	2620	2620	11170
+4791014004950	543324	1	2450	2450	11171
+3200	543325	1	3200	3200	11172
+1400	543326	1	1400	1400	11173
+1400	543326	1	1400	1400	11174
+7801620003326	543327	1	1000	1000	11175
+7801610001936	543328	1	500	500	11176
+7801610001936	543328	1	500	500	11177
+450	543328	1	450	450	11178
+300	543328	1	300	300	11179
+78006164	543329	2	870	1740	11180
+7613032180096	543330	1	350	350	11181
+1400	543330	1	1400	1400	11182
+7801620004859	543332	1	900	900	11183
+7801620004859	543332	1	900	900	11184
+3	543332	1	1100	1100	11185
+450	543332	5	450	2250	11186
+52	543332	1	2000	2000	11187
+3	543333	1	1100	1100	11188
+7801610022122	543333	1	800	800	11189
+3	543334	1	1100	1100	11190
+7802920008127	543334	1	900	900	11191
+51	543335	1	1300	1300	11192
+42123880	543335	1	650	650	11193
+300	543335	1	300	300	11194
+300	543335	1	300	300	11195
+450	543336	1	450	450	11196
+450	543336	1	450	450	11197
+450	543336	1	450	450	11198
+450	543336	1	450	450	11199
+78025271	543336	1	4200	4200	11200
+7702133862823	543336	1	400	400	11201
+7702133862823	543336	1	400	400	11202
+7802820441789	543337	1	1000	1000	11203
+7801620015817	543338	1	700	700	11204
+450	543338	1	450	450	11205
+7803525999957	543338	1	500	500	11206
+78025318	543339	1	4200	4200	11207
+1400	543339	1	1400	1400	11208
+1400	543340	1	1400	1400	11209
+51	543340	1	1300	1300	11210
+300	543341	1	300	300	11211
+300	543341	1	300	300	11212
+51	543341	1	1300	1300	11213
+1	543343	1	1300	1300	11214
+1	543343	1	1300	1300	11215
+3	543343	1	1100	1100	11216
+3	543344	1	1100	1100	11217
+1	543344	1	1300	1300	11218
+7801620015817	543344	1	700	700	11219
+7802920000930	543344	1	350	350	11220
+51	543345	1	1300	1300	11221
+3	543345	1	1100	1100	11222
+7802820250268	543346	1	350	350	11223
+51	543346	1	1300	1300	11224
+7802820700251	543347	1	1500	1500	11225
+7803525000356	543347	1	450	450	11226
+1	543348	1	1300	1300	11227
+51	543348	1	1300	1300	11228
+51	543349	1	1300	1300	11229
+7801620000738	543351	1	1500	1500	11230
+1	543352	1	1300	1300	11231
+7802950072679	543352	1	300	300	11232
+51	543353	1	1300	1300	11233
+51	543353	1	1300	1300	11234
+7803525999971	543353	1	500	500	11235
+1	543353	1	1300	1300	11236
+1	543354	1	1300	1300	11237
+51	543355	1	1300	1300	11238
+1400	543356	1	1400	1400	11239
+7802820600100	543356	1	700	700	11240
+51	543356	1	1300	1300	11241
+78016408	543357	1	2500	2500	11242
+7804612131274	543357	1	400	400	11243
+78019096	543357	1	3000	3000	11244
+78022201	543357	1	4500	4500	11245
+78010758	543357	1	4300	4300	11246
+78021020	543358	1	2000	2000	11247
+1	543359	1	1300	1300	11248
+1	543359	1	1300	1300	11249
+52	543359	1	2000	2000	11250
+51	543360	1	1300	1300	11251
+78000285	543361	1	4000	4000	11252
+78016408	543361	1	2500	2500	11253
+78024403	543361	1	2600	2600	11254
+78024717	543362	1	4500	4500	11255
+7803473003461	543362	1	750	750	11256
+78025059	543363	1	3400	3400	11257
+7801610000571	543363	1	1000	1000	11258
+8809228440443	543364	1	1500	1500	11259
+7803525999667	543364	1	600	600	11260
+52	543364	1	2000	2000	11261
+51	543365	1	1300	1300	11262
+7801620004859	543366	1	900	900	11263
+7801620004859	543366	1	900	900	11264
+7803525999667	543367	1	600	600	11265
+7803525000240	543368	1	600	600	11266
+51	543368	1	1300	1300	11267
+7802820600100	543369	1	700	700	11268
+7802820600100	543369	1	700	700	11269
+7801620016012	543369	1	1000	1000	11270
+7801620016012	543369	1	1000	1000	11271
+9002490214852	543370	1	1700	1700	11272
+50173617	543370	1	650	650	11273
+50173617	543370	1	650	650	11274
+7801610223192	543371	1	800	800	11275
+7802215303401	543371	1	300	300	11276
+7801610001622	543372	1	1650	1650	11277
+7802920009384	543373	1	600	600	11278
+7802920009384	543373	1	600	600	11279
+7802920009384	543373	1	600	600	11280
+78025295	543374	1	4400	4400	11281
+7801620004859	543374	1	900	900	11282
+7801620001704	543375	1	850	850	11283
+7790040613706	543375	1	450	450	11284
+78025059	543376	1	3400	3400	11285
+7801620011659	543377	1	700	700	11286
+1400	543377	1	1400	1400	11287
+7804612131274	543378	1	400	400	11288
+7802230082534	543379	1	1100	1100	11289
+7802230082534	543379	1	1100	1100	11290
+7802215301452	543380	1	250	250	11291
+7802215303388	543380	1	250	250	11292
+7802820600100	543380	1	700	700	11293
+300	543380	1	300	300	11294
+78020627	543381	1	4000	4000	11295
+3200	543381	1	3200	3200	11296
+7801620004859	543381	1	900	900	11297
+7801620004859	543382	1	900	900	11298
+7802215113567	543383	1	450	450	11299
+50173617	543383	1	650	650	11300
+3000	543384	1	3000	3000	11301
+450	543385	1	450	450	11302
+300	543385	1	300	300	11303
+78019065	543386	1	2000	2000	11304
+3000	543389	1	3000	3000	11305
+7613035808133	543390	1	1690	1690	11306
+7613035808133	543390	1	1690	1690	11307
+8809228440443	543391	1	1500	1500	11308
+7801610323236	543392	1	2950	2950	11309
+9002490221010	543392	1	2100	2100	11310
+3	543393	1	1100	1100	11311
+3	543393	1	1100	1100	11312
+7802920801858	543393	1	300	300	11313
+7802920801858	543393	1	300	300	11314
+7809595603428	543393	1	950	950	11315
+7802820441000	543394	1	700	700	11316
+7801610000595	543394	1	1000	1000	11317
+7801610000595	543394	1	1000	1000	11318
+7622210427076	543395	1	400	400	11319
+78021020	543395	1	2000	2000	11320
+400	543395	1	400	400	11321
+7800120164100	543396	1	400	400	11322
+7801620008307	543396	1	900	900	11323
+7622210267870	543396	1	400	400	11324
+2000	543397	1	2000	2000	11325
+7802800576418	543397	1	300	300	11326
+7802215511622	543397	1	300	300	11327
+1200	543398	1	1200	1200	11328
+450	543398	1	450	450	11329
+7802215302060	543398	1	800	800	11330
+7801620015817	543399	1	700	700	11331
+1400	543400	1	1400	1400	11332
+1400	543400	1	1400	1400	11333
+1	543401	1	1300	1300	11334
+7801620008321	543402	1	900	900	11335
+1	543402	1	1300	1300	11336
+7803525999667	543402	1	600	600	11337
+3	543403	1	1100	1100	11338
+7802920759135	543403	1	500	500	11339
+1400	543404	1	1400	1400	11340
+7501009222729	543404	1	850	850	11341
+7801620853426	543405	1	700	700	11342
+3	543405	1	1100	1100	11343
+1400	543405	1	1400	1400	11344
+1	543407	1	1300	1300	11345
+7802920008196	543407	1	0	0	11346
+450	543407	1	450	450	11347
+1	543408	1	1300	1300	11348
+7803525000240	543408	1	600	600	11349
+3	543409	1	1100	1100	11350
+51	543409	1	1300	1300	11351
+7801610000595	543410	1	1000	1000	11352
+450	543410	1	450	450	11353
+450	543410	1	450	450	11354
+1400	543411	1	1400	1400	11355
+7801620011635	543411	1	1500	1500	11356
+7802225584081	543411	1	500	500	11357
+7802820441802	543412	1	1000	1000	11358
+2000	543413	1	2000	2000	11359
+1400	543413	1	1400	1400	11360
+1	543414	1	1300	1300	11361
+7801620008307	543414	1	900	900	11362
+2000	543414	1	2000	2000	11363
+450	543414	5	450	2250	11364
+1	543415	1	1300	1300	11365
+2000	543417	1	2000	2000	11366
+450	543420	1	450	450	11367
+450	543420	1	450	450	11368
+450	543420	1	450	450	11369
+42069942	543420	1	650	650	11370
+3	543420	1	1100	1100	11371
+1	543420	1	1300	1300	11372
+3	543421	1	1100	1100	11373
+1400	543421	1	1400	1400	11374
+1400	543422	1	1400	1400	11375
+7802920007182	543422	1	500	500	11376
+2000	543423	1	2000	2000	11377
+3	543423	1	1100	1100	11378
+51	543424	1	1300	1300	11379
+70847021964	543425	1	2000	2000	11380
+3	543426	1	1100	1100	11381
+300	543426	1	300	300	11382
+300	543426	1	300	300	11383
+3	543427	1	1100	1100	11384
+70847009511	543427	1	2000	2000	11385
+2000	543428	1	2000	2000	11386
+1800	543428	1	1800	1800	11387
+78068315	543429	1	350	350	11388
+1	543429	1	1300	1300	11389
+1	543430	1	1300	1300	11390
+1	543431	1	1300	1300	11391
+2000	543431	1	2000	2000	11392
+7803473003461	543431	1	750	750	11393
+3200	543432	1	3200	3200	11394
+7802200270015	543432	1	500	500	11395
+7802200270015	543432	1	500	500	11396
+400	543432	1	400	400	11397
+400	543432	1	400	400	11398
+1400	543433	1	1400	1400	11399
+1200	543434	1	1200	1200	11400
+1200	543434	1	1200	1200	11401
+51	543434	1	1300	1300	11402
+7801620005856	543434	1	900	900	11403
+3	543436	1	1100	1100	11404
+7802820250268	543436	1	350	350	11405
+51	543437	1	1300	1300	11406
+1	543438	1	1300	1300	11407
+1	543438	1	1300	1300	11408
+3	543439	1	1100	1100	11409
+1	543439	1	1300	1300	11410
+7801610591994	543439	1	1000	1000	11411
+7802920008141	543440	1	900	900	11412
+7802920009407	543440	1	600	600	11413
+7802200270022	543440	1	500	500	11414
+1200	543440	1	1200	1200	11415
+1400	543441	1	1400	1400	11416
+1500	543442	1	1650	1650	11417
+450	543445	3	450	1350	11418
+1400	543445	1	1400	1400	11419
+3	543445	1	1100	1100	11420
+3	543445	1	1100	1100	11421
+1400	543446	1	1400	1400	11422
+51	543446	1	1300	1300	11423
+1	543447	1	1300	1300	11424
+51	543448	1	1300	1300	11425
+78018853	543449	1	1800	1800	11426
+1	543449	1	1300	1300	11427
+2000	543450	1	2000	2000	11428
+1	543450	1	1300	1300	11429
+7801620852955	543451	1	1000	1000	11430
+7802000013133	543452	1	350	350	11431
+1400	543453	1	1400	1400	11432
+70847009511	543454	1	2000	2000	11433
+78007673	543454	1	3000	3000	11434
+7801610175095	543455	1	1650	1650	11435
+7501013101362	543455	1	1450	1450	11436
+2000	543455	1	2000	2000	11437
+2000	543455	1	2000	2000	11438
+1	543456	1	1300	1300	11439
+78021020	543457	1	2000	2000	11440
+7801610350355	543458	1	800	800	11441
+7803525000240	543458	1	600	600	11442
+1	543458	1	1300	1300	11443
+1900	543459	1	1900	1900	11444
+7801610118184	543459	1	800	800	11445
+7802000012679	543460	1	2300	2300	11446
+7801610022122	543460	1	800	800	11447
+3200	543461	1	3200	3200	11448
+2000	543461	1	2000	2000	11449
+7501013118032	543462	1	850	850	11450
+7501013118032	543462	1	850	850	11451
+1400	543462	1	1400	1400	11452
+7801620004873	543463	1	900	900	11453
+7793890254297	543463	1	600	600	11454
+7801610022122	543464	1	800	800	11455
+1	543464	1	1300	1300	11456
+7802950072358	543465	1	300	300	11457
+1400	543465	1	1400	1400	11458
+1400	543466	1	1400	1400	11459
+7802920008110	543466	1	900	900	11460
+3200	543467	1	3200	3200	11461
+3200	543468	1	3200	3200	11462
+7802575220479	543468	1	400	400	11463
+7802200270015	543468	1	500	500	11464
+1	543469	1	1300	1300	11465
+7801610001196	543469	1	800	800	11466
+3000	543470	1	3000	3000	11467
+51	543471	1	1300	1300	11468
+450	543471	1	450	450	11469
+7801610001936	543472	1	500	500	11470
+7801610001936	543472	1	500	500	11471
+7802000013133	543472	1	350	350	11472
+300	543473	1	300	300	11473
+78025059	543474	1	3400	3400	11474
+1400	543474	1	1400	1400	11475
+7802000001505	543474	1	1750	1750	11476
+1000	543474	1	1300	1300	11477
+78019041	543474	1	2000	2000	11478
+3	543475	1	1100	1100	11479
+7802230086952	543475	1	800	800	11480
+3	543477	1	1100	1100	11481
+33	543477	1	1200	1200	11482
+3	543478	1	1100	1100	11483
+3	543478	1	1100	1100	11484
+3	543478	1	1100	1100	11485
+7809595603428	543478	1	950	950	11486
+2000	543479	1	2000	2000	11487
+52	543480	1	2000	2000	11488
+7801620004859	543480	1	900	900	11489
+7801620004859	543480	1	900	900	11490
+450	543480	5	450	2250	11491
+2000	543480	1	2000	2000	11492
+7803525999971	543480	1	500	500	11493
+7801610000595	543480	1	1000	1000	11494
+7806500172116	543481	1	300	300	11495
+7806500172116	543481	1	300	300	11496
+3	543481	1	1100	1100	11497
+450	543481	1	450	450	11498
+3	543482	1	1100	1100	11499
+7801620011659	543482	1	700	700	11500
+2000	543483	1	2000	2000	11501
+7801610000595	543483	1	1000	1000	11502
+7802820441123	543483	1	700	700	11503
+7802820441123	543483	1	700	700	11504
+51	543484	1	1300	1300	11505
+3	543484	1	1100	1100	11506
+450	543485	1	450	450	11507
+450	543485	1	450	450	11508
+7802920801858	543486	1	300	300	11509
+7802920801858	543486	1	300	300	11510
+3	543486	1	1100	1100	11511
+51	543487	1	1300	1300	11512
+3	543487	1	1100	1100	11513
+1	543488	1	1300	1300	11514
+3	543488	1	1100	1100	11515
+3	543488	1	1100	1100	11516
+7802920759135	543488	1	500	500	11517
+3	543489	1	1100	1100	11518
+3	543489	1	1100	1100	11519
+3	543490	1	1100	1100	11520
+1	543491	1	1300	1300	11521
+51	543491	1	1300	1300	11522
+3	543494	1	1100	1100	11523
+7802225584081	543494	1	500	500	11524
+7802000001819	543494	1	1150	1150	11525
+3	543496	1	1100	1100	11526
+3	543497	1	1100	1100	11527
+3	543497	1	1100	1100	11528
+3	543497	1	1100	1100	11529
+52	543498	1	2000	2000	11530
+7802215303401	543498	1	300	300	11531
+52	543499	1	2000	2000	11532
+7802215303241	543499	1	800	800	11533
+7802920007182	543499	1	500	500	11534
+7801620015817	543500	1	700	700	11535
+7801620006853	543500	1	1000	1000	11536
+7801610000595	543500	1	1000	1000	11537
+7801620002961	543501	1	1100	1100	11538
+1	543501	1	1300	1300	11539
+7802225683289	543501	1	250	250	11540
+7802225683289	543501	1	250	250	11541
+1400	543502	1	1400	1400	11542
+52	543502	1	2000	2000	11543
+1400	543503	1	1400	1400	11544
+350	543503	1	400	400	11545
+350	543503	1	400	400	11546
+7802950072679	543504	1	300	300	11547
+1	543505	1	1300	1300	11548
+7801620853426	543505	1	700	700	11549
+1400	543506	1	1400	1400	11550
+51	543506	1	1300	1300	11551
+9002490214852	543506	1	1700	1700	11552
+1400	543508	1	1400	1400	11553
+3	543509	1	1100	1100	11554
+300	543509	1	300	300	11555
+300	543509	1	300	300	11556
+3	543510	1	1100	1100	11557
+1	543510	1	1300	1300	11558
+450	543510	1	450	450	11559
+61	543511	1	1000	1000	11560
+1400	543511	1	1400	1400	11561
+61	543512	1	1000	1000	11562
+300	543512	1	300	300	11563
+300	543512	1	300	300	11564
+3	543513	1	1100	1100	11565
+51	543513	1	1300	1300	11566
+51	543513	1	1300	1300	11567
+1	543513	1	1300	1300	11568
+51	543514	1	1300	1300	11569
+1	543514	1	1300	1300	11570
+3	543515	1	1100	1100	11571
+300	543515	1	300	300	11572
+7802920759135	543515	1	500	500	11573
+1	543516	1	1300	1300	11574
+3	543517	1	1100	1100	11575
+9002490221010	543517	1	2100	2100	11576
+1	543518	1	1300	1300	11577
+450	543518	1	450	450	11578
+7801620075941	543518	1	1000	1000	11579
+3	543519	1	1100	1100	11580
+51	543519	1	1300	1300	11581
+3000	543520	1	3000	3000	11582
+3	543520	1	1100	1100	11583
+7613031214884	543521	1	1000	1000	11584
+400	543521	1	400	400	11585
+450	543521	1	450	450	11586
+450	543521	1	450	450	11587
+450	543521	1	450	450	11588
+3000	543522	1	3000	3000	11589
+7801620011659	543522	1	700	700	11590
+7802920008127	543523	1	900	900	11591
+7801610000595	543524	1	1000	1000	11592
+3	543524	1	1100	1100	11593
+3	543525	1	1100	1100	11594
+7801620006853	543525	1	1000	1000	11595
+51	543526	1	1300	1300	11596
+1	543526	1	1300	1300	11597
+78019041	543528	1	2000	2000	11598
+3	543528	1	1100	1100	11599
+7613031214884	543529	1	1000	1000	11600
+7801620004873	543529	1	900	900	11601
+52	543530	1	2000	2000	11602
+7802920009407	543531	1	600	600	11603
+7802920002712	543531	1	700	700	11604
+1400	543531	1	1400	1400	11605
+3	543533	1	1100	1100	11606
+3	543533	1	1100	1100	11607
+9002490214852	543535	1	1700	1700	11608
+52	543535	1	2000	2000	11609
+52	543535	1	2000	2000	11610
+51	543536	1	1300	1300	11611
+3	543536	1	1100	1100	11612
+7801620005856	543537	1	900	900	11613
+7802575220530	543538	1	400	400	11614
+3	543538	1	1100	1100	11615
+1800	543540	1	1800	1800	11616
+7801620853426	543540	1	700	700	11617
+52	543541	1	2000	2000	11618
+1400	543541	1	1400	1400	11619
+7803525999667	543541	1	600	600	11620
+7801620004873	543542	1	900	900	11621
+52	543542	1	2000	2000	11622
+7613035588776	543542	1	600	600	11623
+7613035588776	543542	1	600	600	11624
+7613035588776	543542	1	600	600	11625
+450	543544	4	450	1800	11626
+1	543544	1	1300	1300	11627
+78000124	543545	1	4000	4000	11628
+78000124	543545	1	4000	4000	11629
+7801620015817	543546	1	700	700	11630
+7801620003319	543546	1	900	900	11631
+7802920009391	543546	1	600	600	11632
+7802820600100	543548	1	700	700	11633
+7801620005856	543549	1	900	900	11634
+52	543549	1	2000	2000	11635
+7801620015817	543549	1	700	700	11636
+613008719296	543550	1	1650	1650	11637
+78024878	543551	1	4400	4400	11638
+1	543553	1	1300	1300	11639
+7802820250206	543553	1	350	350	11640
+7802820250220	543554	1	350	350	11641
+7803473543189	543554	1	550	550	11642
+1	543555	1	1300	1300	11643
+7803525999544	543555	1	600	600	11644
+61	543556	1	1000	1000	11645
+61	543556	1	1000	1000	11646
+7803525999964	543556	1	500	500	11647
+7803525000356	543556	1	450	450	11648
+7801620001711	543557	1	1100	1100	11649
+7801620005160	543557	1	1500	1500	11650
+7801620005160	543557	1	1500	1500	11651
+7802000013720	543558	1	600	600	11652
+7802230975324	543558	1	600	600	11653
+7801610277829	543558	1	800	800	11654
+7803473004376	543558	1	600	600	11655
+7803525000356	543559	1	450	450	11656
+7802225584081	543559	1	500	500	11657
+7802200132696	543559	1	300	300	11658
+7801620015817	543559	1	700	700	11659
+7801620002961	543559	1	1100	1100	11660
+7801610005194	543560	1	800	800	11661
+7803473004376	543560	1	600	600	11662
+7803473543189	543560	1	550	550	11663
+7613030518426	543561	1	700	700	11664
+1	543562	1	1300	1300	11665
+7801610000595	543562	1	1000	1000	11666
+78007673	543564	1	3000	3000	11667
+7804612131274	543564	1	400	400	11668
+1400	543565	1	1400	1400	11669
+3000	543565	1	3000	3000	11670
+7801610350409	543565	1	1650	1650	11671
+3000	543566	1	3000	3000	11672
+7804643820000	543566	1	1600	1600	11673
+450	543567	1	450	450	11674
+7801610001936	543567	1	500	500	11675
+7802230975324	543567	1	600	600	11676
+300	543567	1	300	300	11677
+450	543568	3	450	1350	11678
+7613035808133	543568	1	1690	1690	11679
+7801620011659	543569	1	700	700	11680
+3200	543570	1	3200	3200	11681
+3000	543571	1	3000	3000	11682
+300	543571	1	300	300	11683
+3200	543572	1	3200	3200	11684
+7801620300203	543572	1	800	800	11685
+7613035490734	543573	1	2620	2620	11686
+7613035407176	543573	1	1690	1690	11687
+7801610000595	543573	1	1000	1000	11688
+7801620853426	543573	1	700	700	11689
+7802832000035	543573	1	1400	1400	11690
+7801620001711	543574	1	1100	1100	11691
+78000285	543575	1	4000	4000	11692
+70847021964	543575	1	2000	2000	11693
+70847021964	543576	1	2000	2000	11694
+7804612131274	543576	1	400	400	11695
+7800120171061	543577	1	400	400	11696
+7801620015817	543578	1	700	700	11697
+7501013118193	543578	1	800	800	11698
+7801620006853	543579	1	1000	1000	11699
+7801620015800	543579	1	700	700	11700
+7801620015800	543579	1	700	700	11701
+3	543580	1	1100	1100	11702
+3	543580	1	1100	1100	11703
+7803525000356	543581	1	450	450	11704
+7801620008321	543582	1	900	900	11705
+7801620008321	543582	1	900	900	11706
+3	543582	1	1100	1100	11707
+52	543582	1	2000	2000	11708
+450	543582	6	450	2700	11709
+7802200132696	543582	1	300	300	11710
+7803525000240	543582	1	600	600	11711
+3	543583	1	1100	1100	11712
+52	543584	1	2000	2000	11713
+7802920002712	543584	1	700	700	11714
+7501009222729	543585	1	850	850	11715
+7803525999667	543586	1	600	600	11716
+3	543586	1	1100	1100	11717
+7801610350355	543588	1	800	800	11718
+3	543588	1	1100	1100	11719
+9	543589	1	1300	1300	11720
+8	543589	1	1300	1300	11721
+7	543589	1	900	900	11722
+5	543591	1	400	400	11723
+4	543592	1	1000	1000	11724
+7802920801858	543592	1	300	300	11725
+450	543592	4	450	1800	11726
+1400	543592	1	1400	1400	11727
+7800120164100	543594	1	400	400	11728
+7802215303401	543594	1	300	300	11729
+7802000014765	543594	1	700	700	11730
+1400	543596	1	1400	1400	11731
+1400	543596	1	1400	1400	11732
+78018853	543597	1	1800	1800	11733
+3	543598	1	1100	1100	11734
+3	543598	1	1100	1100	11735
+51	543599	1	1300	1300	11736
+3	543599	1	1100	1100	11737
+450	543600	1	450	450	11738
+3	543601	1	1100	1100	11739
+3	543601	1	1100	1100	11740
+3	543602	1	1100	1100	11741
+450	543602	1	450	450	11742
+51	543603	1	1300	1300	11743
+3	543603	1	1100	1100	11744
+7801620015817	543605	1	700	700	11745
+2000	543605	1	2000	2000	11746
+4791014009313	543606	1	2450	2450	11747
+1	543607	1	1300	1300	11748
+1400	543609	1	1400	1400	11749
+1	543609	1	1300	1300	11750
+3	543610	1	1100	1100	11751
+51	543611	1	1300	1300	11752
+51	543611	1	1300	1300	11753
+1	543611	1	1300	1300	11754
+1	543612	1	1300	1300	11755
+7801620008321	543612	1	900	900	11756
+1	543613	1	1300	1300	11757
+450	543613	1	450	450	11758
+7802230086648	543614	1	1000	1000	11759
+7802920008110	543615	1	900	900	11760
+7802920008110	543615	1	900	900	11761
+7802920008110	543615	1	900	900	11762
+1	543616	1	1300	1300	11763
+4	543616	1	1000	1000	11764
+1400	543617	1	1400	1400	11765
+7803525000240	543617	1	600	600	11766
+3	543617	1	1100	1100	11767
+1	543618	1	1300	1300	11768
+4	543618	1	1000	1000	11769
+7802820021950	543619	1	1000	1000	11770
+3	543619	1	1100	1100	11771
+1	543619	1	1300	1300	11772
+1	543620	1	1300	1300	11773
+4	543622	1	1000	1000	11774
+1	543623	1	1300	1300	11775
+1	543623	1	1300	1300	11776
+51	543623	1	1300	1300	11777
+3	543624	1	1100	1100	11778
+3	543624	1	1100	1100	11779
+7801620001704	543624	1	850	850	11780
+4	543624	1	1000	1000	11781
+7801620002671	543625	1	1100	1100	11782
+3	543625	1	1100	1100	11783
+1	543625	1	1300	1300	11784
+1	543626	1	1300	1300	11785
+7802230975324	543626	1	600	600	11786
+7801620008338	543626	1	1200	1200	11787
+9002490221010	543627	1	2100	2100	11788
+3	543627	1	1100	1100	11789
+1	543628	1	1300	1300	11790
+3	543628	1	1100	1100	11791
+4	543629	1	1000	1000	11792
+450	543630	1	450	450	11793
+7801620008321	543630	1	900	900	11794
+3200	543630	1	3200	3200	11795
+400	543631	1	400	400	11796
+400	543631	1	400	400	11797
+3200	543631	1	3200	3200	11798
+3200	543631	1	3200	3200	11799
+7802200270015	543631	1	500	500	11800
+7802200270015	543631	1	500	500	11801
+7801620011611	543632	1	1500	1500	11802
+3	543632	1	1100	1100	11803
+1400	543633	1	1400	1400	11804
+1	543633	1	1300	1300	11805
+3	543634	1	1100	1100	11806
+3	543634	1	1100	1100	11807
+3	543634	1	1100	1100	11808
+51	543635	1	1300	1300	11809
+7802215511615	543635	1	300	300	11810
+4	543636	1	1000	1000	11811
+7801610000595	543636	1	1000	1000	11812
+51	543637	1	1300	1300	11813
+300	543638	1	300	300	11814
+300	543638	1	300	300	11815
+4	543638	1	1000	1000	11816
+1	543640	1	1300	1300	11817
+51	543640	1	1300	1300	11818
+3	543641	1	1100	1100	11819
+3	543642	1	1100	1100	11820
+3	543642	1	1100	1100	11821
+3	543642	1	1100	1100	11822
+51	543643	1	1300	1300	11823
+7801620016111	543643	1	950	950	11824
+3	543643	1	1100	1100	11825
+7800120164100	543644	1	400	400	11826
+7800120164100	543644	1	400	400	11827
+7802920005195	543646	1	500	500	11828
+7801620011659	543646	1	700	700	11829
+3	543647	1	1100	1100	11830
+78000285	543647	1	4000	4000	11831
+3000	543649	1	3000	3000	11832
+7802215512261	543650	1	700	700	11833
+7802215512261	543650	1	700	700	11834
+7801610223192	543650	1	800	800	11835
+7802820441123	543650	1	700	700	11836
+4	543652	1	1000	1000	11837
+7802920009391	543652	1	600	600	11838
+7801620015817	543652	1	700	700	11839
+7501013118032	543653	1	850	850	11840
+1	543653	1	1300	1300	11841
+1400	543654	1	1400	1400	11842
+51	543654	1	1300	1300	11843
+9002490214852	543654	1	1700	1700	11844
+1	543655	1	1300	1300	11845
+7802920759135	543655	1	500	500	11846
+7802230086952	543656	1	800	800	11847
+4	543656	1	1000	1000	11848
+3	543657	1	1100	1100	11849
+3	543657	1	1100	1100	11850
+3	543657	1	1100	1100	11851
+52	543657	1	2000	2000	11852
+52	543657	1	2000	2000	11853
+300	543658	1	300	300	11854
+300	543658	1	300	300	11855
+3	543658	1	1100	1100	11856
+3	543658	1	1100	1100	11857
+7801610000595	543658	1	1000	1000	11858
+7622210427106	543659	1	400	400	11859
+3	543659	1	1100	1100	11860
+1600	543660	1	1600	1600	11861
+51	543660	1	1300	1300	11862
+1	543661	1	1300	1300	11863
+7802920801858	543661	1	300	300	11864
+7802832101329	543663	1	1400	1400	11865
+7800120164100	543663	1	400	400	11866
+1400	543665	1	1400	1400	11867
+4	543665	1	1000	1000	11868
+1400	543666	1	1400	1400	11869
+1	543671	1	1300	1300	11870
+7501013118018	543672	1	800	800	11871
+7802820250268	543672	1	350	350	11872
+3	543674	1	1100	1100	11873
+61	543675	1	1000	1000	11874
+4	543676	1	1000	1000	11875
+450	543677	1	450	450	11876
+450	543677	1	450	450	11877
+450	543677	1	450	450	11878
+7803525000240	543677	1	600	600	11879
+7803525000240	543677	1	600	600	11880
+78025295	543677	1	4400	4400	11881
+7613034439277	543678	1	3550	3550	11882
+7802920009391	543678	1	600	600	11883
+7802920009391	543678	1	600	600	11884
+7802920009391	543678	1	600	600	11885
+78029590	543679	1	4200	4200	11886
+78021020	543679	1	2000	2000	11887
+1000	543679	1	1300	1300	11888
+7622210427076	543680	1	400	400	11889
+78007505	543680	1	350	350	11890
+78021020	543680	1	2000	2000	11891
+7809595603411	543681	1	950	950	11892
+8410376035407	543682	1	1350	1350	11893
+78018884	543682	1	3400	3400	11894
+78007673	543682	1	3000	3000	11895
+7801620075941	543683	1	1000	1000	11896
+7802575220530	543683	1	400	400	11897
+7803525999971	543684	1	500	500	11898
+7800120171061	543684	1	400	400	11899
+7613035808133	543685	1	1690	1690	11900
+7613034439277	543685	1	3550	3550	11901
+7801620006624	543686	1	1200	1200	11902
+78025059	543687	1	3400	3400	11903
+7801610118184	543688	1	800	800	11904
+7801610350409	543689	1	1650	1650	11905
+7801610001196	543690	1	800	800	11906
+7802920000992	543690	1	350	350	11907
+300	543690	1	300	300	11908
+7801620340155	543691	1	800	800	11909
+7801610350355	543693	1	800	800	11910
+4	543694	1	1000	1000	11911
+3200	543694	1	3200	3200	11912
+2000	543694	1	2000	2000	11913
+1	543695	1	1300	1300	11914
+7801620015800	543695	1	700	700	11915
+7501013101393	543696	1	1450	1450	11916
+300	543696	1	300	300	11917
+7613032180096	543697	1	350	350	11918
+7613032180096	543698	1	350	350	11919
+7613032180096	543698	1	350	350	11920
+7806500172116	543698	1	300	300	11921
+7801620075941	543699	1	1000	1000	11922
+78019041	543701	1	2000	2000	11923
+1600	543702	1	1600	1600	11924
+7501013118056	543702	1	850	850	11925
+7801620004873	543702	1	900	900	11926
+78000285	543703	1	4000	4000	11927
+1600	543704	1	1600	1600	11928
+50173204	543704	1	600	600	11929
+78018853	543705	1	1800	1800	11930
+78021020	543706	1	2000	2000	11931
+3	543707	1	1100	1100	11932
+7801610001196	543707	1	800	800	11933
+1	543708	1	1300	1300	11934
+78025271	543709	1	4200	4200	11935
+7803525999667	543709	1	600	600	11936
+3	543709	1	1100	1100	11937
+3	543710	1	1100	1100	11938
+7802920008127	543710	1	900	900	11939
+7801610350355	543712	1	800	800	11940
+3	543712	1	1100	1100	11941
+1	543714	1	1300	1300	11942
+7801620005856	543714	1	900	900	11943
+7801620005856	543714	1	900	900	11944
+52	543714	1	2000	2000	11945
+450	543714	6	450	2700	11946
+7803525999964	543714	1	500	500	11947
+7803403001055	543714	1	750	750	11948
+78018853	543715	1	1800	1800	11949
+78025059	543716	1	3400	3400	11950
+7802215303401	543716	1	300	300	11951
+7802215303401	543716	1	300	300	11952
+450	543716	1	450	450	11953
+450	543716	1	450	450	11954
+3200	543717	1	3200	3200	11955
+300	543717	1	300	300	11956
+300	543717	1	300	300	11957
+7803403001055	543718	1	750	750	11958
+613008756451	543718	1	1500	1500	11959
+51	543719	1	1300	1300	11960
+3	543719	1	1100	1100	11961
+1	543722	1	1300	1300	11962
+3	543723	1	1100	1100	11963
+300	543724	6	300	1800	11964
+78024717	543724	1	4500	4500	11965
+3	543725	1	1100	1100	11966
+3	543725	1	1100	1100	11967
+3	543726	1	1100	1100	11968
+4	543726	1	1000	1000	11969
+78025240	543726	1	4300	4300	11970
+1	543727	1	1300	1300	11971
+51	543727	1	1300	1300	11972
+400	543728	1	400	400	11973
+7802215501968	543728	1	1000	1000	11974
+2000	543729	1	2000	2000	11975
+1	543730	1	1300	1300	11976
+7801620005856	543730	1	900	900	11977
+7802230086648	543731	1	1000	1000	11978
+7802950072679	543733	1	300	300	11979
+3	543733	1	1100	1100	11980
+51	543733	1	1300	1300	11981
+52	543734	1	2000	2000	11982
+1	543734	1	1300	1300	11983
+7802230975324	543734	1	600	600	11984
+1	543735	1	1300	1300	11985
+61	543735	1	1000	1000	11986
+3	543736	1	1100	1100	11987
+78020627	543736	1	4000	4000	11988
+7803525000240	543737	1	600	600	11989
+4	543737	1	1000	1000	11990
+3	543738	1	1100	1100	11991
+7801620001711	543738	1	1100	1100	11992
+1	543739	1	1300	1300	11993
+1	543739	1	1300	1300	11994
+4	543740	1	1000	1000	11995
+61	543740	1	1000	1000	11996
+3	543741	1	1100	1100	11997
+51	543742	1	1300	1300	11998
+3	543742	1	1100	1100	11999
+3	543743	1	1100	1100	12000
+4	543744	1	1000	1000	12001
+4	543744	1	1000	1000	12002
+7801620008321	543745	1	900	900	12003
+450	543745	1	450	450	12004
+7802920008141	543747	1	900	900	12005
+3	543747	1	1100	1100	12006
+7802225584081	543748	1	500	500	12007
+51	543750	1	1300	1300	12008
+1	543750	1	1300	1300	12009
+3200	543751	1	3200	3200	12010
+400	543751	1	400	400	12011
+400	543751	1	400	400	12012
+51	543752	1	1300	1300	12013
+1400	543752	1	1400	1400	12014
+4	543753	1	1000	1000	12015
+52	543753	1	2000	2000	12016
+7801610000595	543753	1	1000	1000	12017
+1400	543754	1	1400	1400	12018
+51	543754	1	1300	1300	12019
+9002490214852	543754	1	1700	1700	12020
+1400	543755	1	1400	1400	12021
+1	543755	1	1300	1300	12022
+4	543756	1	1000	1000	12023
+51	543757	1	1300	1300	12024
+51	543757	1	1300	1300	12025
+1	543758	1	1300	1300	12026
+51	543758	1	1300	1300	12027
+7802215113567	543758	1	450	450	12028
+78007505	543759	1	350	350	12029
+7802225683289	543759	1	250	250	12030
+7803473004376	543759	1	600	600	12031
+3	543760	1	1100	1100	12032
+51	543761	1	1300	1300	12033
+7803403001055	543761	1	750	750	12034
+51	543762	1	1300	1300	12035
+51	543763	1	1300	1300	12036
+1	543763	1	1300	1300	12037
+3	543764	1	1100	1100	12038
+1	543765	1	1300	1300	12039
+3	543766	1	1100	1100	12040
+3	543767	1	1100	1100	12041
+9002490100070	543767	1	1700	1700	12042
+9002490100070	543768	1	1700	1700	12043
+78018884	543768	1	3400	3400	12044
+3	543769	1	1100	1100	12045
+7803473003461	543769	1	750	750	12046
+61	543770	1	1000	1000	12047
+300	543770	1	300	300	12048
+61	543770	1	1000	1000	12049
+7802215113567	543770	1	450	450	12050
+1	543770	1	1300	1300	12051
+1	543771	1	1300	1300	12052
+300	543771	1	300	300	12053
+300	543771	1	300	300	12054
+61	543771	1	1000	1000	12055
+1	543773	1	1300	1300	12056
+51	543773	1	1300	1300	12057
+1200	543774	1	1200	1200	12058
+51	543774	1	1300	1300	12059
+7501013101393	543775	1	1450	1450	12060
+78018884	543775	1	3400	3400	12061
+7801620003302	543776	1	1000	1000	12062
+7801620003302	543776	1	1000	1000	12063
+7801620002961	543776	1	1100	1100	12064
+7802000001819	543777	1	1150	1150	12065
+7802000001819	543777	1	1150	1150	12066
+7803525000356	543777	1	450	450	12067
+7613035391369	543777	1	980	980	12068
+7501013101362	543777	1	1450	1450	12069
+7501013101362	543777	1	1450	1450	12070
+4	543778	1	1000	1000	12071
+7804612131274	543778	1	400	400	12072
+78021020	543778	1	2000	2000	12073
+7804646000102	543779	1	1200	1200	12074
+7622210267870	543779	1	400	400	12075
+1400	543779	1	1400	1400	12076
+78011748	543780	1	350	350	12077
+78011748	543780	1	350	350	12078
+7802230975324	543780	1	600	600	12079
+450	543780	1	450	450	12080
+7801610001196	543780	1	800	800	12081
+300	543780	1	300	300	12082
+78007673	543781	1	3000	3000	12083
+1	543782	1	1300	1300	12084
+50173822	543782	1	600	600	12085
+7801620005856	543783	1	900	900	12086
+613008715625	543785	1	1400	1400	12087
+9002490214852	543785	1	1700	1700	12088
+7613035807464	543785	1	1690	1690	12089
+1400	543787	1	1400	1400	12090
+1400	543787	1	1400	1400	12091
+42069942	543788	1	650	650	12092
+450	543788	1	450	450	12093
+7801610223192	543788	1	800	800	12094
+7801610223192	543788	1	800	800	12095
+78025332	543788	1	4200	4200	12096
+7622210427076	543788	1	400	400	12097
+7622210427106	543788	1	400	400	12098
+3	543790	1	1100	1100	12099
+7802230086952	543790	1	800	800	12100
+3	543791	1	1100	1100	12101
+7802920008127	543791	1	900	900	12102
+7801620008307	543793	1	900	900	12103
+7801620008307	543793	1	900	900	12104
+52	543793	1	2000	2000	12105
+1	543793	1	1300	1300	12106
+3	543794	1	1100	1100	12107
+78019041	543794	1	2000	2000	12108
+78007505	543794	1	350	350	12109
+1	543795	1	1300	1300	12110
+7801620006853	543797	1	1000	1000	12111
+4	543797	1	1000	1000	12112
+4	543797	1	1000	1000	12113
+3	543798	1	1100	1100	12114
+1	543798	1	1300	1300	12115
+3	543799	1	1100	1100	12116
+7801610350355	543799	1	800	800	12117
+78025271	543800	1	4200	4200	12118
+78010758	543800	1	4500	4500	12119
+7804612131274	543800	1	400	400	12120
+78007673	543801	1	3000	3000	12121
+7801610350355	543802	1	800	800	12122
+7801610350355	543803	1	800	800	12123
+1	543804	1	1300	1300	12124
+7802920801858	543804	1	300	300	12125
+3	543805	1	1100	1100	12126
+7802920759135	543805	1	500	500	12127
+7802920002712	543806	1	700	700	12128
+1	543806	1	1300	1300	12129
+78025332	543807	1	4200	4200	12130
+52	543809	1	2000	2000	12131
+1	543809	1	1300	1300	12132
+7802230975324	543809	1	600	600	12133
+7801610000595	543810	1	1000	1000	12134
+3	543810	1	1100	1100	12135
+450	543810	1	450	450	12136
+450	543810	1	450	450	12137
+78021020	543811	1	2000	2000	12138
+9002490100070	543811	1	1700	1700	12139
+3	543811	1	1100	1100	12140
+1600	543812	3	1600	4800	12141
+7801620008321	543812	1	900	900	12142
+7802920759135	543814	1	500	500	12143
+1	543814	1	1300	1300	12144
+1	543815	1	1300	1300	12145
+7801620015817	543815	1	700	700	12146
+7802920009391	543816	1	600	600	12147
+7622210427106	543816	1	400	400	12148
+7802920002316	543817	1	650	650	12149
+7802920005195	543817	1	500	500	12150
+52	543818	1	2000	2000	12151
+1	543818	1	1300	1300	12152
+7622210427106	543818	1	400	400	12153
+450	543818	1	450	450	12154
+450	543818	1	450	450	12155
+7801620003326	543818	1	1000	1000	12156
+1400	543819	1	1400	1400	12157
+3	543819	1	1100	1100	12158
+3	543820	1	1100	1100	12159
+4	543821	1	1000	1000	12160
+300	543821	1	300	300	12161
+300	543821	1	300	300	12162
+61	543822	1	1000	1000	12163
+300	543822	1	300	300	12164
+300	543822	1	300	300	12165
+4	543822	1	1000	1000	12166
+7801620005412	543823	1	1150	1150	12167
+7802920009391	543823	1	600	600	12168
+7802920009391	543823	1	600	600	12169
+7801620008321	543824	1	900	900	12170
+450	543824	1	450	450	12171
+450	543825	1	450	450	12172
+1400	543825	1	1400	1400	12173
+4	543825	1	1000	1000	12174
+51	543826	1	1300	1300	12175
+3	543826	1	1100	1100	12176
+3	543828	1	1100	1100	12177
+7801620001711	543828	1	1100	1100	12178
+1	543829	1	1300	1300	12179
+7801620075941	543829	1	1000	1000	12180
+3	543830	1	1100	1100	12181
+7801620005856	543832	1	900	900	12182
+4	543832	1	1000	1000	12183
+7802920008127	543833	1	900	900	12184
+1	543833	1	1300	1300	12185
+450	543833	1	450	450	12186
+450	543833	1	450	450	12187
+78025059	543834	1	3400	3400	12188
+7802820021950	543835	1	1000	1000	12189
+78007673	543835	1	3000	3000	12190
+7803403001055	543836	4	750	3000	12191
+1400	543836	1	1400	1400	12192
+51	543837	1	1300	1300	12193
+3200	543837	1	3200	3200	12194
+3	543838	1	1100	1100	12195
+7803473003461	543838	1	750	750	12196
+51	543838	1	1300	1300	12197
+9002490214852	543839	1	1700	1700	12198
+1400	543839	1	1400	1400	12199
+51	543839	1	1300	1300	12200
+7613035588776	543839	6	600	3600	12201
+51	543840	1	1300	1300	12202
+51	543840	1	1300	1300	12203
+3	543840	1	1100	1100	12204
+3	543841	1	1100	1100	12205
+300	543842	1	300	300	12206
+300	543842	1	300	300	12207
+51	543842	1	1300	1300	12208
+51	543843	1	1300	1300	12209
+1400	543843	1	1400	1400	12210
+78010758	543843	1	4500	4500	12211
+7801620005856	543844	1	900	900	12212
+7802000013133	543844	1	350	350	12213
+7803525999544	543844	1	600	600	12214
+4	543845	1	1000	1000	12215
+7802920008110	543845	1	900	900	12216
+3	543846	1	1100	1100	12217
+7802820700091	543846	1	400	400	12218
+52	543846	1	2000	2000	12219
+3	543848	1	1100	1100	12220
+7802820250268	543848	1	350	350	12221
+51	543849	1	1300	1300	12222
+1	543851	1	1300	1300	12223
+52	543851	1	2000	2000	12224
+52	543851	1	2000	2000	12225
+7802230081162	543852	1	850	850	12226
+7802820600100	543852	1	700	700	12227
+7801610001196	543852	1	800	800	12228
+450	543854	1	450	450	12229
+450	543854	1	450	450	12230
+450	543854	1	450	450	12231
+7702133862823	543855	1	400	400	12232
+4	543856	1	1000	1000	12233
+4	543856	1	1000	1000	12234
+78020627	543857	1	4000	4000	12235
+4	543858	1	1000	1000	12236
+52	543858	1	2000	2000	12237
+7803525999667	543858	1	600	600	12238
+9002490100070	543859	1	1700	1700	12239
+78019065	543859	1	2000	2000	12240
+7702133815782	543859	1	400	400	12241
+78005624	543859	1	350	350	12242
+7801610350409	543862	1	1650	1650	12243
+3	543862	1	1100	1100	12244
+3	543862	1	1100	1100	12245
+78018853	543864	1	1800	1800	12246
+78011656	543865	1	3100	3100	12247
+7801620006853	543867	1	1000	1000	12248
+3	543868	1	1100	1100	12249
+7801620290184	543868	1	800	800	12250
+78007673	543869	1	3000	3000	12251
+7802820700091	543870	1	400	400	12252
+7803525000240	543870	1	600	600	12253
+7802832000035	543871	1	1400	1400	12254
+4	543872	1	1000	1000	12255
+1400	543872	1	1400	1400	12256
+7801610022726	543873	1	1650	1650	12257
+78000124	543873	1	4000	4000	12258
+7801610001196	543875	1	800	800	12259
+78024878	543875	1	4400	4400	12260
+78024878	543875	1	4400	4400	12261
+78024878	543875	1	4400	4400	12262
+7501013101393	543876	1	1450	1450	12263
+7803525999544	543876	1	600	600	12264
+7801620008307	543877	1	900	900	12265
+7803525999667	543877	1	600	600	12266
+7801620015862	543877	1	700	700	12267
+7802000014765	543878	1	700	700	12268
+7802920008127	543878	1	900	900	12269
+7801610118184	543878	1	800	800	12270
+1400	543878	1	1400	1400	12271
+1400	543879	1	1400	1400	12272
+7801610001936	543879	1	500	500	12273
+78024410	543880	1	3500	3500	12274
+7801620015855	543881	1	1000	1000	12275
+7801620015855	543882	1	1000	1000	12276
+7801610000595	543883	1	1000	1000	12277
+7613034276490	543884	1	500	500	12278
+400	543885	1	400	400	12279
+400	543885	1	400	400	12280
+7801620852689	543886	1	800	800	12281
+7801620852689	543886	1	800	800	12282
+7803473003232	543886	1	400	400	12283
+7801620001704	543887	1	850	850	12284
+1600	543887	1	1600	1600	12285
+7802215511622	543888	1	300	300	12286
+78025295	543889	1	4400	4400	12287
+2000	543891	1	2000	2000	12288
+78025318	543891	1	4400	4400	12289
+7801610000601	543891	1	1000	1000	12290
+300	543892	1	300	300	12291
+7801610001196	543892	1	800	800	12292
+7802920000909	543892	1	350	350	12293
+78011748	543892	1	350	350	12294
+7802820600209	543892	1	700	700	12295
+3000	543894	1	3000	3000	12296
+7802575220479	543895	1	400	400	12297
+7802575220479	543896	1	400	400	12298
+7801610323236	543897	1	2950	2950	12299
+450	543898	1	450	450	12300
+1	543898	1	1300	1300	12301
+78006027	543901	1	650	650	12302
+7801610001622	543901	1	1650	1650	12303
+78018884	543903	1	3400	3400	12304
+1400	543906	1	1400	1400	12305
+7801610350355	543906	1	800	800	12306
+7613035407176	543907	1	1690	1690	12307
+7613035407176	543907	1	1690	1690	12308
+7801620003326	543907	1	1000	1000	12309
+7801620003326	543908	1	1000	1000	12310
+7801610000601	543908	1	1000	1000	12311
+7501013101362	543909	1	1450	1450	12312
+78025240	543909	1	4300	4300	12313
+400	543909	1	400	400	12314
+7613032180157	543910	1	300	300	12315
+7613032180096	543910	1	350	350	12316
+7801610277829	543911	1	800	800	12317
+7590011205158	543911	1	300	300	12318
+7801610000601	543912	1	1000	1000	12319
+7801620003326	543912	1	1000	1000	12320
+7801620003326	543912	1	1000	1000	12321
+7802920008141	543913	1	900	900	12322
+78022010	543914	1	2600	2600	12323
+7801620015800	543916	1	700	700	12324
+7801620005856	543917	1	900	900	12325
+7801620005856	543917	1	900	900	12326
+52	543917	1	2000	2000	12327
+450	543917	6	450	2700	12328
+1	543919	1	1300	1300	12329
+7801610001196	543919	1	800	800	12330
+7806500172116	543919	1	300	300	12331
+3	543920	1	1100	1100	12332
+7501013101393	543920	1	1450	1450	12333
+7802920008127	543921	1	900	900	12334
+3	543922	1	1100	1100	12335
+3	543923	1	1100	1100	12336
+78007505	543923	1	350	350	12337
+7802820600209	543924	1	700	700	12338
+7802820600209	543924	1	700	700	12339
+7802820600209	543924	1	700	700	12340
+7802820600209	543924	1	700	700	12341
+2000	543924	1	2000	2000	12342
+3	543925	1	1100	1100	12343
+7803525999667	543925	1	600	600	12344
+78025271	543925	1	4200	4200	12345
+3	543926	1	1100	1100	12346
+51	543927	1	1300	1300	12347
+3	543928	1	1100	1100	12348
+78025059	543928	1	3400	3400	12349
+7802920106168	543929	1	500	500	12350
+2000	543929	1	2000	2000	12351
+7802820600209	543930	1	700	700	12352
+7803525999667	543931	1	600	600	12353
+7802920801858	543932	1	300	300	12354
+52	543937	1	2000	2000	12355
+3	543937	1	1100	1100	12356
+7802920005195	543938	1	500	500	12357
+7802920002316	543938	1	650	650	12358
+1	543938	1	1300	1300	12359
+78022010	543938	1	2600	2600	12360
+1	543939	1	1300	1300	12361
+51	543940	1	1300	1300	12362
+3200	543940	1	3200	3200	12363
+3	543940	1	1100	1100	12364
+3	543941	1	1100	1100	12365
+3	543941	1	1100	1100	12366
+3	543942	1	1100	1100	12367
+1	543943	1	1300	1300	12368
+7801620000738	543943	1	1500	1500	12369
+4	543943	1	1000	1000	12370
+1600	543944	3	1600	4800	12371
+1	543944	1	1300	1300	12372
+1400	543945	1	1400	1400	12373
+1	543946	1	1300	1300	12374
+450	543946	1	450	450	12375
+1400	543947	1	1400	1400	12376
+4	543947	1	1000	1000	12377
+4	543947	1	1000	1000	12378
+7802920002316	543948	1	650	650	12379
+3	543948	1	1100	1100	12380
+7801620015855	543949	1	1000	1000	12381
+7801610000601	543950	1	1000	1000	12382
+1400	543950	1	1400	1400	12383
+3	543951	1	1100	1100	12384
+300	543951	1	300	300	12385
+3	543952	1	1100	1100	12386
+70847035800	543952	1	2000	2000	12387
+1	543953	1	1300	1300	12388
+7801610000601	543953	1	1000	1000	12389
+1	543954	1	1300	1300	12390
+7802920008127	543954	1	900	900	12391
+1	543955	1	1300	1300	12392
+4	543955	1	1000	1000	12393
+1400	543956	1	1400	1400	12394
+7801620852689	543956	1	800	800	12395
+450	543956	1	450	450	12396
+450	543956	1	450	450	12397
+4	543957	1	1000	1000	12398
+52	543957	1	2000	2000	12399
+7802215113567	543959	1	450	450	12400
+3	543959	1	1100	1100	12401
+51	543959	1	1300	1300	12402
+7801620001711	543960	1	1100	1100	12403
+7801620004873	543961	1	900	900	12404
+450	543961	1	450	450	12405
+53	543962	1	1300	1300	12406
+51	543962	1	1300	1300	12407
+9002490214852	543963	1	1700	1700	12408
+51	543963	1	1300	1300	12409
+1400	543963	1	1400	1400	12410
+4	543964	1	1000	1000	12411
+3	543964	1	1100	1100	12412
+3	543965	1	1100	1100	12413
+1	543965	1	1300	1300	12414
+7801620005856	543965	1	900	900	12415
+61	543966	1	1000	1000	12416
+450	543966	1	450	450	12417
+1400	543967	1	1400	1400	12418
+50173822	543967	1	600	600	12419
+7803525000356	543967	1	450	450	12420
+7803525000356	543967	1	450	450	12421
+4	543968	1	1000	1000	12422
+7501013118032	543968	1	850	850	12423
+7801610001196	543969	1	800	800	12424
+70847033219	543969	1	2000	2000	12425
+1	543969	1	1300	1300	12426
+3	543969	1	1100	1100	12427
+7802920005195	543970	1	500	500	12428
+1	543970	1	1300	1300	12429
+51	543971	1	1300	1300	12430
+51	543971	1	1300	1300	12431
+3	543971	1	1100	1100	12432
+78024892	543972	1	4500	4500	12433
+1	543974	1	1300	1300	12434
+450	543975	6	450	2700	12435
+3	543975	1	1100	1100	12436
+7801610277829	543976	1	800	800	12437
+3	543977	1	1100	1100	12438
+7801620006082	543977	1	1000	1000	12439
+78025332	543978	1	4200	4200	12440
+78025332	543978	1	4200	4200	12441
+3	543979	1	1100	1100	12442
+3	543979	1	1100	1100	12443
+2000	543979	1	2000	2000	12444
+4	543979	1	1000	1000	12445
+4	543980	1	1000	1000	12446
+7801620015817	543981	1	700	700	12447
+7802000014857	543981	1	700	700	12448
+7501073427532	543981	1	450	450	12449
+7802920008110	543982	1	900	900	12450
+4	543982	1	1000	1000	12451
+78000124	543982	1	4000	4000	12452
+3	543984	1	1100	1100	12453
+7802215113567	543984	1	450	450	12454
+7802820250206	543985	1	350	350	12455
+78021020	543987	1	2000	2000	12456
+7802920008134	543990	1	2100	2100	12457
+7801620004873	543992	1	900	900	12458
+52	543992	1	2000	2000	12459
+3	543993	1	1100	1100	12460
+61	543994	1	1000	1000	12461
+1	543996	1	1300	1300	12462
+3	543996	1	1100	1100	12463
+7590011205158	543997	1	300	300	12464
+4	543998	1	1000	1000	12465
+3	543998	1	1100	1100	12466
+7801610001936	543998	1	500	500	12467
+7801620015817	543999	1	700	700	12468
+4	544000	1	1000	1000	12469
+300	544000	1	300	300	12470
+7501013101393	544000	1	1450	1450	12471
+7804612131274	544000	1	400	400	12472
+7801610000601	544001	1	1000	1000	12473
+7802225682107	544001	1	600	600	12474
+7802000013720	544002	1	600	600	12475
+7801620004873	544002	1	900	900	12476
+7803525000356	544002	1	450	450	12477
+7501013118018	544003	1	800	800	12478
+7613030612339	544003	1	300	300	12479
+7501013118018	544004	1	800	800	12480
+4	544004	1	1000	1000	12481
+1	544005	1	1300	1300	12482
+3	544005	1	1100	1100	12483
+7803525999933	544006	1	500	500	12484
+7803525000240	544006	1	600	600	12485
+61	544007	1	1000	1000	12486
+450	544007	1	450	450	12487
+450	544007	1	450	450	12488
+70847009559	544009	1	2000	2000	12489
+7803525999544	544009	1	600	600	12490
+78025318	544010	1	4400	4400	12491
+7801610022122	544011	1	800	800	12492
+450	544011	1	450	450	12493
+450	544011	1	450	450	12494
+1400	544012	1	1400	1400	12495
+300	544012	1	300	300	12496
+300	544012	1	300	300	12497
+78016293	544013	1	2500	2500	12498
+50173617	544013	1	650	650	12499
+78021020	544013	1	2000	2000	12500
+7802575220493	544014	1	400	400	12501
+78025240	544015	1	4300	4300	12502
+3000	544016	1	3000	3000	12503
+1	544016	1	1300	1300	12504
+1	544016	1	1300	1300	12505
+7801620005412	544017	1	1150	1150	12506
+78020627	544018	1	4000	4000	12507
+450	544019	1	450	450	12508
+78011748	544019	1	350	350	12509
+78011748	544019	1	350	350	12510
+7802215113567	544019	1	450	450	12511
+7801610001196	544019	1	800	800	12512
+300	544019	1	300	300	12513
+7801620015862	544021	1	700	700	12514
+3000	544021	1	3000	3000	12515
+78019041	544022	1	2000	2000	12516
+7801620852689	544023	1	800	800	12517
+7801620852689	544023	1	800	800	12518
+78007673	544023	1	3000	3000	12519
+7613035391369	544024	1	980	980	12520
+7803908000829	544025	1	1000	1000	12521
+40000536789	544026	1	850	850	12522
+4	544026	1	1000	1000	12523
+4791014004950	544027	1	2450	2450	12524
+7613032180096	544028	1	350	350	12525
+7613032186852	544028	1	650	650	12526
+78025240	544030	1	4300	4300	12527
+78025240	544030	1	4300	4300	12528
+7802215302060	544030	1	800	800	12529
+1400	544031	1	1400	1400	12530
+7802215302060	544031	1	800	800	12531
+7803525999667	544031	1	600	600	12532
+51	544032	1	1300	1300	12533
+3	544033	1	1100	1100	12534
+1	544033	1	1300	1300	12535
+7801620005856	544033	1	900	900	12536
+3	544034	1	1100	1100	12537
+7802920801858	544034	1	300	300	12538
+51	544035	1	1300	1300	12539
+1	544035	1	1300	1300	12540
+7802225683289	544036	1	250	250	12541
+1400	544037	1	1400	1400	12542
+200	544037	1	250	250	12543
+3	544038	1	1100	1100	12544
+7801620003302	544038	1	1000	1000	12545
+7801610005934	544038	1	500	500	12546
+7802000013133	544038	1	350	350	12547
+7801620008321	544039	1	900	900	12548
+1	544040	1	1300	1300	12549
+2000	544040	1	2000	2000	12550
+3	544041	1	1100	1100	12551
+1400	544042	1	1400	1400	12552
+1	544042	1	1300	1300	12553
+3	544043	1	1100	1100	12554
+7804643820154	544043	1	1600	1600	12555
+3	544044	1	1100	1100	12556
+51	544044	1	1300	1300	12557
+7802820600209	544044	1	700	700	12558
+300	544045	1	300	300	12559
+300	544045	1	300	300	12560
+52	544045	1	2000	2000	12561
+3	544046	1	1100	1100	12562
+3	544047	1	1100	1100	12563
+7801610000595	544047	1	1000	1000	12564
+450	544047	1	450	450	12565
+450	544047	1	450	450	12566
+7802920005195	544048	1	500	500	12567
+7802920002316	544048	1	650	650	12568
+1	544049	1	1300	1300	12569
+1	544049	1	1300	1300	12570
+7802215302060	544050	1	800	800	12571
+300	544050	1	300	300	12572
+300	544050	1	300	300	12573
+1400	544050	1	1400	1400	12574
+7802920008141	544051	1	900	900	12575
+450	544051	1	450	450	12576
+450	544051	1	450	450	12577
+1	544052	1	1300	1300	12578
+51	544052	1	1300	1300	12579
+3	544054	1	1100	1100	12580
+300	544054	1	300	300	12581
+300	544054	1	300	300	12582
+4	544054	1	1000	1000	12583
+52	544055	1	2000	2000	12584
+3	544055	1	1100	1100	12585
+7802920008110	544055	1	900	900	12586
+7802920008110	544056	1	900	900	12587
+7803525000240	544056	1	600	600	12588
+4	544058	1	1000	1000	12589
+7801620004873	544058	1	900	900	12590
+4	544060	1	1000	1000	12591
+7801610000595	544060	1	1000	1000	12592
+3200	544062	1	3200	3200	12593
+51	544062	1	1300	1300	12594
+3	544063	1	1100	1100	12595
+70847035800	544063	1	2000	2000	12596
+61	544064	1	1000	1000	12597
+4	544064	1	1000	1000	12598
+8809228440481	544064	1	1500	1500	12599
+51	544065	1	1300	1300	12600
+3	544065	1	1100	1100	12601
+3	544066	1	1100	1100	12602
+1400	544066	1	1400	1400	12603
+7801620005856	544066	1	900	900	12604
+1	544067	1	1300	1300	12605
+51	544067	1	1300	1300	12606
+3	544068	1	1100	1100	12607
+1400	544069	4	1400	5600	12608
+1400	544070	1	1400	1400	12609
+1400	544070	1	1400	1400	12610
+1	544070	1	1300	1300	12611
+1	544071	1	1300	1300	12612
+4	544071	1	1000	1000	12613
+450	544072	1	450	450	12614
+450	544072	1	450	450	12615
+450	544072	1	450	450	12616
+51	544074	1	1300	1300	12617
+7803525000240	544074	1	600	600	12618
+3	544074	1	1100	1100	12619
+3	544075	1	1100	1100	12620
+7801620005344	544075	1	900	900	12621
+70847021964	544076	1	2000	2000	12622
+7613034439277	544076	1	3550	3550	12623
+3	544077	1	1100	1100	12624
+7802920759135	544077	1	500	500	12625
+1400	544077	1	1400	1400	12626
+1400	544078	1	1400	1400	12627
+7802225683289	544078	1	250	250	12628
+1000	544078	1	1300	1300	12629
+1	544079	1	1300	1300	12630
+7501013118032	544080	1	850	850	12631
+4	544080	1	1000	1000	12632
+7802200132696	544080	1	300	300	12633
+7501013118063	544081	1	850	850	12634
+1	544081	1	1300	1300	12635
+3	544082	1	1100	1100	12636
+7801610000595	544083	1	1000	1000	12637
+7801610000595	544083	1	1000	1000	12638
+78000285	544083	1	4000	4000	12639
+78000285	544083	1	4000	4000	12640
+1	544084	1	1300	1300	12641
+7802215303401	544085	1	300	300	12642
+1	544086	1	1300	1300	12643
+100	544086	1	100	100	12644
+100	544086	1	100	100	12645
+7613030612339	544087	1	300	300	12646
+7801620005856	544089	1	900	900	12647
+3	544089	1	1100	1100	12648
+3	544089	1	1100	1100	12649
+3	544090	1	1100	1100	12650
+4	544091	1	1000	1000	12651
+1400	544091	1	1400	1400	12652
+51	544092	1	1300	1300	12653
+3	544092	1	1100	1100	12654
+450	544093	6	450	2700	12655
+7801620003302	544094	1	1000	1000	12656
+7802000013133	544095	1	350	350	12657
+7803473003232	544095	1	400	400	12658
+7802200270022	544095	1	500	500	12659
+7801610591994	544095	1	1000	1000	12660
+78019041	544095	1	2000	2000	12661
+4	544097	1	1000	1000	12662
+4	544098	1	1000	1000	12663
+3	544098	1	1100	1100	12664
+7801610001936	544098	1	500	500	12665
+3	544099	1	1100	1100	12666
+7801610000595	544100	1	1000	1000	12667
+3	544100	1	1100	1100	12668
+3	544100	1	1100	1100	12669
+51	544101	1	1300	1300	12670
+51	544101	1	1300	1300	12671
+7802200132696	544102	1	300	300	12672
+7702133862823	544103	1	400	400	12673
+78025219	544104	1	3400	3400	12674
+7801610350355	544104	1	800	800	12675
+7802920008141	544104	1	900	900	12676
+7501013118032	544105	1	850	850	12677
+2000	544106	1	2000	2000	12678
+7801620016012	544106	1	1000	1000	12679
+7802215505294	544107	1	800	800	12680
+51	544107	1	1300	1300	12681
+51	544108	1	1300	1300	12682
+51	544109	1	1300	1300	12683
+51	544109	1	1300	1300	12684
+1400	544109	1	1400	1400	12685
+7803403001055	544110	1	750	750	12686
+7802000005930	544111	1	600	600	12687
+350	544112	1	400	400	12688
+1	544113	1	1300	1300	12689
+7801610001622	544114	1	1650	1650	12690
+3200	544115	1	3200	3200	12691
+3200	544115	1	3200	3200	12692
+7801610350355	544116	1	800	800	12693
+7801610350355	544116	1	800	800	12694
+7801610350355	544116	1	800	800	12695
+3200	544117	1	3200	3200	12696
+7803525999650	544118	1	500	500	12697
+7803525999650	544118	1	500	500	12698
+7803525999667	544118	1	600	600	12699
+7803525999544	544119	1	600	600	12700
+1400	544120	1	1400	1400	12701
+7801610323236	544121	1	2950	2950	12702
+3200	544121	1	3200	3200	12703
+4	544123	1	1000	1000	12704
+1400	544123	1	1400	1400	12705
+3000	544123	1	3000	3000	12706
+7802820021950	544124	1	1000	1000	12707
+3000	544125	1	3000	3000	12708
+7801620015817	544125	1	700	700	12709
+1400	544126	1	1400	1400	12710
+1	544126	1	1300	1300	12711
+78008816	544127	1	3000	3000	12712
+300	544128	1	300	300	12713
+450	544128	1	450	450	12714
+7801620340155	544128	1	800	800	12715
+7802820700282	544128	1	400	400	12716
+3	544130	1	1100	1100	12717
+3	544130	1	1100	1100	12718
+7802230081162	544130	1	850	850	12719
+1400	544131	1	1400	1400	12720
+3	544132	1	1100	1100	12721
+7801620005856	544133	1	900	900	12722
+7801620005856	544133	1	900	900	12723
+52	544133	1	2000	2000	12724
+450	544133	6	450	2700	12725
+4	544133	1	1000	1000	12726
+4	544133	1	1000	1000	12727
+7802200132696	544133	1	300	300	12728
+7801610000601	544134	1	1000	1000	12729
+4	544134	1	1000	1000	12730
+4	544134	1	1000	1000	12731
+3	544134	1	1100	1100	12732
+1200	544135	1	1200	1200	12733
+450	544135	1	450	450	12734
+450	544136	1	450	450	12735
+450	544136	1	450	450	12736
+7801620005412	544136	1	1150	1150	12737
+7800120171061	544137	1	400	400	12738
+52	544138	1	2000	2000	12739
+52	544138	1	2000	2000	12740
+1	544138	1	1300	1300	12741
+7801620005856	544139	1	900	900	12742
+7801620015800	544139	1	700	700	12743
+7803525999667	544140	1	600	600	12744
+7803525999667	544140	1	600	600	12745
+7801610000601	544142	1	1000	1000	12746
+7801610000601	544142	1	1000	1000	12747
+1200	544143	1	1200	1200	12748
+7802575220530	544143	1	400	400	12749
+7802920007182	544143	1	500	500	12750
+7801620015862	544143	1	700	700	12751
+1	544144	1	1300	1300	12752
+51	544144	1	1300	1300	12753
+7803403001055	544144	1	750	750	12754
+7801620008307	544146	1	900	900	12755
+3	544147	1	1100	1100	12756
+7801620008307	544147	1	900	900	12757
+61	544148	1	1000	1000	12758
+7802820500011	544148	1	650	650	12759
+1400	544148	1	1400	1400	12760
+450	544150	1	450	450	12761
+1	544150	1	1300	1300	12762
+78025059	544150	1	3400	3400	12763
+1400	544151	1	1400	1400	12764
+3	544152	1	1100	1100	12765
+3	544152	1	1100	1100	12766
+61	544152	1	1000	1000	12767
+61	544152	1	1000	1000	12768
+4	544153	1	1000	1000	12769
+3	544153	1	1100	1100	12770
+7501013118032	544154	1	850	850	12771
+7802920002316	544154	1	650	650	12772
+1200	544155	1	1200	1200	12773
+300	544155	1	300	300	12774
+300	544155	1	300	300	12775
+61	544155	1	1000	1000	12776
+7802920008110	544157	1	900	900	12777
+1400	544157	1	1400	1400	12778
+51	544158	1	1300	1300	12779
+450	544158	1	450	450	12780
+7802920106168	544160	1	500	500	12781
+7801620005412	544161	1	1150	1150	12782
+3	544161	1	1100	1100	12783
+4	544162	1	1000	1000	12784
+1400	544162	1	1400	1400	12785
+51	544163	1	1300	1300	12786
+3	544163	1	1100	1100	12787
+4	544163	1	1000	1000	12788
+7501013101393	544164	1	1450	1450	12789
+4	544165	1	1000	1000	12790
+4	544165	1	1000	1000	12791
+7501013118032	544166	1	850	850	12792
+3	544166	1	1100	1100	12793
+450	544167	1	450	450	12794
+42069942	544167	1	650	650	12795
+7801620001704	544168	1	850	850	12796
+3	544168	1	1100	1100	12797
+51	544169	1	1300	1300	12798
+4	544169	1	1000	1000	12799
+3	544170	1	1100	1100	12800
+3	544170	1	1100	1100	12801
+3	544170	1	1100	1100	12802
+3	544171	1	1100	1100	12803
+7801620004859	544172	1	900	900	12804
+1400	544173	1	1400	1400	12805
+1400	544173	1	1400	1400	12806
+7801620015862	544174	1	700	700	12807
+7803403001055	544174	1	750	750	12808
+1	544174	1	1300	1300	12809
+3	544175	1	1100	1100	12810
+51	544175	1	1300	1300	12811
+52	544177	1	2000	2000	12812
+1200	544177	1	1200	1200	12813
+7802920008141	544178	1	900	900	12814
+3	544178	1	1100	1100	12815
+7802920801858	544179	1	300	300	12816
+4	544180	1	1000	1000	12817
+7801620015817	544180	1	700	700	12818
+7802920009391	544180	1	600	600	12819
+7501013118193	544181	1	800	800	12820
+4	544181	1	1000	1000	12821
+450	544183	4	450	1800	12822
+9002490238841	544184	1	2500	2500	12823
+51	544185	1	1300	1300	12824
+3	544185	1	1100	1100	12825
+70847033219	544187	1	2000	2000	12826
+3	544187	1	1100	1100	12827
+78024410	544187	1	3500	3500	12828
+7804612131274	544187	1	400	400	12829
+51	544188	1	1300	1300	12830
+78025318	544188	1	4400	4400	12831
+1400	544189	1	1400	1400	12832
+1	544189	1	1300	1300	12833
+4791014004950	544190	1	2450	2450	12834
+61	544191	1	1000	1000	12835
+7802215113567	544191	1	450	450	12836
+7801620005160	544192	1	1500	1500	12837
+7809595603428	544193	1	950	950	12838
+7803525999667	544193	1	600	600	12839
+61	544194	1	1000	1000	12840
+1	544194	1	1300	1300	12841
+4	544195	1	1000	1000	12842
+3	544195	1	1100	1100	12843
+7802920008202	544195	1	700	700	12844
+4	544197	1	1000	1000	12845
+7802820250268	544197	1	350	350	12846
+51	544198	1	1300	1300	12847
+3	544198	1	1100	1100	12848
+1	544199	1	1300	1300	12849
+4	544200	1	1000	1000	12850
+7802820250268	544200	1	350	350	12851
+450	544201	3	450	1350	12852
+3	544202	1	1100	1100	12853
+3	544202	1	1100	1100	12854
+1	544202	1	1300	1300	12855
+78025288	544204	1	4200	4200	12856
+78025288	544204	1	4200	4200	12857
+78025288	544204	1	4200	4200	12858
+78024915	544205	1	3500	3500	12859
+7804612131274	544205	1	400	400	12860
+7802920009438	544206	1	450	450	12861
+78025448	544208	1	500	500	12862
+7802230081162	544212	1	850	850	12863
+7801610277829	544213	1	800	800	12864
+7802230081162	544214	1	850	850	12865
+78006027	544214	1	650	650	12866
+7613032180157	544214	1	300	300	12867
+7802000013683	544214	1	700	700	12868
+78025295	544215	1	4400	4400	12869
+7801620011840	544216	1	1100	1100	12870
+78025240	544217	1	4300	4300	12871
+7622210427076	544217	1	400	400	12872
+7802920008202	544218	1	700	700	12873
+450	544218	1	450	450	12874
+450	544218	1	450	450	12875
+450	544218	1	450	450	12876
+1400	544218	3	1400	4200	12877
+7802820441123	544218	1	700	700	12878
+7802820441123	544218	1	700	700	12879
+7802820441123	544218	1	700	700	12880
+7802215501968	544218	1	1000	1000	12881
+1	544218	1	1300	1300	12882
+7803525000240	544219	1	600	600	12883
+7803525999957	544219	1	500	500	12884
+7803525999957	544219	1	500	500	12885
+2000	544220	1	2000	2000	12886
+7803525999667	544220	1	600	600	12887
+3	544220	1	1100	1100	12888
+3	544221	1	1100	1100	12889
+78007673	544222	1	3000	3000	12890
+1	544223	1	1300	1300	12891
+7801610000335	544223	1	500	500	12892
+7613035588776	544224	1	600	600	12893
+7613035588776	544224	1	600	600	12894
+7613035588776	544224	1	600	600	12895
+1400	544224	1	1400	1400	12896
+1400	544224	1	1400	1400	12897
+7613035588776	544225	1	600	600	12898
+7801610000601	544225	1	1000	1000	12899
+300	544228	1	300	300	12900
+7801610001196	544228	1	800	800	12901
+450	544228	1	450	450	12902
+7801610022122	544230	1	800	800	12903
+7802000014765	544230	1	700	700	12904
+78025059	544230	1	3400	3400	12905
+1400	544231	3	1400	4200	12906
+7801610000571	544231	1	1000	1000	12907
+7801610000571	544231	1	1000	1000	12908
+1600	544232	1	1600	1600	12909
+1	544232	1	1300	1300	12910
+1400	544233	1	1400	1400	12911
+2000	544233	1	2000	2000	12912
+3000	544234	1	3000	3000	12913
+7802575220479	544234	1	400	400	12914
+7802575220493	544234	1	400	400	12915
+7803473004376	544235	1	600	600	12916
+3200	544236	1	3200	3200	12917
+4	544236	1	1000	1000	12918
+78006140	544237	1	650	650	12919
+450	544238	1	450	450	12920
+1	544238	1	1300	1300	12921
+7801620852689	544238	1	800	800	12922
+78019041	544239	1	2000	2000	12923
+7802820500011	544240	1	650	650	12924
+7802575220516	544242	1	400	400	12925
+7802200270022	544242	1	500	500	12926
+3000	544242	1	3000	3000	12927
+9002490100070	544245	1	1700	1700	12928
+7802820441123	544245	1	700	700	12929
+1300	544245	1	1300	1300	12930
+7801620015800	544246	1	700	700	12931
+7804643820123	544246	1	1600	1600	12932
+450	544247	1	450	450	12933
+7801620008307	544247	1	900	900	12934
+3	544248	1	1100	1100	12935
+7801610001196	544248	1	800	800	12936
+78021020	544249	1	2000	2000	12937
+1200	544250	1	1200	1200	12938
+78025271	544250	1	4200	4200	12939
+2000	544251	1	2000	2000	12940
+7801610000601	544251	1	1000	1000	12941
+7801620004859	544251	1	900	900	12942
+7801620004859	544251	1	900	900	12943
+1	544251	1	1300	1300	12944
+450	544252	1	450	450	12945
+450	544252	1	450	450	12946
+78025059	544252	1	3400	3400	12947
+7802215303388	544253	1	250	250	12948
+7802215303401	544253	1	300	300	12949
+7802215502262	544253	1	750	750	12950
+1	544254	1	1300	1300	12951
+1400	544254	1	1400	1400	12952
+7802920106168	544255	1	500	500	12953
+3	544255	1	1100	1100	12954
+450	544255	4	450	1800	12955
+7803525999667	544256	1	600	600	12956
+7802920008141	544257	1	900	900	12957
+7803525999667	544257	1	600	600	12958
+78025332	544258	1	4200	4200	12959
+7802920008127	544259	1	900	900	12960
+1	544261	1	1300	1300	12961
+7802920008202	544261	1	700	700	12962
+78068308	544261	1	350	350	12963
+7801620004859	544261	1	900	900	12964
+3	544262	1	1100	1100	12965
+7801620004859	544262	1	900	900	12966
+3	544263	1	1100	1100	12967
+7802920776163	544264	1	2350	2350	12968
+7801610000335	544264	1	500	500	12969
+7802230975324	544264	1	600	600	12970
+7801610350355	544265	1	800	800	12971
+1	544265	1	1300	1300	12972
+7802230975324	544265	1	600	600	12973
+2000	544267	1	2000	2000	12974
+3	544267	1	1100	1100	12975
+51	544268	1	1300	1300	12976
+4	544268	1	1000	1000	12977
+51	544271	1	1300	1300	12978
+1400	544271	1	1400	1400	12979
+7801620002961	544271	1	1100	1100	12980
+1400	544271	1	1400	1400	12981
+7613034276490	544271	1	500	500	12982
+3	544272	1	1100	1100	12983
+7802920008202	544272	1	700	700	12984
+7801610000595	544272	1	1000	1000	12985
+1400	544274	1	1400	1400	12986
+7801610350355	544274	1	800	800	12987
+613008735012	544275	1	1600	1600	12988
+613008719296	544275	1	1650	1650	12989
+7802820700251	544275	1	1500	1500	12990
+3	544275	1	1100	1100	12991
+3	544276	1	1100	1100	12992
+3	544277	1	1100	1100	12993
+7501013118032	544277	1	850	850	12994
+1400	544277	1	1400	1400	12995
+1400	544278	1	1400	1400	12996
+51	544279	1	1300	1300	12997
+450	544279	1	450	450	12998
+1	544280	1	1300	1300	12999
+7802820700213	544280	1	800	800	13000
+1400	544281	1	1400	1400	13001
+4	544283	1	1000	1000	13002
+1	544283	1	1300	1300	13003
+3	544284	1	1100	1100	13004
+70847035800	544284	1	2000	2000	13005
+78007673	544284	1	3000	3000	13006
+78018884	544285	1	3400	3400	13007
+7802230975324	544285	1	600	600	13008
+4	544286	1	1000	1000	13009
+4	544286	1	1000	1000	13010
+3	544287	1	1100	1100	13011
+3	544287	1	1100	1100	13012
+1	544288	1	1300	1300	13013
+7802920008141	544289	1	900	900	13014
+78025332	544290	1	4200	4200	13015
+78068315	544290	1	350	350	13016
+52	544293	1	2000	2000	13017
+3	544293	1	1100	1100	13018
+51	544294	1	1300	1300	13019
+3	544294	1	1100	1100	13020
+4	544295	1	1000	1000	13021
+7801620004873	544295	1	900	900	13022
+51	544296	1	1300	1300	13023
+4	544296	1	1000	1000	13024
+1400	544297	1	1400	1400	13025
+3	544297	1	1100	1100	13026
+1	544298	1	1300	1300	13027
+7802820500011	544298	1	800	800	13028
+7803525000240	544299	1	600	600	13029
+7803525000240	544299	1	600	600	13030
+4	544300	1	1000	1000	13031
+7613035588776	544300	1	600	600	13032
+1400	544301	1	1400	1400	13033
+70847021964	544301	1	2000	2000	13034
+7803525000240	544301	1	600	600	13035
+1	544302	1	1300	1300	13036
+3	544303	1	1100	1100	13037
+7802920008141	544303	1	900	900	13038
+1400	544304	1	1400	1400	13039
+7802920005195	544304	1	500	500	13040
+3	544306	1	1100	1100	13041
+51	544306	1	1300	1300	13042
+450	544307	1	450	450	13043
+450	544307	1	450	450	13044
+51	544307	1	1300	1300	13045
+3	544307	1	1100	1100	13046
+3	544308	1	1100	1100	13047
+7802920759135	544308	1	500	500	13048
+61	544309	1	1000	1000	13049
+3	544310	1	1100	1100	13050
+1400	544310	1	1400	1400	13051
+4	544312	1	1000	1000	13052
+7801610000601	544312	1	1000	1000	13053
+51	544314	1	1300	1300	13054
+2000	544314	1	2000	2000	13055
+1	544315	1	1300	1300	13056
+1400	544315	1	1400	1400	13057
+3	544316	1	1100	1100	13058
+51	544316	1	1300	1300	13059
+4	544317	1	1000	1000	13060
+52	544317	1	2000	2000	13061
+7802820700251	544318	1	1500	1500	13062
+3	544319	1	1100	1100	13063
+78024717	544320	1	4500	4500	13064
+78024717	544320	1	4500	4500	13065
+78024717	544320	1	4500	4500	13066
+78024717	544320	1	4500	4500	13067
+50173204	544321	1	600	600	13068
+7790040613706	544321	1	450	450	13069
+450	544323	1	450	450	13070
+450	544323	1	450	450	13071
+61	544323	1	1000	1000	13072
+78024717	544323	1	4500	4500	13073
+78024892	544323	1	4500	4500	13074
+51	544324	1	1300	1300	13075
+3	544325	1	1100	1100	13076
+7802215303401	544325	1	300	300	13077
+7802215303401	544325	1	300	300	13078
+7801610277829	544326	1	800	800	13079
+3	544327	1	1100	1100	13080
+3	544327	1	1100	1100	13081
+7801620004859	544327	1	900	900	13082
+7801610000595	544327	1	1000	1000	13083
+4	544327	1	1000	1000	13084
+7803525000240	544328	1	600	600	13085
+78025332	544328	1	4200	4200	13086
+7802215113567	544329	1	450	450	13087
+7891000248768	544329	1	900	900	13088
+7801620015817	544330	1	700	700	13089
+7801620015817	544330	1	700	700	13090
+7801620011666	544331	1	700	700	13091
+1600	544332	1	1600	1600	13092
+1	544333	1	1300	1300	13093
+61	544334	1	1000	1000	13094
+1	544334	1	1300	1300	13095
+7613032180096	544334	1	350	350	13096
+7613032180096	544334	1	350	350	13097
+7613032180096	544334	1	350	350	13098
+3200	544336	1	3200	3200	13099
+78006027	544336	1	650	650	13100
+7801620006082	544337	1	1000	1000	13101
+7801620006082	544337	1	1000	1000	13102
+1400	544338	1	1400	1400	13103
+1400	544338	1	1400	1400	13104
+4	544338	1	1000	1000	13105
+7801620005160	544339	1	1500	1500	13106
+7613035391369	544339	1	980	980	13107
+78019065	544340	1	2000	2000	13108
+7802215113567	544341	1	450	450	13109
+61	544341	1	1000	1000	13110
+7801620005856	544342	1	900	900	13111
+7801620015817	544342	1	700	700	13112
+78016293	544344	1	2500	2500	13113
+3	544345	1	1100	1100	13114
+3	544345	1	1100	1100	13115
+51	544345	1	1300	1300	13116
+51	544345	1	1300	1300	13117
+7501013118032	544346	1	850	850	13118
+1	544346	1	1300	1300	13119
+7802000012679	544347	1	2300	2300	13120
+51	544347	1	1300	1300	13121
+51	544348	1	1300	1300	13122
+3	544348	1	1100	1100	13123
+500	544348	1	500	500	13124
+7803525999667	544349	1	600	600	13125
+78018884	544349	1	3400	3400	13126
+78025059	544350	1	3400	3400	13127
+78025318	544350	1	4400	4400	13128
+78024878	544350	1	4400	4400	13129
+78000285	544350	1	4000	4000	13130
+78000285	544350	1	4000	4000	13131
+78025288	544350	1	4200	4200	13132
+78024878	544350	1	4400	4400	13133
+7613032203122	544351	1	1850	1850	13134
+7801620015800	544351	1	700	700	13135
+7801620015800	544351	1	700	700	13136
+7801620015800	544351	1	700	700	13137
+78025240	544351	1	4300	4300	13138
+78025240	544352	1	4500	4500	13139
+7809595602322	544352	1	800	800	13140
+78025271	544353	1	4200	4200	13141
+7801620852689	544353	1	800	800	13142
+7803473003461	544353	1	750	750	13143
+7802200400108	544354	1	1100	1100	13144
+7809595602315	544354	1	800	800	13145
+7802230081162	544355	1	850	850	13146
+7802800535569	544356	1	700	700	13147
+7802800535569	544356	1	700	700	13148
+7801620005160	544357	1	1500	1500	13149
+7501013101362	544358	1	1450	1450	13150
+7803525999544	544358	1	600	600	13151
+3200	544359	1	3200	3200	13152
+3200	544359	1	3200	3200	13153
+7801610350355	544359	1	800	800	13154
+7801610350355	544359	1	800	800	13155
+78024878	544360	1	4400	4400	13156
+50173204	544360	1	600	600	13157
+5201041002137	544360	1	800	800	13158
+7802000012679	544361	1	2300	2300	13159
+7804646000102	544361	1	1200	1200	13160
+7802920423609	544361	1	850	850	13161
+78025295	544362	1	4400	4400	13162
+7802920106168	544363	1	500	500	13163
+7803525999544	544363	1	600	600	13164
+78024878	544364	1	4400	4400	13165
+7802230070227	544365	1	3850	3850	13166
+7801620001711	544365	1	1100	1100	13167
+7801610350409	544366	1	1650	1650	13168
+41333016634	544366	1	800	800	13169
+300	544368	1	300	300	13170
+300	544368	1	300	300	13171
+7802230070227	544368	1	3850	3850	13172
+450	544369	1	450	450	13173
+450	544369	1	450	450	13174
+7803525999957	544369	1	500	500	13175
+1	544370	1	1300	1300	13176
+7801620001834	544370	1	700	700	13177
+7702133862809	544370	1	400	400	13178
+7802920776163	544372	1	2350	2350	13179
+9002490100070	544373	1	1700	1700	13180
+3	544374	1	1100	1100	13181
+78018884	544374	1	3400	3400	13182
+78000124	544375	1	4000	4000	13183
+3	544376	1	1100	1100	13184
+3	544376	1	1100	1100	13185
+7802230070012	544376	1	1100	1100	13186
+78025318	544377	1	4400	4400	13187
+78025318	544377	1	4400	4400	13188
+1	544377	1	1300	1300	13189
+78024878	544378	1	4400	4400	13190
+450	544378	1	450	450	13191
+400	544378	1	400	400	13192
+78016293	544378	1	2500	2500	13193
+7803247238464	544378	1	2150	2150	13194
+7801610001622	544379	1	1650	1650	13195
+1400	544379	1	1400	1400	13196
+1400	544379	1	1400	1400	13197
+1600	544379	1	1600	1600	13198
+7802230975324	544379	1	600	600	13199
+7802230975324	544379	1	600	600	13200
+7802230975324	544380	1	600	600	13201
+7801610000595	544381	1	1000	1000	13202
+7613034276490	544381	1	500	500	13203
+7801610022122	544382	1	800	800	13204
+7802000012679	544383	1	2300	2300	13205
+4791014004950	544384	1	2450	2450	13206
+78024403	544386	1	2600	2600	13207
+7801620002671	544386	1	1100	1100	13208
+7802920776163	544387	1	2350	2350	13209
+7804630010148	544388	1	3250	3250	13210
+78021068	544388	1	2500	2500	13211
+78021068	544388	1	2500	2500	13212
+7801620016029	544389	1	1000	1000	13213
+7803480020079	544390	1	2350	2350	13214
+78025240	544390	1	4500	4500	13215
+78025240	544391	1	4500	4500	13216
+400	544391	1	400	400	13217
+400	544391	1	400	400	13218
+51	544391	1	1400	1400	13219
+78016293	544393	1	2500	2500	13220
+7802215505287	544394	1	800	800	13221
+42069942	544395	1	650	650	13222
+7804630010148	544396	1	3250	3250	13223
+7802920009421	544396	1	500	500	13224
+7802215502262	544396	1	750	750	13225
+7801610001936	544397	1	500	500	13226
+7613032835811	544397	1	5450	5450	13227
+7613032835811	544398	1	5450	5450	13228
+3	544398	1	1100	1100	13229
+3	544399	1	1100	1100	13230
+3	544399	1	1100	1100	13231
+3	544399	1	1100	1100	13232
+3	544399	1	1100	1100	13233
+3	544399	1	1100	1100	13234
+3	544399	1	1100	1100	13235
+78016293	544399	1	2500	2500	13236
+7801620016012	544400	1	1000	1000	13237
+40000001058	544400	1	950	950	13238
+7801610000601	544401	1	1000	1000	13239
+7802230070227	544401	1	3850	3850	13240
+78024878	544401	1	4400	4400	13241
+78019041	544402	1	2000	2000	13242
+7802215505409	544402	1	700	700	13243
+7803473003232	544403	1	400	400	13244
+7803473003461	544403	1	750	750	13245
+78025271	544405	1	4200	4200	13246
+7802230975324	544405	1	600	600	13247
+7802215113567	544405	1	450	450	13248
+78022201	544406	1	4500	4500	13249
+200	544406	1	250	250	13250
+300	544406	1	300	300	13251
+200	544406	1	250	250	13252
+7802920006871	544408	1	400	400	13253
+7613031291359	544408	1	450	450	13254
+3	544408	1	1100	1100	13255
+78019096	544410	1	3000	3000	13256
+78021068	544410	1	2500	2500	13257
+4791014004950	544412	1	2450	2450	13258
+7801620007027	544412	1	700	700	13259
+9002490214852	544412	1	1700	1700	13260
+7802215502262	544412	1	750	750	13261
+7802215502262	544412	1	750	750	13262
+7802920008189	544413	1	550	550	13263
+7801610118184	544414	1	800	800	13264
+78025271	544415	1	4200	4200	13265
+7803525000240	544415	1	600	600	13266
+7802230086969	544415	1	700	700	13267
+7802920106168	544416	1	500	500	13268
+7802920009391	544416	1	600	600	13269
+40000002666	544416	1	800	800	13270
+7802820500011	544417	1	800	800	13271
+7802820500011	544417	1	800	800	13272
+7802000001505	544417	1	1750	1750	13273
+7801610022122	544418	1	800	800	13274
+7801610350409	544419	1	1650	1650	13275
+7801610001196	544420	1	800	800	13276
+1400	544420	1	1400	1400	13277
+7801505000280	544422	1	750	750	13278
+78020627	544422	1	4000	4000	13279
+400	544422	1	400	400	13280
+7801620852580	544423	1	800	800	13281
+7801610022122	544423	1	800	800	13282
+7801610005194	544423	1	800	800	13283
+7802920009421	544424	4	500	2000	13284
+3200	544424	1	3200	3200	13285
+1400	544425	1	1400	1400	13286
+7801610118184	544425	1	800	800	13287
+70847021964	544426	1	2000	2000	13288
+70847021964	544426	1	2000	2000	13289
+7801610000335	544426	1	500	500	13290
+7801610350355	544426	1	800	800	13291
+7613034276490	544426	1	500	500	13292
+1500	544428	1	1650	1650	13293
+7802215303241	544428	1	800	800	13294
+78024403	544429	1	2600	2600	13295
+400	544429	1	400	400	13296
+7801610350355	544429	1	800	800	13297
+7802230070227	544432	1	3850	3850	13298
+51	544432	1	1400	1400	13299
+51	544432	1	1400	1400	13300
+7613035407176	544434	1	1690	1690	13301
+7613035807464	544434	1	1690	1690	13302
+7802000013140	544434	1	600	600	13303
+7802000013140	544434	1	600	600	13304
+7802000013140	544435	1	600	600	13305
+7802000013140	544435	1	600	600	13306
+7802920008172	544436	1	550	550	13307
+7802920008172	544436	1	550	550	13308
+650	544436	1	650	650	13309
+650	544436	1	650	650	13310
+78025271	544436	1	4200	4200	13311
+7803403001055	544436	1	750	750	13312
+78018853	544437	1	1800	1800	13313
+7802000013140	544438	1	600	600	13314
+7802225683289	544438	1	250	250	13315
+7801620011666	544440	1	700	700	13316
+7804630010001	544440	1	800	800	13317
+7622210427106	544442	1	400	400	13318
+7801610323236	544443	1	2950	2950	13319
+7803525999544	544444	1	600	600	13320
+7803473003461	544445	1	750	750	13321
+7802230081162	544448	1	850	850	13322
+78025271	544449	1	4200	4200	13323
+450	544449	1	450	450	13324
+450	544449	1	450	450	13325
+3	544449	1	1100	1100	13326
+51	544450	1	1400	1400	13327
+7801620007027	544450	1	700	700	13328
+7802920009391	544450	1	600	600	13329
+42123880	544450	1	650	650	13330
+78020627	544451	1	4000	4000	13331
+7802215511615	544452	1	300	300	13332
+7613035407176	544453	1	1690	1690	13333
+7802225683289	544453	1	250	250	13334
+7802920000886	544454	1	500	500	13335
+7613030612339	544455	1	300	300	13336
+5201041002137	544455	1	800	800	13337
+7802920008202	544455	1	700	700	13338
+78018884	544456	1	3400	3400	13339
+78007673	544456	1	3000	3000	13340
+78016408	544457	1	2500	2500	13341
+5201041002137	544459	1	800	800	13342
+7793890254297	544459	1	600	600	13343
+7801620015817	544459	1	700	700	13344
+7802000014765	544461	1	700	700	13345
+7891991000826	544461	1	1100	1100	13346
+78018884	544463	1	3400	3400	13347
+78007673	544463	1	3000	3000	13348
+7803473004376	544466	1	600	600	13349
+7802225683289	544466	1	250	250	13350
+7802200132696	544466	1	300	300	13351
+7802832000240	544466	1	700	700	13352
+7802215505294	544467	1	800	800	13353
+7802230082503	544468	1	1100	1100	13354
+7613035588776	544469	1	600	600	13355
+7613030518426	544471	1	700	700	13356
+9002490221010	544472	1	2100	2100	13357
+51	544472	1	1400	1400	13358
+7802215505294	544474	1	800	800	13359
+7803525999667	544475	1	600	600	13360
+7801610022122	544475	1	800	800	13361
+78025295	544476	1	4400	4400	13362
+7613035407176	544478	1	1690	1690	13363
+7802230081162	544479	1	850	850	13364
+7802230070012	544479	1	1100	1100	13365
+7802950072358	544481	1	300	300	13366
+78030299	544483	1	350	350	13367
+7803403001055	544483	1	750	750	13368
+7802225683289	544483	1	250	250	13369
+7803525999667	544484	1	600	600	13370
+7803473543189	544484	1	550	550	13371
+7802230086969	544485	1	700	700	13372
+78021020	544486	1	2000	2000	13373
+7802920008127	544486	1	900	900	13374
+7803525000240	544486	1	600	600	13375
+7802820600209	544486	1	700	700	13376
+7802215113567	544487	1	450	450	13377
+7613034279309	544488	1	350	350	13378
+7803525000240	544488	1	600	600	13379
+7802920001074	544488	1	350	350	13380
+7803525999667	544489	1	600	600	13381
+7622210427137	544490	1	400	400	13382
+7803525000240	544490	1	600	600	13383
+7801610001196	544491	1	800	800	13384
+40000536789	544492	1	850	850	13385
+7802920008202	544493	1	700	700	13386
+7802920008202	544493	1	700	700	13387
+7802920008202	544493	1	700	700	13388
+7802920008202	544493	1	700	700	13389
+7802215303241	544493	1	800	800	13390
+7802230082534	544493	1	1100	1100	13391
+7802215302053	544493	1	800	800	13392
+7802215505300	544493	1	850	850	13393
+7802215505300	544493	1	850	850	13394
+7803525000240	544493	1	600	600	13395
+7802000013133	544497	1	350	350	13396
+7801610350409	544498	1	1650	1650	13397
+7801610000571	544499	1	1100	1100	13398
+7801610000571	544499	1	1100	1100	13399
+7802820600209	544500	1	700	700	13400
+3200	544500	1	3200	3200	13401
+7801610000601	544501	1	1100	1100	13402
+40000514251	544501	1	990	990	13403
+40000514251	544501	1	990	990	13404
+7613035588776	544502	1	600	600	13405
+78020627	544503	1	4000	4000	13406
+3200	544503	1	3200	3200	13407
+50173204	544503	1	600	600	13408
+78018853	544504	1	2000	2000	13409
+78029606	544505	1	4200	4200	13410
+1300	544506	1	1300	1300	13411
+2400	544506	1	2400	2400	13412
+7802230975324	544506	1	600	600	13413
+7801610350355	544506	1	800	800	13414
+1300	544506	1	1300	1300	13415
+7802215505300	544508	1	850	850	13416
+7802215113567	544510	1	450	450	13417
+7802000013140	544510	1	600	600	13418
+4791014009313	544510	1	2450	2450	13419
+7801620011635	544510	1	1500	1500	13420
+7803473003232	544512	1	400	400	13421
+78020627	544513	1	4000	4000	13422
+78016408	544513	1	2500	2500	13423
+78019065	544514	1	2000	2000	13424
+7802920009384	544516	1	600	600	13425
+7702018880409	544516	1	850	850	13426
+7801610001196	544516	1	800	800	13427
+7501013101348	544517	1	1450	1450	13428
+78030299	544517	1	350	350	13429
+7803403001055	544517	1	750	750	13430
+7802230975324	544518	1	600	600	13431
+7802230975324	544518	1	600	600	13432
+7802920008370	544519	1	2300	2300	13433
+7802000001505	544519	1	1750	1750	13434
+7802000012679	544519	1	2300	2300	13435
+7801620002671	544519	1	1100	1100	13436
+9002490221010	544519	1	2100	2100	13437
+78016408	544520	1	2500	2500	13438
+7802215505300	544522	1	850	850	13439
+78012370	544522	1	3200	3200	13440
+51	544524	18	1400	25200	13441
+4791014004950	544524	1	2450	2450	13442
+7802230070227	544525	1	3850	3850	13443
+7622210427106	544527	1	400	400	13444
+7801620005160	544528	1	1500	1500	13445
+70847009559	544529	1	2000	2000	13446
+7801620004873	544529	1	900	900	13447
+7801620011666	544530	1	700	700	13448
+9002490221010	544530	1	2100	2100	13449
+40000536789	544530	1	850	850	13450
+22000018489	544530	1	850	850	13451
+7802230070227	544531	1	3850	3850	13452
+40000536789	544532	1	850	850	13453
+40000536789	544533	1	1100	1100	13454
+9002490214852	544534	1	1700	1700	13455
+3000	544534	1	3000	3000	13456
+7802230975324	544534	1	600	600	13457
+7801610001622	544535	1	1650	1650	13458
+7501013118018	544536	1	800	800	13459
+78024892	544536	1	4500	4500	13460
+650	544536	1	650	650	13461
+3200	544537	1	3200	3200	13462
+7802820021950	544541	1	1000	1000	13463
+7613035407176	544542	1	1690	1690	13464
+7801620006167	544544	1	890	890	13465
+7801610002193	544545	1	800	800	13466
+7801610277829	544545	1	800	800	13467
+7802920008189	544546	1	550	550	13468
+7802215113567	544547	1	450	450	13469
+1400	544547	1	1400	1400	13470
+1100	544548	1	1100	1100	13471
+7802215303401	544548	1	300	300	13472
+7802215303401	544548	1	300	300	13473
+1100	544549	1	1100	1100	13474
+7803403001055	544549	1	750	750	13475
+7802920008158	544550	1	900	900	13476
+7801620015800	544550	1	700	700	13477
+7802920006888	544550	1	400	400	13478
+7800120171061	544551	1	400	400	13479
+1100	544552	1	1100	1100	13480
+70847009511	544552	1	2000	2000	13481
+78024410	544552	1	3500	3500	13482
+400	544552	1	400	400	13483
+7803480000767	544553	1	500	500	13484
+1400	544553	1	1400	1400	13485
+1100	544553	1	1100	1100	13486
+2200	544554	1	2200	2200	13487
+1100	544554	1	1100	1100	13488
+7801620005412	544554	1	1150	1150	13489
+1100	544555	1	1100	1100	13490
+650	544556	1	650	650	13491
+7801620011659	544556	1	800	800	13492
+2200	544556	1	2200	2200	13493
+1100	544557	1	1100	1100	13494
+2200	544557	1	2200	2200	13495
+7801620016029	544557	1	1000	1000	13496
+7801620006181	544557	1	1100	1100	13497
+7802575220479	544558	1	400	400	13498
+1100	544558	1	1100	1100	13499
+7802215303401	544558	1	300	300	13500
+1000	544559	1	1300	1300	13501
+1100	544560	1	1100	1100	13502
+7801620011666	544560	1	800	800	13503
+7801620075941	544560	1	1000	1000	13504
+1400	544561	1	1400	1400	13505
+7801620016036	544561	1	1000	1000	13506
+78018884	544562	1	3500	3500	13507
+2200	544563	1	2200	2200	13508
+2500	544563	1	2500	2500	13509
+1900	544563	1	1900	1900	13510
+7804630010001	544564	1	800	800	13511
+7802000005930	544564	1	600	600	13512
+1400	544565	1	1400	1400	13513
+2500	544565	1	2500	2500	13514
+2500	544565	1	2500	2500	13515
+7801610001622	544566	1	1650	1650	13516
+7801610001622	544566	1	1650	1650	13517
+200	544566	1	250	250	13518
+7802820020953	544567	1	1000	1000	13519
+7801620340155	544568	1	800	800	13520
+7801620340155	544568	1	800	800	13521
+7801620340155	544568	1	800	800	13522
+7801610000601	544569	1	1100	1100	13523
+7801620005160	544570	1	1500	1500	13524
+78000285	544571	4	4200	16800	13525
+3200	544572	1	3200	3200	13526
+78020627	544572	1	4000	4000	13527
+7613035807464	544573	1	1690	1690	13528
+7613035807464	544573	1	1690	1690	13529
+7804612131274	544574	1	400	400	13530
+78025059	544574	1	3500	3500	13531
+7801610001196	544574	1	800	800	13532
+7802820600100	544574	1	700	700	13533
+7613035391369	544575	1	980	980	13534
+7613035391369	544575	1	980	980	13535
+7613035391369	544575	1	980	980	13536
+78000285	544575	1	4200	4200	13537
+400	544575	1	400	400	13538
+7802950072358	544577	7	300	2100	13539
+7802950072358	544577	1	300	300	13540
+9002490221010	544585	1	2100	2100	13541
+7801620006181	544585	1	1100	1100	13542
+1400	544585	1	1400	1400	13543
+7613035588776	544585	1	600	600	13544
+7802000002571	544586	1	1250	1250	13545
+7802575220479	544586	1	400	400	13546
+51	544587	1	1400	1400	13547
+300	544587	1	300	300	13548
+51	544588	1	1400	1400	13549
+78024878	544588	1	4400	4400	13550
+78024878	544589	1	4400	4400	13551
+9002490214852	544589	1	1700	1700	13552
+9002490214852	544589	1	1700	1700	13553
+52	544590	1	2000	2000	13554
+7613034721051	544591	1	2850	2850	13555
+78025332	544591	1	4200	4200	13556
+9002490100070	544592	1	1700	1700	13557
+78020627	544592	1	4000	4000	13558
+7801620003494	544595	1	800	800	13559
+1600	544595	1	1600	1600	13560
+7801620008307	544596	1	900	900	13561
+51	544596	1	1400	1400	13562
+7801620001711	544597	1	1100	1100	13563
+9002490214852	544598	1	1700	1700	13564
+1400	544598	1	1400	1400	13565
+42069942	544598	1	650	650	13566
+42069942	544598	1	650	650	13567
+7801610350409	544598	1	1650	1650	13568
+7801620001711	544599	1	1100	1100	13569
+7801610000335	544600	1	500	500	13570
+1100	544601	1	1100	1100	13571
+7801610001622	544602	1	1650	1650	13572
+1400	544603	1	1400	1400	13573
+2200	544603	1	2200	2200	13574
+3200	544604	1	3200	3200	13575
+7802920000886	544605	1	500	500	13576
+300	544605	1	300	300	13577
+7802920008172	544606	1	550	550	13578
+1400	544607	1	1400	1400	13579
+7801610001196	544607	1	800	800	13580
+7801610350355	544608	1	800	800	13581
+78025332	544608	1	4200	4200	13582
+400	544608	1	400	400	13583
+650	544608	1	650	650	13584
+7613035807464	544609	1	1690	1690	13585
+42069942	544610	1	650	650	13586
+7613035807464	544611	1	1690	1690	13587
+7802230975324	544611	1	600	600	13588
+7802950072679	544612	1	300	300	13589
+350	544613	1	400	400	13590
+40000001638	544614	1	850	850	13591
+78025288	544615	1	4200	4200	13592
+78021020	544616	1	2000	2000	13593
+78021020	544616	1	2000	2000	13594
+78025271	544616	1	4200	4200	13595
+7802225427197	544616	1	450	450	13596
+78019041	544618	1	2000	2000	13597
+70847035800	544621	1	2000	2000	13598
+7501013118117	544621	1	800	800	13599
+78020627	544622	1	4000	4000	13600
+3200	544622	1	3200	3200	13601
+7613034721051	544623	1	2850	2850	13602
+7801620006174	544624	1	1100	1100	13603
+7801620001711	544625	1	1100	1100	13604
+2500	544625	1	2500	2500	13605
+7802950072358	544625	1	300	300	13606
+78005624	544625	1	350	350	13607
+3200	544626	1	3200	3200	13608
+300	544626	1	300	300	13609
+78000285	544627	1	4200	4200	13610
+78000285	544627	1	4200	4200	13611
+78000285	544627	1	4200	4200	13612
+78000285	544627	1	4200	4200	13613
+7802215502262	544628	1	750	750	13614
+7803480000750	544628	1	500	500	13615
+78018884	544628	1	3500	3500	13616
+78018884	544628	1	3500	3500	13617
+78025059	544629	1	3500	3500	13618
+42069942	544629	1	650	650	13619
+1400	544630	1	1400	1400	13620
+7801610001196	544630	1	800	800	13621
+7801610000601	544631	1	1100	1100	13622
+1400	544631	1	1400	1400	13623
+78007239	544632	1	4200	4200	13624
+7801610001196	544633	1	800	800	13625
+7801610001196	544633	1	800	800	13626
+7802575002235	544634	1	0	0	13627
+7802575002235	544634	1	0	0	13628
+7802575226358	544635	1	1100	1100	13629
+3200	544635	1	3200	3200	13630
+7802575002235	544635	1	0	0	13631
+7802920423609	544635	1	900	900	13632
+7802920423609	544635	1	900	900	13633
+7613032443191	544636	1	700	700	13634
+7802215113567	544637	1	450	450	13635
+78025431	544638	1	500	500	13636
+7802832000264	544638	1	700	700	13637
+78000285	544640	1	4200	4200	13638
+7803480020079	544640	1	2350	2350	13639
+78018853	544641	1	2000	2000	13640
+7803480020079	544641	1	2350	2350	13641
+400	544641	1	400	400	13642
+1700	544641	1	1700	1700	13643
+7802200132696	544641	1	300	300	13644
+7801620008307	544642	1	900	900	13645
+7613034276490	544643	1	500	500	13646
+70847009559	544644	1	2000	2000	13647
+7801610000335	544645	1	500	500	13648
+51	544645	1	1400	1400	13649
+7802920009384	544646	1	600	600	13650
+7801620006167	544648	1	1100	1100	13651
+7501013118032	544648	1	850	850	13652
+7622210427106	544649	1	400	400	13653
+78021020	544649	1	2000	2000	13654
+7802215303401	544649	1	300	300	13655
+7801620011666	544650	1	800	800	13656
+7613032443191	544653	1	700	700	13657
+7802920008158	544653	1	900	900	13658
+7613034279309	544654	1	350	350	13659
+7802820600100	544655	1	700	700	13660
+78022010	544655	1	2600	2600	13661
+4791014009313	544655	1	2450	2450	13662
+7801610001936	544656	1	500	500	13663
+7802920008189	544657	1	550	550	13664
+7802920008189	544657	1	550	550	13665
+7801610000601	544658	1	1100	1100	13666
+7802230975324	544658	1	600	600	13667
+7802820600209	544659	1	700	700	13668
+7803480000750	544659	1	500	500	13669
+7801620005344	544660	1	900	900	13670
+51	544661	1	1400	1400	13671
+2500	544661	1	2500	2500	13672
+7801620004873	544662	1	900	900	13673
+7801620006167	544662	1	1100	1100	13674
+7801620005344	544662	1	900	900	13675
+7801610350355	544663	1	800	800	13676
+78000285	544664	1	4200	4200	13677
+78000285	544664	1	4200	4200	13678
+78000285	544664	1	4200	4200	13679
+78000285	544664	1	4200	4200	13680
+7804630010148	544665	1	3250	3250	13681
+7801610591116	544665	1	1000	1000	13682
+7613034721051	544667	1	2850	2850	13683
+51	544668	1	1400	1400	13684
+51	544668	1	1400	1400	13685
+51	544668	1	1400	1400	13686
+7613034276490	544669	1	500	500	13687
+7801610000601	544669	1	1100	1100	13688
+78068315	544669	1	350	350	13689
+7803525999933	544669	1	500	500	13690
+9002490100070	544669	1	1700	1700	13691
+7801620015817	544670	1	700	700	13692
+7804643820000	544670	1	1600	1600	13693
+7613034721051	544671	1	2850	2850	13694
+78025448	544672	1	500	500	13695
+78006164	544672	1	870	870	13696
+78025288	544673	1	4200	4200	13697
+78025288	544673	1	4200	4200	13698
+78025288	544673	1	4200	4200	13699
+9002490214852	544673	1	1700	1700	13700
+9002490214852	544673	1	1700	1700	13701
+7802225683289	544673	1	250	250	13702
+7802225683289	544673	1	250	250	13703
+7801610001196	544674	1	800	800	13704
+7802000012679	544675	1	2300	2300	13705
+7802000002571	544675	1	1250	1250	13706
+7801610001196	544676	1	800	800	13707
+7802950072358	544676	1	300	300	13708
+7802950072679	544676	1	300	300	13709
+78068315	544676	1	350	350	13710
+7802920777542	544679	1	1100	1100	13711
+78019065	544679	1	2000	2000	13712
+7613035588776	544681	1	600	600	13713
+7801620011659	544682	1	800	800	13714
+7801620015800	544683	1	700	700	13715
+7801620015800	544683	1	700	700	13716
+7802000001505	544683	1	1750	1750	13717
+\.
+
+
+--
+-- TOC entry 3337 (class 0 OID 25415)
+-- Dependencies: 211
+-- Data for Name: test; Type: TABLE DATA; Schema: public; Owner: fastcom_apps
+--
+
+COPY public.test (id, nombre, telefono, correo) FROM stdin;
+1	Mauricio Mouat G.	+56965474096	mauricio.mouat.guerrero@gmail.com
+\.
+
+
+--
+-- TOC entry 3350 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: ventas_detalle_id_seq; Type: SEQUENCE SET; Schema: cajaregistradora01web; Owner: fastcom_apps
+--
+
+SELECT pg_catalog.setval('cajaregistradora01web.ventas_detalle_id_seq', 3, true);
+
+
+--
+-- TOC entry 3351 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.hibernate_sequence', 1, false);
+
+
+--
+-- TOC entry 3352 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: test_id_seq; Type: SEQUENCE SET; Schema: public; Owner: fastcom_apps
+--
+
+SELECT pg_catalog.setval('public.test_id_seq', 1, false);
+
+
+--
+-- TOC entry 3190 (class 2606 OID 25437)
+-- Name: articulos PK_ARTICULOS; Type: CONSTRAINT; Schema: cajaregistradora01web; Owner: postgres
+--
+
+ALTER TABLE ONLY cajaregistradora01web.articulos
+    ADD CONSTRAINT "PK_ARTICULOS" PRIMARY KEY (codigo);
+
+
+--
+-- TOC entry 3192 (class 2606 OID 33617)
+-- Name: ventas PK_VENTAS_ID; Type: CONSTRAINT; Schema: cajaregistradora01web; Owner: fastcom_apps
+--
+
+ALTER TABLE ONLY cajaregistradora01web.ventas
+    ADD CONSTRAINT "PK_VENTAS_ID" PRIMARY KEY (venta);
+
+
+--
+-- TOC entry 3194 (class 2606 OID 33662)
+-- Name: ventas_detalle ventas_detalle_pkey; Type: CONSTRAINT; Schema: cajaregistradora01web; Owner: fastcom_apps
+--
+
+ALTER TABLE ONLY cajaregistradora01web.ventas_detalle
+    ADD CONSTRAINT ventas_detalle_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3188 (class 2606 OID 25420)
+-- Name: test test_pkey; Type: CONSTRAINT; Schema: public; Owner: fastcom_apps
+--
+
+ALTER TABLE ONLY public.test
+    ADD CONSTRAINT test_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3195 (class 2606 OID 33623)
+-- Name: ventas_detalle FK_VENTAS_DETALLE_ARTICULO; Type: FK CONSTRAINT; Schema: cajaregistradora01web; Owner: fastcom_apps
+--
+
+ALTER TABLE ONLY cajaregistradora01web.ventas_detalle
+    ADD CONSTRAINT "FK_VENTAS_DETALLE_ARTICULO" FOREIGN KEY (codigo) REFERENCES cajaregistradora01web.articulos(codigo);
+
+
+--
+-- TOC entry 3196 (class 2606 OID 33628)
+-- Name: ventas_detalle FK_VENTAS_DETALLE_VENTA; Type: FK CONSTRAINT; Schema: cajaregistradora01web; Owner: fastcom_apps
+--
+
+ALTER TABLE ONLY cajaregistradora01web.ventas_detalle
+    ADD CONSTRAINT "FK_VENTAS_DETALLE_VENTA" FOREIGN KEY (venta) REFERENCES cajaregistradora01web.ventas(venta) NOT VALID;
+
+
+-- Completed on 2022-09-22 17:11:58
+
+--
+-- PostgreSQL database dump complete
+--
+

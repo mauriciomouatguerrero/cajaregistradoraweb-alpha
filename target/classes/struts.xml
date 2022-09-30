@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  
+  
+  
+  <package name="default" extends="struts-default" namespace="/">
+     <action name="Home" class="com.cajaregistradora.struts6.actions.HomeAction" method="execute">
+        <result name="success">/home.jsp</result>
+     </action>
+     
+     <action name="Usuarios" class="com.cajaregistradora.struts6.actions.UsuariosAction" method="execute">
+        <result name="success">/usuarios.jsp</result>
+     </action>
+     
+     <action name="Cuadratura" class="com.cajaregistradora.struts6.actions.CuadraturaAction" method="execute">
+        <result name="success">/cuadraturas.jsp</result>
+     </action>
+      
+     <action name="Ventas" class="com.cajaregistradora.struts6.actions.VentasAction" method="execute">
+        <result name="success">/ventas.jsp</result>
+     </action>
+     
+     <action name="Mantencion" class="com.cajaregistradora.struts6.actions.MantencionAction" method="execute">
+        <result name="success">/mantencion.jsp</result>
+     </action>
+     
+     <action name="Reportes" class="com.cajaregistradora.struts6.actions.ReportesAction" method="execute">
+        <result name="success">/reportes.jsp</result>
+     </action>
+     
+
+  </package>
+  
+  <include file="struts6/ajax_ventas.xml" />
+<!--   <include file="struts6/ajax_articulos.xml"></include> -->
+  
+</struts>
