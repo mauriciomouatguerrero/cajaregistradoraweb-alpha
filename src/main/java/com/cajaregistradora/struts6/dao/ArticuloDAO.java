@@ -4,6 +4,9 @@ import com.cajaregistradora.hibernate5.utils.HibernateUtils;
 import com.cajaregistradora.struts6.models.Articulo;
 
 import org.hibernate.Session;
+
+import java.util.List;
+
 import javax.persistence.Query;
 
 public class ArticuloDAO {
@@ -65,5 +68,27 @@ public class ArticuloDAO {
     		   this.session.close();
     	}
     	return ((a != null) ? a : articulo);
+    }
+    
+    @SuppressWarnings("unchecked")
+	public List<Articulo> getArticulos() {
+    	List<Articulo> lstArt = null;
+    	
+    	try {
+            this.session = HibernateUtils.getSessionFactory().openSession();
+    		
+    		Query query = this.session.createQuery(
+    			"FROM Articulo a " 
+    		);
+    		
+    		 if(query.getResultList().size() > 0) {
+    		    lstArt = (List<Articulo>) query.getResultList();    		   
+    		 }
+    	}
+    	catch(Throwable ex) {
+    		ex.printStackTrace();
+    	}
+      
+    	return lstArt;
     }
 }

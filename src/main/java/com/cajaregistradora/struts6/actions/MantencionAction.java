@@ -1,7 +1,11 @@
 package com.cajaregistradora.struts6.actions;
 
+import java.util.List;
+
 import javax.servlet.ServletException;
 
+import com.cajaregistradora.struts6.dao.ArticuloDAO;
+import com.cajaregistradora.struts6.models.Articulo;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class MantencionAction extends ActionSupport {
@@ -14,6 +18,8 @@ public class MantencionAction extends ActionSupport {
 	private String cur_m5;
 	private String cur_m6;
 	
+	
+	
 	public MantencionAction() {
 		this.cur_m1 = "";
 		this.cur_m2 = "";
@@ -22,11 +28,21 @@ public class MantencionAction extends ActionSupport {
 		this.cur_m5 = "";
 		this.cur_m6 = "";
 		
+		
 	}
 	
 	@Override
 	public String execute() throws ServletException {
 		return SUCCESS;
+	}
+	
+	public List<Articulo> getArticulos() {
+		ArticuloDAO artDAO = new ArticuloDAO();
+		List<Articulo> lst = artDAO.getArticulos();
+		
+		
+		
+		return lst;
 	}
 
 	public String getCur_m1() {
