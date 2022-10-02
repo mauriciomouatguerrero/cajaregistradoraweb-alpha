@@ -31,9 +31,9 @@
    
    <div id="content">
       <table style="width:85.5%;height:auto;position:relative;margin:0 auto;">
-      <tr>
-          <td><hr /></td>
-      </tr>
+<!--       <tr> -->
+<!--           <td><hr /></td> -->
+<!--       </tr> -->
       
       <jsp:include page="ventas/ventas_header.jsp" />
       

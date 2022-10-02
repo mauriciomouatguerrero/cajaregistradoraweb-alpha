@@ -139,7 +139,7 @@ function QArticulo(obj) {
 	$.ajax(
 		{
 			type : 'POST',
-			url  : 'Ventas/getInfo', // pero en realidad está invocando la clase Articulos (mapping struts)
+			url  : 'Articulo/getInfo', // pero en realidad está invocando la clase Articulos (mapping struts)
 			data : {
 				'codigo' : obj.value
 			},

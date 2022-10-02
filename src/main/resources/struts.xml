@@ -5,6 +5,7 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+  <constant name="struts.devMode" value="true" />  
   
   <package name="default" extends="struts-default" namespace="/">
      
@@ -32,12 +33,11 @@
         <result name="success">/reportes.jsp</result>
      </action>
      
-
+     
   </package>
   
-  <include file="struts6/ajax_ventas.xml" />
-  <include file="struts6/ajax_mantencion.xml" />
-  
-<!--   <include file="struts6/ajax_articulos.xml"></include> -->
+  <include file="struts6/ajax_articulos.xml"></include>
+  <include file="struts6/ajax_ventas.xml"></include>
+  <include file="struts6/ajax_mantencion.xml"></include>
   
 </struts>

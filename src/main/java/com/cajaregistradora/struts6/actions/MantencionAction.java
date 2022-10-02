@@ -1,10 +1,12 @@
 package com.cajaregistradora.struts6.actions;
 
-import java.util.List;
-
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 
-import com.cajaregistradora.struts6.dao.ArticuloDAO;
+import org.apache.struts2.ServletActionContext;
+import org.json.JSONObject;
+
 import com.cajaregistradora.struts6.models.Articulo;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -34,15 +36,6 @@ public class MantencionAction extends ActionSupport {
 	@Override
 	public String execute() throws ServletException {
 		return SUCCESS;
-	}
-	
-	public List<Articulo> getArticulos() {
-		ArticuloDAO artDAO = new ArticuloDAO();
-		List<Articulo> lst = artDAO.getArticulos();
-		
-		
-		
-		return lst;
 	}
 
 	public String getCur_m1() {

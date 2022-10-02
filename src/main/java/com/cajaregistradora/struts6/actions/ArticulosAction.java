@@ -1,5 +1,6 @@
 package com.cajaregistradora.struts6.actions;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 
@@ -51,4 +52,22 @@ public class ArticulosAction extends ActionSupport implements Serializable {
 	    pw.flush();	
 
     }
+	
+	public void getListArticulos() throws IOException {
+//		ArticuloDAO artDAO = new ArticuloDAO();
+//		List<Articulo> lst = artDAO.getArticulos();
+//		
+//		JSONObject obj = new JSONObject();
+//		obj.put("lista", lst);
+		
+		Articulo art = new Articulo();
+		art.setCodigo(0L);
+		art.setDescripcion("alguna cosa");
+		art.setPrecio(5000);
+		
+		PrintWriter pw = ServletActionContext.getResponse().getWriter();    	
+	    pw.println(new JSONObject(art));
+	    pw.flush();	
+		
+	}
 }

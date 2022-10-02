@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    			<table style="width:100%;">
-                    <tr>
-                       <td colspan="5" style="padding-bottom:15px;border-bottom:1px dashed #ff00AA;">
-                          <a href="javascript:void(0);">
-                            <img src="img/add_icon.png" width="25px" height="25px" style="float:left;border:0px solid #FF0000;" />
-                            <span style="padding-top:5px;padding-left:10px;float:left;border:0px solid #00FF00;">Nuevo Artículo</span>
-                          </a>
+    			<table style="width:100%;" id="tbl_articulos">
+<!--                     <tr> -->
+<!--                        <td colspan="5" style="padding-bottom:15px;border-bottom:1px dashed #ff00AA;"> -->
+<!--                           <a href="javascript:void(0);"> -->
+<!--                             <img src="img/add_icon.png" width="25px" height="25px" style="float:left;border:0px solid #FF0000;" /> -->
+<!--                             <span style="padding-top:5px;padding-left:10px;float:left;border:0px solid #00FF00;">Nuevo Artículo</span> -->
+<!--                           </a> -->
                           
-                       </td>
-                    </tr>
+<!--                        </td> -->
+<!--                     </tr> -->
                     <tr>
                        <td colspan="5" align="left" style="border-bottom:1px solid #999999;padding-top:5px;padding-bottom:20px;">
                           
@@ -19,8 +19,7 @@
                             Descripción: <input type="text" id="txtDescripcion" placeholder="Ej: agua mineral" size="65" /> 
                           </div>
                           <div style="margin-top:5px;text-align:right;padding-right:18px;">
-                             <input type="button" id="btn_agregar" value="AGREGAR" />
-                             <input type="button" id="btn_buscar" value="BUSCAR" />
+                            <input type="button" id="btn_buscar" value="BUSCAR" />
                           </div>
                        </td>
                     </tr>

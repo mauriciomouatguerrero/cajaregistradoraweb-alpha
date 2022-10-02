@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
-<%! String item_cat = "", item_art; %>
+<%! String item_cat = "", item_art = ""; %>
 <%
+  if(request.getParameter("item") != null) {
     if(request.getParameter("item").equals("art")) {
        item_cat = "";
        item_art = "current";
@@ -11,6 +12,15 @@
        item_cat = "current";
        item_art = "";
     }
+  }
+  else {
+	  item_cat = "current";
+      item_art = "";
+  }
+
+ // forzamos a que cargue por defecto articulos
+ item_cat = "";
+ item_art = "current";
 %>
     
             <table style="height:160px;">
@@ -27,14 +37,17 @@
                  </td>
                  <td width="85%" align="left" valign="top" style="padding:10px;">
                     <%
-                       if(request.getParameter("item").equals("art")) {
+                    if(!item_art.equals("")) {
                     %>
                         <jsp:include page="articulos/articulos_list.jsp" />
-                    <%          }
+                    <%          
+                       }
                        else {
                     %>
                         <jsp:include page="categorias/categorias_list.jsp" />  
-                    <% } %>
+                    <%
+                       }
+                    %>
                  </td>
               </tr>
             </table>

@@ -5,9 +5,16 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-   <package name="json" extends="json-default" namespace="/">
+   <package name="articulo" extends="json-default" namespace="/Articulo">
       
       <action name="getInfo" class="com.cajaregistradora.struts6.actions.ArticulosAction" method="getArticulo">
+         <interceptor-ref name="json"/>
+		 <result type="json" >
+		    <param name="root">data</param>
+		 </result>
+      </action>
+      
+      <action name="getArticulos" class="com.cajaregistradora.struts6.actions.ArticulosAction" method="getListArticulos">
          <interceptor-ref name="json"/>
 		 <result type="json" >
 		    <param name="root">data</param>
