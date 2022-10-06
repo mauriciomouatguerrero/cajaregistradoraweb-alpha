@@ -18,6 +18,36 @@ public class ArticuloDAO {
         this.session = null;
     }
     
+    @SuppressWarnings("unchecked")
+	public List<Articulo> getArticuloByDescripcion(String descripcion) {
+    	List<Articulo> lst = null;
+    	try {
+    		
+    		this.session = HibernateUtils.getSessionFactory().openSession();
+    		
+    		Query query = this.session.createQuery(
+    			"FROM Articulo a " +
+    		    "WHERE a.descripcion LIKE :descripcion"
+    		);
+    		query.setParameter("descripcion", "%" + descripcion + "%");
+    		
+    		
+    		if(query.getResultList().size() > 0) {
+    		   lst = (List<Articulo>) query.getResultList();    		   
+    		}
+    		
+    		this.session.close();
+    	}
+    	catch(Throwable ex) {
+    		ex.printStackTrace();
+    	}
+    	finally {
+    		if(this.session != null)
+    		   this.session.close();
+    	}
+    	return lst;
+    }
+    
     public Articulo getArticuloByCodigo(Long codigo) {
     	Articulo a = null;
     	try {
@@ -78,8 +108,9 @@ public class ArticuloDAO {
             this.session = HibernateUtils.getSessionFactory().openSession();
     		
     		Query query = this.session.createQuery(
-    			"FROM Articulo a " 
+    			"FROM Articulo a" 
     		);
+    		query.setMaxResults(80);
     		
     		 if(query.getResultList().size() > 0) {
     		    lstArt = (List<Articulo>) query.getResultList();    		   

@@ -3,8 +3,8 @@
 <%@ taglib uri="/struts-tags" prefix="s" %> 
 
   <div id="header">
-	   <div class="subrayar titulo"><b>CAJA REGISTRADORA WEB</b> - [Versión 0.1]</div>
-	   <div>
+	   <div class="subrayar titulo"><b>CAJA REGISTRADORA WEB</b> - [Alpha 0.1]</div>
+	   <div class="ul-menu">
 	   <ul>
 	     <li class="<s:property value="cur_m1"/>"><a href="Home">INICIO</a></li>
 	     <li class="<s:property value="cur_m2"/>"><a href="Usuarios">ACCESOS / USUARIOS</a></li>

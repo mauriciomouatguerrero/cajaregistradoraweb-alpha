@@ -14,7 +14,7 @@
 	text-decoration: underline;
 }
 
-ul {
+.ul-menu ul {
 	position: relative;
 	display: inline-table;
 	float: left;
@@ -24,7 +24,7 @@ ul {
     width: auto;
     height: 27px;
 }
-ul li {
+.ul-menu ul li {
 	border:1px solid #AAAAAA;
 	float: left;
 	padding: 2px 8px;
@@ -32,12 +32,12 @@ ul li {
 	width: auto;
 	text-align: center;
 }
-ul li:hover {
+.ul-menu ul li:hover {
 	background-color:#CCCCCC;
 	cursor: pointer;
 	cursor: hand;
 }
-ul li.current {
+.ul-menu ul li.current {
 	background-color:#CCCCCC;
 }
 a {

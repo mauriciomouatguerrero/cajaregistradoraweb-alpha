@@ -21,5 +21,12 @@
 		 </result>
       </action>
       
+      <action name="getArticulosDesc" class="com.cajaregistradora.struts6.actions.ArticulosAction" method="getListArticulosByDesc">
+         <interceptor-ref name="json"/>
+		 <result type="json" >
+		    <param name="root">data</param>
+		 </result>
+      </action>
+      
    </package>
 </struts>

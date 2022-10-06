@@ -1,14 +1,18 @@
 function QVenta(venta) {
-	
+	// $('#content').html('<div class="loading"><img src="img/loader.gif" alt="loading" /><br/>Un momento, por favor...</div>');
 	$.ajax( 
 	  {
 		type: 'POST',
 		url: 'Ventas/buildForm',
 		data: { 'venta' : venta },
+		beforeSend : function(xhr) {
+//			   $('#content').append('cargando...');
+		},
 		success : function(json) {
-				    var data  = $.parseJSON(json);
+			        var data  = $.parseJSON(json);
 				    var tabla = $('#tbl_detalle_venta');
                     var total = 0;
+//                    $('#content').empty();
                     
 				    $('#td_fecha').empty();
 				    $('#td_hora').empty();

@@ -1,13 +1,8 @@
 package com.cajaregistradora.struts6.actions;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 
-import org.apache.struts2.ServletActionContext;
-import org.json.JSONObject;
 
-import com.cajaregistradora.struts6.models.Articulo;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class MantencionAction extends ActionSupport {

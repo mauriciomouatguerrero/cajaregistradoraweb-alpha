@@ -21,9 +21,11 @@
    
    <!-- INICIO -->
    <div id="content">
-      <table style="width:85.5%;height:290px;position:relative;margin:0 auto;">
+      <table border="1" style="width:85.5%;height:auto;position:relative;margin:0 auto;">
       <tr>
-          <td></td>
+          <td align="center" valign="top">
+             <img src="img/cajaregistradora-1.jpg" width="260px" height="240px">
+          </td>
       </tr>
       </table>
    </div>

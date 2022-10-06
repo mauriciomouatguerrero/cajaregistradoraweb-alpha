@@ -14,7 +14,7 @@
 <body>
  <div style="text-align:center;">
     <h1 style="text-align::center;text-decoration:underline;">
-      CAJAREGISTRADORAWEB - BETA
+      CAJAREGISTRADORAWEB - ALPHA
     </h1>
     <h1>
         <span>
@@ -33,6 +33,9 @@
     
  </div>
  
+  <div align="center">
+     <img src="img/cajaregistradora-1.jpg" width="260px" height="240px">
+  </div>
   <h1 style="text-align:center;">
     <a href="<%=request.getContextPath()%>/Home">INGRESAR</a> | 
     <a href="javascript:void(0);">RESPALDO</a>

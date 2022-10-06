@@ -3,6 +3,7 @@ package com.cajaregistradora.struts6.actions;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -54,19 +55,29 @@ public class ArticulosAction extends ActionSupport implements Serializable {
     }
 	
 	public void getListArticulos() throws IOException {
-//		ArticuloDAO artDAO = new ArticuloDAO();
-//		List<Articulo> lst = artDAO.getArticulos();
-//		
-//		JSONObject obj = new JSONObject();
-//		obj.put("lista", lst);
+		ArticuloDAO artDAO = new ArticuloDAO();
+		List<Articulo> lst = artDAO.getArticulos();
 		
-		Articulo art = new Articulo();
-		art.setCodigo(0L);
-		art.setDescripcion("alguna cosa");
-		art.setPrecio(5000);
+		JSONObject obj = new JSONObject();
+		obj.put("lista", lst);
 		
 		PrintWriter pw = ServletActionContext.getResponse().getWriter();    	
-	    pw.println(new JSONObject(art));
+	    pw.println(obj);
+	    pw.flush();	
+		
+	}
+	
+	public void getListArticulosByDesc() throws IOException {
+		String descripcion = ServletActionContext.getRequest().getParameter("descripcion");
+		
+		ArticuloDAO artDAO = new ArticuloDAO();
+		List<Articulo> lst = artDAO.getArticuloByDescripcion(descripcion);
+		
+		JSONObject obj = new JSONObject();
+		obj.put("lista", lst);
+		
+		PrintWriter pw = ServletActionContext.getResponse().getWriter();    	
+	    pw.println(obj);
 	    pw.flush();	
 		
 	}

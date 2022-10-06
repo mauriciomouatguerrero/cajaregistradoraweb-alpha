@@ -1,18 +1,32 @@
-function agregar() {
-	alert('agregar');
-}
+var PGList  = new Array();         // SOLO LECTURA
 
-function buscar() {
+function QArticulos() {
 	$.ajax({
 		type: 'POST',
 		url : 'Articulo/getArticulos',
-		data: {
-			'codigo' : 0
-		},
 		success: function(json) {
-			var data = $.parseJSON(json);
-			// $('#tbl_articulos').append(json);
-			console.log('data: ' + data);
+			var data  = $.parseJSON(json);
+			
+			$.each(data.lista, function(i, item) {
+			  PGList.push(
+				{
+			       'codigo'     : item.codigo,
+			       'descripcion': item.descripcion,
+			       'precio'     : item.precio,
+			       'value'      : item.descripcion,		
+				}
+			  );	
+			}); 
+			
+			buildTabla(PGList);
+						
+			$('#txtCodigo').focus();
+			
 		},
 	});
 }
+
+
+
+
+
