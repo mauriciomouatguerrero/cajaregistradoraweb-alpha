@@ -17,7 +17,7 @@
 	            overflow-x: hidden;
 	            /* add padding to account for vertical scrollbar */
 	            padding-right: 20px;
-	         } 
+	         }  
             </style>
             
             <div id="div_tbl_articulos">
@@ -38,3 +38,8 @@
                 </table> 
                 
              </div>
+             
+             <jsp:include page="articulos_dialogs.jsp" />
+             
+	             
+	          

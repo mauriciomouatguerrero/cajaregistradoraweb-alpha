@@ -28,5 +28,27 @@
 		 </result>
       </action>
       
+      
+      <action name="getArticulosAlpha" class="com.cajaregistradora.struts6.actions.ArticulosAction" method="getListArticulosByAlpha">
+         <interceptor-ref name="json"/>
+		 <result type="json" >
+		    <param name="root">data</param>
+		 </result>
+      </action>
+      
+      <action name="save" class="com.cajaregistradora.struts6.actions.ArticulosAction" method="articuloSave">
+         <interceptor-ref name="json"/>
+		 <result type="json" >
+		    <param name="root">data</param>
+		 </result>
+      </action>
+      
+      <action name="saveWithPrecio" class="com.cajaregistradora.struts6.actions.ArticulosAction" method="articuloPrecioSave">
+         <interceptor-ref name="json"/>
+		 <result type="json" >
+		    <param name="root">data</param>
+		 </result>
+      </action>
+      
    </package>
 </struts>

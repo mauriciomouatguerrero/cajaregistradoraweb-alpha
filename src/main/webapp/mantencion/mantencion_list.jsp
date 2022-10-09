@@ -42,7 +42,7 @@
                     %>
                         <jsp:include page="articulos/articulos_filter.jsp" />
                         <jsp:include page="articulos/articulos_list.jsp" />
-                        <jsp:include page="articulos/articulos_paginador.jsp" />
+<%--                         <jsp:include page="articulos/articulos_paginador.jsp" /> --%>
                     <%          
                        }
                        else {

@@ -21,6 +21,8 @@
    <script type="text/javascript" src="js/mantencion/mantencion.js"></script>
    <script type="text/javascript" src="js/mantencion/mantencion_ajax.js"></script>  
    <script type="text/javascript" src="js/mantencion/mantencion_tabla.js"></script>
+   <script type="text/javascript" src="js/mantencion/mantencion_dialogs.js"></script>
+   <script type="text/javascript" src="js/mantencion/mantencion_events.js"></script>
 </head>
 <body>
  

@@ -40,6 +40,7 @@
 
         
         <mapping resource="hibernate5/articulos.hbm.xml"/>
+        <mapping resource="hibernate5/articulos_precios.hbm.xml"/>
         <mapping resource="hibernate5/ventas.hbm.xml"/>
         <mapping resource="hibernate5/ventas_detalle.hbm.xml"/>
         
